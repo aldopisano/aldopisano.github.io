@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aldo Pisano — Filosofia morale · Etica dell'IA</title>
+<meta name="description" content="Aldo Pisano — PhD in Filosofia Morale (M-FIL/03). Etica dell'IA, etica narrativa, vulnerabilità epistemica, LEM, PAIA, bio-potere algoritmico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A1E3B;          /* deep institutional navy */
+  --ink-2:#0B2550;        /* navy panel */
+  --royal:#12459E;        /* SIpEIA royal blue */
+  --royal-2:#1E5AC4;
+  --sky:#4C86F0;          /* bright accent */
+  --sky-soft:#DCE7F9;
+  --sky-tint:#EEF3FC;
+  --paper:#F6F8FD;        /* cool near-white */
+  --paper-2:#FFFFFF;
+  --brass:#B8945A;        /* elegant hairline accent */
+  --brass-soft:#D8C29A;
+  --slate:#54627B;        /* muted text */
+  --line:#D9E2F1;
+  --line-2:#C7D4E8;
+  --shadow: 0 1px 2px rgba(10,30,59,.05), 0 12px 30px rgba(10,30,59,.08);
+  --shadow-lg: 0 20px 60px rgba(10,30,59,.16);
+  --maxw: 1160px;
+  --r: 14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:var(--sky-soft); color:var(--ink)}
+a{color:var(--royal); text-decoration:none}
+a:hover{color:var(--royal-2)}
+img{max-width:100%}
+
+/* ---------- language visibility ---------- */
+.it-only{display:inline}
+.en-only{display:none}
+body.lang-en .it-only{display:none}
+body.lang-en .en-only{display:inline}
+.blk.it-only{display:block}
+body.lang-en .blk.en-only{display:block}
+body:not(.lang-en) .blk.en-only{display:none}
+body.lang-en .blk.it-only{display:none}
+
+/* ---------- utilities ---------- */
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+.eyebrow{
+  font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
+  font-weight:600; color:var(--royal); display:inline-flex; align-items:center; gap:.6em;
+}
+.eyebrow::before{content:""; width:26px; height:1px; background:var(--brass); display:inline-block}
+.serif{font-family:"Fraunces",Georgia,serif}
+.section{padding:88px 0; position:relative}
+.section + .section{border-top:1px solid var(--line)}
+.s-title{
+  font-family:"Fraunces",Georgia,serif; font-weight:500;
+  font-size:clamp(1.9rem,4vw,2.9rem); line-height:1.06; letter-spacing:-.01em;
+  margin:14px 0 10px;
+}
+.s-intro{color:var(--slate); max-width:60ch; margin:0 0 34px; font-size:1.02rem}
+
+/* ---------- header / nav ---------- */
+header.top{
+  position:sticky; top:0; z-index:50;
+  background:rgba(246,248,253,.82); backdrop-filter:saturate(1.6) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex; align-items:center; gap:18px; height:64px}
+.brand{display:flex; align-items:baseline; gap:.55rem; font-family:"Fraunces",serif; font-weight:600; font-size:1.12rem; letter-spacing:-.01em; white-space:nowrap}
+.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--brass);display:inline-block;transform:translateY(-1px)}
+.brand small{font-family:"Inter";font-weight:500;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+.navlinks{display:flex; gap:4px; margin-left:auto; overflow-x:auto; scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{
+  color:var(--slate); font-size:.86rem; font-weight:500; padding:8px 11px; border-radius:8px;
+  white-space:nowrap; position:relative;
+}
+.navlinks a:hover{color:var(--ink); background:var(--sky-tint)}
+.navlinks a.active{color:var(--royal)}
+.navlinks a.active::after{content:"";position:absolute;left:11px;right:11px;bottom:2px;height:2px;background:var(--brass);border-radius:2px}
+.langtoggle{
+  display:inline-flex; border:1px solid var(--line-2); border-radius:999px; overflow:hidden; margin-left:8px; flex:none;
+  background:var(--paper-2);
+}
+.langtoggle button{
+  border:0; background:transparent; cursor:pointer; font-family:"Inter"; font-weight:600;
+  font-size:.76rem; letter-spacing:.06em; color:var(--slate); padding:7px 12px;
+}
+.langtoggle button.on{background:var(--royal); color:#fff}
+
+/* ---------- hero ---------- */
+.hero{position:relative; overflow:hidden; padding:66px 0 74px}
+.hero::before{ /* soft glow */
+  content:""; position:absolute; z-index:0; width:820px; height:820px; right:-220px; top:-320px;
+  background:radial-gradient(closest-side, rgba(76,134,240,.18), rgba(76,134,240,0) 70%);
+  pointer-events:none;
+}
+.hero-grid{position:relative; z-index:1; display:grid; grid-template-columns:1.45fr .9fr; gap:56px; align-items:center}
+.hero h1{
+  font-family:"Fraunces",serif; font-weight:500; letter-spacing:-.02em; line-height:.98;
+  font-size:clamp(3rem,8.4vw,6.1rem); margin:16px 0 8px;
+}
+.hero .lead{font-family:"Fraunces",serif; font-weight:400; font-style:italic; font-size:clamp(1.18rem,2.5vw,1.55rem); line-height:1.38; color:var(--ink); margin:6px 0 16px; max-width:36ch}
+.hero .role{font-size:1rem; color:var(--slate); font-weight:500; margin:0 0 4px}
+.hero .affil{color:var(--slate); font-size:.98rem; margin:0 0 24px}
+.hero .affil b{color:var(--ink); font-weight:600}
+.cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:6px}
+.btn{
+  display:inline-flex; align-items:center; gap:.5em; font-weight:600; font-size:.92rem;
+  padding:12px 20px; border-radius:999px; border:1px solid transparent; cursor:pointer;
+  transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--royal); color:#fff}
+.btn-primary:hover{background:var(--royal-2); color:#fff; box-shadow:var(--shadow)}
+.btn-ghost{background:var(--paper-2); border-color:var(--line-2); color:var(--ink)}
+.btn-ghost:hover{border-color:var(--royal); color:var(--royal)}
+.btn svg{width:16px;height:16px}
+
+.portrait-wrap{position:relative}
+.portrait{
+  position:relative; border-radius:6px; overflow:hidden; aspect-ratio:435/390;
+  box-shadow:var(--shadow-lg); outline:1px solid var(--line-2);
+}
+.portrait img{display:block;width:100%;height:100%;object-fit:cover; filter:grayscale(1) contrast(1.03)}
+.portrait::before{content:"";position:absolute;inset:0;z-index:2;box-shadow:inset 0 0 42px rgba(25,35,50,.16);pointer-events:none}
+.portrait-frame{position:absolute; inset:-9px; border:1px solid var(--brass); border-radius:10px; pointer-events:none; opacity:.65}
+.portrait-cap{
+  position:absolute; z-index:3; left:14px; bottom:12px; color:#eaf1ff; font-size:.72rem;
+  letter-spacing:.14em; text-transform:uppercase; font-weight:600; text-shadow:0 1px 8px rgba(5,15,34,.6);
+}
+.hero-chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px}
+.chip{
+  font-size:.78rem; font-weight:600; color:var(--royal); background:var(--paper-2);
+  border:1px solid var(--line-2); padding:6px 12px; border-radius:999px; cursor:pointer;
+  transition:all .16s ease;
+}
+.chip:hover{border-color:var(--royal); background:var(--sky-tint); transform:translateY(-1px)}
+.chip .k{color:var(--brass); margin-right:.35em; font-family:"Fraunces",serif}
+
+/* ---------- ongoing ---------- */
+.ongoing{background:linear-gradient(180deg,#EAF1FB 0%, #FFFFFF 100%)}
+.ongoing .eyebrow{color:var(--royal)}
+.ongoing .eyebrow::before{background:var(--brass)}
+.ongoing .s-title{color:var(--ink)}
+.ong-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+.ong-card{
+  background:var(--paper-2); border:1px solid var(--line); border-radius:var(--r);
+  padding:24px 22px; position:relative; box-shadow:var(--shadow); transition:border-color .2s ease, transform .2s ease;
+}
+.ong-card:hover{border-color:var(--brass); transform:translateY(-3px)}
+.ong-badge{
+  display:inline-flex; align-items:center; gap:.45em; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+  font-weight:700; color:#fff; background:var(--royal); padding:4px 11px; border-radius:999px;
+}
+.ong-badge .pulse{width:6px;height:6px;border-radius:50%;background:#fff; box-shadow:0 0 0 0 rgba(255,255,255,.5); animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.55)}70%{box-shadow:0 0 0 8px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+@media (prefers-reduced-motion: reduce){.ong-badge .pulse{animation:none}}
+.ong-card h3{font-family:"Fraunces",serif; font-weight:500; font-size:1.32rem; margin:14px 0 8px; color:var(--ink); line-height:1.12}
+.ong-card p{color:var(--slate); font-size:.94rem; margin:0}
+.ong-card .venue{margin-top:12px; font-size:.8rem; color:var(--royal); font-weight:600; letter-spacing:.02em}
+
+/* ---------- concepts / signature ---------- */
+.concepts{background:var(--paper-2)}
+.lex{display:grid; grid-template-columns:1.05fr 1.35fr; gap:34px; align-items:start}
+.lex-list{display:flex; flex-direction:column; gap:2px}
+.lex-item{
+  text-align:left; width:100%; border:0; background:transparent; cursor:pointer;
+  padding:15px 16px; border-radius:10px; display:flex; align-items:center; gap:14px;
+  transition:background .16s ease;
+}
+.lex-item:hover{background:var(--sky-tint)}
+.lex-item.on{background:var(--sky-soft); box-shadow:inset 3px 0 0 var(--brass)}
+.lex-item .idx{font-family:"Fraunces",serif; font-size:.9rem; color:var(--brass); width:24px; flex:none}
+.lex-item .term{font-family:"Fraunces",serif; font-weight:500; font-size:1.16rem; letter-spacing:-.01em; color:var(--ink)}
+.lex-item .term small{display:block; font-family:"Inter"; font-weight:500; font-size:.74rem; letter-spacing:.02em; color:var(--slate); text-transform:none; margin-top:2px}
+.lex-item.on .term small{color:var(--royal)}
+.lex-item.on .idx{color:var(--brass)}
+.lex-item .arr{margin-left:auto; color:var(--line-2); transition:transform .18s ease, color .18s}
+.lex-item.on .arr{color:var(--royal); transform:translateX(3px)}
+.lex-panel{
+  position:sticky; top:88px; background:var(--paper-2); color:var(--ink);
+  border-radius:18px; padding:36px 34px; min-height:280px; box-shadow:var(--shadow-lg);
+  border:1px solid var(--line-2);
+}
+.lex-panel .p-k{font-family:"Fraunces",serif; color:var(--brass); font-size:.9rem; letter-spacing:.02em}
+.lex-panel h3{font-family:"Fraunces",serif; font-weight:500; font-size:clamp(1.7rem,3.4vw,2.4rem); margin:6px 0 4px; line-height:1.06; color:var(--ink)}
+.lex-panel .p-en{color:var(--royal); font-size:.92rem; font-weight:600; margin-bottom:18px; letter-spacing:.02em}
+.lex-panel p{color:#48566d; font-size:1.02rem; line-height:1.62; margin:0}
+.lex-panel .rule{height:1px; background:linear-gradient(90deg,var(--brass) 0%, rgba(184,148,90,0) 60%); margin:20px 0}
+
+/* ---------- education timeline ---------- */
+.timeline{position:relative; margin-left:6px; padding-left:34px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--line-2),var(--line))}
+.tl-item{position:relative; padding:0 0 30px}
+.tl-item::before{content:"";position:absolute;left:-33px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:2px solid var(--brass);box-shadow:0 0 0 4px var(--paper)}
+.tl-item .yr{font-size:.78rem; font-weight:700; letter-spacing:.06em; color:var(--royal); text-transform:uppercase}
+.tl-item h3{font-family:"Fraunces",serif; font-weight:500; font-size:1.28rem; margin:3px 0 4px; line-height:1.14}
+.tl-item p{margin:0; color:var(--slate); font-size:.96rem}
+.tl-item p b{color:var(--ink); font-weight:600}
+
+/* ---------- cards / experience ---------- */
+.exp-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+.card{
+  background:var(--paper-2); border:1px solid var(--line); border-radius:var(--r);
+  padding:26px 24px; box-shadow:var(--shadow); transition:transform .2s ease, border-color .2s ease;
+}
+.card:hover{transform:translateY(-3px); border-color:var(--line-2)}
+.card h3{font-family:"Fraunces",serif; font-weight:500; font-size:1.24rem; margin:0 0 4px; display:flex; align-items:center; gap:.5em}
+.card .k-ico{width:34px;height:34px;border-radius:9px;background:var(--sky-tint);color:var(--royal);display:grid;place-items:center;flex:none;margin-bottom:12px}
+.card .k-ico svg{width:19px;height:19px}
+.card ul{list-style:none; margin:12px 0 0; padding:0}
+.card li{position:relative; padding:8px 0 8px 18px; font-size:.93rem; border-top:1px solid var(--line)}
+.card li:first-child{border-top:0}
+.card li::before{content:"";position:absolute;left:0;top:15px;width:6px;height:6px;border-radius:50%;background:var(--brass)}
+.card li b{color:var(--ink)}
+.card li span.meta{display:block; color:var(--slate); font-size:.82rem; margin-top:1px}
+
+/* ---------- publications ---------- */
+.pub-bar{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:8px}
+.filters{display:flex; flex-wrap:wrap; gap:8px}
+.fbtn{
+  border:1px solid var(--line-2); background:var(--paper-2); color:var(--slate); cursor:pointer;
+  font-family:"Inter"; font-weight:600; font-size:.82rem; padding:8px 14px; border-radius:999px; transition:all .15s;
+}
+.fbtn:hover{color:var(--ink); border-color:var(--royal)}
+.fbtn.on{background:var(--royal); color:#fff; border-color:var(--royal)}
+.pub-search{position:relative; margin-left:auto; min-width:220px; flex:1 1 220px; max-width:340px}
+.pub-search input{
+  width:100%; border:1px solid var(--line-2); background:var(--paper-2); border-radius:999px;
+  padding:9px 16px 9px 38px; font-family:"Inter"; font-size:.88rem; color:var(--ink); outline:none;
+}
+.pub-search input:focus{border-color:var(--royal); box-shadow:0 0 0 3px var(--sky-soft)}
+.pub-search svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:15px;height:15px; color:var(--slate)}
+.pub-count{font-size:.82rem; color:var(--slate); margin:10px 2px 16px; font-weight:500}
+.pub-list{display:flex; flex-direction:column}
+.pub{
+  display:flex; gap:18px; padding:18px 4px; border-top:1px solid var(--line); align-items:baseline;
+}
+.pub:first-child{border-top:0}
+.pub .yb{
+  flex:none; width:52px; font-family:"Fraunces",serif; font-weight:600; font-size:1rem; color:var(--royal);
+  text-align:right; padding-top:1px;
+}
+.pub .body{flex:1}
+.pub .cite{font-size:.96rem; line-height:1.5; color:var(--ink)}
+.pub .cite em{font-style:italic; color:var(--ink)}
+.pub .tag{
+  display:inline-block; font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; font-weight:700;
+  color:var(--slate); background:var(--sky-tint); border-radius:6px; padding:2px 8px; margin-right:8px; vertical-align:1px;
+}
+.pub .tag.book{color:#7a5a12; background:#f6edd8}
+.pub .tag.review{color:#0d5a4a; background:#dcefe9}
+.pub .find{font-size:.82rem; font-weight:600; white-space:nowrap; display:inline-flex; align-items:center; gap:.35em; margin-left:2px}
+.pub .find svg{width:13px;height:13px}
+.pub-empty{color:var(--slate); padding:26px 4px; font-style:italic}
+
+/* ---------- talks ---------- */
+.talk-tabs{display:flex; gap:8px; margin-bottom:20px}
+.talks{display:grid; grid-template-columns:repeat(2,1fr); gap:2px 30px}
+.talk{padding:13px 0; border-top:1px solid var(--line); display:flex; gap:14px}
+.talk .tdate{flex:none; width:74px; font-size:.76rem; font-weight:700; color:var(--royal); text-transform:uppercase; letter-spacing:.03em; padding-top:2px}
+.talk .tinfo b{font-weight:600; font-size:.95rem; color:var(--ink); display:block; line-height:1.34}
+.talk .tinfo span{color:var(--slate); font-size:.84rem}
+.talk.hidden{display:none}
+.org-list{margin-top:34px; border-top:1px solid var(--line-2); padding-top:24px}
+.org-list h3{font-family:"Fraunces",serif;font-weight:500;font-size:1.2rem;margin:0 0 12px}
+.org-item{display:flex; gap:14px; padding:8px 0; font-size:.92rem; border-top:1px solid var(--line)}
+.org-item:first-of-type{border-top:0}
+.org-item .od{flex:none;width:74px;color:var(--royal);font-weight:700;font-size:.76rem;text-transform:uppercase}
+.org-item b{color:var(--ink);font-weight:600}
+.org-item span{color:var(--slate)}
+
+/* ---------- media / video ---------- */
+.media{background:var(--paper-2)}
+.vids{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
+.vid{border-radius:var(--r); overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow); background:var(--paper-2); transition:transform .2s ease}
+.vid:hover{transform:translateY(-3px)}
+.vthumb{position:relative; aspect-ratio:16/9; cursor:pointer; background-size:cover; background-position:center}
+.vthumb::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,30,59,.28),rgba(10,30,59,0))}
+.vthumb .play{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;transition:transform .18s ease, background .18s}
+.vthumb:hover .play{transform:translate(-50%,-50%) scale(1.08); background:#fff}
+.vthumb .play svg{width:24px;height:24px;color:var(--ink);margin-left:3px}
+.vthumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vmeta{background:var(--paper-2); padding:16px 18px}
+.vmeta .vk{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--royal)}
+.vmeta h3{font-family:"Fraunces",serif;font-weight:500;font-size:1.1rem;margin:5px 0 2px;line-height:1.18;color:var(--ink)}
+.vmeta span{font-size:.82rem;color:var(--slate)}
+
+/* ---------- recognition ---------- */
+.rec-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:26px 40px}
+.rec-col h3{font-family:"Fraunces",serif;font-weight:500;font-size:1.28rem;margin:0 0 14px;display:flex;align-items:center;gap:.5em}
+.rec-col h3 .bar{width:22px;height:2px;background:var(--brass);display:inline-block}
+.rline{padding:10px 0; border-top:1px solid var(--line); font-size:.93rem}
+.rline:first-of-type{border-top:0}
+.rline b{color:var(--ink);font-weight:600}
+.rline .rm{color:var(--slate); font-size:.82rem}
+.pillset{display:flex; flex-wrap:wrap; gap:8px}
+.pill{font-size:.82rem; font-weight:500; color:var(--ink); background:var(--sky-tint); border:1px solid var(--line); border-radius:999px; padding:6px 13px}
+.pill.lang{background:var(--paper-2); border-color:var(--line-2)}
+.pill.lang b{color:var(--royal)}
+
+/* ---------- contact ---------- */
+.contact{background:linear-gradient(180deg,#E7EEFA,#F6F8FD)}
+.contact .eyebrow{color:var(--royal)}
+.contact .eyebrow::before{background:var(--brass)}
+.contact .s-title{color:var(--ink)}
+.contact .s-intro{color:var(--slate)}
+.links-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-bottom:38px}
+.lnk{
+  display:flex; align-items:center; gap:13px; background:var(--paper-2);
+  border:1px solid var(--line); border-radius:12px; padding:15px 16px; color:var(--ink);
+  box-shadow:var(--shadow); transition:all .18s ease;
+}
+.lnk:hover{border-color:var(--royal); color:var(--ink); transform:translateY(-2px); box-shadow:0 8px 22px rgba(10,30,59,.1)}
+.lnk .li{width:38px;height:38px;border-radius:10px;background:var(--sky-tint);display:grid;place-items:center;flex:none;color:var(--royal)}
+.lnk .li svg{width:19px;height:19px}
+.lnk .lt small{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);font-weight:700}
+.lnk .lt b{font-weight:600;font-size:.9rem;word-break:break-word;color:var(--ink)}
+.lnk .todo{margin-left:auto; font-size:.58rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:#8a5a12; background:#f6e6cb; border:1px solid #e6cfa0; padding:2px 7px; border-radius:5px; flex:none}
+.contact-foot{display:flex; flex-wrap:wrap; gap:20px 40px; align-items:flex-start; border-top:1px solid var(--line-2); padding-top:26px}
+.cf-item small{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);font-weight:700;margin-bottom:3px}
+.cf-item b{color:var(--ink);font-weight:600;font-size:.95rem}
+.refs{margin-top:30px}
+.refs-toggle{background:var(--paper-2);border:1px solid var(--line-2);color:var(--royal);cursor:pointer;font-family:"Inter";font-weight:600;font-size:.86rem;padding:10px 18px;border-radius:999px;display:inline-flex;align-items:center;gap:.5em;transition:all .18s}
+.refs-toggle:hover{border-color:var(--royal);color:var(--royal)}
+.refs-toggle svg{width:15px;height:15px;transition:transform .2s}
+.refs-toggle.open svg{transform:rotate(180deg)}
+.refs-panel{display:none; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; margin-top:20px}
+.refs-panel.open{display:grid}
+.ref{background:var(--paper-2);border:1px solid var(--line);border-radius:11px;padding:15px 16px;box-shadow:var(--shadow)}
+.ref b{color:var(--ink);font-size:.95rem;font-family:"Fraunces",serif;font-weight:500}
+.ref span{display:block;color:var(--slate);font-size:.82rem;margin-top:2px}
+.ref a{color:var(--royal);font-size:.8rem;word-break:break-all}
+.gdpr{color:var(--slate);font-size:.78rem;font-style:italic;margin-top:34px;max-width:70ch}
+
+/* ---------- show-all ---------- */
+.showall{margin-top:22px; text-align:center}
+.showall button{
+  background:transparent; border:1px solid var(--line-2); color:var(--royal); cursor:pointer;
+  font-family:"Inter"; font-weight:600; font-size:.86rem; padding:10px 20px; border-radius:999px;
+  display:inline-flex; align-items:center; gap:.5em; transition:all .16s;
+}
+.showall button:hover{border-color:var(--royal); background:var(--sky-tint)}
+.showall button svg{width:15px;height:15px; transition:transform .2s}
+.showall button.open svg{transform:rotate(180deg)}
+
+/* ---------- footer ---------- */
+footer.foot{background:#E7EEFA; color:var(--slate); text-align:center; padding:30px 24px; font-size:.82rem; border-top:1px solid var(--line)}
+footer.foot b{color:var(--ink); font-weight:600}
+.totop{
+  position:fixed; right:20px; bottom:20px; z-index:60; width:46px;height:46px;border-radius:50%;
+  background:var(--royal); color:#fff; border:0; cursor:pointer; display:grid;place-items:center;
+  box-shadow:var(--shadow-lg); opacity:0; pointer-events:none; transition:opacity .25s, transform .2s;
+}
+.totop.show{opacity:1; pointer-events:auto}
+.totop:hover{transform:translateY(-2px)}
+.totop svg{width:18px;height:18px}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
+.reveal.in{opacity:1; transform:none}
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ---------- responsive ---------- */
+@media (max-width: 940px){
+  .hero-grid{grid-template-columns:1fr; gap:36px}
+  .portrait-wrap{max-width:360px}
+  .lex{grid-template-columns:1fr; gap:22px}
+  .lex-panel{position:relative; top:0}
+  .ong-grid,.exp-grid,.vids{grid-template-columns:1fr}
+  .talks{grid-template-columns:1fr; gap:0}
+  .rec-grid{grid-template-columns:1fr}
+  .brand small{display:none}
+}
+@media (max-width: 560px){
+  body{font-size:16px}
+  .section{padding:64px 0}
+  .wrap{padding:0 18px}
+  .pub .yb{width:44px; font-size:.9rem}
+  .nav{gap:10px}
+}
+
+/* ---------- print ---------- */
+@media print{
+  header.top,.totop,.langtoggle,.cta-row,.hero::before,.vthumb .play,.pub-search,.filters,.talk-tabs,.showall,.refs-toggle{display:none !important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .section{padding:14px 0;border-top:1px solid #ccc}
+  .ongoing,.contact,.concepts,.media{background:#fff !important;color:#000 !important}
+  .ongoing *,.contact *,.concepts *,.media *,.lex-panel *,.ong-card *{color:#000 !important}
+  .lex-panel,.ong-card,.card,.vid,.ref{box-shadow:none;border:1px solid #ccc}
+  .talk.hidden,.pub.hidden{display:flex !important}
+  .refs-panel{display:grid !important}
+  .vids{display:none}
+  a{color:#000}
+  .reveal{opacity:1 !important; transform:none !important}
+}
+</style>
+</head>
+<body class="lang-it">
+
+<header class="top">
+  <div class="wrap nav">
+    <span class="brand"><span class="dot"></span>Aldo Pisano <small>PhD · M-FIL/03</small></span>
+    <nav class="navlinks" aria-label="Sezioni">
+      <a href="#concetti" data-it="Concetti" data-en="Concepts"></a>
+      <a href="#formazione" data-it="Formazione" data-en="Education"></a>
+      <a href="#esperienza" data-it="Esperienza" data-en="Experience"></a>
+      <a href="#pubblicazioni" data-it="Pubblicazioni" data-en="Publications"></a>
+      <a href="#talks" data-it="Interventi" data-en="Talks"></a>
+      <a href="#media" data-it="Video" data-en="Video"></a>
+      <a href="#riconoscimenti" data-it="Riconoscimenti" data-en="Recognition"></a>
+      <a href="#contatti" data-it="Contatti" data-en="Contact"></a>
+    </nav>
+    <div class="langtoggle" role="group" aria-label="Lingua / Language">
+      <button id="btn-it" class="on" onclick="setLang('it')">IT</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="eyebrow" data-it="Etica del digitale · Antropologia della tecnica · Etica ed educazione" data-en="Digital ethics · Anthropology of technology · Ethics &amp; education"></span>
+      <h1>Aldo Pisano</h1>
+      <p class="lead" data-it="Sono Aldo. Mi occupo di etica del digitale, antropologia della tecnica, etica ed educazione." data-en="I'm Aldo. I work on digital ethics, the anthropology of technology, and ethics &amp; education."></p>
+      <p class="role" data-it="PhD in Filosofia Morale (M-FIL/03) · Ricercatore e docente" data-en="PhD in Moral Philosophy (M-FIL/03) · Researcher &amp; Lecturer"></p>
+      <p class="affil">
+        <span class="it-only"><b>Università della Calabria</b> · SIpEIA (Comitato Esecutivo) · Consulta di Bioetica (Direttivo) · UNESCO Chair RELIA (Nantes) · CUNY (New York)</span>
+        <span class="en-only"><b>University of Calabria</b> · SIpEIA (Executive Board) · Italian Bioethics Council (Board) · UNESCO Chair RELIA (Nantes) · CUNY (New York)</span>
+      </p>
+      <div class="cta-row">
+        <a href="#concetti" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18" stroke-linecap="round"/></svg>
+          <span data-it="Concetti chiave" data-en="Key concepts"></span>
+        </a>
+        <a href="#pubblicazioni" class="btn btn-ghost"><span data-it="Pubblicazioni" data-en="Publications"></span></a>
+        <a href="#contatti" class="btn btn-ghost"><span data-it="Contatti &amp; profili" data-en="Contact &amp; profiles"></span></a>
+      </div>
+      <div class="hero-chips" id="heroChips"></div>
+    </div>
+    <div class="portrait-wrap reveal">
+      <div class="portrait-frame"></div>
+      <div class="portrait">
+        <img src="data:image/jpeg;base64,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" alt="Aldo Pisano" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ONGOING ============ -->
+<section class="section ongoing" id="ongoing">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-it="In corso" data-en="Ongoing"></span>
+    <h2 class="s-title reveal" data-it="Progetti attivi" data-en="Active projects"></h2>
+    <p class="s-intro reveal" style="color:#b6c7e4" data-it="Le linee di ricerca e i lavori editoriali in corso di sviluppo e pubblicazione." data-en="Research lines and editorial work currently under development and in press."></p>
+    <div class="ong-grid">
+      <div class="ong-card reveal">
+        <span class="ong-badge"><span class="pulse"></span><span data-it="Serie in corso" data-en="Ongoing series"></span></span>
+        <h3>AI &amp; Ethics Literacy</h3>
+        <p class="it-only">Programma di ricerca ed educazione: manuale IT/EN (UNICApress · UNESCO Chair RELIA), formazione docenti (PNRR) e studi pilota nelle scuole secondarie — tra la tassonomia <b style="color:var(--royal)">PAIA</b> e il <b style="color:var(--royal)">Large Ethics Model</b>.</p>
+        <p class="en-only">A research &amp; education program: an IT/EN handbook (UNICApress · UNESCO Chair RELIA), teacher training (PNRR) and pilot studies in secondary schools — between the <b style="color:var(--royal)">PAIA</b> taxonomy and the <b style="color:var(--royal)">Large Ethics Model</b>.</p>
+        <div class="venue" data-it="Manuale · Formazione · Ricerca empirica" data-en="Handbook · Training · Empirical research"></div>
+      </div>
+      <div class="ong-card reveal">
+        <span class="ong-badge"><span class="pulse"></span><span data-it="In stampa" data-en="In press"></span></span>
+        <h3>Etiche per l'Intelligenza Artificiale</h3>
+        <p class="it-only">Monografia — <em>Buone pratiche per un uso consapevole delle nuove tecnologie</em> — nella collana «Biblioteca di testi e studi», sul <em>principialismo pratico</em> come approccio misto alla regolamentazione dell'IA.</p>
+        <p class="en-only">A monograph — <em>Good practices for a conscious use of new technologies</em> — in the «Biblioteca di testi e studi» series, on <em>practical principlism</em> as a mixed approach to AI regulation.</p>
+        <div class="venue" data-it="Carocci · Roma · settembre 2026" data-en="Carocci · Rome · September 2026"></div>
+      </div>
+      <div class="ong-card reveal">
+        <span class="ong-badge"><span class="pulse"></span><span data-it="In stampa" data-en="In press"></span></span>
+        <h3>Sentieri oltre il brivido</h3>
+        <p class="it-only">Un approccio di etica narrativa a Stephen King: empatia, immaginazione morale e la figura del <em>villain</em> come pedagogia del reale.</p>
+        <p class="en-only">A narrative-ethics approach to Stephen King: empathy, moral imagination and the figure of the <em>villain</em> as a pedagogy of the real.</p>
+        <div class="venue">Mimesis · Milano–Udine · 2027</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONCEPTS (signature) ============ -->
+<section class="section concepts" id="concetti">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-it="Lessico" data-en="Lexicon"></span>
+    <h2 class="s-title reveal" data-it="Concetti chiave" data-en="Key concepts"></h2>
+    <p class="s-intro reveal" data-it="Il vocabolario teorico che attraversa la mia ricerca. Seleziona un concetto per leggerne la definizione." data-en="The theoretical vocabulary running through my research. Select a concept to read its definition."></p>
+    <div class="lex reveal">
+      <div class="lex-list" id="lexList" role="tablist" aria-label="Concetti chiave"></div>
+      <div class="lex-panel" id="lexPanel" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section class="section" id="formazione">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-it="Percorso" data-en="Path"></span>
+    <h2 class="s-title reveal" data-it="Formazione" data-en="Education &amp; training"></h2>
+    <div class="timeline reveal" style="margin-top:26px">
+      <div class="tl-item">
+        <div class="yr">2022–2025</div>
+        <h3 data-it="Dottorato di ricerca (LESDIT) in Filosofia Morale (M-FIL/03)" data-en="PhD (LESDIT) in Moral Philosophy (M-FIL/03)"></h3>
+        <p><b>Università di Foggia / Università della Calabria.</b> <span class="it-only">Coordinatore: P.C. Rivoltella · Supervisore: I. Crispini · Ricerca: IA, Etica ed Educazione.</span><span class="en-only">Coordinator: P.C. Rivoltella · Supervisor: I. Crispini · Research: AI, Ethics &amp; Education.</span></p>
+      </div>
+      <div class="tl-item">
+        <div class="yr">2015–2018</div>
+        <h3 data-it="Laurea Magistrale in Filosofia (con borsa di studio)" data-en="Master's Degree in Philosophy (scholarship)"></h3>
+        <p><b>Università della Calabria</b> · 110/110 e lode. <span class="it-only">Supervisore: I. Crispini · Erasmus: Université Aix-Marseille (con C. Rovelli).</span><span class="en-only">Supervisor: I. Crispini · Erasmus: Université Aix-Marseille (with C. Rovelli).</span></p>
+      </div>
+      <div class="tl-item">
+        <div class="yr">2011–2015</div>
+        <h3 data-it="Laurea Triennale in Filosofia e Storia (con borsa)" data-en="Bachelor's Degree in Philosophy &amp; History (scholarship)"></h3>
+        <p><b>Università della Calabria</b> · 110/110 e lode. <span class="it-only">Supervisore: I. Crispini · Erasmus: LMU Monaco (con T. Ricklin).</span><span class="en-only">Supervisor: I. Crispini · Erasmus: LMU Munich (with T. Ricklin).</span></p>
+      </div>
+      <div class="tl-item">
+        <div class="yr">2018–2019</div>
+        <h3 data-it="Specializzazione per le attività di sostegno (BES)" data-en="Specialisation for Special Needs Education"></h3>
+        <p><b>Università della Calabria</b> · 30/30.</p>
+      </div>
+      <div class="tl-item">
+        <div class="yr">2006–2011</div>
+        <h3 data-it="Diploma di Liceo Scientifico" data-en="Scientific High School Diploma"></h3>
+        <p><b>Liceo Scientifico "E. Fermi", Cosenza</b> · 100/100 e lode.</p>
+      </div>
+    </div>
+
+    <div class="showall reveal" style="margin-top:8px">
+      <button id="trainToggle" aria-expanded="false">
+        <span data-it="Mostra formazione &amp; certificazioni aggiuntive" data-en="Show additional training &amp; certifications"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div id="trainPanel" style="display:none; margin-top:22px">
+      <div class="exp-grid">
+        <div class="card">
+          <div class="k-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1 3 3 6 3s6-2 6-3v-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 data-it="Scuole &amp; corsi PhD" data-en="Schools &amp; PhD courses"></h3>
+          <ul>
+            <li><b>Winter School H2-DIA</b> — Univ. of Foggia, Accadia<span class="meta">Jan 2026</span></li>
+            <li><b>SIpEIA PhD Course: Ethics and AI (16h)</b><span class="meta">2024–2025 · 2023–2024</span></li>
+            <li><b>Winter School H-DIA</b> — Univ. of Foggia, Accadia<span class="meta">Jan 2025</span></li>
+            <li><b>"Sette Passi con Stephen King"</b> — Bottega di Narrazioni<span class="meta">Jan–Jun 2025</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="k-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5V6a2 2 0 012-2h12v16H6a2 2 0 01-2-2.5z" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 4v16"/></svg></div>
+          <h3 data-it="Master &amp; certificazioni" data-en="Masters &amp; certifications"></h3>
+          <ul>
+            <li><b>Master: Teaching with CLIL Methodology</b> — IUMNA<span class="meta">2021–2022</span></li>
+            <li><b>Regional Expert "Filosofia-Inventio"</b> — Filò / Univ. Bologna<span class="meta">2021–2022</span></li>
+            <li><b>CEDILS</b> — Ca' Foscari, Venezia<span class="meta">2021</span></li>
+            <li><b>Master in Innovative Didactics &amp; Digital Competences</b> — E-Campus<span class="meta">2020–2021</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="k-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg></div>
+          <h3 data-it="Seminari &amp; workshop (sel.)" data-en="Seminars &amp; workshops (sel.)"></h3>
+          <ul>
+            <li><b>Workshop CURA</b> — Children &amp; IoT/AI (PRIN 2022)<span class="meta">Nov 2023</span></li>
+            <li><b>SFI — Pasolini / Dante filosofo</b> (25h each)<span class="meta">2021–2022</span></li>
+            <li><b>Autism spectrum disorders at school</b> — Univ. Bergamo<span class="meta">Feb 2023</span></li>
+            <li><b>EIPASS 7 · Teacher · Tablet · IWB</b><span class="meta">Various</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="section" id="esperienza">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-it="Docenza &amp; consulenza" data-en="Teaching &amp; consulting"></span>
+    <h2 class="s-title reveal" data-it="Esperienza professionale" data-en="Professional experience"></h2>
+    <p class="s-intro reveal" data-it="Insegnamento universitario e nella scuola secondaria, consulenza etica e progetti nazionali." data-en="University and secondary-school teaching, ethical consulting and national projects."></p>
+    <div class="exp-grid">
+      <div class="card reveal">
+        <div class="k-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z" stroke-linejoin="round"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 data-it="Università" data-en="University"></h3>
+        <ul>
+          <li><b data-it="Assistente alla cattedra — Univ. della Calabria" data-en="Teaching Assistant — Univ. of Calabria"></b><span class="meta" data-it="Cattedra: Ines Crispini" data-en="Chair: Ines Crispini"></span></li>
+          <li><b>Bioetica &amp; Etica Digitale</b><span class="meta">B.Sc. Scienze della Formazione · 2022–2025</span></li>
+          <li><b data-it="Antropologia Filosofica" data-en="Philosophical Anthropology"></b><span class="meta">B.Sc. Scienze della Formazione · 2023–2025</span></li>
+          <li><b>Bioetica</b><span class="meta">B.Sc. Biologia · Biotecnologie · 2023/24</span></li>
+          <li><b data-it="Corsi TFA sostegno — Univ. della Basilicata" data-en="SEN courses — Univ. of Basilicata"></b><span class="meta">2019/20 · 2021/22</span></li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="k-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 data-it="Scuola secondaria" data-en="Secondary school"></h3>
+        <ul>
+          <li><b data-it="Docente di ruolo — Filosofia &amp; Storia; Sostegno" data-en="Permanent Teacher — Philosophy &amp; History; SEN"></b><span class="meta">D.D. 499/2020</span></li>
+          <li><b>IPSSAT "Rocco Chinnici", Paternò (CT)</b><span class="meta" data-it="Sostegno · 2025–2026" data-en="SEN · 2025–2026"></span></li>
+          <li><b>Liceo "P. Secco Suardo", Bergamo</b><span class="meta" data-it="Digital Team · Coord. Laboratorio Filosofico · PNRR · 2022–oggi" data-en="Digital Team · Philosophy Workshop Coord. · NRRP · 2022–present"></span></li>
+          <li><b>I Licei "T. Campanella", Belvedere M. (CS)</b><span class="meta" data-it="Coord. Olimpiadi · Docente CLIL · 2021–2022" data-en="Olympiad Coord. · CLIL Teacher · 2021–2022"></span></li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="k-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.9 5.7 21l2.3-7.1-6-4.5h7.6z" stroke-linejoin="round"/></svg></div>
+        <h3 data-it="Consulenza &amp; progetti" data-en="Consulting &amp; projects"></h3>
+        <ul>
+          <li><b>Consulente etico — SIpEIA · Almawave</b><span class="meta" data-it="Linee guida etiche per il LLM &laquo;Velvet&raquo; · 2024–2025" data-en="Ethical guidelines for the &quot;Velvet&quot; LLM · 2024–2025"></span></li>
+          <li><b>SIpEIA · Deloitte Risk Advisory</b><span class="meta">Trustworthy AI Survey 2023</span></li>
+          <li><b data-it="Corso PNRR &laquo;Etiche per l'IA&raquo; per docenti (20h)" data-en="PNRR &quot;Ethics for AI&quot; teacher course (20h)"></b><span class="meta">I.C. Cariati, Cosenza · Jun 2025</span></li>
+          <li><b data-it="Esperto &amp; autore — &laquo;Anonima Cinefili&raquo;" data-en="Author/Editor — &quot;Anonima Cinefili&quot;"></b><span class="meta" data-it="Recensioni filosofiche · 2019–oggi" data-en="Philosophical film reviews · 2019–present"></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLICATIONS ============ -->
+<section class="section" id="pubblicazioni">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-it="Ricerca" data-en="Research"></span>
+    <h2 class="s-title reveal" data-it="Pubblicazioni" data-en="Publications"></h2>
+    <p class="s-intro reveal" data-it="Filtra per tipologia o cerca per parola chiave. Ogni voce rimanda alla ricerca su Google Scholar." data-en="Filter by type or search by keyword. Each entry links to a Google Scholar search."></p>
+    <div class="pub-bar reveal">
+      <div class="filters" id="pubFilters">
+        <button class="fbtn on" data-f="all" data-it="Tutte" data-en="All"></button>
+        <button class="fbtn" data-f="article" data-it="Articoli &amp; capitoli" data-en="Articles &amp; chapters"></button>
+        <button class="fbtn" data-f="book" data-it="Libri" data-en="Books"></button>
+        <button class="fbtn" data-f="review" data-it="Recensioni" data-en="Reviews"></button>
+        <button class="fbtn" data-f="popular" data-it="Divulgazione" data-en="Popular"></button>
+      </div>
+      <div class="pub-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4" stroke-linecap="round"/></svg>
+        <input id="pubSearch" type="search" placeholder="…" aria-label="Search publications">
+      </div>
+    </div>
+    <div class="pub-count reveal" id="pubCount"></div>
+    <div class="pub-list" id="pubList"></div>
+    <div class="showall reveal">
+      <button id="pubMore" aria-expanded="false">
+        <span data-it="Mostra tutte le pubblicazioni" data-en="Show all publications"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TALKS ============ -->
+<section class="section" id="talks">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-it="Convegni &amp; conferenze" data-en="Conferences &amp; talks"></span>
+    <h2 class="s-title reveal" data-it="Interventi selezionati" data-en="Selected talks"></h2>
+    <p class="s-intro reveal" data-it="Relazioni accademiche e conferenze pubbliche in Italia e all'estero." data-en="Academic presentations and public lectures in Italy and abroad."></p>
+    <div class="talk-tabs reveal">
+      <button class="fbtn on" data-t="acad" data-it="Accademici" data-en="Academic"></button>
+      <button class="fbtn" data-t="public" data-it="Divulgativi" data-en="Public"></button>
+    </div>
+    <div class="talks" id="talkList"></div>
+    <div class="showall reveal">
+      <button id="talkMore" aria-expanded="false">
+        <span data-it="Mostra tutti gli interventi" data-en="Show all talks"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="org-list reveal">
+      <h3 data-it="Organizzazione &amp; presidenza di sessione" data-en="Organisation &amp; session chairmanship"></h3>
+      <div id="orgList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEDIA ============ -->
+<section class="section media" id="media">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-it="Video &amp; podcast" data-en="Video &amp; podcast"></span>
+    <h2 class="s-title reveal" data-it="Media" data-en="Media"></h2>
+    <p class="s-intro reveal" data-it="Interventi e conversazioni. Tocca un video per riprodurlo qui." data-en="Talks and conversations. Tap a video to play it here."></p>
+    <div class="vids reveal" id="vidList"></div>
+  </div>
+</section>
+
+<!-- ============ RECOGNITION ============ -->
+<section class="section" id="riconoscimenti">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-it="Profilo" data-en="Profile"></span>
+    <h2 class="s-title reveal" data-it="Riconoscimenti &amp; competenze" data-en="Recognition &amp; skills"></h2>
+    <div class="rec-grid reveal" style="margin-top:20px">
+      <div class="rec-col">
+        <h3><span class="bar"></span><span data-it="Borse &amp; premi" data-en="Scholarships &amp; awards"></span></h3>
+        <div class="rline"><b data-it="Borsa — Ass. marchigiana sclerosi multipla" data-en="Scholarship — Ass. marchigiana sclerosi multipla"></b><span class="rm">Univ. di Torino · 2023/24</span></div>
+        <div class="rline"><b data-it="Menzione di merito — Laurea Magistrale" data-en="Thesis Distinction — Master's Degree"></b><span class="rm">Univ. della Calabria · 2017/18</span></div>
+        <div class="rline"><b>Erasmus Traineeship</b><span class="rm">Univ. Aix-Marseille · 2016/17</span></div>
+        <div class="rline"><b>Erasmus Traineeship</b><span class="rm">LMU Munich · 2014/15</span></div>
+        <h3 style="margin-top:26px"><span class="bar"></span><span data-it="Attività di revisione" data-en="Reviewer activities"></span></h3>
+        <div class="rline"><b>AI and Ethics</b> — Springer<span class="rm">2024–</span></div>
+        <div class="rline"><b>Research on Education and Media</b> — Sciendo/De Gruyter<span class="rm">2024–</span></div>
+        <div class="rline"><b>Filosofi(e) Semiotiche</b> — Il Sileno<span class="rm">2024–</span></div>
+        <div class="rline"><b>IUSVE Education</b><span class="rm">2026–</span></div>
+      </div>
+      <div class="rec-col">
+        <h3><span class="bar"></span><span data-it="Affiliazioni" data-en="Affiliations"></span></h3>
+        <div class="pillset" style="margin-bottom:24px">
+          <span class="pill" data-it="SIpEIA — Comitato Esecutivo" data-en="SIpEIA — Executive Board"></span>
+          <span class="pill" data-it="&quot;Inventio&quot; — Direttivo" data-en="&quot;Inventio&quot; — Board"></span>
+          <span class="pill">Società Filosofica Italiana</span>
+          <span class="pill" data-it="Consulta di Bioetica — Direttivo" data-en="Italian Bioethics Council — Board"></span>
+          <span class="pill">Soc. Italiana di Filosofia Morale</span>
+          <span class="pill">European Soc. for Moral Philosophy</span>
+          <span class="pill">Intl. AI in Education Society</span>
+          <span class="pill">AATI</span>
+          <span class="pill">STS Italia</span>
+          <span class="pill">Il Sileno</span>
+        </div>
+        <h3><span class="bar"></span><span data-it="Lingue" data-en="Languages"></span></h3>
+        <div class="pillset" style="margin-bottom:24px">
+          <span class="pill lang"><b>Italiano</b> — native</span>
+          <span class="pill lang"><b>English</b> — C1 (ESOL)</span>
+          <span class="pill lang"><b>Deutsch</b> — A2</span>
+        </div>
+        <h3><span class="bar"></span><span data-it="Competenze" data-en="Skills"></span></h3>
+        <div class="pillset">
+          <span class="pill" data-it="Progettazione della ricerca" data-en="Research design"></span>
+          <span class="pill" data-it="Team internazionali" data-en="International teamwork"></span>
+          <span class="pill" data-it="Scrittura accademica (IT/EN)" data-en="Academic writing (IT/EN)"></span>
+          <span class="pill" data-it="Organizzazione convegni" data-en="Conference organisation"></span>
+          <span class="pill">Public speaking</span>
+          <span class="pill">MS Office · Google Workspace · macOS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contatti">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-it="Restiamo in contatto" data-en="Get in touch"></span>
+    <h2 class="s-title reveal" data-it="Contatti &amp; profili" data-en="Contact &amp; profiles"></h2>
+    <p class="s-intro reveal" data-it="Profili accademici, social e materiali. Scrivimi per collaborazioni, seminari o revisioni." data-en="Academic profiles, socials and materials. Reach out for collaborations, seminars or reviews."></p>
+
+    <div class="links-grid reveal">
+      <a class="lnk" href="mailto:aldopisano92@gmail.com">
+        <span class="li"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="lt"><small>Email</small><b>aldopisano92@gmail.com</b></span>
+      </a>
+      <a class="lnk" href="mailto:aldo.pisano@unifg.it">
+        <span class="li"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z" stroke-linejoin="round"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="lt"><small data-it="Email accademica" data-en="Academic email"></small><b>aldo.pisano@unifg.it</b></span>
+      </a>
+      <a class="lnk" href="https://orcid.org/0009-0009-0841-3719" target="_blank" rel="noopener">
+        <span class="li"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM8.4 7.6a.9.9 0 110 1.8.9.9 0 010-1.8zM7.6 10.4h1.6v7H7.6v-7zm3.2 0h3c2 0 3.4 1.4 3.4 3.5S16 17.4 14 17.4h-3.2v-7zm1.6 1.5v4h1.3c1.2 0 1.9-.8 1.9-2s-.7-2-1.9-2h-1.3z"/></svg></span>
+        <span class="lt"><small>ORCID</small><b>0009-0009-0841-3719</b></span>
+      </a>
+      <a class="lnk" id="scholarLink" href="https://scholar.google.com/scholar?q=Aldo+Pisano+AI+ethics" target="_blank" rel="noopener">
+        <span class="li"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 8l11 6 9-4.9V16h2V8L12 2zM5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8-7-3.6z"/></svg></span>
+        <span class="lt"><small>Google Scholar</small><b data-it="Profilo pubblicazioni" data-en="Publications profile"></b></span>
+        <span class="todo" data-it="da inserire" data-en="to add"></span>
+      </a>
+      <a class="lnk" id="igLink" href="https://www.instagram.com/" target="_blank" rel="noopener">
+        <span class="li"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+        <span class="lt"><small>Instagram</small><b>@aldopisano</b></span>
+        <span class="todo" data-it="da inserire" data-en="to add"></span>
+      </a>
+      <a class="lnk" id="fbLink" href="https://www.facebook.com/" target="_blank" rel="noopener">
+        <span class="li"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3l.4-3H14V4.2c0-.9.3-1.5 1.6-1.5H17V.1C16.6 0 15.6 0 14.5 0 12 0 10.4 1.5 10.4 4v2H7.5v3h2.9v9H14V9z"/></svg></span>
+        <span class="lt"><small>Facebook</small><b>Aldo Pisano</b></span>
+        <span class="todo" data-it="da inserire" data-en="to add"></span>
+      </a>
+    </div>
+
+    <div class="contact-foot reveal">
+      <div class="cf-item"><small data-it="Sede" data-en="Based in"></small><b>Trecastagni (CT), Italia</b></div>
+      <div class="cf-item"><small data-it="Ambiti" data-en="Fields"></small><b data-it="Etica dell'IA · Etica narrativa · Didattica della filosofia" data-en="AI Ethics · Narrative Ethics · Teaching of Philosophy"></b></div>
+      <div class="cf-item"><small data-it="CV" data-en="CV"></small>
+        <button onclick="window.print()" class="refs-toggle" style="margin-top:2px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-4a2 2 0 012-2h16a2 2 0 012 2v4a2 2 0 01-2 2h-2M6 14h12v8H6z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-it="Salva in PDF" data-en="Save as PDF"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="refs reveal">
+      <button class="refs-toggle" id="refsToggle" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span data-it="Referenze accademiche" data-en="Academic references"></span>
+      </button>
+      <div class="refs-panel" id="refsPanel"></div>
+    </div>
+
+    <p class="gdpr" data-it="Autorizzo il trattamento dei dati personali contenuti nel presente CV ai sensi del D.Lgs. 196/2003 e del Regolamento UE 679/2016 (GDPR). Catania, luglio 2026." data-en="I authorize the processing of the personal data contained in this CV pursuant to Legislative Decree 196/2003 and EU Regulation 679/2016 (GDPR). Catania, July 2026."></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <span data-it="Aggiornato: luglio 2026 · " data-en="Updated: July 2026 · "></span><b>Aldo Pisano</b> — PhD in Moral Philosophy (M-FIL/03)
+</footer>
+
+<button class="totop" id="toTop" aria-label="Torna su">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+/* =======================================================================
+   ✏️  MODIFICA QUI  /  EDIT HERE  —  i link dei tuoi profili
+   Scrivi i tuoi URL tra virgolette e salva il file. Se lasci "" resta
+   il segnaposto. / Put your URLs between the quotes and save. Leave ""
+   to keep the placeholder.
+   ======================================================================= */
+const LINKS = {
+  scholar:   "",   // es. "https://scholar.google.com/citations?user=XXXXXXX"
+  instagram: "",   // es. "https://www.instagram.com/tuo_profilo"
+  facebook:  ""    // es. "https://www.facebook.com/tuo.profilo"
+};
+function applyLink(id, url){
+  const a = document.getElementById(id);
+  if(!a) return;
+  if(url && url.trim()){
+    a.href = url.trim();
+    const t = a.querySelector(".todo");
+    if(t) t.remove();
+  }
+}
+/* ---------------- DATA ---------------- */
+const CONCEPTS = [
+  { id:"ve", it:"Vulnerabilità epistemica", en:"Epistemic vulnerability",
+    dit:"La condizione per cui la nostra capacità di conoscere, valutare e discernere il vero è esposta a manipolazione ed errore quando la conoscenza è mediata da sistemi di IA. È una nozione «sovrapponibile» che attraversa etica, educazione e cittadinanza digitale.",
+    den:"The condition in which our capacity to know, assess and discern the true is exposed to manipulation and error when knowledge is mediated by AI systems. An \u201Coverlapping\u201D notion cutting across ethics, education and digital citizenship." },
+  { id:"ba", it:"Bias di attribuzione", en:"Attribution & automation bias",
+    dit:"La tendenza ad attribuire all'output automatico un'autorità, un'agency o una veridicità superiori a quelle giustificate: un eccesso di fiducia verso «l'oracolo» tecnologico che indebolisce il giudizio critico e la responsabilità.",
+    den:"The tendency to attribute to automated output more authority, agency or truthfulness than warranted \u2014 an over-trust in the technological \u201Coracle\u201D that weakens critical judgement and responsibility." },
+  { id:"lem", it:"LEM — Large Ethics Model", en:"LEM — Large Ethics Model",
+    dit:"Modello teorico che, per analogia (e per contrasto) con i Large Language Models, interroga se e come l'etica possa essere «modellata». Ne mostra i limiti e propone un principialismo pratico per la governance dell'IA.",
+    den:"A theoretical model that, by analogy with (and in contrast to) Large Language Models, asks whether and how ethics can be \u201Cmodelled\u201D. It exposes the limits and proposes a practical principlism for AI governance." },
+  { id:"paia", it:"Tassonomia PAIA", en:"PAIA taxonomy",
+    dit:"Tassonomia e modello genealogico per classificare in modo critico gli approcci all'etica dell'IA e collocare l'educazione oltre il mito dello «strumento neutro».",
+    den:"A taxonomy and genealogical model for critically classifying approaches to AI ethics and situating education beyond the \u201Cneutral tool\u201D myth." },
+  { id:"bio", it:"Bio-potere algoritmico", en:"Algorithmic biopower",
+    dit:"Estensione del bio-potere foucaultiano agli algoritmi: come i sistemi automatici governano, disciplinano e «curano» la vita e la soggettività — gli «algoritmi per il sé» e la cittadinanza digitale.",
+    den:"A Foucauldian biopower extended to algorithms: how automated systems govern, discipline and \u201Ccare for\u201D life and subjectivity \u2014 the \u201Calgorithms for the self\u201D and digital citizenship." },
+  { id:"orac", it:"Oracolo acorporeo", en:"Bodiless oracle",
+    dit:"Metafora dell'IA generativa come oracolo senza corpo: pronuncia verità apparenti senza responsabilità, presenza o situazione. Da qui la necessità di una literacy critica.",
+    den:"A metaphor for generative AI as an oracle without a body: it pronounces apparent truths without responsibility, presence or situatedness. Hence the need for critical literacy." },
+  { id:"narr", it:"Etica narrativa", en:"Narrative ethics",
+    dit:"L'etica appresa attraverso storie, cinema e la figura del «cattivo»: empatia, immaginazione morale e pedagogia del reale.",
+    den:"Ethics learned through stories, cinema and the figure of the \u201Cvillain\u201D: empathy, moral imagination and a pedagogy of the real." }
+];
+const HERO_CHIP_IDS = ["ve","ba","lem","paia","bio"];
+
+const PUBS = [
+  {y:2026,t:"article",c:`Crispini, I., Pisano, A. (2026). \u201CBeyond the Neutral Tool. Critical AI Education between the PAIA Taxonomy and the Large Ethics Model.\u201D In <em>SIpEIA Conference Proceedings</em>. Roma: Lithos. (forthcoming)`},
+  {y:2026,t:"article",c:`Crispini, I., Pisano, A. (2026). \u201CAnthropomorphisation and Materialisation: Two Good Practices for an Applied Ethics of AI Risk.\u201D In <em>Digital Technologies and Social Perspectives in Geohazard Studies</em>, Springer (forthcoming). [book chapter]`},
+  {y:2026,t:"article",c:`Pisano, A. (2026). \u201CBiopower of Algorithms: Critical AI Literacy and Virtue Ethics in Secondary School.\u201D <em>Journal of Inclusive Methodology and Technology in Learning and Teaching</em>, 1(6).`},
+  {y:2026,t:"article",c:`Pisano, A. (2026). \u201CEtiche per l'IA. Il \u2018principialismo pratico\u2019 come approccio misto per la regolamentazione dell'IA.\u201D In Bondioli D., Bonicalzi S., De Caro M. (eds.), <em>Etica Normativa, Acta Moralia 2</em>, Inschibboleth, Roma, 987\u20131000.`},
+  {y:2026,t:"article",c:`Pisano, A., Crispini, I., Rossi, R.A. (2026). \u201CAI and Ethics Literacy in Secondary School: A Pilot Study.\u201D <em>LNCS</em>, vol. 16438. Springer.`},
+  {y:2026,t:"article",c:`Pisano, A. (2026). \u201CEthics from the Future. Risk-based Approach and Narrative Ethics for the AI Regulation.\u201D <em>Iusveducation</em>, 28.`},
+  {y:2026,t:"article",c:`[Under review] \u201CHypertrophy of Relief. How AI can affect ethical Skills.\u201D <em>Proceedings CRUI-GEO-UNICAL</em>.`},
+  {y:2026,t:"article",c:`[Under review] \u201CQuale statuto per l'etica narrativa? Tradizioni, metodi, intersezioni.\u201D <em>Atti SIFM 2026</em>.`},
+  {y:2025,t:"article",c:`Pisano, A. (2025). \u201CIl paradosso della Paideia: tra educazione e cura di sé.\u201D <em>Atti del Convegno SFI 2025</em> (forthcoming).`},
+  {y:2025,t:"article",c:`Pisano, A. (2025). \u201CAbbiamo ancora bisogno dei cattivi (?). Genesi del villain e pedagogia del reale.\u201D <em>Filosofia morale / Moral Philosophy</em>, 1.`},
+  {y:2025,t:"article",c:`Pisano, A. (2025). \u201CDoes the AI need a Genealogy? The PAIA model and the question concerning Technology.\u201D <em>Mimesis Journal, Mechané</em>, 9(1).`},
+  {y:2025,t:"article",c:`Pisano, A. (2025). \u201CFacing Artificial Tyranny.\u201D In Scuola Democratica (ed.), <em>Proceedings Third Intl. Conference</em>, Vol. 1, 72\u201384.`},
+  {y:2025,t:"article",c:`Pisano, A. (2025). \u201CIl linguaggio aletheico. Tirannia della verità e IA.\u201D <em>Atti Convegno SFI</em>, LediPublishing, 266\u2013272.`},
+  {y:2024,t:"article",c:`Pisano, A., Orsenigo, E., Campobasso, D., Valentini, M. (2024). \u201CInterazione umano-macchina-umano. IA, medicina ed etica della cura.\u201D <em>Bioetica. Rivista Interdisciplinare</em>, 32(3\u20134), 679\u2013706.`},
+  {y:2024,t:"article",c:`Pisano, A. (2024). \u201CEtica dell'incertezza.\u201D In <em>Acta Moralia</em>, 1. Inschibboleth, Roma.`},
+  {y:2024,t:"article",c:`Pisano, A. (2024). \u201CAnthropocene and Ethics of Care in Miyazaki's fictional World.\u201D In <em>Geographies of Anthropocene</em>, Il Sileno, 181\u2013206.`},
+  {y:2024,t:"article",c:`Pisano, A. (2024). \u201CLa morale del male. Ricordo, rimorso e pensiero.\u201D <em>Filosofia morale / Moral Philosophy</em>, 1(1), 141\u2013152.`},
+  {y:2024,t:"article",c:`Pisano, A. (2024). \u201CWhy White Holes? Thought as Revolution in C. Rovelli's works.\u201D Salvatore Sciascia Editore.`},
+  {y:2024,t:"article",c:`Pisano, A. (2024). \u201CSupervisionare per educare.\u201D <em>Educrazia</em>, 1(2), 136\u2013148.`},
+  {y:2023,t:"article",c:`Pisano, A. (2023). \u201CEnkrateia e Dopamina: per un'etica degli algoritmi.\u201D <em>Bioetica</em>, 32(1), 153\u2013172.`},
+  {y:2023,t:"article",c:`Pisano, A. (2023). \u201CIs AI a Threat for Democracy?\u201D Messina University Press.`},
+  {y:2023,t:"article",c:`Pisano, A. (2023). \u201CInterrompere l'umano. Bias, responsabilità e autonomia nell'uso bellico dell'IA.\u201D <em>Mimesis Journal, Mechané</em>, 5(1), 123\u2013136.`},
+  {y:2023,t:"article",c:`Pisano, A. (2023). \u201CArtificial meaning and human computing.\u201D <em>Filosofi(e) Semiotiche</em>, 10(1), 40\u201348.`},
+  {y:2022,t:"article",c:`Pisano, A. (2022). \u201CResponsabilità e cura. Nuove frontiere etiche ai tempi dell'IA.\u201D <em>Areté</em>, 7(1), 287\u2013318.`},
+  {y:2022,t:"article",c:`Pisano, A. (2022). \u201CBig Data e sedimentazioni etiche.\u201D <em>Mimesis Journal, Mechané</em>, 2(1), 153\u2013166.`},
+  {y:2021,t:"article",c:`Crispini, I., Pisano, A., Vozzo, V. (2021). \u201CProspettive digitali, responsabilità educative nella didattica post-Covid-19.\u201D <em>Quaderni del Dip. di Linguistica</em>, 28(1), 17\u201344.`},
+  {y:2021,t:"article",c:`Pisano, A. (2021). \u201CIl perturbante artificiale.\u201D <em>Kaiak</em>, 8(1), 223\u2013250.`},
+  {y:2021,t:"article",c:`Pisano, A. (2021). \u201CLa macchina e le forme dell'azione: deficit fronetico e autonomia artificiale.\u201D <em>Mimesis Journal, Mechané</em>, 1(1), 37\u201353.`},
+  {y:2020,t:"article",c:`Pisano, A. (2020). \u201CDal reale alla fiaba, dalla fiaba al Reale.\u201D <em>Segni e comprensione</em>, 99(2), 107\u2013121.`},
+  {y:2019,t:"article",c:`Pisano, A. (2019). \u201CEternal sunshine of the (un)spotless mind. Memoria e individuazione.\u201D <em>L'inconscio</em>, 8(1), 321\u2013339.`},
+
+  {y:2027,t:"book",c:`Pisano, A. (2027). <em>Sentieri oltre il brivido. Un approccio di etica narrativa a Stephen King.</em> Milano\u2013Udine: Mimesis. (in press)`},
+  {y:2026,t:"book",c:`Pisano, A. (2026). <em>Etiche per l'Intelligenza Artificiale. Buone pratiche per un uso consapevole delle nuove tecnologie.</em> Roma: Carocci, collana «Biblioteca di testi e studi» [in press, Sept. 2026].`},
+  {y:2026,t:"book",c:`Pisano, A., Crispini, I., Catarci, T., Carrisi, M.C., Donatelli, P., de la Higuera, C. (2026) (eds.). <em>AI &amp; Ethics Literacy for Teachers: a Textbook.</em> UNICApress.`},
+  {y:2026,t:"book",c:`Pisano, A., Crispini, I., de la Higuera, C., Catarci, T., Carrisi, M.C., Donatelli, P. (2026) (eds.). <em>AI &amp; Ethics Literacy for Teachers: a Textbook.</em> Chaire UNESCO RELIA, Université de Nantes.`},
+
+  {y:2025,t:"review",c:`Pisano, A. (2025). \u201CExistential art, learning to look\u201D (review of A. Piette). <em>Dialoghi Mediterranei</em>.`},
+  {y:2018,t:"review",c:`Pisano, A. (2018). \u201CForme ed etica del tempo in Nietzsche\u201D (review of L. Lupo). <em>Logoi.ph</em>, 12(4), 222\u2013224.`},
+
+  {y:2025,t:"popular",c:`Pisano, A., Lattuada, A. \u201CIl parricidio necessario: la meccanica quantistica tra epistemologia e antropologia (II).\u201D <em>Ritiri filosofici</em>, 2025.`},
+  {y:2024,t:"popular",c:`Pisano, A., Lattuada, A. \u201CIl parricidio necessario: fisica, filosofia ed epistemologia (I).\u201D <em>Ritiri filosofici</em>, 2024.`},
+  {y:2024,t:"popular",c:`Pisano, A. \u201CEtiche per l'IA e il modello del principialismo pratico.\u201D <em>AI Aware</em>, Univ. di Torino\u2013SIpEIA, 2024.`},
+  {y:2024,t:"popular",c:`Pisano, A. \u201CL'algoritmo e l'oracolo\u201D [book review]. <em>AI Aware</em>, 2024.`},
+  {y:2024,t:"popular",c:`Pisano, A. \u201CPerché l'intelligenza umana batte ancora gli algoritmi\u201D [book review]. <em>AI Aware</em>, 2024.`},
+  {y:2024,t:"popular",c:`Pisano, A. \u201CIntelligenza matematica\u201D [book review]. <em>AI Aware</em>, 2024.`},
+  {y:2024,t:"popular",c:`Pisano, A. \u201CFilosofia, cura e correzione cognitiva a partire da Severino.\u201D <em>Ritiri Filosofici</em>, 2024.`},
+  {y:2024,t:"popular",c:`Pisano, A. \u201CLa corona e il campidoglio. Etica e politica tra The Crown e House of Cards.\u201D <em>Ritiri Filosofici</em>, 2024.`},
+  {y:2024,t:"popular",c:`Pisano, A. \u201CIl Prometeo rincatenato. La responsabilità condivisa nell'era dell'IA.\u201D <em>AI Aware</em>, 2024.`},
+  {y:2024,t:"popular",c:`Pisano, A. \u201CE vissero infelici e scontenti. Psicogenesi del male ed empatia negativa.\u201D <em>Ritiri Filosofici</em>, 2024.`},
+  {y:2024,t:"popular",c:`Pisano, A. \u201CCervelli rigidi: spazio a misura di IA e riduzione della complessità.\u201D <em>Ritiri Filosofici</em>, 2024.`},
+  {y:2023,t:"popular",c:`Pisano, A. \u201CL'ospite invisibile. Spazio, privacy e IA.\u201D <em>Ritiri filosofici</em>, 2023.`},
+  {y:2022,t:"popular",c:`Pisano, A. \u201CL'intelligenza artificiale e il corpo assente.\u201D <em>Ritiri Filosofici</em>, 2022.`},
+  {y:2020,t:"popular",c:`Pisano, A. \u201CIl pensiero, l'azione e il discorso. Forme dell'agire etico in Hannah Arendt.\u201D <em>Ritiri filosofici</em>, 2020.`},
+  {y:2023,t:"popular",c:`Mori, M., Catarci, T., Sgreccia, P., Crispini, I., Croce, F., Di Tano, F., Pisano, A., Raffini, D. <em>Trustworthy AI\u2122. Survey 2023. Lo stato dell'arte delle imprese italiane</em>, Deloitte / AbiLab / SIpEIA, 2023.`}
+];
+
+const TALKS = [
+  {cat:"acad",d:"Apr 2026",t:"Genealogies of AI",v:"Pontificia Univ. Antonianum, Rome"},
+  {cat:"acad",d:"Feb 2026",t:"AI & Ethics Literacy in Secondary School: A Pilot Study",v:"1st SIpEIA Conference, Sapienza, Rome (with I. Crispini)"},
+  {cat:"acad",d:"Jan 2026",t:"La Phi-E di Peter Worley: didattica della filosofia tra bias e argomentazione",v:"World Logic Day, Univ. della Calabria"},
+  {cat:"acad",d:"Dec 2025",t:"Algorithms for the Self: biopower and digital citizenship",v:"UBIQ 2025, Univ. di Cassino"},
+  {cat:"acad",d:"Dec 2025",t:"AI & Ethics Literacy: A Pilot Study",v:"2nd WAILS Workshop, Cagliari"},
+  {cat:"acad",d:"Nov 2025",t:"Storicizzazione e de-storicizzazione del pensiero",v:"Round Table with F. Piro, Univ. della Calabria"},
+  {cat:"acad",d:"Oct 2025",t:"AI & Ethics Literacy: from Framework to Empirical Research",v:"IA all'università, Univ. della Calabria"},
+  {cat:"acad",d:"Sep 2025",t:"What is 'AI Ethics'? The Large Ethics Model",v:"Computer Ethics, Tor Vergata, Rome"},
+  {cat:"acad",d:"Jul 2025",t:"Genealogy of the AI",v:"Tecnologia e (in)discipline, Univ. di Palermo"},
+  {cat:"acad",d:"Jul 2025",t:"Aristotle's Algorithm",v:"Intl. Aristotelian Conf., Univ. of Lisbon"},
+  {cat:"acad",d:"Jun 2025",t:"Biopower of Algorithms",v:"10th STS Italian Conference, Politecnico di Milano"},
+  {cat:"acad",d:"Jun 2025",t:"Etiche per l'IA. Il principialismo pratico",v:"Conf. Naz. SIFM, Roma Tre"},
+  {cat:"acad",d:"Mar 2025",t:"Il paradosso della Paideia",v:"XLII Congresso SFI, Taormina"},
+  {cat:"acad",d:"Mar 2025",t:"From Ethics to Literacy",v:"CREN & UNESCO Chair RELIA, Univ. of Nantes"},
+  {cat:"acad",d:"Dec 2024",t:"Etica della sfiducia. Bias e pensiero critico nella Gen-AI",v:"UBIQ 2023, Cassino"},
+  {cat:"acad",d:"Oct 2024",t:"Beyond Principlism. Ethics of care for AI Ethics",v:"Caring, Taking Care, Univ. of Palermo"},
+  {cat:"acad",d:"Sep 2024",t:"Artificial Pervasiveness. The Large Ethics Model",v:"PyTorch Conference, San Francisco CA"},
+  {cat:"acad",d:"Aug 2024",t:"Living into the Turing Test",v:"XXV World Congress of Philosophy, Rome"},
+  {cat:"acad",d:"Jun 2024",t:"Utopy, Ecology and Ethics of Care in Miyazaki",v:"Narratives & Social Sciences, Univ. of Palermo"},
+  {cat:"acad",d:"Jun 2024",t:"Facing Artificial Tyranny",v:"3rd Intl. Conf. Scuola Democratica, Cagliari"},
+  {cat:"acad",d:"May 2024",t:"Etica dell'incertezza",v:"Conf. Naz. SIFM, Roma Tre"},
+  {cat:"acad",d:"Apr 2024",t:"Il linguaggio aletheico",v:"Conf. Naz. SFI, Univ. Cattolica Milano"},
+  {cat:"acad",d:"Feb 2024",t:"Saving Complexity: Ethics and Education in AI",v:"6th PhD Congress, Ca' Foscari / Paris 1"},
+  {cat:"acad",d:"Dec 2023",t:"Why White Holes? Thought and Anthropology in Rovelli",v:"Pontificia Univ. Antonianum, Rome"},
+  {cat:"acad",d:"Dec 2023",t:"Algorithmic Challenges. An Educational Framework",v:"AI.dev / Cassandra Summit, Linux Foundation, San Jose CA"},
+  {cat:"acad",d:"Dec 2023",t:"Why an AI Ethics in Education?",v:"UBIQ 2023, Cassino"},
+  {cat:"acad",d:"Oct 2023",t:"Is AI a Threat for Democracy?",v:"Student Conf. \u201CEuropean Identity\u201D, Univ. of Messina"},
+
+  {cat:"public",d:"Nov 2025",t:"AI & Ethics Literacy. Il metodo dell'etica critica e i risultati della ricerca",v:"Polo Brutium, Cosenza"},
+  {cat:"public",d:"Nov 2025",t:"Perché abbiamo ancora bisogno dei cattivi (?)",v:"Polo Brutium, Cosenza"},
+  {cat:"public",d:"May 2025",t:"Etiche per l'IA: sfide e opportunità delle tecnologie intelligenti",v:"I.C. Belvedere M., Cosenza"},
+  {cat:"public",d:"May 2025",t:"Book presentation: A. Martire, \u201CUn tesoro nell'albero\u201D",v:"Ass. \u201CLa Biblioteca\u201D, Casali del Manco"},
+  {cat:"public",d:"Aug 2024",t:"Tra uomo e cyborg: un'etica dell'IA partendo da Alita",v:"Arena Casali, Cosenza"},
+  {cat:"public",d:"Aug 2024",t:"Distopia e simulazione. L'etica narrativa e il futuro sostenibile",v:"Amantea Comics vol. 6"},
+  {cat:"public",d:"May 2024",t:"Intelligenza Artificiale: algoritmi e società della dipendenza",v:"85° Collegamento Svizzero in Italia"},
+  {cat:"public",d:"May 2024",t:"Sfide algoritmiche. IA, Etica, Educazione",v:"Prize Ceremony for G. Gottlob, Univ. Calabria"},
+  {cat:"public",d:"Feb 2024",t:"Intelligenza Artificiale. Nuovi Scenari Etici",v:"Ass. \u201CThe Library\u201D, Casali del Manco"},
+  {cat:"public",d:"Aug 2022",t:"Il mio vicino Hayao. Nostalgia, apocalisse e filosofia in Miyazaki",v:"Amantea Comics vol. 4"},
+  {cat:"public",d:"Aug 2021",t:"Filosofando con Harry Potter",v:"Amantea Comics vol. 3"},
+  {cat:"public",d:"Jan 2020",t:"Memoria, etica, individuazione",v:"Bruzie's Women Library"},
+  {cat:"public",d:"Oct 2019",t:"Tra Alien e Prometheus. Ridley Scott e le crisi antropocentriche",v:"Ass. \u201CI Cinefamelici\u201D, Casali del Manco"},
+  {cat:"public",d:"Oct 2019",t:"Presentation: N. Benvenuto, \u201C15 milligrammi\u201D",v:"Bruzie Women's Library"},
+  {cat:"public",d:"Aug 2019",t:"Neon Genesis Evangelion. Ethics of relationships and myth structure",v:"Amantea Comics vol. 2"}
+];
+
+const ORGS = [
+  {d:"Feb 2026",b:"Co-organiser — 1st SIpEIA National Conference",v:"Sapienza, Rome · \u2248330 participants"},
+  {d:"Feb 2026",b:"Session Chair — SIpEIA Conference 2026",v:"Session 2 \u2014 \u201CEducation and Sustainability\u201D"},
+  {d:"2024–25",b:"Co-organiser — SIpEIA seminar series",v:"Balsano, Calise, Tamburrini"},
+  {d:"Jun 2025",b:"Co-organiser — \u201CAIEtica su Palafitte\u201D",v:"Univ. della Calabria"},
+  {d:"Apr 2024",b:"Co-organiser — \u201CMoviMenti. Saperi e Pratiche delle donne\u201D",v:"Univ. della Calabria"},
+  {d:"Oct 2024",b:"Session Chair — Caring, Taking Care",v:"Univ. di Palermo"},
+  {d:"May 2019",b:"Co-organiser — Iris Murdoch Study Day",v:"Univ. della Calabria"}
+];
+
+const VIDEOS = [
+  {id:"AS4w-zL7-5I", kIt:"Linux Foundation", kEn:"Linux Foundation", tIt:"Algorithmic Challenges. An Educational Framework", tEn:"Algorithmic Challenges. An Educational Framework", sub:"AI.dev / Cassandra Summit · San Jose, CA"},
+  {id:"AiESUgRuYOI", kIt:"Etica narrativa", kEn:"Narrative ethics", tIt:"Etica narrativa: storie, empatia e la figura del cattivo", tEn:"Narrative ethics: stories, empathy and the villain", sub:"Talk"},
+  {id:"0oQMwz3d4Pg", kIt:"Podcast", kEn:"Podcast", tIt:"Conversazione su IA, etica ed educazione", tEn:"A conversation on AI, ethics and education", sub:"Podcast"}
+];
+
+const REFS = [
+  {n:"Ines Crispini", r:"Full Professor, Moral Philosophy & Bioethics", u:"Università della Calabria", e:"ines.crispini@unical.it"},
+  {n:"Maurizio Mori", r:"Full Professor; President, Bioethics Committee", u:"Università di Torino", e:"maurizio.mori@unito.it"},
+  {n:"Guido Boella", r:"Full Professor, Computer Science; Vice-Rector", u:"Università di Torino", e:"guido.boella@unito.it"},
+  {n:"Tiziana Catarci", r:"Full Professor, Computer Science; Director ISTC", u:"Sapienza / CNR", e:"catarci@diag.uniroma1.it"},
+  {n:"Loredana Cardullo", r:"Full Professor; Director, Dept. of Education", u:"Università di Catania", e:"l.cardullo@unict.it"},
+  {n:"Colin de la Higuera", r:"Full Professor; Director UNESCO Chair RELIA", u:"Université de Nantes", e:"Colin.Delahiguera@univ-nantes.fr"},
+  {n:"Alessio Fabiano", r:"Research Fellow, Didactics & New Technologies", u:"Università della Basilicata", e:"alessio.fabiano@unibas.it"},
+  {n:"Fabrizio Turoldo", r:"Full Professor, Moral Philosophy & Bioethics", u:"Ca' Foscari, Venezia", e:"fturoldo@unive.it"},
+  {n:"Alessio Vaccari", r:"Associate Professor, Moral Philosophy", u:"Sapienza Università di Roma", e:"alessio.vaccari@uniroma1.it"},
+  {n:"Antonella Valenti", r:"Full Professor, Special Education", u:"Università della Calabria", e:"antonella.valenti@unical.it"},
+  {n:"Piergiorgio Donatelli", r:"Full Professor, Moral Philosophy", u:"Sapienza Università di Roma", e:"piergiorgio.donatelli@uniroma1.it"}
+];
+
+/* ---------------- STATE ---------------- */
+let LANG = "it";
+const T = (it,en)=> LANG==="it"? it : en;
+
+/* ---------------- LANGUAGE ---------------- */
+function setLang(l){
+  LANG = l;
+  document.documentElement.lang = l;
+  document.body.classList.toggle("lang-en", l==="en");
+  document.getElementById("btn-it").classList.toggle("on", l==="it");
+  document.getElementById("btn-en").classList.toggle("on", l==="en");
+  document.querySelectorAll("[data-it]").forEach(el=>{ el.innerHTML = l==="it"? el.dataset.it : el.dataset.en; });
+  document.getElementById("pubSearch").placeholder = T("Cerca per titolo, rivista, anno…","Search by title, journal, year…");
+  renderConcepts(); renderActiveConcept();
+  renderTalks(); renderVideos(); renderRefs();
+  applyPubFilter();
+}
+
+/* ---------------- CONCEPTS ---------------- */
+let activeConcept = 0;
+function renderConcepts(){
+  const list = document.getElementById("lexList");
+  list.innerHTML = CONCEPTS.map((c,i)=>`
+    <button class="lex-item ${i===activeConcept?'on':''}" role="tab" aria-selected="${i===activeConcept}" data-i="${i}">
+      <span class="idx">${String(i+1).padStart(2,'0')}</span>
+      <span class="term">${T(c.it,c.en)}<small>${T(c.en,c.it)}</small></span>
+      <span class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </button>`).join("");
+  list.querySelectorAll(".lex-item").forEach(b=>{
+    b.addEventListener("click",()=>{ activeConcept = +b.dataset.i; renderConcepts(); renderActiveConcept(); });
+  });
+}
+function renderActiveConcept(){
+  const c = CONCEPTS[activeConcept];
+  document.getElementById("lexPanel").innerHTML = `
+    <div class="p-k">${String(activeConcept+1).padStart(2,'0')} / ${String(CONCEPTS.length).padStart(2,'0')}</div>
+    <h3>${T(c.it,c.en)}</h3>
+    <div class="p-en">${T(c.en,c.it)}</div>
+    <p>${T(c.dit,c.den)}</p>
+    <div class="rule"></div>`;
+}
+function renderHeroChips(){
+  const wrap = document.getElementById("heroChips");
+  wrap.innerHTML = HERO_CHIP_IDS.map(id=>{
+    const i = CONCEPTS.findIndex(c=>c.id===id); const c = CONCEPTS[i];
+    return `<button class="chip" data-i="${i}"><span class="k">◆</span>${c.it.replace(' — Large Ethics Model','')}</button>`;
+  }).join("");
+  wrap.querySelectorAll(".chip").forEach(ch=>{
+    ch.addEventListener("click",()=>{
+      activeConcept = +ch.dataset.i; renderConcepts(); renderActiveConcept();
+      document.getElementById("concetti").scrollIntoView({behavior:"smooth"});
+    });
+  });
+}
+
+/* ---------------- PUBLICATIONS ---------------- */
+let pubFilter = "all";
+function scholarURL(txt){
+  const clean = txt.replace(/<[^>]+>/g,"").replace(/\[[^\]]*\]/g,"").trim();
+  return "https://scholar.google.com/scholar?q=" + encodeURIComponent(clean.slice(0,180));
+}
+function renderPubs(){
+  const list = document.getElementById("pubList");
+  const sorted = [...PUBS].sort((a,b)=> b.y - a.y);
+  list.innerHTML = sorted.map((p,idx)=>{
+    const tag = p.t==="book"? `<span class="tag book">${T('Libro','Book')}</span>`
+      : p.t==="review"? `<span class="tag review">${T('Recensione','Review')}</span>`
+      : p.t==="popular"? `<span class="tag">${T('Divulgazione','Popular')}</span>` : "";
+    return `<div class="pub" data-t="${p.t}" data-txt="${(p.c.replace(/<[^>]+>/g,'')).toLowerCase().replace(/"/g,'&quot;')}" data-idx="${idx}">
+      <div class="yb">${p.y}</div>
+      <div class="body">
+        <div class="cite">${tag}${p.c}</div>
+        <a class="find" href="${scholarURL(p.c)}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4" stroke-linecap="round"/></svg>
+          <span data-find>${T('Cerca / scarica','Find / download')}</span>
+        </a>
+      </div>
+    </div>`;
+  }).join("");
+}
+function applyPubFilter(){
+  const q = (document.getElementById("pubSearch").value||"").toLowerCase().trim();
+  const items = [...document.querySelectorAll("#pubList .pub")];
+  let shown = 0;
+  items.forEach(it=>{
+    const okType = pubFilter==="all" || it.dataset.t===pubFilter;
+    const okQ = !q || it.dataset.txt.indexOf(q) > -1;
+    const vis = okType && okQ;
+    it.classList.toggle("match", vis);
+    it.classList.toggle("nomatch", !vis);
+  });
+  // collapsing logic
+  const expanded = document.getElementById("pubMore").classList.contains("open");
+  const matches = items.filter(it=>it.classList.contains("match"));
+  matches.forEach((it,i)=>{
+    const hide = (!expanded && !q && pubFilter==="all" && i>=12);
+    it.style.display = hide ? "none" : "flex";
+    it.classList.toggle("hidden", hide);
+    if(!hide) shown++;
+  });
+  items.filter(it=>it.classList.contains("nomatch")).forEach(it=> it.style.display="none");
+  // find-text refresh
+  document.querySelectorAll("[data-find]").forEach(el=> el.textContent = T('Cerca / scarica','Find / download'));
+  const total = matches.length;
+  const cnt = document.getElementById("pubCount");
+  cnt.textContent = T(`${total} pubblicazioni`, `${total} publications`) + (q? T(` · filtro: “${q}”`,` · filter: “${q}”`) : "");
+  const moreBtn = document.getElementById("pubMore").parentElement;
+  moreBtn.style.display = (!q && pubFilter==="all" && total>12) ? "block" : "none";
+  if(!matches.length){
+    if(!document.getElementById("pubEmpty")){
+      const d=document.createElement("div"); d.id="pubEmpty"; d.className="pub-empty";
+      document.getElementById("pubList").appendChild(d);
+    }
+    document.getElementById("pubEmpty").textContent = T("Nessun risultato.","No results.");
+    document.getElementById("pubEmpty").style.display="block";
+  } else if(document.getElementById("pubEmpty")){
+    document.getElementById("pubEmpty").style.display="none";
+  }
+}
+
+/* ---------------- TALKS ---------------- */
+let talkTab = "acad";
+function renderTalks(){
+  const list = document.getElementById("talkList");
+  const items = TALKS.filter(t=>t.cat===talkTab);
+  list.innerHTML = items.map((t,i)=>`
+    <div class="talk" data-i="${i}">
+      <div class="tdate">${t.d}</div>
+      <div class="tinfo"><b>${t.t}</b><span>${t.v}</span></div>
+    </div>`).join("");
+  document.getElementById("orgList").innerHTML = ORGS.map(o=>`
+    <div class="org-item"><div class="od">${o.d}</div><div><b>${o.b}</b> <span>— ${o.v}</span></div></div>`).join("");
+  applyTalkCollapse();
+}
+function applyTalkCollapse(){
+  const expanded = document.getElementById("talkMore").classList.contains("open");
+  const items = [...document.querySelectorAll("#talkList .talk")];
+  items.forEach((it,i)=> it.classList.toggle("hidden", !expanded && i>=10));
+  document.getElementById("talkMore").parentElement.style.display = items.length>10 ? "block":"none";
+}
+
+/* ---------------- VIDEOS ---------------- */
+function renderVideos(){
+  document.getElementById("vidList").innerHTML = VIDEOS.map(v=>`
+    <div class="vid">
+      <div class="vthumb" data-id="${v.id}" role="button" tabindex="0" aria-label="Play video"
+           style="background-image:url('https://i.ytimg.com/vi/${v.id}/hqdefault.jpg')">
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </div>
+      <div class="vmeta">
+        <div class="vk">${T(v.kIt,v.kEn)}</div>
+        <h3>${T(v.tIt,v.tEn)}</h3>
+        <span>${v.sub}</span>
+      </div>
+    </div>`).join("");
+  document.querySelectorAll(".vthumb").forEach(th=>{
+    const load = ()=>{
+      const id = th.dataset.id;
+      th.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      th.style.cursor="default";
+    };
+    th.addEventListener("click", load);
+    th.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); load(); }});
+  });
+}
+
+/* ---------------- REFS ---------------- */
+function renderRefs(){
+  document.getElementById("refsPanel").innerHTML = REFS.map(r=>`
+    <div class="ref"><b>${r.n}</b><span>${r.r} · ${r.u}</span><a href="mailto:${r.e}">${r.e}</a></div>`).join("");
+}
+
+/* ---------------- INIT & LISTENERS ---------------- */
+document.addEventListener("DOMContentLoaded", ()=>{
+  // fill data-it default text
+  document.querySelectorAll("[data-it]").forEach(el=> el.innerHTML = el.dataset.it);
+  renderHeroChips(); renderConcepts(); renderActiveConcept();
+  renderPubs(); applyPubFilter();
+  renderTalks(); renderVideos(); renderRefs();
+  applyLink("scholarLink", LINKS.scholar);
+  applyLink("igLink", LINKS.instagram);
+  applyLink("fbLink", LINKS.facebook);
+  document.getElementById("pubSearch").placeholder = "Cerca per titolo, rivista, anno…";
+
+  // pub filters
+  document.querySelectorAll("#pubFilters .fbtn").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      document.querySelectorAll("#pubFilters .fbtn").forEach(x=>x.classList.remove("on"));
+      b.classList.add("on"); pubFilter=b.dataset.f; applyPubFilter();
+    });
+  });
+  document.getElementById("pubSearch").addEventListener("input", applyPubFilter);
+  document.getElementById("pubMore").addEventListener("click", function(){
+    this.classList.toggle("open");
+    this.setAttribute("aria-expanded", this.classList.contains("open"));
+    const s=this.querySelector("span"); s.setAttribute("data-it", this.classList.contains("open")?"Mostra meno":"Mostra tutte le pubblicazioni");
+    s.setAttribute("data-en", this.classList.contains("open")?"Show less":"Show all publications");
+    s.innerHTML = LANG==="it"? s.dataset.it : s.dataset.en;
+    applyPubFilter();
+  });
+
+  // talk tabs
+  document.querySelectorAll(".talk-tabs .fbtn").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      document.querySelectorAll(".talk-tabs .fbtn").forEach(x=>x.classList.remove("on"));
+      b.classList.add("on"); talkTab=b.dataset.t;
+      document.getElementById("talkMore").classList.remove("open");
+      renderTalks();
+    });
+  });
+  document.getElementById("talkMore").addEventListener("click", function(){
+    this.classList.toggle("open");
+    this.setAttribute("aria-expanded", this.classList.contains("open"));
+    const s=this.querySelector("span");
+    s.setAttribute("data-it", this.classList.contains("open")?"Mostra meno":"Mostra tutti gli interventi");
+    s.setAttribute("data-en", this.classList.contains("open")?"Show less":"Show all talks");
+    s.innerHTML = LANG==="it"? s.dataset.it : s.dataset.en;
+    applyTalkCollapse();
+  });
+
+  // training toggle
+  document.getElementById("trainToggle").addEventListener("click", function(){
+    const p=document.getElementById("trainPanel");
+    const open = p.style.display==="none";
+    p.style.display = open? "block":"none";
+    this.classList.toggle("open", open);
+    this.setAttribute("aria-expanded", open);
+    const s=this.querySelector("span");
+    s.setAttribute("data-it", open?"Nascondi":"Mostra formazione & certificazioni aggiuntive");
+    s.setAttribute("data-en", open?"Hide":"Show additional training & certifications");
+    s.innerHTML = LANG==="it"? s.dataset.it : s.dataset.en;
+  });
+
+  // refs toggle
+  document.getElementById("refsToggle").addEventListener("click", function(){
+    const p=document.getElementById("refsPanel");
+    p.classList.toggle("open"); this.classList.toggle("open");
+    this.setAttribute("aria-expanded", p.classList.contains("open"));
+  });
+
+  // scrollspy
+  const navA = [...document.querySelectorAll(".navlinks a")];
+  const secs = navA.map(a=> document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  const spy = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id = "#"+e.target.id;
+        navA.forEach(a=> a.classList.toggle("active", a.getAttribute("href")===id));
+      }
+    });
+  }, {rootMargin:"-45% 0px -50% 0px", threshold:0});
+  secs.forEach(s=> spy.observe(s));
+
+  // reveal
+  const rev = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); rev.unobserve(e.target);} });
+  }, {threshold:0.08, rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll(".reveal").forEach(el=> rev.observe(el));
+
+  // to top
+  const toTop = document.getElementById("toTop");
+  window.addEventListener("scroll", ()=> toTop.classList.toggle("show", window.scrollY>700), {passive:true});
+  toTop.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
+});
+</script>
+</body>
+</html>
