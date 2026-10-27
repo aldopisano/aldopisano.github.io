@@ -170,6 +170,11 @@ header.top{
 .ong-card h3{font-family:"Fraunces",serif; font-weight:500; font-size:1.32rem; margin:14px 0 8px; color:var(--ink); line-height:1.12}
 .ong-card p{color:var(--slate); font-size:.94rem; margin:0}
 .ong-card .venue{margin-top:12px; font-size:.8rem; color:var(--royal); font-weight:600; letter-spacing:.02em}
+.book-row{display:flex; gap:14px; align-items:flex-start}
+.book-cover{flex:0 0 84px; display:block; margin-top:14px}
+.book-cover img{width:84px; height:auto; display:block; border-radius:3px; box-shadow:0 6px 16px rgba(10,20,40,.25)}
+.book-links{margin-top:8px; display:flex; gap:12px; flex-wrap:wrap; font-size:.8rem; font-weight:600}
+.book-links a{color:var(--royal); text-decoration:underline; text-underline-offset:3px}
 
 /* ---------- concepts / signature ---------- */
 .concepts{background:var(--paper-2)}
@@ -476,11 +481,17 @@ footer.foot b{color:var(--ink); font-weight:600}
         <div class="venue" data-it="Manuale · Formazione · Ricerca empirica" data-en="Handbook · Training · Empirical research"></div>
       </div>
       <div class="ong-card reveal">
-        <span class="ong-badge"><span class="pulse"></span><span data-it="In stampa" data-en="In press"></span></span>
-        <h3>Etiche per l'Intelligenza Artificiale</h3>
-        <p class="it-only">Monografia — <em>Proposte per un uso consapevole delle nuove tecnologie</em> — nella collana «Biblioteca di testi e studi», sul <em>principialismo pratico</em> come approccio misto alla regolamentazione dell'IA.</p>
-        <p class="en-only">A monograph — <em>Good practices for a conscious use of new technologies</em> — in the «Biblioteca di testi e studi» series, on <em>practical principlism</em> as a mixed approach to AI regulation.</p>
-        <div class="venue" data-it="Carocci · Roma · 30 ottobre 2026" data-en="Carocci · Rome · 30 October 2026"></div>
+        <span class="ong-badge"><span class="pulse"></span><span data-it="In libreria" data-en="Out now"></span></span>
+        <div class="book-row">
+          <a class="book-cover" href="https://www.carocci.it/prodotto/etiche-per-lintelligenza-artificiale" target="_blank" rel="noopener"><img src="https://www.carocci.it/wp-content/uploads/2026/10/9788829037674-600x921.jpg" alt="Copertina di Etiche per l'Intelligenza Artificiale (Carocci, 2026)" loading="lazy" width="600" height="921"></a>
+          <div>
+            <h3>Etiche per l'Intelligenza Artificiale</h3>
+            <p class="it-only">Monografia — <em>Proposte per un uso consapevole delle tecnologie</em> — nella collana «Biblioteca di testi e studi», sul <em>principialismo pratico</em> come approccio misto alla regolamentazione dell'IA.</p>
+            <p class="en-only">A monograph — <em>Proposals for a conscious use of technologies</em> — in the «Biblioteca di testi e studi» series, on <em>practical principlism</em> as a mixed approach to AI regulation.</p>
+          </div>
+        </div>
+        <div class="venue" data-it="Carocci · Roma · 30 ottobre 2026 · ISBN 9788829037674" data-en="Carocci · Rome · 30 October 2026 · ISBN 9788829037674"></div>
+        <div class="book-links"><a href="https://www.carocci.it/prodotto/etiche-per-lintelligenza-artificiale" target="_blank" rel="noopener">Carocci</a><a href="https://www.lafeltrinelli.it/etiche-per-intelligenza-artificiale-proposte-libro-aldo-pisano/e/9788829037674" target="_blank" rel="noopener">laFeltrinelli</a><a href="https://www.amazon.it/lintelligenza-artificiale-Proposte-consapevole-tecnologie/dp/8829037672" target="_blank" rel="noopener">Amazon</a></div>
       </div>
       <div class="ong-card reveal">
         <span class="ong-badge"><span class="pulse"></span><span data-it="In stampa" data-en="In press"></span></span>
@@ -903,7 +914,7 @@ const PUBS = [
   {y:2019,t:"article",c:`Pisano, A. (2019). \u201CEternal sunshine of the (un)spotless mind. Memoria e individuazione.\u201D <em>L'inconscio</em>, 8(1), 321\u2013339.`},
 
   {y:2027,t:"book",c:`Pisano, A. (2027). <em>Sentieri oltre il brivido. Un approccio di etica narrativa a Stephen King.</em> Milano\u2013Udine: Mimesis. (in press)`},
-  {y:2026,t:"book",c:`Pisano, A. (2026). <em>Etiche per l'Intelligenza Artificiale. Proposte per un uso consapevole delle nuove tecnologie.</em> Roma: Carocci, collana «Biblioteca di testi e studi». [30 Oct. 2026]`},
+  {y:2026,t:"book",c:`Pisano, A. (2026). <em>Etiche per l'Intelligenza Artificiale. Proposte per un uso consapevole delle tecnologie.</em> Roma: Carocci, collana «Biblioteca di testi e studi», 196 pp., ISBN 9788829037674. <a href="https://www.carocci.it/prodotto/etiche-per-lintelligenza-artificiale" target="_blank" rel="noopener">Carocci</a> · <a href="https://www.lafeltrinelli.it/etiche-per-intelligenza-artificiale-proposte-libro-aldo-pisano/e/9788829037674" target="_blank" rel="noopener">laFeltrinelli</a> · <a href="https://www.amazon.it/lintelligenza-artificiale-Proposte-consapevole-tecnologie/dp/8829037672" target="_blank" rel="noopener">Amazon</a>`},
   {y:2026,t:"book",c:`Pisano, A., Crispini, I., Catarci, T., Carrisi, M.C., Donatelli, P., de la Higuera, C. (2026) (eds.). <em>AI &amp; Ethics Literacy for Teachers. Un manuale per l'educazione all'etica dell'Intelligenza Artificiale nella scuola secondaria di secondo grado.</em> Cagliari: UNICApress. ISBN 978-88-3312-248-9. <a href="https://doi.org/10.13125/unicapress.978-88-3312-248-9" target="_blank" rel="noopener">doi:10.13125/unicapress.978-88-3312-248-9</a> [open access]`},
   {y:2026,t:"book",c:`Pisano, A., Crispini, I., de la Higuera, C., Catarci, T., Carrisi, M.C., Donatelli, P. (2026) (eds.). <em>AI &amp; Ethics Literacy for Teachers: a Textbook.</em> Chaire UNESCO RELIA, Université de Nantes.`},
 
