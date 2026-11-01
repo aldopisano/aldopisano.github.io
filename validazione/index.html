@@ -65,6 +65,14 @@ a.sipeia span:last-child{text-decoration:underline;text-underline-offset:3px}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;font-size:14px;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 img{max-width:100%}
+.join{display:grid;gap:.9rem;margin:.8rem 0 1rem}
+.join label{display:grid;gap:.35rem;font-size:.9rem;font-weight:600;color:var(--muted)}
+.join input,.join select{font:inherit;font-size:1rem;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:.6rem .7rem;width:100%;box-sizing:border-box}
+.join select option{color:#0f1e33}
+.join .row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.join .send{font:inherit;font-weight:700;color:var(--bg);background:var(--accent);border:0;border-radius:4px;padding:.75rem 1rem;cursor:pointer;justify-self:start}
+.join .ok{color:var(--accent);font-weight:700}
+.join input:focus-visible,.join select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -141,17 +149,40 @@ img{max-width:100%}
     </div>
   </section>
 
-  <section class="block">
+  <section class="block" id="aderire">
     <svg class="art" viewBox="0 0 120 100" aria-hidden="true"><rect x="10" y="22" width="84" height="60" rx="4"/><path d="M10 26L52 56L94 26"/><circle class="fs" cx="96" cy="24" r="18"/><circle cx="96" cy="24" r="18"/><path d="M96 16V32M88 24H104"/></svg>
     <div class="txt">
       <div class="tag">Come aderire</div>
-      <h2>Inviate un'email a</h2>
-      <div class="mail">
-        <code id="email">aiethicsliteracy@gmail.com</code>
-        <button type="button" class="copy" id="copy">Copia</button>
-      </div>
-      <p>Nell'email indicate <strong>quante classi terze</strong> potete coinvolgere e <strong>in quale istituto</strong> (nome e indirizzo di studio).</p>
-      <p>Seguiranno tutte le indicazioni operative.</p>
+      <h2>Compilate il modulo</h2>
+      <form class="join" action="https://formsubmit.co/aiethicsliteracy@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Adesione validazione AI&amp;Ethics Literacy for Students">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://aldopisano.github.io/validazione/?grazie=1#aderire">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <label>Nome e cognome del docente<input type="text" name="Docente" required autocomplete="name"></label>
+        <label>Nome della scuola<input type="text" name="Scuola" required></label>
+        <label>Indirizzo di studio
+          <select name="Indirizzo" required>
+            <option value="" disabled selected>Scegliete…</option>
+            <option>Liceo classico o scientifico</option>
+            <option>Altri indirizzi liceali</option>
+            <option>Istituto tecnico</option>
+            <option>Istituto professionale</option>
+          </select></label>
+        <div class="row">
+          <label>Anno della classe
+            <select name="Anno classe" required>
+              <option value="" disabled selected>…</option>
+              <option>1ª</option><option>2ª</option><option>3ª</option><option>4ª</option><option>5ª</option>
+            </select></label>
+          <label>Numero di alunni<input type="number" name="Numero alunni" min="1" max="40" required inputmode="numeric"></label>
+        </div>
+        <label>E-mail di contatto<input type="email" name="email" required autocomplete="email"></label>
+        <button type="submit" class="send">Invia l'adesione</button>
+        <p class="ok" id="ok" hidden>Grazie, adesione ricevuta. Vi scriveremo con le indicazioni operative.</p>
+      </form>
+      <p>Per più classi inviate un modulo per ciascuna. Per domande: <span class="mailto">aiethicsliteracy@gmail.com</span></p>
       <p class="sign">Grazie per il vostro contributo.<br><strong>Il team AI&amp;Ethics Literacy for Students</strong></p>
     </div>
   </section>
@@ -174,12 +205,7 @@ img{max-width:100%}
 </main>
 
 <script>
-document.getElementById('copy').addEventListener('click',function(){
-  var btn=this,el=document.getElementById('email');
-  function ok(){btn.textContent='Copiato';setTimeout(function(){btn.textContent='Copia'},1800)}
-  function fb(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selezionato'}
-  try{navigator.clipboard.writeText(el.textContent).then(ok,fb)}catch(e){fb()}
-});
+if(location.search.indexOf('grazie=1')>-1){var o=document.getElementById('ok');if(o)o.hidden=false;}
 </script>
 </body>
 </html>
