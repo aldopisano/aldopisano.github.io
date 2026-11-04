@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Elementi di intelligenza artificiale</title>
+<meta name="description" content="Capitolo 1 di AI and Ethics Literacy for Students: versione digitale con schede, esercizi e lettura ad alta voce.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Lexend:wght@400;600;700&display=swap">
+<style>
+/* Layout: colonna di lettura con glosse laterali (a lato su schermi larghi, in testa al sottoparagrafo su telefono);
+   barra di accessibilità fissa; viste (capitolo, schede, esercizi, glossario) scelte con #hash. */
+:root{
+  --bg:#f2f6fb; --sheet:#ffffff; --ink:#14233a; --muted:#4b5c75; --line:#d3deec;
+  --heading:#123e7c; --accent:#1f5fae; --accent-ink:#ffffff; --band:#123e7c; --on-band:#ffffff;
+  --key:#2f7d4c; --key-soft:#eaf5ee; --works:#2a8bd0; --works-soft:#e9f3fc;
+  --pause:#1f5fae; --pause-soft:#eef3fb; --hl:#fff2b8; --focus:#e0a400; --ok:#2f7d4c; --ko:#b3261e;
+  --font-body:"Atkinson Hyperlegible", Verdana, Arial, sans-serif;
+  --font-head:"Lexend", "Trebuchet MS", Arial, sans-serif;
+  --fs:1; --lh:1.65; --ls:0em; --ws:0em;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1828; --sheet:#14243b; --ink:#e7edf6; --muted:#a9b8cc; --line:#2c3f5b;
+    --heading:#a9cbf5; --accent:#8db9f2; --accent-ink:#0d1828; --band:#0b2550; --on-band:#ffffff;
+    --key:#6cc28d; --key-soft:#16301f; --works:#6cb8ec; --works-soft:#132b40;
+    --pause:#8db9f2; --pause-soft:#172a45; --hl:#5a4a00; --focus:#ffcc33; --ok:#7bd39b; --ko:#ff8a80;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1828; --sheet:#14243b; --ink:#e7edf6; --muted:#a9b8cc; --line:#2c3f5b;
+  --heading:#a9cbf5; --accent:#8db9f2; --accent-ink:#0d1828; --band:#0b2550; --on-band:#ffffff;
+  --key:#6cc28d; --key-soft:#16301f; --works:#6cb8ec; --works-soft:#132b40;
+  --pause:#8db9f2; --pause-soft:#172a45; --hl:#5a4a00; --focus:#ffcc33; --ok:#7bd39b; --ko:#ff8a80;
+  color-scheme:dark;
+}
+:root[data-contrast="alto"]{
+  --bg:#000000; --sheet:#000000; --ink:#ffffff; --muted:#ffffff; --line:#ffffff;
+  --heading:#ffeb3b; --accent:#9fd3ff; --accent-ink:#000000; --band:#000000; --on-band:#ffeb3b;
+  --key:#7cff7c; --key-soft:#000000; --works:#00e5ff; --works-soft:#000000;
+  --pause:#9fd3ff; --pause-soft:#000000; --hl:#5c4b00; --focus:#ffeb3b; --ok:#7cff7c; --ko:#ff8a80;
+  color-scheme:dark;
+}
+html{font-size:calc(100% * var(--fs))}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:var(--lh);letter-spacing:var(--ls);word-spacing:var(--ws)}
+*,*::before,*::after{box-sizing:border-box}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--band)}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+[tabindex="-1"]:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.salta{position:absolute;left:-999px;top:0;background:var(--sheet);color:var(--ink);padding:.6rem 1rem;z-index:30}
+.salta:focus{left:16px}
+
+/* Testata */
+.testata{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--band);color:var(--on-band);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.5rem}
+.testata-in{max-width:72rem;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
+.marchio{display:flex;align-items:center;gap:.6rem;color:var(--on-band);text-decoration:none;min-width:0}
+.marchio img{width:3.4rem;height:auto;background:#fff;border-radius:6px;padding:.2rem .3rem;display:block}
+.marchio span{font-family:var(--font-head);font-weight:600;font-size:.95rem;line-height:1.2}
+.nav{display:flex;flex-wrap:wrap;gap:.25rem;margin-left:auto}
+.nav a{color:var(--on-band);text-decoration:none;font-family:var(--font-head);font-size:.9rem;padding:.35rem .65rem;border-radius:999px}
+.nav a[aria-current="page"]{background:rgba(255,255,255,.18);text-decoration:underline;text-underline-offset:4px}
+.btn-acc{font:inherit;font-family:var(--font-head);font-size:.9rem;background:#fff;color:#123e7c;border:0;border-radius:999px;padding:.4rem .8rem;cursor:pointer;font-weight:600}
+:root[data-contrast="alto"] .btn-acc{background:#ffeb3b;color:#000}
+
+/* Pannello accessibilità */
+.acc{background:var(--sheet);border-bottom:2px solid var(--line);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.8rem}
+.acc-in{max-width:72rem;margin:0 auto;display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;align-items:center}
+.acc-gr{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.acc-gr .t{font-family:var(--font-head);font-size:.85rem;color:var(--muted);margin-right:.2rem}
+.btn{font:inherit;font-family:var(--font-head);font-size:.9rem;font-weight:600;background:var(--accent);color:var(--accent-ink);border:2px solid var(--accent);border-radius:8px;padding:.45rem .8rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;line-height:1.2}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn[aria-pressed="true"]{background:var(--key);border-color:var(--key);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.piccolo{font-size:.85rem;color:var(--muted);margin:.3rem 0 0}
+#voce-msg{flex-basis:100%}
+
+/* Impianto */
+main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.5rem 3rem}
+.vista{max-width:72rem;margin:0 auto}
+.foglio{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:clamp(1rem,3vw,2.4rem)}
+h1,h2,h3{font-family:var(--font-head);color:var(--heading);text-wrap:balance;line-height:1.2}
+h1{font-size:clamp(1.8rem,5vw,2.6rem);margin:.2rem 0 1rem;font-weight:700}
+h2{font-size:clamp(1.4rem,3.6vw,1.9rem);margin:0;font-weight:700}
+h3{font-size:1.2rem;margin:2rem 0 .6rem;font-weight:600}
+h3 .n{color:var(--muted);font-weight:400;margin-right:.3rem}
+p{margin:.65rem 0}
+.lbl{display:block;font-family:var(--font-head);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.intro{max-width:44rem;color:var(--muted)}
+.riga-btn{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+
+/* Apertura */
+.cap-num{font-family:var(--font-head);font-weight:600;color:var(--key);letter-spacing:.08em;text-transform:uppercase;margin:0}
+.stimolo{margin:1rem 0 1.4rem}
+.scelte{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:.6rem 0}
+@media (max-width:760px){.scelte{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scelta{font:inherit;text-align:left;background:#ffffff;border:2px solid var(--line);border-radius:10px;padding:.5rem;cursor:pointer;display:flex;flex-direction:column;gap:.3rem;color:#14233a}
+.scelta svg{width:100%;height:auto;display:block}
+.scelta-cap{font-size:.92rem;line-height:1.3}
+.scelta-cap b{font-family:var(--font-head);color:#123e7c;margin-right:.2rem}
+.scelta[aria-pressed="true"]{border-color:var(--key);box-shadow:0 0 0 3px var(--key)}
+.domanda{background:var(--pause-soft);border-radius:10px;padding:1rem 1.2rem}
+.domanda-t{font-family:var(--font-head);font-size:1.25rem;font-weight:600;color:var(--heading);margin:.2rem 0}
+.domanda-cap{font-family:var(--font-head);font-size:clamp(1.3rem,3.4vw,1.7rem);font-weight:700;color:var(--heading);text-align:left;margin:1.2rem 0;padding-left:1rem;border-left:6px solid var(--accent)}
+.percorso ol{list-style:none;padding:0;margin:.4rem 0;display:grid;gap:.4rem}
+.percorso a{text-decoration:none;color:var(--ink)}
+.percorso a b{font-family:var(--font-head);color:var(--accent);margin-right:.3rem}
+.legenda ul{list-style:none;padding:0;margin:.4rem 0;display:grid;gap:.35rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.legenda li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.leg-mark{flex:none;width:.4rem;align-self:stretch;border-radius:2px;background:var(--line);min-height:1.4rem}
+.leg-key .leg-mark{background:var(--key)}
+.leg-pausa .leg-mark{background:var(--pause)}
+.leg-scheda .leg-mark{background:var(--heading)}
+.leg-glossa .leg-mark{background:var(--muted)}
+.percorso,.legenda{margin-top:1rem}
+
+/* Paragrafi */
+.par{margin-top:2.6rem;padding-top:1.4rem;border-top:3px solid var(--heading)}
+.par-head{display:grid;gap:.3rem}
+.par-num{font-family:var(--font-head);font-weight:700;color:var(--key);margin:0}
+.par-tools{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+.ponte{font-style:italic;color:var(--muted)}
+.guida{margin:1rem 0;padding:.8rem 1rem;border-radius:10px;background:var(--pause-soft)}
+.guida p{font-family:var(--font-head);font-size:1.15rem;font-weight:600;color:var(--heading);margin:.2rem 0}
+.sotto .testo{display:grid;grid-template-columns:minmax(0,1fr) 15rem;column-gap:2rem;align-items:start}
+.sotto .testo > *{grid-column:1}
+.sotto .testo > h3{grid-column:1 / -1}
+.sotto .glossa{grid-column:2;grid-row:2 / span 40;position:sticky;top:6rem;align-self:start;border-left:3px solid var(--line);padding:.2rem 0 .2rem .9rem;font-size:.95rem;color:var(--muted)}
+.glossa p{margin:.2rem 0}
+@media (max-width:900px){
+  .sotto .testo{display:block}
+  .sotto .glossa{position:static;background:var(--pause-soft);border-left:3px solid var(--muted);border-radius:6px;padding:.5rem .8rem;margin:.4rem 0 .8rem}
+}
+.key{border-left:6px solid var(--key);background:var(--key-soft);border-radius:0 8px 8px 0;padding:.6rem 1rem;margin:1.1rem 0}
+.key .lbl{color:var(--key)}
+.key p{font-weight:700;margin:.2rem 0}
+.pausa{border:2px dashed var(--pause);border-radius:10px;padding:.7rem 1rem;margin:1.1rem 0;background:var(--sheet)}
+.pausa .lbl{color:var(--pause)}
+.nota summary,.descr summary{cursor:pointer;font-family:var(--font-head);font-size:.9rem;color:var(--accent)}
+textarea{width:100%;font:inherit;font-size:1rem;border:2px solid var(--line);border-radius:8px;padding:.6rem;background:var(--sheet);color:var(--ink)}
+.etichetta{font-family:var(--font-head);font-size:.9rem;font-weight:600;display:block;margin-top:.6rem}
+.citazione{margin:1rem 0;padding:.8rem 1rem;border-left:4px solid var(--heading);background:var(--pause-soft);border-radius:0 8px 8px 0}
+.citazione blockquote{margin:0}
+.citazione figcaption{font-size:.85rem;color:var(--muted);margin-top:.4rem}
+.elenco{padding-left:1.3rem}
+.elenco li{margin:.3rem 0}
+.tab-wrap{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;min-width:28rem;font-size:.97rem}
+caption{text-align:left;font-family:var(--font-head);font-weight:600;color:var(--heading);padding-bottom:.4rem}
+th,td{border-bottom:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top}
+thead th{font-family:var(--font-head);font-size:.85rem;color:var(--muted)}
+tbody th{font-family:var(--font-head);color:var(--heading)}
+.fig{margin:1.2rem 0}
+.fig-img{background:#ffffff;border:1px solid var(--line);border-radius:10px;padding:.8rem;max-width:36rem}
+.fig-img svg{width:100%;height:auto;display:block}
+.fig figcaption{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+.scheda-ref{margin:1rem 0;padding:.6rem .9rem;border:1px solid var(--line);border-radius:10px;display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.scheda-ref .lbl{flex-basis:100%}
+.scheda-link{text-decoration:none;font-weight:700;display:inline-flex;gap:.4rem;align-items:baseline}
+.cod{font-family:var(--font-head);font-size:.8rem;font-weight:700;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:.05rem .35rem}
+.kw{font:inherit;font-weight:700;color:inherit;background:none;border:0;padding:0;border-bottom:2px dotted var(--accent);cursor:help}
+.kw-def{display:block;margin:.3rem 0 .5rem;padding:.4rem .7rem;border-radius:6px;background:var(--pause-soft);font-size:.95rem;font-weight:400}
+.readable.letto{background:var(--hl);border-radius:4px;outline:2px solid var(--focus)}
+body.ascolto .readable{cursor:pointer}
+body.ascolto .readable:hover{background:var(--pause-soft)}
+
+/* Sintesi */
+.mappa{list-style:none;padding:0;margin:1rem 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.7rem;counter-reset:m}
+@media (max-width:900px){.mappa{grid-template-columns:minmax(0,1fr)}}
+.mappa li{counter-increment:m;background:var(--pause-soft);border-top:5px solid var(--heading);border-radius:8px;padding:.7rem .8rem;font-size:.97rem;position:relative}
+.mappa li::before{content:counter(m);font-family:var(--font-head);font-weight:700;font-size:1.4rem;color:var(--heading);display:block}
+.mappa .sez{display:block;font-family:var(--font-head);font-size:.78rem;color:var(--muted)}
+.finale{margin:1.4rem 0;padding:1rem 1.2rem;border-radius:10px;background:var(--pause-soft)}
+.opere ul{list-style:none;padding:0;display:grid;gap:.8rem;margin:.6rem 0}
+.opere li{border-left:6px solid var(--works);background:var(--works-soft);border-radius:0 8px 8px 0;padding:.6rem 1rem}
+.opere .tipo{font-family:var(--font-head);font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--works)}
+.opere .tit{font-weight:700;margin:.15rem 0}
+.opere p{margin:.2rem 0}
+
+/* Schede ed esercizi */
+.schede-grid{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}
+.scheda-card{display:flex;flex-direction:column;gap:.3rem;height:100%;padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--sheet);text-decoration:none;color:var(--ink)}
+.scheda-card .cod{align-self:flex-start}
+.scheda-card .t{font-family:var(--font-head);font-weight:600;color:var(--heading)}
+.scheda-card .p{font-size:.85rem;color:var(--muted)}
+.cod-grande{font-family:var(--font-head);font-weight:600;color:var(--key);margin:0}
+.scheda .scheda-corpo{max-width:46rem}
+.scheda-fig{margin:1rem 0}
+.def{list-style:none;padding:0;display:grid;gap:.6rem;counter-reset:d}
+.def li{border-left:5px solid var(--heading);background:var(--pause-soft);border-radius:0 8px 8px 0;padding:.5rem .9rem}
+.def-q{font-style:italic;margin:.1rem 0}
+.def-a{font-weight:700;margin:.1rem 0}
+.tre{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+@media (max-width:700px){.tre{grid-template-columns:minmax(0,1fr)}}
+.col3{border-top:5px solid var(--heading);background:var(--pause-soft);border-radius:8px;padding:.6rem .8rem}
+.timeline{list-style:none;padding:0;margin:1rem 0;border-left:3px solid var(--heading)}
+.timeline li{position:relative;padding:.2rem 0 .5rem 1.2rem}
+.timeline li::before{content:"";position:absolute;left:-.55rem;top:.55rem;width:.8rem;height:.8rem;border-radius:50%;background:var(--key);border:2px solid var(--sheet)}
+.timeline .anno{font-family:var(--font-head);font-weight:700;color:var(--heading)}
+.timeline p{margin:.1rem 0}
+.nota-s{border-left:4px solid var(--key);padding-left:.8rem}
+.fonte{font-size:.85rem;color:var(--muted);margin-top:1.4rem}
+.esercizio{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}
+.esercizio h2{font-size:1.3rem}
+.es-voce{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.es-voce:last-child{border-bottom:0}
+.es-voce select{font:inherit;padding:.35rem;border:2px solid var(--line);border-radius:6px;background:var(--sheet);color:var(--ink);max-width:100%}
+.fb{margin:.3rem 0 0;font-size:.95rem}
+.fb.ok{color:var(--ok)} .fb.ko{color:var(--ko)}
+.fb.ok::before{content:"✓ ";font-weight:700} .fb.ko::before{content:"✗ ";font-weight:700}
+.vf-r{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.3rem}
+.vf-r label{display:inline-flex;gap:.3rem;align-items:center;cursor:pointer}
+.ordina{list-style:none;padding:0;display:grid;gap:.4rem}
+.ordina li{display:flex;align-items:center;gap:.5rem;border:1px solid var(--line);border-radius:8px;padding:.4rem .6rem;background:var(--pause-soft)}
+.ordina li span{flex:1;min-width:0}
+.ordina button{font:inherit;width:2.2rem;height:2.2rem;border-radius:6px;border:2px solid var(--accent);background:var(--sheet);color:var(--accent);cursor:pointer}
+.risposte{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+@media (max-width:700px){.risposte{grid-template-columns:minmax(0,1fr)}}
+.risposta{font:inherit;text-align:left;border:2px solid var(--line);border-radius:10px;padding:.7rem .9rem;background:var(--sheet);color:var(--ink);cursor:pointer}
+.risposta b{font-family:var(--font-head);color:var(--heading)}
+.risposta[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent)}
+.opzioni{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
+.barre{display:grid;gap:.3rem;margin:.6rem 0;max-width:34rem}
+.barra{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:.6rem;align-items:center;font-size:.95rem}
+.barra .b{height:1rem;border-radius:3px;background:var(--accent);min-width:2px}
+.barra.scelta-tua .b{background:var(--key)}
+.barra .v{font-variant-numeric:tabular-nums;font-weight:700;margin-left:.4rem}
+.barra .bw{display:flex;align-items:center}
+.proposta{border-left:4px solid var(--key);padding-left:.8rem;margin:.4rem 0}
+.glossario{display:grid;gap:.2rem}
+.voce{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.voce dt{font-family:var(--font-head);font-weight:600;color:var(--heading)}
+.voce dd{margin:.2rem 0 0}
+footer.piede{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+.piede-in{max-width:72rem;margin:0 auto}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<a class="salta" href="#capitolo">Vai al testo</a>
+<header class="testata">
+  <div class="testata-in">
+    <a class="marchio" href="#capitolo"><img src="logo-ael.jpg" alt="AI and Ethics Literacy" width="720" height="381"><span>for Students<br>Capitolo 1</span></a>
+    <nav class="nav" aria-label="Sezioni">
+      <a href="#capitolo" data-nav="capitolo">Leggi</a>
+      <a href="#schede" data-nav="schede">Schede</a>
+      <a href="#esercizi" data-nav="esercizi">Esercizi</a>
+      <a href="#glossario" data-nav="glossario">Glossario</a>
+    </nav>
+    <button type="button" class="btn-acc" id="apri-acc" aria-expanded="true" aria-controls="acc">Accessibilità</button>
+  </div>
+</header>
+<div class="acc" id="acc" role="region" aria-label="Accessibilità">
+  <div class="acc-in">
+    <div class="acc-gr" role="group" aria-label="Dimensione del testo">
+      <span class="t">Testo</span>
+      <button type="button" class="btn ghost" id="fs-meno" aria-label="Riduci il testo">A−</button>
+      <button type="button" class="btn ghost" id="fs-norm" aria-label="Testo normale">A</button>
+      <button type="button" class="btn ghost" id="fs-piu" aria-label="Ingrandisci il testo">A+</button>
+    </div>
+    <div class="acc-gr">
+      <button type="button" class="btn ghost" id="spazi" aria-pressed="false">Spaziatura ampia</button>
+      <button type="button" class="btn ghost" id="contrasto" aria-pressed="false">Alto contrasto</button>
+    </div>
+    <div class="acc-gr" role="group" aria-label="Lettura ad alta voce">
+      <span class="t">Voce</span>
+      <button type="button" class="btn ghost" id="ascolto" aria-pressed="false">Leggi al clic</button>
+      <button type="button" class="btn ghost" id="ferma">■ Ferma</button>
+      <label class="t" for="velocita">Velocità</label>
+      <input type="range" id="velocita" min="0.7" max="1.3" step="0.1" value="1">
+    </div>
+    <p class="piccolo" id="voce-msg" aria-live="polite">Con «Leggi al clic» attivo, premi un paragrafo per ascoltarlo. Anche il tasto Invio funziona.</p>
+  </div>
+</div>
+
+<main id="main" lang="it">
+  <div class="vista" data-view="capitolo" id="capitolo">
+    <article class="foglio">
+      
+<section class="apertura" id="apertura" aria-labelledby="cap-t">
+  <p class="cap-num">Capitolo 1</p>
+  <h1 id="cap-t" class="readable">Elementi di intelligenza artificiale</h1>
+  <div class="stimolo">
+    <p class="lbl">Stimolo</p>
+    <p class="readable">Osserva le quattro immagini.</p>
+    <div class="scelte" role="group" aria-label="Le quattro immagini: premi per sceglierne una o più"><button type="button" class="scelta" data-scelta="A" aria-pressed="false"><span class="scelta-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-label="Un robot chirurgico: una colonna con tre bracci articolati che terminano con strumenti sottili, sospesi sopra un lettino operatorio con una persona coperta da un telo." focusable="false" >
+<line x1="8" y1="170" x2="232" y2="170" stroke="#8a9bb3" stroke-width="2"/>
+<rect x="16" y="120" width="146" height="10" rx="3" fill="#123e7c"/>
+<rect x="80" y="130" width="14" height="36" fill="#1f5fae"/>
+<rect x="60" y="164" width="54" height="6" rx="2" fill="#123e7c"/>
+<path d="M28 120 C 34 104 56 104 60 111 C 76 106 124 104 156 112 L 156 120 Z" fill="#b9d6b0"/>
+<circle cx="38" cy="106" r="9" fill="#d8c2ae"/>
+<rect x="188" y="34" width="26" height="132" rx="6" fill="#123e7c"/>
+<rect x="178" y="160" width="46" height="10" rx="3" fill="#1f5fae"/>
+<rect x="183" y="26" width="36" height="14" rx="5" fill="#1f5fae"/>
+<polyline points="192,48 152,34 114,62" fill="none" stroke="#1f5fae" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="114" y1="62" x2="114" y2="106" stroke="#14233a" stroke-width="3" stroke-linecap="round"/>
+<polyline points="192,70 162,66 130,86" fill="none" stroke="#1f5fae" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="130" y1="86" x2="130" y2="108" stroke="#14233a" stroke-width="3" stroke-linecap="round"/>
+<polyline points="192,92 154,98 98,78" fill="none" stroke="#1f5fae" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="98" y1="78" x2="98" y2="106" stroke="#14233a" stroke-width="3" stroke-linecap="round"/>
+<circle cx="152" cy="34" r="5" fill="#7fb0db"/><circle cx="114" cy="62" r="5" fill="#7fb0db"/>
+<circle cx="162" cy="66" r="5" fill="#7fb0db"/><circle cx="130" cy="86" r="5" fill="#7fb0db"/>
+<circle cx="154" cy="98" r="5" fill="#7fb0db"/><circle cx="98" cy="78" r="5" fill="#7fb0db"/>
+<circle cx="201" cy="60" r="4" fill="#3f8f5c"/></svg></span><span class="scelta-cap"><b>A</b> Robot chirurgico</span></button><button type="button" class="scelta" data-scelta="B" aria-pressed="false"><span class="scelta-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-label="Un robot dalla forma umana: testa con una visiera luminosa, busto, braccia e gambe articolate." focusable="false" >
+<line x1="8" y1="172" x2="232" y2="172" stroke="#8a9bb3" stroke-width="2"/>
+<line x1="120" y1="18" x2="120" y2="9" stroke="#123e7c" stroke-width="3"/>
+<circle cx="120" cy="7" r="4" fill="#3f8f5c"/>
+<rect x="95" y="18" width="50" height="40" rx="14" fill="#123e7c"/>
+<rect x="103" y="30" width="34" height="13" rx="6.5" fill="#7fb0db"/>
+<circle cx="113" cy="36.5" r="3" fill="#ffffff"/><circle cx="127" cy="36.5" r="3" fill="#ffffff"/>
+<rect x="113" y="58" width="14" height="9" fill="#1f5fae"/>
+<rect x="88" y="66" width="64" height="56" rx="12" fill="#1f5fae"/>
+<circle cx="120" cy="88" r="8" fill="#3f8f5c"/>
+<rect x="104" y="104" width="32" height="5" rx="2.5" fill="#7fb0db"/>
+<polyline points="90,76 72,98 68,122" fill="none" stroke="#123e7c" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="150,76 168,98 172,122" fill="none" stroke="#123e7c" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="72" cy="98" r="5" fill="#7fb0db"/><circle cx="168" cy="98" r="5" fill="#7fb0db"/>
+<circle cx="68" cy="127" r="6" fill="#7fb0db"/><circle cx="172" cy="127" r="6" fill="#7fb0db"/>
+<rect x="96" y="121" width="48" height="13" rx="4" fill="#123e7c"/>
+<rect x="100" y="134" width="15" height="30" rx="5" fill="#1f5fae"/>
+<rect x="125" y="134" width="15" height="30" rx="5" fill="#1f5fae"/>
+<rect x="95" y="162" width="23" height="9" rx="3" fill="#123e7c"/>
+<rect x="122" y="162" width="23" height="9" rx="3" fill="#123e7c"/></svg></span><span class="scelta-cap"><b>B</b> Robot umanoide</span></button><button type="button" class="scelta" data-scelta="C" aria-pressed="false"><span class="scelta-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-label="La finestra di un chatbot su uno schermo: una domanda scritta da una persona e una risposta generata dal sistema, con una barra per scrivere un nuovo messaggio." focusable="false" >
+<rect x="18" y="12" width="204" height="156" rx="10" fill="#ffffff" stroke="#123e7c" stroke-width="3"/>
+<path d="M18 22 a10 10 0 0 1 10 -10 h184 a10 10 0 0 1 10 10 v12 h-204 Z" fill="#123e7c"/>
+<circle cx="32" cy="23" r="3" fill="#7fb0db"/><circle cx="41" cy="23" r="3" fill="#7fb0db"/><circle cx="50" cy="23" r="3" fill="#b9d6b0"/>
+<rect x="92" y="44" width="118" height="26" rx="11" fill="#7fb0db"/>
+<text x="151" y="61.5" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11.5" fill="#14233a">Che cos'è l'IA?</text>
+<rect x="30" y="80" width="146" height="46" rx="11" fill="#e6eff9"/>
+<rect x="40" y="90" width="122" height="5" rx="2.5" fill="#8a9bb3"/>
+<rect x="40" y="101" width="108" height="5" rx="2.5" fill="#8a9bb3"/>
+<rect x="40" y="112" width="84" height="5" rx="2.5" fill="#8a9bb3"/>
+<rect x="30" y="138" width="156" height="20" rx="10" fill="#ffffff" stroke="#8a9bb3" stroke-width="1.5"/>
+<text x="42" y="151.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#8a9bb3">Scrivi un messaggio…</text>
+<circle cx="200" cy="148" r="11" fill="#3f8f5c"/>
+<path d="M195 148 h10 m-4 -4 l4 4 l-4 4" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="scelta-cap"><b>C</b> Chatbot basato su un large language model</span></button><button type="button" class="scelta" data-scelta="D" aria-pressed="false"><span class="scelta-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-label="Una calcolatrice tascabile con un display che mostra 3,14159 e una tastiera di numeri e operazioni." focusable="false" >
+<rect x="72" y="10" width="96" height="164" rx="12" fill="#123e7c"/>
+<rect x="82" y="22" width="76" height="32" rx="4" fill="#dcebd6"/>
+<text x="153" y="44" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="15" font-weight="700" fill="#14233a">3,14159</text>
+<rect x="84" y="64" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="103" y="64" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="122" y="64" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="141" y="64" width="16" height="16" rx="3" fill="#3f8f5c"/><rect x="84" y="84" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="103" y="84" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="122" y="84" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="141" y="84" width="16" height="16" rx="3" fill="#3f8f5c"/><rect x="84" y="104" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="103" y="104" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="122" y="104" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="141" y="104" width="16" height="16" rx="3" fill="#3f8f5c"/><rect x="84" y="124" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="103" y="124" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="122" y="124" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="141" y="124" width="16" height="16" rx="3" fill="#3f8f5c"/><rect x="84" y="144" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="103" y="144" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="122" y="144" width="16" height="16" rx="3" fill="#7fb0db"/><rect x="141" y="144" width="16" height="16" rx="3" fill="#3f8f5c"/></svg></span><span class="scelta-cap"><b>D</b> Calcolatrice</span></button></div>
+    <div class="domanda">
+      <p class="readable domanda-t">Quale di queste è un&#x27;intelligenza artificiale? Una sola, più di una, nessuna?</p>
+      <p class="readable">Scrivi la tua risposta, oppure dilla a voce, prima di andare avanti. La ritroverai alla fine del capitolo.</p>
+      <div class="riga-btn">
+        <button type="button" class="btn ghost" id="nessuna" aria-pressed="false">Nessuna delle quattro</button>
+        <p class="piccolo" id="scelta-stato" aria-live="polite">Premi una o più immagini per scegliere. La scelta resta solo su questo dispositivo.</p>
+      </div>
+    </div>
+  </div>
+  <p class="readable">Molte persone scelgono il robot umanoide: è l'immagine che film, fumetti e pubblicità ci hanno consegnato. Altre scelgono il chatbot, perché risponde con le parole. Poche pensano alla calcolatrice, che pure risolve in un istante calcoli che un tempo richiedevano una persona esperta.</p><p class="readable">Ognuna di queste risposte nasce da un'idea di che cosa sia l'intelligenza artificiale. Questo capitolo prova a mettere in ordine quelle idee, a partire da una domanda semplice solo in apparenza.</p>
+  <p class="domanda-cap readable">Che cos&#x27;è l&#x27;intelligenza artificiale?</p>
+  <div class="percorso"><p class="lbl">Il percorso del capitolo</p><ol><li><a href="#p1-1"><b>1.1</b> Non è un robot: che cosa studia l&#x27;intelligenza artificiale</a></li><li><a href="#p1-2"><b>1.2</b> «Le macchine possono pensare?»: da dove viene la domanda</a></li><li><a href="#p1-3"><b>1.3</b> Come funziona davvero: dati, modelli, previsioni</a></li></ol></div>
+  <div class="legenda"><p class="lbl">Come leggere questo capitolo</p><ul><li class="leg-key"><span class="leg-mark" aria-hidden="true"></span><b>Concetto chiave</b>: la linea verde segna l&#x27;idea da ricordare</li><li class="leg-pausa"><span class="leg-mark" aria-hidden="true"></span><b>Pausa per pensare</b>: fermati e rispondi, per iscritto o a voce</li><li class="leg-scheda"><span class="leg-mark" aria-hidden="true"></span><b>Scheda online</b>: dieci righe di approfondimento: inquadra il codice e torna subito al testo</li><li class="leg-glossa"><span class="leg-mark" aria-hidden="true"></span><b>Glossa</b>: a lato, in breve, che cosa dice ogni parte del paragrafo</li></ul></div>
+</section><section class="par" id="p1-1" aria-labelledby="p1-1-t"><header class="par-head"><p class="par-num">§ 1.1</p><h2 id="p1-1-t" class="readable">Non è un robot: l'intelligenza artificiale come disciplina</h2><div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="p1-1"><span aria-hidden="true">▶</span> Ascolta il paragrafo</button><a class="btn ghost" href="#esercizi-1-1">Esercizi del § 1.1</a></div></header><div class="guida"><span class="lbl">Domanda-guida</span><p class="readable">Se l'intelligenza artificiale non è il robot dei film, che cos'è?</p></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.1.1</span> Un nome che inganna</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Il nome «intelligenza artificiale» è una metafora: suggerisce una mente, ma indica un campo di studi.</p></aside><p class="readable">L'espressione «intelligenza artificiale» compare per la prima volta nel 1955, in una proposta di ricerca firmata da quattro scienziati statunitensi: John McCarthy, Marvin Minsky, Nathaniel Rochester e Claude Shannon. Su quella proposta si tornerà nel paragrafo 1.2. Per ora conta un fatto: il nome fu scelto per indicare un programma di ricerca, non un oggetto.</p><p class="readable">Le due parole che lo compongono, però, portano con sé molto di più. «Intelligenza» fa pensare a una mente che capisce, sceglie, prova emozioni. «Artificiale» fa pensare a qualcosa di costruito, che imita la natura. Messe insieme suggeriscono l'immagine di una mente fabbricata: un cervello di metallo, un androide che pensa come noi. È l'immagine che il cinema ha reso familiare.</p><p class="readable">Un nome, dunque, non è mai solo un'etichetta: orienta le aspettative di chi lo ascolta. Che cosa ci aspettiamo da una macchina «intelligente»? Che capisca? Che decida al posto nostro? Che ci somigli? Per questo il primo passo per studiare l'intelligenza artificiale è guardare con attenzione alle parole con cui ne parliamo.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.1.2</span> Una disciplina, come la matematica</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">L'IA è una disciplina: studia e progetta sistemi capaci di svolgere compiti specifici.</p></aside><p class="readable">L'intelligenza artificiale (IA) è prima di tutto una <button type="button" class="kw" data-term="Disciplina" aria-expanded="false">disciplina</button>, come la matematica, la linguistica o la biologia. Ha un oggetto di studio, dei metodi, una storia e una comunità di persone che fanno ricerca e insegnano. Il suo obiettivo è progettare sistemi capaci di svolgere compiti che, se svolti da una persona, richiederebbero qualche forma di intelligenza: riconoscere un volto in una foto, tradurre una frase, prevedere il traffico, suggerire una canzone, scrivere un testo.</p><p class="readable">Ogni sistema, però, è costruito per <button type="button" class="kw" data-term="Compiti specifici" aria-expanded="false">compiti specifici</button>. Un programma che traduce bene non sa per questo guidare un'automobile; un programma che gioca a scacchi meglio di qualunque campione non sa riconoscere un gatto in una fotografia.</p><p class="readable">Come ogni disciplina, l'IA dialoga con le altre: con l'informatica e la matematica, che forniscono gli strumenti; con la statistica, che insegna a ragionare sui dati; con la linguistica, la psicologia e le neuroscienze, che studiano il linguaggio e la mente; con la filosofia e l'etica, che si chiedono che cosa significhi pensare e come usare questi sistemi in modo giusto. Questo libro si colloca proprio nell'ultimo di questi incroci.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">L'intelligenza artificiale non è un oggetto con una forma riconoscibile: è una disciplina che progetta sistemi capaci di svolgere compiti specifici.</p></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.1.3</span> Automazione, robotica, intelligenza artificiale</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Automazione, robotica e IA sono tre cose diverse, che a volte si combinano nello stesso dispositivo.</p></aside><p class="readable">Per capire che cosa sia un sistema di IA conviene distinguerlo da due parole vicine.</p><p class="readable">L'<button type="button" class="kw" data-term="Automazione" aria-expanded="false">automazione</button> riguarda le macchine che eseguono sempre la stessa sequenza di operazioni, stabilita in anticipo da chi le ha progettate: una lavatrice con programmi fissi, un semaforo a tempo, una calcolatrice. Se premi «2 + 2», la calcolatrice applica una regola e restituisce sempre 4.</p><p class="readable">La <button type="button" class="kw" data-term="Robotica" aria-expanded="false">robotica</button> riguarda le macchine dotate di un corpo, che si muovono e agiscono nel mondo fisico: bracci meccanici, droni, robot di magazzino. Un robot può essere guidato da una persona, ripetere movimenti programmati oppure usare componenti di IA, per esempio per riconoscere gli oggetti che ha davanti.</p><p class="readable">Un <button type="button" class="kw" data-term="Sistema di IA" aria-expanded="false">sistema di IA</button>, invece, non si limita a eseguire istruzioni fisse: a partire dai dati che riceve ricava come produrre un risultato, per esempio una previsione, un testo o un consiglio. E non ha bisogno di un corpo: il traduttore sul telefono e il filtro che separa la posta indesiderata sono sistemi di IA senza braccia né gambe.</p><div class="tab-wrap"><table><caption>Tre parole a confronto</caption><thead><tr><th scope="col"></th><th scope="col">Che cosa fa</th><th scope="col">Esempi</th><th scope="col">Ha un corpo?</th></tr></thead><tbody><tr><th scope="row">Automazione</th><td>Ripete operazioni stabilite in anticipo</td><td>Calcolatrice, semaforo a tempo</td><td>Non per forza</td></tr><tr><th scope="row">Robotica</th><td>Agisce nel mondo fisico</td><td>Braccio meccanico, drone</td><td>Sì</td></tr><tr><th scope="row">Sistema di IA</th><td>Ricava dai dati come produrre un risultato</td><td>Traduttore automatico, filtro antispam</td><td>No</td></tr></tbody></table></div><p class="readable">Torniamo alle quattro immagini. La calcolatrice (D) è un esempio di automazione: esegue regole fisse. Il robot chirurgico (A) e il robot umanoide (B) sono robot, e il loro corpo, da solo, non dice nulla di ciò che contengono. Molti robot chirurgici in uso negli ospedali sono comandati passo passo da chi opera, seduto a una console: rendono i movimenti più precisi, ma non decidono l'intervento. Un robot umanoide può essere telecomandato, ripetere gesti programmati oppure contenere sistemi di IA che riconoscono voci e volti. Il chatbot (C) è l'unico dei quattro che è certamente un sistema di IA, ed è anche l'unico senza corpo.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Dall'aspetto di una macchina non si capisce se contiene un sistema di IA: bisogna chiedersi che cosa fa e come lo fa.</p></div><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">Ripensa alla risposta che hai dato all'inizio. Quale immagine avevi scelto? Che cosa ti ha guidato: la forma della macchina o quello che fa?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-1">La tua risposta</label><textarea id="pausa-1" data-store="pausa-1" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.1.4</span> Che cosa dice la legge</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Per l'AI Act un sistema di IA «deduce» dall'input come generare un output: è questo che lo distingue.</p></aside><p class="readable">Dal 2024 l'Unione europea ha una legge sull'intelligenza artificiale, il Regolamento (UE) 2024/1689, noto come <button type="button" class="kw" data-term="AI Act" aria-expanded="false">AI Act</button>. Per stabilire a quali sistemi si applica, la legge doveva prima definirli. Ecco la definizione, all'articolo 3:</p><figure class="citazione"><blockquote class="readable">«sistema di IA»: un sistema automatizzato progettato per funzionare con livelli di autonomia variabili e che può presentare adattabilità dopo la diffusione e che, per obiettivi espliciti o impliciti, deduce dall'input che riceve come generare output quali previsioni, contenuti, raccomandazioni o decisioni che possono influenzare ambienti fisici o virtuali.</blockquote><figcaption>Regolamento (UE) 2024/1689, art. 3, punto 1</figcaption></figure><p class="readable">La frase è lunga, ma il suo centro è un verbo: <em>deduce</em>. Un sistema di IA riceve dei dati, l'input, e ricava da essi come produrre un risultato, l'output. È proprio ciò che la calcolatrice non fa: lei applica una regola già scritta. In parole semplici, un sistema di IA:</p><ul class="elenco"><li class="readable">lavora con un certo grado di autonomia, senza che una persona intervenga a ogni passo;</li><li class="readable">può cambiare comportamento dopo essere stato messo in uso;</li><li class="readable">produce previsioni, contenuti, raccomandazioni o decisioni;</li><li class="readable">con questi risultati ha effetti sul mondo, fisico o digitale.</li></ul><p class="readable">Anche una definizione di legge, però, è una scelta. Decidere che cosa conta come IA significa decidere quali sistemi devono rispettare certe regole e quali no. Le definizioni orientano le aspettative, le paure e le responsabilità di chi progetta e di chi usa questi sistemi. Nel capitolo 3 si vedrà come l'AI Act distingua i sistemi in base ai rischi che comportano.</p><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s1-1-a" href="#scheda-s1-1-a"><span class="cod">S1.1-a</span> La definizione di legge, frase per frase</a><a class="scheda-link" id="rif-s1-1-b" href="#scheda-s1-1-b"><span class="cod">S1.1-b</span> Automazione, robotica, IA: esempi quotidiani</a></aside></div></div></section><section class="par" id="p1-2" aria-labelledby="p1-2-t"><header class="par-head"><p class="par-num">§ 1.2</p><h2 id="p1-2-t" class="readable">«Le macchine possono pensare?»: una domanda che nasce storta</h2><div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="p1-2"><span aria-hidden="true">▶</span> Ascolta il paragrafo</button><a class="btn ghost" href="#esercizi-1-2">Esercizi del § 1.2</a></div></header><p class="ponte readable">Abbiamo visto che l'IA è una disciplina e che il suo nome orienta le aspettative. Ora ci chiediamo da dove venga l'idea di una macchina che pensa.</p><div class="guida"><span class="lbl">Domanda-guida</span><p class="readable">Imitare una persona significa essere come lei?</p></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.2.1</span> Una domanda del 1950</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Nel 1950 Alan Turing propone di sostituire la domanda «le macchine possono pensare?» con un esperimento.</p></aside><p class="readable">Nel 1950 il matematico inglese Alan Turing pubblica sulla rivista di filosofia «Mind» un articolo intitolato <em>Computing Machinery and Intelligence</em>. Durante la Seconda guerra mondiale Turing aveva lavorato alla decifrazione dei codici militari tedeschi ed era tra i pionieri dei calcolatori elettronici. L'articolo si apre con una frase diventata celebre: «Propongo di considerare la domanda: “Le macchine possono pensare?”».</p><p class="readable">Subito dopo, però, Turing fa una mossa inattesa. Osserva che per rispondere bisognerebbe definire che cosa significano «macchina» e «pensare», e che queste parole sono troppo vaghe. Più avanti arriva a scrivere che la domanda di partenza gli sembra «troppo priva di senso per meritare una discussione». Propone allora di sostituirla con un'altra, a cui si può rispondere con un esperimento.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.2.2</span> Il gioco dell'imitazione</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">La macchina supera la prova se chi interroga, per iscritto, non la distingue da una persona.</p></aside><p class="readable">L'esperimento si chiama <button type="button" class="kw" data-term="Gioco dell&#x27;imitazione" aria-expanded="false">gioco dell'imitazione</button> ed è oggi noto come test di Turing. Funziona così. Una persona, chi interroga, comunica per iscritto con due interlocutori che non può vedere: uno è un essere umano, l'altro è una macchina. Può fare tutte le domande che vuole; le risposte arrivano scritte, così che né la voce né l'aspetto tradiscano nessuno. Se chi interroga non riesce a capire con sicurezza quale dei due sia la macchina, la macchina ha superato la prova.</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 344 160" role="img" aria-label="Il gioco dell'imitazione: chi interroga vede solo risposte scritte." focusable="false" >
+<circle cx="50" cy="52" r="14" fill="#d8c2ae"/>
+<path d="M26 104 C 26 80 74 80 74 104 Z" fill="#1f5fae"/>
+<rect x="34" y="108" width="34" height="24" rx="2" fill="#ffffff" stroke="#8a9bb3" stroke-width="1.5"/>
+<line x1="39" y1="116" x2="62" y2="116" stroke="#8a9bb3" stroke-width="2"/><line x1="39" y1="123" x2="56" y2="123" stroke="#8a9bb3" stroke-width="2"/>
+<text x="50" y="150" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#14233a">Chi interroga</text>
+<rect x="150" y="8" width="12" height="144" rx="2" fill="#8a9bb3"/>
+<line x1="88" y1="56" x2="212" y2="56" stroke="#123e7c" stroke-width="2.5"/>
+<path d="M204 50 l9 6 l-9 6" fill="none" stroke="#123e7c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="118" y="48" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">domande scritte</text>
+<line x1="88" y1="104" x2="212" y2="104" stroke="#3f8f5c" stroke-width="2.5"/>
+<path d="M96 98 l-9 6 l9 6" fill="none" stroke="#3f8f5c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="118" y="122" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">risposte scritte</text>
+<rect x="220" y="14" width="116" height="60" rx="8" fill="#e6eff9" stroke="#123e7c" stroke-width="2"/>
+<text x="278" y="40" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="20" font-weight="700" fill="#123e7c">A</text>
+<text x="278" y="60" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">persona o macchina?</text>
+<rect x="220" y="86" width="116" height="60" rx="8" fill="#e6eff9" stroke="#123e7c" stroke-width="2"/>
+<text x="278" y="112" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="20" font-weight="700" fill="#123e7c">B</text>
+<text x="278" y="132" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">persona o macchina?</text></svg></div><figcaption>Il gioco dell&#x27;imitazione: chi interroga vede solo risposte scritte.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Schema del gioco dell&#x27;imitazione: a sinistra chi interroga; al centro una parete; a destra due interlocutori nascosti, A e B, uno umano e uno macchina. Domande e risposte passano solo per iscritto.</p></details></figure><p class="readable">Turing fece anche una previsione: entro una cinquantina d'anni, cioè intorno al 2000, sarebbero esistiti calcolatori capaci di giocare così bene che una persona media, dopo cinque minuti di domande, non avrebbe avuto più del 70% di probabilità di riconoscerli.</p><p class="readable">Fermiamoci su che cosa è successo alla domanda. All'inizio ci si chiedeva se una macchina potesse pensare; alla fine ci si chiede se possa sembrare umana in una conversazione scritta. Il criterio è diventato l'imitazione. È una scelta ingegnosa, perché trasforma una questione filosofica in una prova che si può osservare. Ha però una conseguenza: spinge a costruire sistemi che sembrano umani e a giudicarli da quanto bene ci riescono. È in questo senso che la domanda «nasce storta».</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Turing ha spostato la domanda dal pensare all'imitare: una macchina può sembrare intelligente senza che sappiamo se comprende ciò che dice.</p></div><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">Una compagna o un compagno risponde benissimo alle interrogazioni ripetendo il libro a memoria. Ha capito l'argomento? Che cosa ti servirebbe per dirlo?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-2">La tua risposta</label><textarea id="pausa-2" data-store="pausa-2" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.2.3</span> Dartmouth: un nome e una scommessa</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Nel 1955 nasce il nome «intelligenza artificiale», insieme a una congettura molto ottimista.</p></aside><p class="readable">Cinque anni dopo l'articolo di Turing, il 31 agosto 1955, McCarthy, Minsky, Rochester e Shannon presentano la proposta di un seminario di ricerca da tenersi nell'estate del 1956 al Dartmouth College, negli Stati Uniti. È in quel documento che compare per la prima volta l'espressione «intelligenza artificiale».</p><p class="readable">La proposta si fonda su una <button type="button" class="kw" data-term="Congettura" aria-expanded="false">congettura</button>, cioè un'ipotesi da mettere alla prova: ogni aspetto dell'apprendimento, o di qualunque altra caratteristica dell'intelligenza, può in linea di principio essere descritto in modo così preciso da permettere a una macchina di simularlo. Gli autori erano anche molto fiduciosi: pensavano che un piccolo gruppo di scienziati, lavorando insieme per un'estate, potesse compiere progressi significativi.</p><p class="readable">Le cose andarono diversamente. La storia dell'IA è fatta di grandi entusiasmi seguiti da delusioni, tanto che per alcuni periodi, a metà degli anni Settanta e alla fine degli anni Ottanta, si parla di «inverni dell'IA»: i risultati promessi non arrivano e i finanziamenti si riducono. Poi, con nuove tecniche e più dati, arrivano nuove primavere. Questa alternanza insegna qualcosa che vale anche oggi: quando si parla di IA, le promesse vanno distinte dai risultati.</p><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s1-2-a" href="#scheda-s1-2-a"><span class="cod">S1.2-a</span> La storia dell&#x27;IA in una linea</a></aside></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.2.4</span> Imitare non è comprendere</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">La stanza cinese di Searle mostra che manipolare simboli non equivale a capirne il significato.</p></aside><p class="readable">Nel 1980 il filosofo statunitense John Searle propone un <button type="button" class="kw" data-term="Esperimento mentale" aria-expanded="false">esperimento mentale</button>, cioè una situazione immaginaria pensata per mettere alla prova un'idea. Immagina una persona chiusa in una stanza, che non conosce una parola di cinese. Da una fessura riceve fogli con domande scritte in cinese. Nella stanza c'è un grande manuale, scritto nella sua lingua, che indica quali simboli scrivere in risposta a quali simboli, senza mai spiegare che cosa significano. Seguendo le istruzioni, la persona restituisce risposte corrette. Chi sta fuori conclude che nella stanza c'è qualcuno che capisce il cinese. Eppure la persona non ha capito nulla: ha seguito regole.</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 156" role="img" aria-label="La stanza cinese: risposte corrette, nessuna comprensione." focusable="false" >
+<rect x="110" y="14" width="210" height="130" rx="6" fill="#e6eff9" stroke="#123e7c" stroke-width="3"/>
+<rect x="104" y="60" width="12" height="36" fill="#ffffff"/>
+<rect x="64" y="50" width="26" height="20" rx="2" fill="#ffffff" stroke="#8a9bb3" stroke-width="1.2"/><path d="M69 56 h8 m-4 0 v9 m6 -9 h6 m-3 0 v4 m-3 4 h6" fill="none" stroke="#14233a" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="92" y1="60" x2="104" y2="66" stroke="#123e7c" stroke-width="2"/>
+<rect x="64" y="92" width="26" height="20" rx="2" fill="#ffffff" stroke="#8a9bb3" stroke-width="1.2"/><path d="M69 98 h8 m-4 0 v9 m6 -9 h6 m-3 0 v4 m-3 4 h6" fill="none" stroke="#14233a" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="104" y1="92" x2="92" y2="100" stroke="#3f8f5c" stroke-width="2"/>
+<text x="54" y="44" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">domande</text>
+<text x="54" y="132" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">risposte</text>
+<circle cx="190" cy="66" r="12" fill="#d8c2ae"/>
+<path d="M170 112 C 170 88 210 88 210 112 Z" fill="#1f5fae"/>
+<rect x="150" y="112" width="140" height="8" rx="2" fill="#123e7c"/>
+<rect x="226" y="88" width="56" height="24" rx="2" fill="#3f8f5c"/>
+<line x1="254" y1="88" x2="254" y2="112" stroke="#ffffff" stroke-width="1.5"/>
+<text x="254" y="80" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">manuale di regole</text>
+<text x="215" y="138" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">nessuno qui capisce il cinese</text></svg></div><figcaption>La stanza cinese: risposte corrette, nessuna comprensione.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Una stanza chiusa: dentro, una persona a un tavolo con un grande manuale di regole; da una fessura entrano fogli con domande in cinese ed escono fogli con risposte in cinese. Nessuno, nella stanza, capisce il cinese.</p></details></figure><p class="readable">Searle ne ricava che un programma che manipola simboli, per quanto bene lo faccia, non per questo ne comprende il significato. Molti filosofi e scienziati hanno risposto alle sue obiezioni e il dibattito è ancora aperto. Per noi conta la distinzione che l'esperimento rende visibile: produrre risposte corrette e comprendere sono due cose diverse.</p><p class="readable">Lo si era visto già nel 1966 con ELIZA, un programma scritto da Joseph Weizenbaum che simulava una conversazione riformulando le frasi di chi scriveva, con semplici regole. Molte persone finivano per attribuirgli comprensione e perfino partecipazione emotiva, con grande sorpresa del suo stesso autore. Questa tendenza a vedere una mente dove c'è un meccanismo è uno dei temi di questo libro: la ritroverai nel paragrafo 1.3 e nel capitolo 3.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Produrre risposte corrette e comprendere sono due cose diverse: una conversazione riuscita non basta, da sola, a dimostrare che c'è comprensione.</p></div><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s1-2-b" href="#scheda-s1-2-b"><span class="cod">S1.2-b</span> Il gioco dell&#x27;imitazione</a><a class="scheda-link" id="rif-s1-2-c" href="#scheda-s1-2-c"><span class="cod">S1.2-c</span> La stanza cinese</a></aside></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.2.5</span> Il test oggi: sapere con chi parliamo</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Oggi alcuni chatbot superano versioni del test di Turing: per questo la legge chiede di dire quando si parla con un'IA.</p></aside><p class="readable">Settantacinque anni dopo, la previsione di Turing è stata messa alla prova. In uno studio pubblicato nel 2025, due ricercatori dell'Università della California a San Diego, Cameron Jones e Benjamin Bergen, hanno chiesto a centinaia di persone di conversare per cinque minuti, nello stesso momento, con un essere umano e con un chatbot, e di indicare poi quale dei due fosse umano. Il modello GPT-4.5, istruito a impersonare un personaggio umano, è stato scelto come «la persona» nel 73% dei casi: più spesso degli esseri umani veri. ELIZA, il programma del 1966, si è fermato al 23%.</p><p class="readable">Che cosa dimostra questo risultato? Che una macchina può imitare molto bene una conversazione umana di cinque minuti. Non dimostra, da solo, che comprenda: è la distinzione vista con la stanza cinese. Pone però una domanda nuova, di tipo etico: se distinguere una persona da una macchina diventa difficile, abbiamo il diritto di saperlo?</p><p class="readable">Per l'Unione europea la risposta è sì. L'AI Act, all'articolo 50, stabilisce che i sistemi di IA destinati a interagire direttamente con le persone siano progettati in modo che chi li usa sappia di stare interagendo con un sistema di IA, a meno che non sia evidente. Il gioco dell'imitazione, nato come esperimento, diventa così una questione di trasparenza e di fiducia. La ritroverai nel capitolo 3.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Quando una macchina può sembrare umana, sapere con chi stiamo parlando diventa un diritto: la tecnica apre una questione etica.</p></div><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">Ti è mai capitato di non sapere se stavi scrivendo a una persona o a un sistema automatico, per esempio nella chat di assistenza di un negozio online? Da che cosa hai capito la differenza?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-3">La tua risposta</label><textarea id="pausa-3" data-store="pausa-3" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div></div></div></section><section class="par" id="p1-3" aria-labelledby="p1-3-t"><header class="par-head"><p class="par-num">§ 1.3</p><h2 id="p1-3-t" class="readable">Come funziona davvero: dati, modelli, previsioni</h2><div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="p1-3"><span aria-hidden="true">▶</span> Ascolta il paragrafo</button><a class="btn ghost" href="#esercizi-1-3">Esercizi del § 1.3</a></div></header><p class="ponte readable">Abbiamo visto che imitare non significa comprendere. Ora guardiamo dentro i sistemi di oggi, per capire che cosa fanno davvero quando producono una risposta.</p><div class="guida"><span class="lbl">Domanda-guida</span><p class="readable">Quando un chatbot ti risponde, che cosa sta facendo?</p></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.3.1</span> Due strade: regole ed esempi</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">L'IA simbolica segue regole scritte da persone; l'apprendimento automatico ricava regolarità dagli esempi.</p></aside><p class="readable">Per costruire un sistema di IA esistono due grandi strade, che oggi spesso si combinano.</p><p class="readable">La prima è quella dell'<button type="button" class="kw" data-term="IA simbolica" aria-expanded="false">IA simbolica</button>: sono le persone a scrivere le regole che il sistema deve seguire. Per un filtro antispam si potrebbe scrivere: «se il messaggio contiene la frase “hai vinto un premio” e un link sconosciuto, spostalo nella posta indesiderata». È la strada che prevale nei primi decenni dell'IA, con i cosiddetti sistemi esperti, che traducevano in regole le conoscenze di medici, ingegneri e tecnici.</p><p class="readable">La seconda è quella dell'<button type="button" class="kw" data-term="Apprendimento automatico" aria-expanded="false">apprendimento automatico</button>, in inglese <em>machine learning</em>. Invece di scrivere le regole, si forniscono al sistema moltissimi esempi già classificati, migliaia di messaggi indesiderati e migliaia di messaggi normali, e il sistema ricava da solo le regolarità che li distinguono. Nessuno gli ha detto quali parole contano: le ha trovate nei dati. Quasi tutti i sistemi di IA che usiamo oggi si basano su questa seconda strada.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.3.2</span> Dati, modello, risultato</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Dai dati di addestramento si costruisce un modello, che produce previsioni probabili, non certezze.</p></aside><p class="readable">Nell'apprendimento automatico entrano in gioco tre elementi. I <button type="button" class="kw" data-term="Dati di addestramento" aria-expanded="false">dati di addestramento</button> sono gli esempi da cui il sistema impara: immagini, testi, suoni, numeri. Il <button type="button" class="kw" data-term="Modello" aria-expanded="false">modello</button> è ciò che risulta dall'addestramento: un insieme molto grande di numeri, detti parametri, che rappresentano le regolarità trovate nei dati. Il risultato, o output, è ciò che il modello produce quando riceve un input nuovo: davanti a una foto mai vista, per esempio, la stima «gatto, al 92%».</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 150" role="img" aria-label="Dai dati alla previsione: il modello restituisce una probabilità, non una certezza." focusable="false" >
+<rect x="14" y="30" width="52" height="40" rx="4" fill="#ffffff" stroke="#1f5fae" stroke-width="1.5"/><rect x="20" y="36" width="40" height="18" rx="2" fill="#b9d6b0"/><text x="40" y="65" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">gatto</text><rect x="30" y="46" width="52" height="40" rx="4" fill="#ffffff" stroke="#1f5fae" stroke-width="1.5"/><rect x="36" y="52" width="40" height="18" rx="2" fill="#b9d6b0"/><text x="56" y="81" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">cane</text><rect x="46" y="62" width="52" height="40" rx="4" fill="#ffffff" stroke="#1f5fae" stroke-width="1.5"/><rect x="52" y="68" width="40" height="18" rx="2" fill="#b9d6b0"/><text x="72" y="97" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">gatto</text>
+<text x="56" y="128" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">Dati di</text>
+<text x="56" y="141" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">addestramento</text>
+<line x1="106" y1="62" x2="130" y2="62" stroke="#123e7c" stroke-width="2.5"/><path d="M124 56 l8 6 l-8 6" fill="none" stroke="#123e7c" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="136" y="30" width="80" height="66" rx="8" fill="#123e7c"/>
+<text x="152" y="50" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,21</text><text x="178" y="50" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">1,73</text><text x="204" y="50" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,08</text><text x="152" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">2,40</text><text x="178" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,95</text><text x="204" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,33</text><text x="152" y="86" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">1,12</text><text x="178" y="86" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,57</text><text x="204" y="86" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">3,06</text>
+<text x="176" y="128" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">Modello</text>
+<text x="176" y="141" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">(parametri)</text>
+<rect x="160" y="104" width="32" height="0" fill="none"/>
+<line x1="222" y1="62" x2="238" y2="62" stroke="#123e7c" stroke-width="2.5"/><path d="M232 56 l8 6 l-8 6" fill="none" stroke="#123e7c" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="150" y="2" width="52" height="22" rx="3" fill="#ffffff" stroke="#3f8f5c" stroke-width="1.5"/>
+<text x="176" y="17" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">foto nuova</text>
+<line x1="176" y1="24" x2="176" y2="29" stroke="#3f8f5c" stroke-width="2"/>
+<text x="268" y="53" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" fill="#14233a">gatto</text><rect x="273" y="44" width="46.0" height="11" rx="2" fill="#3f8f5c"/><text x="323.0" y="53" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" font-weight="700" fill="#14233a">92%</text><text x="268" y="73" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" fill="#14233a">cane</text><rect x="273" y="64" width="3.0" height="11" rx="2" fill="#7fb0db"/><text x="280.0" y="73" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" font-weight="700" fill="#14233a">6%</text><text x="268" y="93" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" fill="#14233a">altro</text><rect x="273" y="84" width="2.0" height="11" rx="2" fill="#8a9bb3"/><text x="279.0" y="93" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" font-weight="700" fill="#14233a">2%</text>
+<text x="296" y="128" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">Previsione</text>
+<text x="296" y="141" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">(probabilità)</text></svg></div><figcaption>Dai dati alla previsione: il modello restituisce una probabilità, non una certezza.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Schema in tre passaggi: molte foto di esempio etichettate (dati di addestramento) servono ad addestrare un modello, rappresentato come una griglia di numeri; il modello riceve una foto nuova e restituisce la previsione «gatto 92%, cane 6%, altro 2%».</p></details></figure><p class="readable">Due cose vanno notate. La prima: il risultato è una previsione probabile, non una certezza. Il modello può sbagliare, e sbaglia soprattutto davanti a casi lontani dagli esempi su cui è stato addestrato. La seconda: il modello conosce solo ciò che i dati gli mostrano. Se tutte le foto di gatti usate per addestrarlo ritraggono gatti chiari, potrebbe faticare a riconoscere un gatto nero. I dati non sono una fotografia neutra del mondo: sono il frutto di scelte, con i loro limiti. Nel capitolo 3 si vedrà che cosa accade quando questi limiti riguardano le persone.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Un sistema di apprendimento automatico non conosce il mondo: trova regolarità nei dati e produce previsioni probabili.</p></div><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s1-3-a" href="#scheda-s1-3-a"><span class="cod">S1.3-a</span> Come impara una macchina: prova tu</a></aside></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.3.3</span> Come «scrive» un chatbot</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Un large language model genera testo prevedendo, un pezzo alla volta, la continuazione più probabile.</p></aside><p class="readable">I chatbot che scrivono testi, come quello dell'immagine C, si basano su un <button type="button" class="kw" data-term="Large language model" aria-expanded="false">large language model</button> (LLM), cioè un modello linguistico di grandi dimensioni, addestrato su enormi quantità di testi per un compito preciso: prevedere come continua una sequenza. Il testo viene diviso in piccoli pezzi chiamati <button type="button" class="kw" data-term="Token" aria-expanded="false">token</button>, che spesso corrispondono a parole o a parti di parola. Davanti a «Oggi a scuola abbiamo fatto una verifica di…», il modello calcola quali continuazioni sono più probabili, ne sceglie una, la aggiunge al testo e ricomincia. Una risposta di dieci righe è il risultato di centinaia di queste scelte. Dopo il primo addestramento questi modelli vengono di solito perfezionati con esempi di conversazioni e con le valutazioni di persone che indicano quali risposte sono migliori.</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 156" role="img" aria-label="Probabilità di esempio, a scopo illustrativo: il modello sceglie fra le continuazioni possibili." focusable="false" >
+<text x="10" y="18" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-style="italic" fill="#14233a">«Oggi a scuola abbiamo fatto una verifica di…»</text>
+<line x1="110" y1="28" x2="110" y2="150" stroke="#8a9bb3" stroke-width="1"/>
+<text x="104" y="44" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">matematica</text><rect x="110" y="34" width="170" height="13" rx="2" fill="#3f8f5c"/><text x="285" y="44.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">34%</text><text x="104" y="63" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">storia</text><rect x="110" y="53" width="90" height="13" rx="2" fill="#7fb0db"/><text x="205" y="63.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">18%</text><text x="104" y="82" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">inglese</text><rect x="110" y="72" width="75" height="13" rx="2" fill="#7fb0db"/><text x="190" y="82.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">15%</text><text x="104" y="101" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">italiano</text><rect x="110" y="91" width="60" height="13" rx="2" fill="#7fb0db"/><text x="175" y="101.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">12%</text><text x="104" y="120" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">scienze</text><rect x="110" y="110" width="40" height="13" rx="2" fill="#7fb0db"/><text x="155" y="120.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">8%</text><text x="104" y="139" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">altre parole</text><rect x="110" y="129" width="65" height="13" rx="2" fill="#7fb0db"/><text x="180" y="139.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">13%</text></svg></div><figcaption>Probabilità di esempio, a scopo illustrativo: il modello sceglie fra le continuazioni possibili.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Grafico a barre orizzontali per la frase «Oggi a scuola abbiamo fatto una verifica di…»: matematica 34%, storia 18%, inglese 15%, italiano 12%, scienze 8%, altre parole 13%. Le percentuali sono inventate a scopo illustrativo.</p></details></figure><p class="readable">Il completamento automatico della tastiera del telefono fa qualcosa di simile, su scala molto più piccola. La differenza di scala produce testi sorprendentemente fluenti, ma la fluidità non garantisce la verità: il modello produce la continuazione probabile, non quella vera. Per questo un chatbot può proporre con sicurezza una citazione, una data o un libro che non esistono. Questi errori sono detti <button type="button" class="kw" data-term="Allucinazione" aria-expanded="false">allucinazioni</button>. Anche questa parola, però, è una metafora presa dalla mente umana: il sistema non vede cose che non ci sono, genera sequenze probabili che non corrispondono ai fatti.</p><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s1-3-b" href="#scheda-s1-3-b"><span class="cod">S1.3-b</span> Come «scrive» un large language model</a></aside></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">1.3.4</span> Le parole che usiamo</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Parlare delle macchine come di persone (antropomorfismo) cambia quanto ci fidiamo di loro.</p></aside><p class="readable">Torniamo, per chiudere, al problema da cui eravamo partiti: le parole. Diciamo che un sistema «pensa», «capisce», «sa», «si inventa». Attribuire caratteristiche umane a ciò che umano non è si chiama <button type="button" class="kw" data-term="Antropomorfismo" aria-expanded="false">antropomorfismo</button>. È un'abitudine naturale, che usiamo anche con gli animali e con gli oggetti. Con l'IA, però, ha una conseguenza precisa: se crediamo che un sistema capisca, tendiamo a fidarci di più delle sue risposte e a controllarle di meno.</p><div class="tab-wrap"><table><caption>Dire con precisione</caption><thead><tr><th scope="col">Invece di…</th><th scope="col">Possiamo dire…</th></tr></thead><tbody><tr><th scope="row">«L'IA pensa che…»</th><td>«Il sistema ha calcolato che…»</td></tr><tr><th scope="row">«Il chatbot ha capito la mia domanda»</th><td>«Il chatbot ha generato una risposta probabile alla mia domanda»</td></tr><tr><th scope="row">«L'IA sa tutto»</th><td>«Il modello è stato addestrato su molti testi, ma può sbagliare»</td></tr><tr><th scope="row">«Si è inventato una fonte»</th><td>«Ha generato il riferimento a una fonte che non esiste»</td></tr></tbody></table></div><p class="readable">Le metafore restano utili; l'importante è accorgersi di quando le usiamo.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Le parole con cui descriviamo l'IA non sono neutre: decidono quanta fiducia le diamo.</p></div><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">Riscrivi la frase «L'intelligenza artificiale ha deciso di bocciarmi» con un verbo che descriva ciò che il sistema fa davvero. Chi ha preso, in realtà, la decisione?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-4">La tua risposta</label><textarea id="pausa-4" data-store="pausa-4" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div></div></div></section>
+<section class="par sintesi" id="sintesi" aria-labelledby="sintesi-t">
+  <header class="par-head"><p class="par-num">Schema di sintesi</p><h2 id="sintesi-t" class="readable">Che cosa abbiamo detto</h2>
+  <div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="sintesi"><span aria-hidden="true">▶</span> Ascolta la sintesi</button></div></header>
+  <ol class="mappa"><li class="readable"><span class="sez">§ 1.1</span>L'IA è una disciplina, non un oggetto: progetta sistemi per compiti specifici.</li><li class="readable"><span class="sez">§ 1.1</span>Automazione, robotica e IA sono diverse: un sistema di IA deduce dai dati come produrre un risultato.</li><li class="readable"><span class="sez">§ 1.2</span>Turing ha spostato la domanda dal pensare all'imitare: oggi l'imitazione riesce, e sapere con chi parliamo diventa un diritto.</li><li class="readable"><span class="sez">§ 1.3</span>I sistemi di oggi imparano dai dati e producono previsioni probabili.</li><li class="readable"><span class="sez">§ 1.2–1.3</span>Imitare e prevedere non significano comprendere: anche le parole che usiamo contano.</li></ol>
+  <div class="finale" id="domanda-finale">
+    <p class="lbl">Domanda finale</p>
+    <p class="domanda-t readable">Torna alle quattro immagini dell&#x27;inizio. Sceglieresti ancora la stessa? E se dovessi rappresentare tu l&#x27;intelligenza artificiale senza usare un robot, quale immagine sceglieresti?</p>
+    <p class="readable">Rispondi come preferisci: scrivendo, disegnando o registrando un messaggio vocale.</p>
+    <p class="piccolo" id="scelta-ricordo" aria-live="polite"></p>
+    <label for="risposta-finale" class="etichetta">La tua risposta</label>
+    <textarea id="risposta-finale" data-store="risposta-finale" rows="4"></textarea>
+    <p class="piccolo">Resta salvata solo su questo dispositivo.</p>
+  </div>
+  <div class="opere"><p class="lbl">Per leggere, vedere, ascoltare</p><ul><li><span class="tipo">Saggio</span><p class="tit readable">Kate Crawford, <em>Né intelligente né artificiale. Il lato oscuro dell'IA</em>, Il Mulino, 2021</p><p class="readable">Dietro i sistemi di IA ci sono miniere, lavoro umano e grandi quantità di dati: un libro per smontare il mito della macchina che fa tutto da sola.</p></li><li><span class="tipo">Romanzo</span><p class="tit readable">Ian McEwan, <em>Macchine come me</em>, Einaudi, 2019</p><p class="readable">In un 1982 immaginario, con Alan Turing ancora vivo, un giovane compra uno dei primi androidi. Che cosa distingue Adam da un essere umano?</p></li><li><span class="tipo">Film</span><p class="tit readable"><em>The Imitation Game</em>, regia di Morten Tyldum, 2014</p><p class="readable">La vita di Alan Turing raccontata dal cinema: utile anche per distinguere il racconto romanzato dalla storia.</p></li><li><span class="tipo">Serie TV</span><p class="tit readable"><em>Black Mirror</em>, «Torna da me» (stagione 2, episodio 1), 2013</p><p class="readable">Una donna «ricrea» il compagno scomparso a partire dai suoi messaggi: un caso estremo di imitazione.</p></li></ul></div>
+</section>
+    </article>
+  </div>
+  
+<section class="vista" data-view="schede" hidden aria-labelledby="schede-t">
+  <h1 id="schede-t" tabindex="-1">Schede di approfondimento</h1>
+  <p class="intro">Ogni scheda si legge in un minuto: dieci righe e un'immagine. Poi il pulsante «Torna» ti riporta al punto del libro da cui sei partito.</p>
+  <ul class="schede-grid"><li><a class="scheda-card" href="#scheda-s1-1-a"><span class="cod">S1.1-a</span><span class="t">La definizione di legge, frase per frase</span><span class="p">§ 1.1</span></a></li><li><a class="scheda-card" href="#scheda-s1-1-b"><span class="cod">S1.1-b</span><span class="t">Automazione, robotica, IA: esempi quotidiani</span><span class="p">§ 1.1</span></a></li><li><a class="scheda-card" href="#scheda-s1-2-a"><span class="cod">S1.2-a</span><span class="t">La storia dell&#x27;IA in una linea</span><span class="p">§ 1.2</span></a></li><li><a class="scheda-card" href="#scheda-s1-2-b"><span class="cod">S1.2-b</span><span class="t">Il gioco dell&#x27;imitazione</span><span class="p">§ 1.2</span></a></li><li><a class="scheda-card" href="#scheda-s1-2-c"><span class="cod">S1.2-c</span><span class="t">La stanza cinese</span><span class="p">§ 1.2</span></a></li><li><a class="scheda-card" href="#scheda-s1-3-a"><span class="cod">S1.3-a</span><span class="t">Come impara una macchina: prova tu</span><span class="p">§ 1.3</span></a></li><li><a class="scheda-card" href="#scheda-s1-3-b"><span class="cod">S1.3-b</span><span class="t">Come «scrive» un large language model</span><span class="p">§ 1.3</span></a></li></ul>
+</section>
+<section class="vista scheda" data-view="scheda-s1-1-a" hidden aria-labelledby="scheda-s1-1-a-t">
+  <p class="cod-grande">Scheda S1.1-a · § 1.1</p>
+  <h1 id="scheda-s1-1-a-t" class="readable" tabindex="-1">La definizione di legge, frase per frase</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s1-1-a" data-back="S1.1-a">← Torna al § 1.1</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s1-1-a-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s1-1-a-corpo"><ol class="def"><li><p class="def-q readable">«un sistema automatizzato»</p><p class="def-a readable">funziona grazie a una macchina, di solito un computer.</p></li><li><p class="def-q readable">«progettato per funzionare con livelli di autonomia variabili»</p><p class="def-a readable">può lavorare con più o meno intervento umano.</p></li><li><p class="def-q readable">«che può presentare adattabilità dopo la diffusione»</p><p class="def-a readable">può cambiare comportamento mentre viene usato.</p></li><li><p class="def-q readable">«deduce dall&#x27;input che riceve come generare output»</p><p class="def-a readable">ricava dai dati che riceve come produrre un risultato. È il punto decisivo.</p></li><li><p class="def-q readable">«previsioni, contenuti, raccomandazioni o decisioni che possono influenzare ambienti fisici o virtuali»</p><p class="def-a readable">i risultati hanno effetti nel mondo reale o digitale.</p></li></ol></div>
+  <p class="fonte">Fonte: <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">Regolamento (UE) 2024/1689 (AI Act), art. 3, punto 1</a></p>
+</section>
+<section class="vista scheda" data-view="scheda-s1-1-b" hidden aria-labelledby="scheda-s1-1-b-t">
+  <p class="cod-grande">Scheda S1.1-b · § 1.1</p>
+  <h1 id="scheda-s1-1-b-t" class="readable" tabindex="-1">Automazione, robotica, IA: esempi quotidiani</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s1-1-b" data-back="S1.1-b">← Torna al § 1.1</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s1-1-b-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s1-1-b-corpo"><div class="tre"><div class="col3"><p class="lbl">Automazione</p><p class="readable">Il semaforo a tempo cambia colore ogni 60 secondi, sempre allo stesso modo.</p></div><div class="col3"><p class="lbl">Robotica</p><p class="readable">Il braccio meccanico in fabbrica salda sempre lo stesso punto; il drone vola guidato da chi lo pilota.</p></div><div class="col3"><p class="lbl">Sistema di IA</p><p class="readable">Il filtro della posta impara dai messaggi che segnali come indesiderati.</p></div></div><p class="readable">Insieme: un robot di magazzino che riconosce i pacchi con una telecamera è un robot che usa un sistema di IA.</p></div>
+  
+</section>
+<section class="vista scheda" data-view="scheda-s1-2-a" hidden aria-labelledby="scheda-s1-2-a-t">
+  <p class="cod-grande">Scheda S1.2-a · § 1.2</p>
+  <h1 id="scheda-s1-2-a-t" class="readable" tabindex="-1">La storia dell&#x27;IA in una linea</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s1-2-a" data-back="S1.2-a">← Torna al § 1.2</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s1-2-a-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s1-2-a-corpo"><ol class="timeline"><li><span class="anno">1950</span><p class="readable">Alan Turing propone il gioco dell&#x27;imitazione.</p></li><li><span class="anno">1955–56</span><p class="readable">Proposta e seminario di Dartmouth: nasce il nome «intelligenza artificiale».</p></li><li><span class="anno">1966</span><p class="readable">ELIZA di Joseph Weizenbaum simula una conversazione con semplici regole.</p></li><li><span class="anno">anni &#x27;70 e &#x27;80</span><p class="readable">Sistemi esperti; poi due «inverni dell&#x27;IA»: delusioni e meno finanziamenti.</p></li><li><span class="anno">1980</span><p class="readable">John Searle propone l&#x27;esperimento della stanza cinese.</p></li><li><span class="anno">1997</span><p class="readable">Il programma Deep Blue batte a scacchi il campione del mondo Garry Kasparov.</p></li><li><span class="anno">2012</span><p class="readable">L&#x27;apprendimento profondo migliora di molto il riconoscimento delle immagini.</p></li><li><span class="anno">2017</span><p class="readable">Nasce l&#x27;architettura Transformer, alla base dei large language model.</p></li><li><span class="anno">2022</span><p class="readable">I chatbot basati su large language model arrivano al grande pubblico.</p></li><li><span class="anno">2025</span><p class="readable">In un test di Turing controllato, un chatbot viene scambiato per una persona più spesso degli esseri umani veri.</p></li></ol></div>
+  
+</section>
+<section class="vista scheda" data-view="scheda-s1-2-b" hidden aria-labelledby="scheda-s1-2-b-t">
+  <p class="cod-grande">Scheda S1.2-b · § 1.2</p>
+  <h1 id="scheda-s1-2-b-t" class="readable" tabindex="-1">Il gioco dell&#x27;imitazione</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s1-2-b" data-back="S1.2-b">← Torna al § 1.2</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s1-2-b-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s1-2-b-corpo"><div class="fig-img scheda-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 344 160" role="img" aria-label="Il gioco dell'imitazione" focusable="false" >
+<circle cx="50" cy="52" r="14" fill="#d8c2ae"/>
+<path d="M26 104 C 26 80 74 80 74 104 Z" fill="#1f5fae"/>
+<rect x="34" y="108" width="34" height="24" rx="2" fill="#ffffff" stroke="#8a9bb3" stroke-width="1.5"/>
+<line x1="39" y1="116" x2="62" y2="116" stroke="#8a9bb3" stroke-width="2"/><line x1="39" y1="123" x2="56" y2="123" stroke="#8a9bb3" stroke-width="2"/>
+<text x="50" y="150" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#14233a">Chi interroga</text>
+<rect x="150" y="8" width="12" height="144" rx="2" fill="#8a9bb3"/>
+<line x1="88" y1="56" x2="212" y2="56" stroke="#123e7c" stroke-width="2.5"/>
+<path d="M204 50 l9 6 l-9 6" fill="none" stroke="#123e7c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="118" y="48" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">domande scritte</text>
+<line x1="88" y1="104" x2="212" y2="104" stroke="#3f8f5c" stroke-width="2.5"/>
+<path d="M96 98 l-9 6 l9 6" fill="none" stroke="#3f8f5c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="118" y="122" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">risposte scritte</text>
+<rect x="220" y="14" width="116" height="60" rx="8" fill="#e6eff9" stroke="#123e7c" stroke-width="2"/>
+<text x="278" y="40" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="20" font-weight="700" fill="#123e7c">A</text>
+<text x="278" y="60" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">persona o macchina?</text>
+<rect x="220" y="86" width="116" height="60" rx="8" fill="#e6eff9" stroke="#123e7c" stroke-width="2"/>
+<text x="278" y="112" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="20" font-weight="700" fill="#123e7c">B</text>
+<text x="278" y="132" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">persona o macchina?</text></svg></div><ul class='elenco'><li class="readable">Tre partecipanti: chi interroga, una persona e una macchina. Chi interroga non vede gli altri due e li chiama A e B.</li><li class="readable">Domande e risposte passano solo per iscritto, perché voce e aspetto non contino.</li><li class="readable">La macchina «vince» se chi interroga non riesce a capire con sicurezza chi dei due sia la macchina.</li><li class="readable">Turing prevedeva che intorno al 2000, dopo cinque minuti di domande, una persona media avrebbe riconosciuto la macchina al massimo 7 volte su 10.</li><li class="readable">Nel suo esempio, la macchina risponde a un calcolo dopo una pausa di mezzo minuto: anche la lentezza può servire a sembrare umani.</li><li class="readable">Nel 2025, in conversazioni di cinque minuti, un chatbot istruito a impersonare un essere umano è stato scambiato per la persona nel 73% dei casi (Jones e Bergen).</li></ul></div>
+  <p class="fonte">Fonte: <a href="https://doi.org/10.1093/mind/LIX.236.433" target="_blank" rel="noopener">A.M. Turing, «Computing Machinery and Intelligence», Mind, 59 (1950), pp. 433-460</a></p>
+</section>
+<section class="vista scheda" data-view="scheda-s1-2-c" hidden aria-labelledby="scheda-s1-2-c-t">
+  <p class="cod-grande">Scheda S1.2-c · § 1.2</p>
+  <h1 id="scheda-s1-2-c-t" class="readable" tabindex="-1">La stanza cinese</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s1-2-c" data-back="S1.2-c">← Torna al § 1.2</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s1-2-c-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s1-2-c-corpo"><div class="fig-img scheda-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 156" role="img" aria-label="La stanza cinese" focusable="false" >
+<rect x="110" y="14" width="210" height="130" rx="6" fill="#e6eff9" stroke="#123e7c" stroke-width="3"/>
+<rect x="104" y="60" width="12" height="36" fill="#ffffff"/>
+<rect x="64" y="50" width="26" height="20" rx="2" fill="#ffffff" stroke="#8a9bb3" stroke-width="1.2"/><path d="M69 56 h8 m-4 0 v9 m6 -9 h6 m-3 0 v4 m-3 4 h6" fill="none" stroke="#14233a" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="92" y1="60" x2="104" y2="66" stroke="#123e7c" stroke-width="2"/>
+<rect x="64" y="92" width="26" height="20" rx="2" fill="#ffffff" stroke="#8a9bb3" stroke-width="1.2"/><path d="M69 98 h8 m-4 0 v9 m6 -9 h6 m-3 0 v4 m-3 4 h6" fill="none" stroke="#14233a" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="104" y1="92" x2="92" y2="100" stroke="#3f8f5c" stroke-width="2"/>
+<text x="54" y="44" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">domande</text>
+<text x="54" y="132" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">risposte</text>
+<circle cx="190" cy="66" r="12" fill="#d8c2ae"/>
+<path d="M170 112 C 170 88 210 88 210 112 Z" fill="#1f5fae"/>
+<rect x="150" y="112" width="140" height="8" rx="2" fill="#123e7c"/>
+<rect x="226" y="88" width="56" height="24" rx="2" fill="#3f8f5c"/>
+<line x1="254" y1="88" x2="254" y2="112" stroke="#ffffff" stroke-width="1.5"/>
+<text x="254" y="80" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">manuale di regole</text>
+<text x="215" y="138" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">nessuno qui capisce il cinese</text></svg></div><ul class='elenco'><li class="readable">Una persona che non conosce il cinese è chiusa in una stanza con un manuale di istruzioni.</li><li class="readable">Riceve domande in cinese e, seguendo il manuale, restituisce risposte corrette.</li><li class="readable">Fuori sembra che qualcuno capisca il cinese; dentro, nessuno capisce: ci sono solo regole applicate a simboli.</li><li class="readable">Searle (1980) ne conclude che manipolare simboli non basta a comprenderne il significato.</li><li class="readable">Una delle obiezioni più note: forse a «capire» non è la persona ma l&#x27;intero sistema, stanza e manuale compresi. Il dibattito è aperto.</li></ul></div>
+  <p class="fonte">Fonte: <a href="https://plato.stanford.edu/entries/chinese-room/" target="_blank" rel="noopener">J.R. Searle, «Minds, Brains, and Programs», Behavioral and Brain Sciences, 3 (1980), pp. 417-457</a></p>
+</section>
+<section class="vista scheda" data-view="scheda-s1-3-a" hidden aria-labelledby="scheda-s1-3-a-t">
+  <p class="cod-grande">Scheda S1.3-a · § 1.3</p>
+  <h1 id="scheda-s1-3-a-t" class="readable" tabindex="-1">Come impara una macchina: prova tu</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s1-3-a" data-back="S1.3-a">← Torna al § 1.3</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s1-3-a-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s1-3-a-corpo"><div class="fig-img scheda-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 150" role="img" aria-label="Come impara una macchina: prova tu" focusable="false" >
+<rect x="14" y="30" width="52" height="40" rx="4" fill="#ffffff" stroke="#1f5fae" stroke-width="1.5"/><rect x="20" y="36" width="40" height="18" rx="2" fill="#b9d6b0"/><text x="40" y="65" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">gatto</text><rect x="30" y="46" width="52" height="40" rx="4" fill="#ffffff" stroke="#1f5fae" stroke-width="1.5"/><rect x="36" y="52" width="40" height="18" rx="2" fill="#b9d6b0"/><text x="56" y="81" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">cane</text><rect x="46" y="62" width="52" height="40" rx="4" fill="#ffffff" stroke="#1f5fae" stroke-width="1.5"/><rect x="52" y="68" width="40" height="18" rx="2" fill="#b9d6b0"/><text x="72" y="97" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">gatto</text>
+<text x="56" y="128" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">Dati di</text>
+<text x="56" y="141" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">addestramento</text>
+<line x1="106" y1="62" x2="130" y2="62" stroke="#123e7c" stroke-width="2.5"/><path d="M124 56 l8 6 l-8 6" fill="none" stroke="#123e7c" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="136" y="30" width="80" height="66" rx="8" fill="#123e7c"/>
+<text x="152" y="50" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,21</text><text x="178" y="50" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">1,73</text><text x="204" y="50" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,08</text><text x="152" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">2,40</text><text x="178" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,95</text><text x="204" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,33</text><text x="152" y="86" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">1,12</text><text x="178" y="86" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">0,57</text><text x="204" y="86" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#ffffff">3,06</text>
+<text x="176" y="128" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">Modello</text>
+<text x="176" y="141" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">(parametri)</text>
+<rect x="160" y="104" width="32" height="0" fill="none"/>
+<line x1="222" y1="62" x2="238" y2="62" stroke="#123e7c" stroke-width="2.5"/><path d="M232 56 l8 6 l-8 6" fill="none" stroke="#123e7c" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="150" y="2" width="52" height="22" rx="3" fill="#ffffff" stroke="#3f8f5c" stroke-width="1.5"/>
+<text x="176" y="17" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">foto nuova</text>
+<line x1="176" y1="24" x2="176" y2="29" stroke="#3f8f5c" stroke-width="2"/>
+<text x="268" y="53" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" fill="#14233a">gatto</text><rect x="273" y="44" width="46.0" height="11" rx="2" fill="#3f8f5c"/><text x="323.0" y="53" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" font-weight="700" fill="#14233a">92%</text><text x="268" y="73" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" fill="#14233a">cane</text><rect x="273" y="64" width="3.0" height="11" rx="2" fill="#7fb0db"/><text x="280.0" y="73" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" font-weight="700" fill="#14233a">6%</text><text x="268" y="93" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" fill="#14233a">altro</text><rect x="273" y="84" width="2.0" height="11" rx="2" fill="#8a9bb3"/><text x="279.0" y="93" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10" font-weight="700" fill="#14233a">2%</text>
+<text x="296" y="128" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">Previsione</text>
+<text x="296" y="141" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.5" fill="#14233a">(probabilità)</text></svg></div><ol class='elenco'><li class="readable">Apri Teachable Machine e scegli «Progetto immagine».</li><li class="readable">Crea due classi, per esempio «matita» e «gomma».</li><li class="readable">Inserisci 20-30 immagini per ciascuna classe.</li><li class="readable">Premi «Addestra il modello» e aspetta qualche secondo.</li><li class="readable">Mostra al modello un oggetto nuovo e guarda le percentuali.</li><li class="readable">Riprova con soli 3 esempi per una classe: che cosa cambia?</li></ol><p class="readable nota-s">Chiedi al docente prima di usare la webcam e preferisci immagini di oggetti al tuo volto.</p><p><a class="btn ghost" href="https://teachablemachine.withgoogle.com" target="_blank" rel="noopener">Apri Teachable Machine ↗</a></p></div>
+  
+</section>
+<section class="vista scheda" data-view="scheda-s1-3-b" hidden aria-labelledby="scheda-s1-3-b-t">
+  <p class="cod-grande">Scheda S1.3-b · § 1.3</p>
+  <h1 id="scheda-s1-3-b-t" class="readable" tabindex="-1">Come «scrive» un large language model</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s1-3-b" data-back="S1.3-b">← Torna al § 1.3</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s1-3-b-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s1-3-b-corpo"><div class="fig-img scheda-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 156" role="img" aria-label="Come «scrive» un large language model" focusable="false" >
+<text x="10" y="18" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-style="italic" fill="#14233a">«Oggi a scuola abbiamo fatto una verifica di…»</text>
+<line x1="110" y1="28" x2="110" y2="150" stroke="#8a9bb3" stroke-width="1"/>
+<text x="104" y="44" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">matematica</text><rect x="110" y="34" width="170" height="13" rx="2" fill="#3f8f5c"/><text x="285" y="44.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">34%</text><text x="104" y="63" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">storia</text><rect x="110" y="53" width="90" height="13" rx="2" fill="#7fb0db"/><text x="205" y="63.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">18%</text><text x="104" y="82" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">inglese</text><rect x="110" y="72" width="75" height="13" rx="2" fill="#7fb0db"/><text x="190" y="82.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">15%</text><text x="104" y="101" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">italiano</text><rect x="110" y="91" width="60" height="13" rx="2" fill="#7fb0db"/><text x="175" y="101.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">12%</text><text x="104" y="120" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">scienze</text><rect x="110" y="110" width="40" height="13" rx="2" fill="#7fb0db"/><text x="155" y="120.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">8%</text><text x="104" y="139" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">altre parole</text><rect x="110" y="129" width="65" height="13" rx="2" fill="#7fb0db"/><text x="180" y="139.5" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" font-weight="700" fill="#14233a">13%</text></svg></div><ol class='elenco'><li class="readable">Il testo viene diviso in token, pezzi di parola.</li><li class="readable">Il modello calcola la probabilità di ogni possibile token successivo.</li><li class="readable">Ne sceglie uno, di solito fra i più probabili, e lo aggiunge al testo.</li><li class="readable">Ripete il procedimento finché la risposta è completa.</li></ol><p class="readable nota-s">Il modello sceglie ciò che è probabile nei testi su cui è stato addestrato, non ciò che è vero: per questo un testo fluente può contenere errori.</p></div>
+  <p class="fonte">Fonte: <a href="https://doi.org/10.1145/3442188.3445922" target="_blank" rel="noopener">E.M. Bender et al., «On the Dangers of Stochastic Parrots», FAccT 2021</a></p>
+</section>
+  
+<section class="vista" data-view="esercizi" hidden aria-labelledby="esercizi-t">
+  <h1 id="esercizi-t" tabindex="-1">Esercizi</h1>
+  <p class="intro">Per ogni paragrafo: un esercizio per mettere alla prova i concetti, un vero o falso, una domanda per ragionare. Nessun voto: servono a te.</p>
+  <ul class="schede-grid"><li><a class="scheda-card" href="#esercizi-1-1"><span class="cod">§ 1.1</span><span class="t">Non è un robot</span><span class="p">3 esercizi</span></a></li><li><a class="scheda-card" href="#esercizi-1-2"><span class="cod">§ 1.2</span><span class="t">«Le macchine possono pensare?»</span><span class="p">3 esercizi</span></a></li><li><a class="scheda-card" href="#esercizi-1-3"><span class="cod">§ 1.3</span><span class="t">Come funziona davvero</span><span class="p">3 esercizi</span></a></li></ul>
+</section>
+<section class="vista esercizi" data-view="esercizi-1-1" hidden aria-labelledby="esercizi-1-1-t">
+  <p class="cod-grande">Esercizi · § 1.1</p>
+  <h1 id="esercizi-1-1-t" tabindex="-1">Non è un robot</h1>
+  <div class="riga-btn"><a class="btn ghost" href="#p1-1">← Torna al § 1.1</a></div>
+  <div class="es-container" data-par="1.1"></div>
+</section>
+<section class="vista esercizi" data-view="esercizi-1-2" hidden aria-labelledby="esercizi-1-2-t">
+  <p class="cod-grande">Esercizi · § 1.2</p>
+  <h1 id="esercizi-1-2-t" tabindex="-1">«Le macchine possono pensare?»</h1>
+  <div class="riga-btn"><a class="btn ghost" href="#p1-2">← Torna al § 1.2</a></div>
+  <div class="es-container" data-par="1.2"></div>
+</section>
+<section class="vista esercizi" data-view="esercizi-1-3" hidden aria-labelledby="esercizi-1-3-t">
+  <p class="cod-grande">Esercizi · § 1.3</p>
+  <h1 id="esercizi-1-3-t" tabindex="-1">Come funziona davvero</h1>
+  <div class="riga-btn"><a class="btn ghost" href="#p1-3">← Torna al § 1.3</a></div>
+  <div class="es-container" data-par="1.3"></div>
+</section>
+  
+<section class="vista" data-view="glossario" hidden aria-labelledby="glossario-t">
+  <h1 id="glossario-t" tabindex="-1">Glossario del capitolo</h1>
+  <p class="intro">Le parole in grassetto nel testo: premile per leggere la definizione senza lasciare la pagina.</p>
+  <dl class="glossario"><div class="voce" id="g-ai-act"><dt class="readable">AI Act</dt><dd class="readable">Il Regolamento (UE) 2024/1689, la legge europea sull&#x27;intelligenza artificiale.</dd></div><div class="voce" id="g-allucinazione"><dt class="readable">Allucinazione</dt><dd class="readable">Testo generato da un modello che sembra plausibile ma non corrisponde ai fatti. Il nome è una metafora: il sistema non «vede» nulla.</dd></div><div class="voce" id="g-antropomorfismo"><dt class="readable">Antropomorfismo</dt><dd class="readable">Attribuire caratteristiche umane, come pensare o capire, a ciò che umano non è.</dd></div><div class="voce" id="g-apprendimento-automatico"><dt class="readable">Apprendimento automatico</dt><dd class="readable">In inglese machine learning: il sistema ricava regolarità da molti esempi invece di seguire regole scritte a mano.</dd></div><div class="voce" id="g-automazione"><dt class="readable">Automazione</dt><dd class="readable">Macchine che eseguono sempre la stessa sequenza di operazioni, stabilita in anticipo.</dd></div><div class="voce" id="g-compiti-specifici"><dt class="readable">Compiti specifici</dt><dd class="readable">Ogni sistema di IA è costruito per uno scopo preciso e non sa fare tutto il resto.</dd></div><div class="voce" id="g-congettura"><dt class="readable">Congettura</dt><dd class="readable">Un&#x27;ipotesi da mettere alla prova, non ancora dimostrata.</dd></div><div class="voce" id="g-dati-di-addestramento"><dt class="readable">Dati di addestramento</dt><dd class="readable">Gli esempi (immagini, testi, suoni, numeri) da cui un sistema di apprendimento automatico impara.</dd></div><div class="voce" id="g-disciplina"><dt class="readable">Disciplina</dt><dd class="readable">Un campo di studi con un oggetto, dei metodi, una storia e una comunità di ricerca.</dd></div><div class="voce" id="g-esperimento-mentale"><dt class="readable">Esperimento mentale</dt><dd class="readable">Una situazione immaginaria pensata per mettere alla prova un&#x27;idea.</dd></div><div class="voce" id="g-gioco-dell-imitazione"><dt class="readable">Gioco dell&#x27;imitazione</dt><dd class="readable">L&#x27;esperimento proposto da Turing nel 1950, oggi noto come test di Turing.</dd></div><div class="voce" id="g-ia-simbolica"><dt class="readable">IA simbolica</dt><dd class="readable">La strada dell&#x27;IA in cui le persone scrivono le regole che il sistema deve seguire.</dd></div><div class="voce" id="g-large-language-model"><dt class="readable">Large language model</dt><dd class="readable">LLM, modello linguistico di grandi dimensioni: genera testo prevedendo i token più probabili.</dd></div><div class="voce" id="g-modello"><dt class="readable">Modello</dt><dd class="readable">Ciò che risulta dall&#x27;addestramento: moltissimi numeri (parametri) che rappresentano le regolarità trovate nei dati.</dd></div><div class="voce" id="g-robotica"><dt class="readable">Robotica</dt><dd class="readable">Lo studio e la costruzione di macchine dotate di un corpo, che agiscono nel mondo fisico.</dd></div><div class="voce" id="g-sistema-di-ia"><dt class="readable">Sistema di IA</dt><dd class="readable">Un sistema che, a partire dai dati che riceve, ricava come produrre previsioni, contenuti, raccomandazioni o decisioni.</dd></div><div class="voce" id="g-token"><dt class="readable">Token</dt><dd class="readable">Un pezzo di testo, spesso una parola o una parte di parola, su cui lavora un large language model.</dd></div></dl>
+</section>
+</main>
+<footer class="piede"><div class="piede-in">
+  <p><b>AI and Ethics Literacy for Students</b> · Capitolo 1, bozza per la validazione nelle scuole · Coordinamento scientifico: SIpEIA e Università della Calabria (DICES).</p>
+  <p>Le risposte che scrivi nelle caselle restano solo su questo dispositivo.</p>
+</div></footer>
+
+<script type="application/json" id="dati">{"esercizi": {"1.1": {"classifica": {"titolo": "Automazione, robot o sistema di IA?", "consegna": "Per ogni esempio scegli la categoria giusta, poi premi «Verifica».", "categorie": ["Automazione", "Robot senza IA", "Sistema di IA", "Robot con IA"], "voci": [["Una lavatrice con programmi fissi", "Automazione", "Esegue sempre la sequenza scelta con la manopola."], ["Il traduttore automatico sul telefono", "Sistema di IA", "Ricava dal testo che riceve come produrre la traduzione, e non ha un corpo."], ["Un drone guidato da una persona con il telecomando", "Robot senza IA", "Si muove nel mondo fisico, ma ogni movimento lo decide chi pilota."], ["Un semaforo che cambia colore ogni 60 secondi", "Automazione", "Ripete la stessa sequenza a tempo, qualunque sia il traffico."], ["Il filtro che sposta la posta indesiderata imparando dai messaggi segnalati", "Sistema di IA", "Impara dagli esempi: è apprendimento automatico."], ["Un robot di magazzino che riconosce i pacchi con una telecamera e li smista", "Robot con IA", "Ha un corpo e usa un sistema di IA per riconoscere gli oggetti."], ["Una calcolatrice", "Automazione", "Applica regole fisse: dato lo stesso calcolo, dà sempre lo stesso risultato."], ["Un robot chirurgico comandato passo passo da chi opera", "Robot senza IA", "Rende i movimenti più precisi, ma le scelte le fa chi opera."]]}, "vf": [["Un sistema di IA ha sempre il corpo di un robot.", false, "Il traduttore e il filtro antispam sono sistemi di IA senza corpo."], ["Per l'AI Act un sistema di IA deduce dall'input come generare un output.", true, "È il verbo centrale della definizione all'articolo 3."], ["La calcolatrice è un sistema di IA perché risolve calcoli difficili.", false, "Applica regole già scritte: è automazione."], ["Un robot può contenere componenti di IA.", true, "Per esempio per riconoscere voci, volti o oggetti."]], "aperta": ["Spiega in tre frasi a una compagna o a un compagno perché la calcolatrice non è un sistema di IA.", "La calcolatrice applica regole fisse, scritte da chi l'ha progettata. Non ricava dai dati come produrre un risultato: dato lo stesso calcolo, risponde sempre allo stesso modo. Per questo è un esempio di automazione."]}, "1.2": {"ordina": {"titolo": "Metti in ordine la linea del tempo", "consegna": "Usa i pulsanti ↑ e ↓ per mettere gli eventi dal più antico al più recente, poi premi «Verifica».", "eventi": [["1950", "Turing propone il gioco dell'imitazione"], ["1955", "La proposta di Dartmouth usa per la prima volta il nome «intelligenza artificiale»"], ["1966", "Weizenbaum crea ELIZA"], ["1980", "Searle propone la stanza cinese"], ["1997", "Deep Blue batte Kasparov a scacchi"], ["2022", "I chatbot basati su LLM arrivano al grande pubblico"]]}, "imitazione": {"titolo": "Il gioco dell'imitazione (simulazione)", "consegna": "Leggi la domanda e le due risposte. Quale ti sembra scritta da una macchina?", "nota": "Le risposte sono state scritte da chi ha preparato l'esercizio, imitando lo stile di una persona e quello di un chatbot. Nella realtà distinguerle è spesso molto più difficile.", "round": [["Che cosa hai mangiato ieri sera?", "Pasta al pomodoro, come ogni martedì. A casa mia il martedì è il giorno della pasta, non chiedermi perché.", "Ieri sera ho consumato un pasto equilibrato, composto da una porzione di pasta, verdure di stagione e frutta fresca.", "B", "B è generica e «perfetta»: nessun dettaglio personale, tono da manuale."], ["Qual è il tuo ricordo più bello delle elementari?", "Uno dei ricordi più belli delle scuole elementari è sicuramente legato alle amicizie e alle esperienze condivise, come le gite scolastiche.", "La gita al mare in quinta: pioveva e siamo rimasti tutto il giorno nel pullman a cantare. Bellissima lo stesso.", "A", "A riformula la domanda e resta sul generale, senza un episodio preciso."], ["Quanto fa 3.847 per 29?", "111.563", "Aspetta… più o meno 110 mila? Non ho la calcolatrice.", "A", "A risponde subito e senza errori. Turing però osservava che una macchina, per sembrare umana, potrebbe anche prendersi una pausa o sbagliare apposta."]]}, "vf": [["Turing propose di sostituire la domanda «le macchine possono pensare?» con un gioco.", true, "Il gioco dell'imitazione, nel 1950."], ["L'espressione «intelligenza artificiale» compare per la prima volta nel 1955.", true, "Nella proposta per il seminario di Dartmouth."], ["La stanza cinese dimostra che le macchine capiscono il cinese.", false, "Searle la usa per sostenere il contrario: seguire regole non è capire."], ["Gli «inverni dell'IA» sono periodi di delusione e di finanziamenti ridotti.", true, "A metà degli anni Settanta e alla fine degli anni Ottanta."], ["Per l'AI Act, chi parla con un chatbot deve poter sapere che sta interagendo con un sistema di IA.", true, "Lo prevede l'articolo 50, salvo i casi in cui è evidente."]]}, "1.3": {"token": {"titolo": "Indovina la parola successiva", "consegna": "Scegli come continua la frase, poi guarda quali continuazioni considererebbe un modello linguistico.", "nota": "Probabilità inventate a scopo illustrativo.", "round": [["Oggi a scuola abbiamo fatto una verifica di…", [["matematica", 34], ["storia", 18], ["inglese", 15], ["educazione fisica", 2]], "Il modello sceglie ciò che è frequente nei testi, non ciò che è successo davvero nella tua classe."], ["Il capoluogo della Sicilia è…", [["Palermo", 92], ["Catania", 4], ["Messina", 2], ["Roma", 1]], "Quando un fatto compare spesso e in modo coerente nei testi, la continuazione più probabile coincide con quella vera."], ["Il libro di filosofia che ho letto ieri si intitolava…", [["«Il mondo di Sofia»", 21], ["«La Repubblica»", 9], ["«Così parlò Zarathustra»", 6], ["il titolo vero, che il modello non può sapere", 0]], "Il modello non sa quale libro hai letto: propone il titolo più probabile. Se lo presentasse come certo, sarebbe un'allucinazione."]]}, "riscrivi": {"titolo": "Riscrivi senza antropomorfismi", "consegna": "Riscrivi ogni frase descrivendo ciò che il sistema fa davvero, poi confronta con una proposta.", "frasi": [["L'IA ha capito che sono triste.", "Il sistema ha classificato il mio messaggio come triste, in base alle parole che ho usato."], ["Il chatbot sa tutto sulla storia romana.", "Il modello è stato addestrato su molti testi di storia romana, ma può generare errori."], ["L'algoritmo ha deciso di non mostrarmi quel video.", "Il sistema di raccomandazione ha dato a quel video un punteggio basso per il mio profilo, secondo criteri scelti da persone."], ["L'IA si è inventata una fonte.", "Il modello ha generato il riferimento a una fonte che non esiste."]]}, "vf": [["Nell'apprendimento automatico tutte le regole sono scritte a mano dalle persone.", false, "Il sistema ricava le regolarità dagli esempi."], ["Il risultato di un modello è una previsione probabile.", true, "Per esempio «gatto, al 92%»."], ["Un testo scritto bene da un chatbot è sicuramente vero.", false, "La fluidità non garantisce la verità."], ["Un token è sempre una parola intera.", false, "Spesso è una parte di parola."]]}}, "glossario": [["AI Act", "Il Regolamento (UE) 2024/1689, la legge europea sull'intelligenza artificiale."], ["Allucinazione", "Testo generato da un modello che sembra plausibile ma non corrisponde ai fatti. Il nome è una metafora: il sistema non «vede» nulla."], ["Antropomorfismo", "Attribuire caratteristiche umane, come pensare o capire, a ciò che umano non è."], ["Apprendimento automatico", "In inglese machine learning: il sistema ricava regolarità da molti esempi invece di seguire regole scritte a mano."], ["Automazione", "Macchine che eseguono sempre la stessa sequenza di operazioni, stabilita in anticipo."], ["Compiti specifici", "Ogni sistema di IA è costruito per uno scopo preciso e non sa fare tutto il resto."], ["Congettura", "Un'ipotesi da mettere alla prova, non ancora dimostrata."], ["Dati di addestramento", "Gli esempi (immagini, testi, suoni, numeri) da cui un sistema di apprendimento automatico impara."], ["Disciplina", "Un campo di studi con un oggetto, dei metodi, una storia e una comunità di ricerca."], ["Esperimento mentale", "Una situazione immaginaria pensata per mettere alla prova un'idea."], ["Gioco dell'imitazione", "L'esperimento proposto da Turing nel 1950, oggi noto come test di Turing."], ["IA simbolica", "La strada dell'IA in cui le persone scrivono le regole che il sistema deve seguire."], ["Large language model", "LLM, modello linguistico di grandi dimensioni: genera testo prevedendo i token più probabili."], ["Modello", "Ciò che risulta dall'addestramento: moltissimi numeri (parametri) che rappresentano le regolarità trovate nei dati."], ["Robotica", "Lo studio e la costruzione di macchine dotate di un corpo, che agiscono nel mondo fisico."], ["Sistema di IA", "Un sistema che, a partire dai dati che riceve, ricava come produrre previsioni, contenuti, raccomandazioni o decisioni."], ["Token", "Un pezzo di testo, spesso una parola o una parte di parola, su cui lavora un large language model."]], "schedePar": {"scheda-s1-1-a": "1.1", "scheda-s1-1-b": "1.1", "scheda-s1-2-a": "1.2", "scheda-s1-2-b": "1.2", "scheda-s1-2-c": "1.2", "scheda-s1-3-a": "1.3", "scheda-s1-3-b": "1.3"}}</script>
+<script>
+(function(){
+  document.documentElement.lang = 'it';
+  var D = JSON.parse(document.getElementById('dati').textContent);
+  var root = document.documentElement;
+
+  function get(k, d){ try { var v = localStorage.getItem('ael1-' + k); return v === null ? d : v; } catch(e){ return d; } }
+  function set(k, v){ try { localStorage.setItem('ael1-' + k, v); } catch(e){} }
+
+  /* ---------- Accessibilità ---------- */
+  var scale = [0.9, 1, 1.12, 1.25, 1.4, 1.6];
+  var fsIdx = parseInt(get('fs', '1'), 10); if (isNaN(fsIdx)) fsIdx = 1;
+  function applyFs(){ fsIdx = Math.max(0, Math.min(scale.length - 1, fsIdx)); root.style.setProperty('--fs', scale[fsIdx]); set('fs', fsIdx); }
+  document.getElementById('fs-meno').onclick = function(){ fsIdx--; applyFs(); };
+  document.getElementById('fs-piu').onclick = function(){ fsIdx++; applyFs(); };
+  document.getElementById('fs-norm').onclick = function(){ fsIdx = 1; applyFs(); };
+  applyFs();
+
+  function toggle(id, on, apply){ var b = document.getElementById(id); b.setAttribute('aria-pressed', on ? 'true' : 'false'); apply(on); set(id, on ? '1' : '0'); }
+  function spazi(on){ root.style.setProperty('--lh', on ? '1.95' : '1.65'); root.style.setProperty('--ls', on ? '0.03em' : '0em'); root.style.setProperty('--ws', on ? '0.12em' : '0em'); }
+  function contrasto(on){ if (on) root.setAttribute('data-contrast', 'alto'); else root.removeAttribute('data-contrast'); }
+  ['spazi', 'contrasto'].forEach(function(id){
+    var fn = id === 'spazi' ? spazi : contrasto;
+    toggle(id, get(id, '0') === '1', fn);
+    document.getElementById(id).onclick = function(){ toggle(id, this.getAttribute('aria-pressed') !== 'true', fn); };
+  });
+  var acc = document.getElementById('acc'), apri = document.getElementById('apri-acc');
+  apri.onclick = function(){ var open = acc.hidden; acc.hidden = !open; apri.setAttribute('aria-expanded', open ? 'true' : 'false'); set('acc', open ? '1' : '0'); };
+  if (get('acc', window.innerWidth < 700 ? '0' : '1') === '0'){ acc.hidden = true; apri.setAttribute('aria-expanded', 'false'); }
+
+  /* ---------- Lettura ad alta voce ---------- */
+  var synth = window.speechSynthesis, msg = document.getElementById('voce-msg');
+  var voce = null, coda = [], attivo = null;
+  function scegliVoce(){ if (!synth) return; var v = synth.getVoices(); voce = v.filter(function(x){ return /^it/i.test(x.lang); })[0] || null; }
+  if (synth){ scegliVoce(); if (typeof synth.onvoiceschanged !== 'undefined') synth.onvoiceschanged = scegliVoce; }
+  else { msg.textContent = 'La lettura ad alta voce non è disponibile in questo browser. Puoi usare il lettore di schermo del dispositivo.'; ['ascolto', 'ferma', 'velocita'].forEach(function(id){ document.getElementById(id).disabled = true; }); }
+  function testoDi(el){ var c = el.cloneNode(true); c.querySelectorAll('.kw-def,.sr,textarea').forEach(function(x){ x.remove(); }); return c.textContent.replace(/\s+/g, ' ').trim(); }
+  function evid(el){ if (attivo) attivo.classList.remove('letto'); attivo = el; if (el){ el.classList.add('letto'); } }
+  function ferma(){ coda = []; if (synth) synth.cancel(); evid(null); }
+  function prossimo(){
+    if (!coda.length){ evid(null); return; }
+    var el = coda.shift(), t = testoDi(el);
+    if (!t){ prossimo(); return; }
+    var u = new SpeechSynthesisUtterance(t);
+    u.lang = 'it-IT'; if (voce) u.voice = voce; u.rate = parseFloat(document.getElementById('velocita').value) || 1;
+    u.onstart = function(){ evid(el); };
+    u.onend = function(){ prossimo(); };
+    u.onerror = function(){ evid(null); };
+    synth.speak(u);
+  }
+  function leggi(els){ if (!synth) return; ferma(); coda = Array.prototype.slice.call(els); prossimo(); }
+  document.getElementById('ferma').onclick = ferma;
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') ferma(); });
+  var ascolto = get('ascolto', '0') === '1';
+  function setAscolto(on){
+    ascolto = on; document.body.classList.toggle('ascolto', on);
+    document.getElementById('ascolto').setAttribute('aria-pressed', on ? 'true' : 'false'); set('ascolto', on ? '1' : '0');
+    document.querySelectorAll('.readable').forEach(function(el){ if (on) el.setAttribute('tabindex', '0'); else el.removeAttribute('tabindex'); });
+    if (!on) ferma();
+  }
+  document.getElementById('ascolto').onclick = function(){ setAscolto(!ascolto); };
+  setAscolto(ascolto && !!synth);
+  document.addEventListener('click', function(e){
+    if (!ascolto) return;
+    if (e.target.closest('button, a, textarea, input, select, summary, label')) return;
+    var el = e.target.closest('.readable'); if (el) leggi([el]);
+  });
+  document.addEventListener('keydown', function(e){
+    if (!ascolto || e.key !== 'Enter') return;
+    var el = document.activeElement; if (el && el.classList && el.classList.contains('readable')){ e.preventDefault(); leggi([el]); }
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.ascolta-sez'); if (!b) return;
+    var sez = document.getElementById(b.getAttribute('data-target'));
+    if (sez) leggi(sez.querySelectorAll('.readable'));
+  });
+
+  /* ---------- Parole chiave ---------- */
+  var G = {}; D.glossario.forEach(function(g){ G[g[0]] = g[1]; });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.kw'); if (!b) return;
+    var open = b.getAttribute('aria-expanded') === 'true';
+    var next = b.nextElementSibling;
+    if (open && next && next.classList.contains('kw-def')){ next.remove(); b.setAttribute('aria-expanded', 'false'); return; }
+    var s = document.createElement('span'); s.className = 'kw-def'; s.setAttribute('role', 'note');
+    s.textContent = b.getAttribute('data-term') + ': ' + (G[b.getAttribute('data-term')] || '');
+    b.insertAdjacentElement('afterend', s); b.setAttribute('aria-expanded', 'true');
+  });
+
+  /* ---------- Stimolo ---------- */
+  var scelte = document.querySelectorAll('.scelta'), nessuna = document.getElementById('nessuna');
+  var stato = document.getElementById('scelta-stato'), ricordo = document.getElementById('scelta-ricordo');
+  var nomi = { A: 'A, il robot chirurgico', B: 'B, il robot umanoide', C: 'C, il chatbot', D: 'D, la calcolatrice' };
+  function salvaScelta(){
+    var s = []; scelte.forEach(function(b){ if (b.getAttribute('aria-pressed') === 'true') s.push(b.getAttribute('data-scelta')); });
+    if (nessuna.getAttribute('aria-pressed') === 'true') s = ['nessuna'];
+    set('scelta', s.join(','));
+    var txt = !s.length ? 'Non hai ancora scelto.' : (s[0] === 'nessuna' ? 'Hai scelto: nessuna delle quattro.' : 'Hai scelto: ' + s.map(function(x){ return nomi[x]; }).join('; ') + '.');
+    stato.textContent = s.length ? txt + ' La scelta resta solo su questo dispositivo.' : 'Premi una o più immagini per scegliere. La scelta resta solo su questo dispositivo.';
+    ricordo.textContent = s.length ? 'All\'inizio del capitolo ' + txt.charAt(0).toLowerCase() + txt.slice(1) : 'All\'inizio del capitolo non avevi ancora scelto: puoi farlo ora, tornando alle immagini.';
+  }
+  scelte.forEach(function(b){ b.onclick = function(){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); nessuna.setAttribute('aria-pressed', 'false'); salvaScelta(); }; });
+  nessuna.onclick = function(){ var on = nessuna.getAttribute('aria-pressed') !== 'true'; nessuna.setAttribute('aria-pressed', on ? 'true' : 'false'); if (on) scelte.forEach(function(b){ b.setAttribute('aria-pressed', 'false'); }); salvaScelta(); };
+  (get('scelta', '') || '').split(',').forEach(function(x){
+    if (x === 'nessuna') nessuna.setAttribute('aria-pressed', 'true');
+    scelte.forEach(function(b){ if (b.getAttribute('data-scelta') === x) b.setAttribute('aria-pressed', 'true'); });
+  });
+  salvaScelta();
+
+  /* ---------- Caselle di testo salvate ---------- */
+  document.querySelectorAll('textarea[data-store]').forEach(function(t){
+    t.value = get('t-' + t.getAttribute('data-store'), '');
+    t.addEventListener('input', function(){ set('t-' + t.getAttribute('data-store'), t.value); });
+  });
+
+  /* ---------- Esercizi ---------- */
+  function el(tag, attrs, html){ var e = document.createElement(tag); if (attrs) Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); }); if (html !== undefined) e.innerHTML = html; return e; }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var uid = 0;
+  function box(titolo, consegna){ var b = el('section', { 'class': 'esercizio' }); b.appendChild(el('h2', null, esc(titolo))); if (consegna) b.appendChild(el('p', { 'class': 'readable' }, esc(consegna))); return b; }
+
+  function classifica(d){
+    var b = box(d.titolo, d.consegna), rows = [];
+    d.voci.forEach(function(v){
+      var id = 'cl-' + (++uid), r = el('div', { 'class': 'es-voce' });
+      r.innerHTML = '<label for="' + id + '" class="readable">' + esc(v[0]) + '</label><br>';
+      var s = el('select', { id: id }); s.appendChild(el('option', { value: '' }, 'Scegli…'));
+      d.categorie.forEach(function(c){ s.appendChild(el('option', { value: c }, esc(c))); });
+      var fb = el('p', { 'class': 'fb', 'aria-live': 'polite' });
+      r.appendChild(s); r.appendChild(fb); b.appendChild(r); rows.push([s, fb, v]);
+    });
+    var tot = el('p', { 'class': 'piccolo', 'aria-live': 'polite' });
+    var btn = el('button', { type: 'button', 'class': 'btn' }, 'Verifica');
+    btn.onclick = function(){ var ok = 0; rows.forEach(function(x){ var g = x[0].value === x[2][1]; if (g) ok++; x[1].className = 'fb ' + (g ? 'ok' : 'ko'); x[1].textContent = (g ? 'Giusto. ' : (x[0].value ? 'Non proprio: la risposta è «' + x[2][1] + '». ' : 'Manca la risposta: è «' + x[2][1] + '». ')) + x[2][2]; }); tot.textContent = 'Risposte giuste: ' + ok + ' su ' + rows.length + '.'; };
+    var rb = el('div', { 'class': 'riga-btn' }); rb.appendChild(btn); rb.appendChild(tot); b.appendChild(rb);
+    return b;
+  }
+
+  function vf(list){
+    var b = box('Vero o falso', 'Per ogni frase scegli vero o falso, poi premi «Verifica».'), rows = [];
+    list.forEach(function(v){
+      var n = 'vf-' + (++uid), r = el('fieldset', { 'class': 'es-voce', style: 'border:0;padding:.6rem 0;margin:0' });
+      r.innerHTML = '<legend class="readable">' + esc(v[0]) + '</legend><div class="vf-r"><label><input type="radio" name="' + n + '" value="1"> Vero</label><label><input type="radio" name="' + n + '" value="0"> Falso</label></div>';
+      var fb = el('p', { 'class': 'fb', 'aria-live': 'polite' }); r.appendChild(fb); b.appendChild(r); rows.push([n, fb, v]);
+    });
+    var btn = el('button', { type: 'button', 'class': 'btn' }, 'Verifica'), tot = el('p', { 'class': 'piccolo', 'aria-live': 'polite' });
+    btn.onclick = function(){ var ok = 0; rows.forEach(function(x){ var c = b.querySelector('input[name="' + x[0] + '"]:checked'); var g = c && (c.value === '1') === x[2][1]; if (g) ok++; x[1].className = 'fb ' + (g ? 'ok' : 'ko'); x[1].textContent = (x[2][1] ? 'Vero. ' : 'Falso. ') + x[2][2]; }); tot.textContent = 'Risposte giuste: ' + ok + ' su ' + rows.length + '.'; };
+    var rb = el('div', { 'class': 'riga-btn' }); rb.appendChild(btn); rb.appendChild(tot); b.appendChild(rb);
+    return b;
+  }
+
+  function aperta(d){
+    var b = box('Ragiona con le tue parole', null), id = 'ap-' + (++uid);
+    b.appendChild(el('p', { 'class': 'readable' }, esc(d[0])));
+    b.appendChild(el('label', { 'for': id, 'class': 'etichetta' }, 'La tua risposta'));
+    var t = el('textarea', { id: id, 'data-store': id, rows: '4' }); t.value = get('t-' + id, ''); t.addEventListener('input', function(){ set('t-' + id, t.value); }); b.appendChild(t);
+    var det = el('details', { 'class': 'nota' }); det.innerHTML = '<summary>Mostra una risposta possibile</summary><p class="proposta readable">' + esc(d[1]) + '</p>'; b.appendChild(det);
+    return b;
+  }
+
+  function ordina(d){
+    var b = box(d.titolo, d.consegna), ol = el('ol', { 'class': 'ordina' });
+    var items = d.eventi.map(function(e, i){ return { k: i, a: e[0], t: e[1] }; });
+    var mix = [3, 0, 5, 2, 4, 1].map(function(i){ return items[i]; });
+    function draw(focusK, dir){
+      ol.innerHTML = '';
+      mix.forEach(function(it, i){
+        var li = el('li'); li.appendChild(el('span', null, esc(it.t)));
+        var up = el('button', { type: 'button', 'aria-label': 'Sposta su: ' + it.t }, '↑'); up.disabled = i === 0;
+        var dn = el('button', { type: 'button', 'aria-label': 'Sposta giù: ' + it.t }, '↓'); dn.disabled = i === mix.length - 1;
+        up.onclick = function(){ var t = mix[i - 1]; mix[i - 1] = mix[i]; mix[i] = t; draw(it.k, 'up'); };
+        dn.onclick = function(){ var t = mix[i + 1]; mix[i + 1] = mix[i]; mix[i] = t; draw(it.k, 'dn'); };
+        li.appendChild(up); li.appendChild(dn); ol.appendChild(li);
+        if (focusK === it.k){ setTimeout(function(){ (dir === 'up' && !up.disabled ? up : (!dn.disabled ? dn : up)).focus(); }, 0); }
+      });
+    }
+    draw();
+    b.appendChild(ol);
+    var fb = el('p', { 'class': 'fb', 'aria-live': 'polite' }), btn = el('button', { type: 'button', 'class': 'btn' }, 'Verifica');
+    btn.onclick = function(){ var ok = mix.every(function(it, i){ return it.k === i; }); fb.className = 'fb ' + (ok ? 'ok' : 'ko'); fb.textContent = ok ? 'Ordine corretto: ' + items.map(function(x){ return x.a; }).join(', ') + '.' : 'Non ancora: controlla le date nella scheda «La storia dell\'IA in una linea».'; };
+    var rb = el('div', { 'class': 'riga-btn' }); rb.appendChild(btn); b.appendChild(rb); b.appendChild(fb);
+    return b;
+  }
+
+  function imitazione(d){
+    var b = box(d.titolo, d.consegna);
+    d.round.forEach(function(r, i){
+      var w = el('div', { 'class': 'es-voce' });
+      w.appendChild(el('p', { 'class': 'readable' }, '<b>Domanda ' + (i + 1) + ':</b> «' + esc(r[0]) + '»'));
+      var rr = el('div', { 'class': 'risposte' }), fb = el('p', { 'class': 'fb', 'aria-live': 'polite' });
+      ['A', 'B'].forEach(function(L, j){
+        var bt = el('button', { type: 'button', 'class': 'risposta', 'aria-pressed': 'false' }, '<b>' + L + '</b> «' + esc(r[1 + j]) + '»');
+        bt.onclick = function(){ rr.querySelectorAll('.risposta').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); }); bt.setAttribute('aria-pressed', 'true'); var g = L === r[3]; fb.className = 'fb ' + (g ? 'ok' : 'ko'); fb.textContent = (g ? 'Sì, è ' + r[3] + '. ' : 'Questa volta la macchina era ' + r[3] + '. ') + r[4]; };
+        rr.appendChild(bt);
+      });
+      w.appendChild(rr); w.appendChild(fb); b.appendChild(w);
+    });
+    b.appendChild(el('p', { 'class': 'piccolo' }, esc(d.nota)));
+    return b;
+  }
+
+  function token(d){
+    var b = box(d.titolo, d.consegna);
+    d.round.forEach(function(r, i){
+      var w = el('div', { 'class': 'es-voce' });
+      w.appendChild(el('p', { 'class': 'readable' }, '<b>' + (i + 1) + '.</b> «' + esc(r[0]) + '»'));
+      var op = el('div', { 'class': 'opzioni' }), out = el('div', { 'aria-live': 'polite' });
+      r[1].forEach(function(o, j){
+        var bt = el('button', { type: 'button', 'class': 'btn ghost', 'aria-pressed': 'false' }, esc(o[0]));
+        bt.onclick = function(){
+          op.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); }); bt.setAttribute('aria-pressed', 'true');
+          var max = Math.max.apply(null, r[1].map(function(x){ return x[1]; })) || 1;
+          var h = '<div class="barre" role="list" aria-label="Probabilità di esempio">';
+          r[1].forEach(function(x, k){ h += '<div class="barra' + (k === j ? ' scelta-tua' : '') + '" role="listitem"><span>' + esc(x[0]) + '</span><span class="bw"><span class="b" style="width:' + Math.max(1, x[1] / max * 100) + '%"></span><span class="v">' + x[1] + '%</span></span></div>'; });
+          h += '</div><p class="proposta readable">' + esc(r[2]) + '</p>';
+          out.innerHTML = h;
+        };
+        op.appendChild(bt);
+      });
+      w.appendChild(op); w.appendChild(out); b.appendChild(w);
+    });
+    b.appendChild(el('p', { 'class': 'piccolo' }, esc(d.nota)));
+    return b;
+  }
+
+  function riscrivi(d){
+    var b = box(d.titolo, d.consegna);
+    d.frasi.forEach(function(f){
+      var id = 'rs-' + (++uid), w = el('div', { 'class': 'es-voce' });
+      w.appendChild(el('label', { 'for': id, 'class': 'readable' }, '«' + esc(f[0]) + '»'));
+      var t = el('textarea', { id: id, rows: '2' }); t.value = get('t-' + id, ''); t.addEventListener('input', function(){ set('t-' + id, t.value); });
+      w.appendChild(t);
+      var det = el('details', { 'class': 'nota' }); det.innerHTML = '<summary>Confronta con una proposta</summary><p class="proposta readable">«' + esc(f[1]) + '»</p>';
+      w.appendChild(det); b.appendChild(w);
+    });
+    return b;
+  }
+
+  document.querySelectorAll('.es-container').forEach(function(c){
+    var E = D.esercizi[c.getAttribute('data-par')];
+    if (E.classifica) c.appendChild(classifica(E.classifica));
+    if (E.ordina) c.appendChild(ordina(E.ordina));
+    if (E.imitazione) c.appendChild(imitazione(E.imitazione));
+    if (E.token) c.appendChild(token(E.token));
+    if (E.riscrivi) c.appendChild(riscrivi(E.riscrivi));
+    if (E.vf) c.appendChild(vf(E.vf));
+    if (E.aperta) c.appendChild(aperta(E.aperta));
+  });
+  if (ascolto) setAscolto(true);
+
+  /* ---------- Viste (#hash) ---------- */
+  var viste = document.querySelectorAll('[data-view]');
+  function mostra(){
+    var h = (location.hash || '').replace('#', '') || 'capitolo';
+    var target = h, scroll = null;
+    if (!document.querySelector('[data-view="' + h + '"]')){ target = 'capitolo'; scroll = document.getElementById(h); }
+    viste.forEach(function(v){ v.hidden = v.getAttribute('data-view') !== target; });
+    var nav = target.indexOf('scheda') === 0 ? 'schede' : (target.indexOf('esercizi') === 0 ? 'esercizi' : target);
+    document.querySelectorAll('.nav a').forEach(function(a){ if (a.getAttribute('data-nav') === nav) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    ferma();
+    if (scroll){ scroll.scrollIntoView({ block: 'start' }); window.scrollBy(0, -90); if (!scroll.hasAttribute('tabindex')) scroll.setAttribute('tabindex', '-1'); scroll.focus({ preventScroll: true }); }
+    else if (target !== 'capitolo' || h === 'capitolo'){ window.scrollTo(0, 0); var t = document.querySelector('[data-view="' + target + '"] h1'); if (t && target !== 'capitolo') t.focus({ preventScroll: true }); }
+  }
+  window.addEventListener('hashchange', mostra);
+  mostra();
+})();
+</script>
+</body>
+</html>
