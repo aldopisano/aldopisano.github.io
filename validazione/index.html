@@ -72,6 +72,8 @@ img{max-width:100%}
 .join .row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 .join .send{font:inherit;font-weight:700;color:var(--bg);background:var(--accent);border:0;border-radius:4px;padding:.75rem 1rem;cursor:pointer;justify-self:start}
 .join .ok{color:var(--accent);font-weight:700}
+.join .ko{color:#ff8a80;font-weight:700}
+.join .send[disabled]{opacity:.6;cursor:wait}
 .join input:focus-visible,.join select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
@@ -154,11 +156,7 @@ img{max-width:100%}
     <div class="txt">
       <div class="tag">Come aderire</div>
       <h2>Compilate il modulo</h2>
-      <form class="join" action="https://formsubmit.co/aiethicsliteracy@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Adesione validazione AI&amp;Ethics Literacy for Students">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://aldopisano.github.io/validazione/?grazie=1#aderire">
+      <form class="join" id="adesione" action="{{ENDPOINT}}" method="POST">
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
         <label>Nome e cognome del docente<input type="text" name="Docente" required autocomplete="name"></label>
         <label>Nome della scuola<input type="text" name="Scuola" required></label>
@@ -180,7 +178,8 @@ img{max-width:100%}
         </div>
         <label>E-mail di contatto<input type="email" name="email" required autocomplete="email"></label>
         <button type="submit" class="send">Invia l'adesione</button>
-        <p class="ok" id="ok" hidden>Grazie, adesione ricevuta. Vi scriveremo con le indicazioni operative.</p>
+        <p class="ok" id="ok" role="status" hidden>Grazie, adesione ricevuta. Vi scriveremo con le indicazioni operative.</p>
+        <p class="ko" id="ko" role="alert" hidden>Invio non riuscito. Riprovate tra poco o scrivete a aiethicsliteracy@gmail.com.</p>
       </form>
       <p>Per più classi inviate un modulo per ciascuna. Per domande: <span class="mailto">aiethicsliteracy@gmail.com</span></p>
       <p class="sign">Grazie per il vostro contributo.<br><strong>Il team AI&amp;Ethics Literacy for Students</strong></p>
@@ -205,7 +204,17 @@ img{max-width:100%}
 </main>
 
 <script>
-if(location.search.indexOf('grazie=1')>-1){var o=document.getElementById('ok');if(o)o.hidden=false;}
+(function(){
+  var f=document.getElementById('adesione'); if(!f) return;
+  var ok=document.getElementById('ok'), ko=document.getElementById('ko'), b=f.querySelector('.send');
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault(); ok.hidden=true; ko.hidden=true; b.disabled=true; b.textContent='Invio in corso…';
+    fetch(f.action,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(f))})
+      .then(function(){ f.reset(); ok.hidden=false; ok.focus&&ok.setAttribute('tabindex','-1'); ok.focus(); })
+      .catch(function(){ ko.hidden=false; })
+      .then(function(){ b.disabled=false; b.textContent="Invia l'adesione"; });
+  });
+})();
 </script>
 </body>
 </html>
