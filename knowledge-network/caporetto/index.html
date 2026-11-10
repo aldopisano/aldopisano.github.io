@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Simulazione interattiva a turni della battaglia di Caporetto (1917): foto d'epoca, mappe animate e decisioni da comandante. Knowledge Network di Aldo Pisano.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Caporetto 1917</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: carta topografica di stato maggiore a sinistra (sticky), dispaccio del turno a destra; su telefono la mappa sta sopra. */
+:root{
+  --paper:#E8EBE3; --surface:#F6F7F2; --ink:#1E231F; --muted:#59615A; --line:#C3CABC;
+  --ita:#2B58A0; --ita-soft:rgba(43,88,160,.14); --enemy:#AE3529; --enemy-soft:rgba(174,53,41,.16);
+  --gold:#8F7228; --water:#86AEC6; --land:#DCE1D1; --relief:#C3CBB2; --relief2:#B0B99C;
+  --ok:#2F7A4A; --warn:#A2711A; --bad:#AE3529;
+  --f-display:"Saira Stencil One","Impact","Arial Narrow",sans-serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#131713; --surface:#1C211C; --ink:#E3E7DE; --muted:#9AA394; --line:#333B32;
+  --ita:#719CE2; --ita-soft:rgba(113,156,226,.16); --enemy:#E2644F; --enemy-soft:rgba(226,100,79,.18);
+  --gold:#D3B262; --water:#2E4C5D; --land:#222922; --relief:#2D362C; --relief2:#3A4538;
+  --ok:#6CC28C; --warn:#E0AE52; --bad:#E2644F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#131713; --surface:#1C211C; --ink:#E3E7DE; --muted:#9AA394; --line:#333B32;
+  --ita:#719CE2; --ita-soft:rgba(113,156,226,.16); --enemy:#E2644F; --enemy-soft:rgba(226,100,79,.18);
+  --gold:#D3B262; --water:#2E4C5D; --land:#222922; --relief:#2D362C; --relief2:#3A4538;
+  --ok:#6CC28C; --warn:#E0AE52; --bad:#E2644F; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(2.4rem,7vw,4.4rem);line-height:.9;margin:0;letter-spacing:.01em}
+.kicker{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.lede{max-width:34rem;margin:8px 0 0;color:var(--muted)}
+.score{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right}
+.score b{font-family:var(--f-display);font-weight:400;font-size:2.2rem;color:var(--ink);display:block;line-height:1}
+.score span{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+.game{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:860px){.game{grid-template-columns:minmax(0,1fr)}}
+.mapcol{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:flex;flex-direction:column;gap:10px;min-width:0}
+@media (max-width:860px){.mapcol{position:static}}
+.mapframe{background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.maphead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.maphead strong{color:var(--ink);font-weight:500}
+svg.map{display:block;width:100%;height:auto}
+.caption{font-size:.9rem;color:var(--muted);margin:0;min-height:2.8em}
+.timeline{display:flex;flex-wrap:wrap;gap:6px}
+.timeline button,.btn{font:inherit}
+.chip{font-family:var(--f-mono);font-size:.74rem;padding:6px 9px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:3px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip.play{color:var(--ita);border-color:var(--ita)}
+.chip:focus-visible,.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.8rem;color:var(--muted)}
+.legend i{display:inline-block;width:18px;height:0;border-top:3px solid;vertical-align:middle;margin-right:6px}
+
+/* map styling */
+.land{fill:var(--land)} .sea{fill:var(--water);opacity:.55}
+.relief{fill:var(--relief)} .relief2{fill:var(--relief2)}
+.river{fill:none;stroke:var(--water);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.river.thin{stroke-width:2.5}
+.valley{fill:none;stroke:var(--surface);stroke-width:22;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
+.ridge{fill:none;stroke:var(--relief2);stroke-width:7;stroke-linecap:round;opacity:.9}
+.town{fill:var(--ink)} .peak{fill:var(--muted)}
+.lbl{fill:var(--ink);font-family:var(--f-body);font-size:13px;font-weight:600}
+.lbl.sm{font-size:11px;font-weight:500;fill:var(--muted)}
+.lbl.wat{fill:var(--water);font-style:italic;font-weight:500;font-size:12px}
+:root .lbl.wat{filter:brightness(.75)}
+.halo{paint-order:stroke;stroke:var(--surface);stroke-width:3.5px;stroke-linejoin:round}
+.front-ita{fill:none;stroke:var(--ita);stroke-width:4;stroke-linejoin:round;stroke-linecap:round}
+.front-ita.ticks{stroke-width:10;stroke-dasharray:1.5 9;opacity:.8}
+.front-new{fill:none;stroke:var(--ita);stroke-width:4.5;stroke-linejoin:round}
+.occ{fill:var(--enemy-soft);stroke:none}
+.mass{fill:url(#hatch);stroke:var(--enemy);stroke-width:1.5;stroke-dasharray:4 3}
+.arrow{fill:none;stroke:var(--enemy);stroke-width:5;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:0}
+.arrowhead{fill:var(--enemy)}
+.gas{fill:#B9BD3E;opacity:.55}
+.flash{fill:var(--gold)}
+.ring{fill:none;stroke:var(--enemy);stroke-width:3}
+.flag{fill:var(--enemy)}
+.alb{fill:var(--enemy);font-family:var(--f-mono);font-size:11px;font-weight:500}
+.ilb{fill:var(--ita);font-family:var(--f-mono);font-size:11px;font-weight:500}
+.ov{opacity:0;transition:opacity .5s ease;pointer-events:none}
+.ov.on{opacity:1}
+.ov.faint{opacity:.28}
+.ov.on .arrow{animation:draw 1.6s ease-out both}
+@keyframes draw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.ov.on .gas{animation:puff 3s ease-in-out infinite alternate}
+@keyframes puff{from{transform:scale(.85);opacity:.35}to{transform:scale(1.15);opacity:.65}}
+.gas{transform-box:fill-box;transform-origin:center}
+.ov.on .flash{animation:blink 1.1s steps(2) infinite}
+.flash:nth-child(2n){animation-delay:.4s!important}
+@keyframes blink{50%{opacity:.15}}
+.view{transition:opacity .4s ease}
+.view.hide{opacity:0;visibility:hidden}
+@media (prefers-reduced-motion:reduce){.ov,.view{transition:none}.ov.on .arrow,.ov.on .gas,.ov.on .flash{animation:none}}
+
+/* dispatch panel */
+.panel{display:flex;flex-direction:column;gap:16px;min-width:0}
+.dots{display:flex;gap:6px}
+.dots span{flex:1;height:5px;border-radius:2px;background:var(--line)}
+.dots span.done{background:var(--ink)} .dots span.now{background:var(--gold)}
+.dispatch{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.dhead{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-bottom:1px dashed var(--line);padding-bottom:10px}
+.dhead b{color:var(--enemy);font-weight:500}
+h2{font-family:var(--f-display);font-weight:400;font-size:1.9rem;line-height:1;margin:0;text-wrap:balance}
+.dispatch p{margin:0;max-width:62ch}
+.q{font-weight:700}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:10px;align-items:start;text-align:left;padding:12px 14px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);cursor:pointer;font:inherit;line-height:1.4}
+.opt:hover:not(:disabled){border-color:var(--ita)}
+.opt .k{font-family:var(--f-display);font-size:1.3rem;line-height:1;color:var(--ita)}
+.opt small{display:block;color:var(--muted);font-size:.86rem;margin-top:2px}
+.opt:disabled{cursor:default;opacity:.55}
+.opt.picked{opacity:1;border-color:var(--ink);border-width:2px}
+.verdict{display:flex;flex-direction:column;gap:12px;border-top:2px solid var(--ink);padding-top:14px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1.5px solid currentColor;width:max-content}
+.pill.ok{color:var(--ok)} .pill.warn{color:var(--warn)} .pill.bad{color:var(--bad)}
+.hist{background:var(--paper);border-left:4px solid var(--enemy);padding:12px 14px;border-radius:0 4px 4px 0}
+.hist h3{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 6px;color:var(--enemy);font-weight:500}
+.btn{align-self:flex-start;background:var(--ink);color:var(--surface);border:0;border-radius:3px;padding:11px 18px;font-weight:600;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+
+/* bilancio */
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat{border-top:2px solid var(--ink);padding-top:6px}
+.stat b{font-family:var(--f-display);font-weight:400;font-size:1.7rem;display:block;line-height:1.05;font-variant-numeric:tabular-nums}
+.stat span{font-size:.84rem;color:var(--muted)}
+ol.reflect{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px}
+
+/* contesto */
+.ctx{display:flex;flex-direction:column;gap:16px}
+.ctxhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
+.ctxt{font-size:1.6rem}
+.ctx a.btn{text-decoration:none;display:inline-block}
+.ctxgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:860px){.ctxgrid{grid-template-columns:minmax(0,1fr)}}
+.ctxgrid article{display:flex;flex-direction:column;gap:10px;min-width:0;border-top:3px solid var(--ink);padding-top:10px}
+.ctxgrid article:last-child{border-top-color:var(--enemy)}
+.ctxgrid h3{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin:0;font-weight:500;color:var(--muted)}
+.ctxgrid p{margin:0;font-size:.95rem}
+.ctxgrid ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:8px;font-size:.93rem}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+#gioco{scroll-margin-top:16px}
+
+/* foto */
+.photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:720px){.photos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.photos figure{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;background:var(--relief);filter:sepia(.18) contrast(1.05)}
+.photos img.mapimg{object-fit:contain;background:var(--surface);filter:none}
+.photos figcaption{font-size:.88rem;line-height:1.35;display:flex;flex-direction:column;gap:2px}
+.photos .cr{font-size:.7rem;color:var(--muted)}
+.why{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.why{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.why p{margin:0;font-size:.9rem;border-top:3px solid var(--enemy);padding-top:6px}
+.why b{display:block;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* below the game */
+.lower{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media (max-width:860px){.lower{grid-template-columns:minmax(0,1fr)}}
+.lower section{display:flex;flex-direction:column;gap:10px;min-width:0}
+.lower h4{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;margin:0;color:var(--muted);font-weight:500;border-bottom:1px solid var(--line);padding-bottom:6px}
+.lower p,.lower li{font-size:.92rem}
+.lower ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
+a{color:var(--ita);text-underline-offset:3px}
+.photo{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);text-decoration:none;color:var(--ink)}
+.photo strong{color:var(--ita)} .photo span{font-size:.85rem;color:var(--muted)}
+.note{font-size:.8rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header>
+  <div>
+    <p class="kicker">XII battaglia dell'Isonzo · 24 ottobre – 10 novembre 1917</p>
+    <h1>Caporetto 1917</h1>
+    <p class="lede">Sei turni, sei decisioni. Prendi il posto di un comandante italiano: scegli, poi scopri come andò davvero e perché.</p>
+  </div>
+  <div class="score" aria-live="polite"><b id="pts">0 / 18</b><span>punti strategia</span></div>
+</header>
+
+<section class="ctx" aria-labelledby="ctxTitle">
+  <div class="ctxhead">
+    <h2 id="ctxTitle" class="ctxt">Caporetto in sei immagini</h2>
+    <a class="btn" href="#gioco">Vai alla simulazione ↓</a>
+  </div>
+  <div class="photos">
+      <figure><img class="" src="https://en.wikipedia.org/wiki/Special:FilePath/Luigi_Cadorna_02.jpg?width=800" alt="1915-1917. Luigi Cadorna lancia undici offensive sull'Isonzo." loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>1915-1917. Luigi Cadorna lancia undici offensive sull'Isonzo.<span class="cr">Wikimedia Commons, pubblico dominio</span></figcaption></figure>
+      <figure><img class="" src="https://en.wikipedia.org/wiki/Special:FilePath/Bundesarchiv_Bild_146-1970-073-25,_Isonzo-Schlacht,_Trainkolonne_am_Moistroka-Pass.jpg?width=800" alt="Ottobre 1917. Rifornimenti austro-tedeschi salgono verso il fronte." loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>Ottobre 1917. Rifornimenti austro-tedeschi salgono verso il fronte.<span class="cr">Bundesarchiv, Bild 146-1970-073-25 / CC BY-SA 3.0</span></figcaption></figure>
+      <figure><img class="" src="https://en.wikipedia.org/wiki/Special:FilePath/Erwin_Rommel.jpg?width=800" alt="26 ottobre. Il tenente Erwin Rommel conquista il Matajur." loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>26 ottobre. Il tenente Erwin Rommel conquista il Matajur.<span class="cr">Wikimedia Commons, pubblico dominio</span></figcaption></figure>
+      <figure><img class="mapimg" src="https://en.wikipedia.org/wiki/Special:FilePath/Battle_of_Caporetto.jpg?width=800" alt="Due settimane di ritirata: dall'Isonzo al Piave." loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>Due settimane di ritirata: dall'Isonzo al Piave.<span class="cr">US Military Academy, pubblico dominio</span></figcaption></figure>
+      <figure><img class="" src="https://en.wikipedia.org/wiki/Special:FilePath/Armando_Diaz_01.jpg?width=800" alt="9 novembre. Armando Diaz prende il posto di Cadorna." loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>9 novembre. Armando Diaz prende il posto di Cadorna.<span class="cr">Wikimedia Commons, pubblico dominio</span></figcaption></figure>
+      <figure><img class="" src="https://en.wikipedia.org/wiki/Special:FilePath/The_Battle_of_the_Piave_River,_June_1918_Q19082.jpg?width=800" alt="1918. Sul Piave il fronte tiene: arriva la riscossa." loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>1918. Sul Piave il fronte tiene: arriva la riscossa.<span class="cr">Imperial War Museum Q19082, pubblico dominio</span></figcaption></figure>
+  </div>
+  <div class="why">
+    <p><b>Per la guerra</b>L'infiltrazione rompe un fronte di trincee.</p>
+    <p><b>Per l'esercito</b>Diaz sostituisce Cadorna e cambia metodo.</p>
+    <p><b>Per il paese</b>Con il nemico in casa, la guerra diventa difesa del territorio.</p>
+    <p><b>Per la memoria</b>«Una Caporetto» diventa sinonimo di disfatta.</p>
+  </div>
+</section>
+
+<div class="game" id="gioco">
+  <div class="mapcol">
+    <div class="mapframe">
+      <div class="maphead"><strong id="mapTitle">Alto Isonzo</strong><span id="mapDate">23 ottobre 1917</span></div>
+      <svg class="map" viewBox="0 0 600 420" role="img" aria-labelledby="mapTitle mapCap">
+        <defs>
+          <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="7" height="7" fill="var(--enemy-soft)"/><line x1="0" y1="0" x2="0" y2="7" stroke="var(--enemy)" stroke-width="1.6" opacity=".6"/>
+          </pattern>
+          <pattern id="alps" width="18" height="14" patternUnits="userSpaceOnUse">
+            <path d="M2 12 L8 4 L14 12" fill="none" stroke="var(--relief2)" stroke-width="1.4"/>
+          </pattern>
+        </defs>
+        <rect width="600" height="420" class="land"/>
+
+        <!-- ===== VISTA 1: ALTO ISONZO ===== -->
+        <g id="vDetail" class="view">
+          <g>
+            <ellipse class="relief" cx="233" cy="30" rx="70" ry="38"/><ellipse class="relief2" cx="233" cy="26" rx="34" ry="18"/>
+            <ellipse class="relief" cx="365" cy="170" rx="82" ry="58"/><ellipse class="relief2" cx="362" cy="172" rx="40" ry="26"/>
+            <ellipse class="relief" cx="95" cy="178" rx="78" ry="34"/><ellipse class="relief2" cx="95" cy="176" rx="36" ry="14"/>
+            <ellipse class="relief" cx="205" cy="290" rx="78" ry="52"/><ellipse class="relief2" cx="206" cy="282" rx="36" ry="22"/>
+            <ellipse class="relief" cx="520" cy="250" rx="80" ry="60"/>
+            <path class="ridge" d="M289 282 C320 318 360 345 400 372 S440 400 450 420"/>
+          </g>
+          <path class="valley" d="M300 0 C280 40 260 72 236 84 C200 100 165 112 150 128 C165 150 200 182 233 192 C250 200 262 208 270 215 C290 232 320 255 360 276 C395 292 425 305 446 325 C452 350 455 385 455 420"/>
+          <path class="river" d="M300 0 C280 40 260 72 236 84 C200 100 165 112 150 128 C165 150 200 182 233 192 C250 200 262 208 270 215 C290 232 320 255 360 276 C395 292 425 305 446 325 C452 350 455 385 455 420"/>
+          <text class="lbl wat halo" x="300" y="250" transform="rotate(30 300 250)">Isonzo</text>
+
+          <!-- truppe nemiche ammassate -->
+          <g class="ov" data-ph="0 1">
+            <ellipse class="mass" cx="305" cy="58" rx="34" ry="24"/>
+            <ellipse class="mass" cx="472" cy="318" rx="44" ry="34"/>
+            <text class="alb halo" x="320" y="28">gruppo Krauss</text>
+            <text class="alb halo" x="470" y="365" text-anchor="middle">14ª Armata · von Below</text>
+          </g>
+
+          <!-- fronte italiano -->
+          <g class="ov" data-ph="0 1 2" data-faint="3">
+            <path class="front-ita" d="M322 8 C306 40 292 62 286 76 C300 100 330 130 352 158 C366 172 372 182 378 196 C392 218 404 240 410 268 C408 292 398 306 398 330 C404 360 418 388 428 420"/>
+            <path class="front-ita ticks" d="M322 8 C306 40 292 62 286 76 C300 100 330 130 352 158 C366 172 372 182 378 196 C392 218 404 240 410 268 C408 292 398 306 398 330 C404 360 418 388 428 420" transform="translate(-6 0)"/>
+            <text class="ilb halo" x="386" y="132">IV Corpo · Cavaciocchi</text>
+            <text class="ilb halo" x="330" y="392" text-anchor="end">XXVII Corpo · Badoglio</text>
+          </g>
+
+          <!-- bombardamento e gas -->
+          <g class="ov" data-ph="1">
+            <circle class="gas" cx="258" cy="88" r="26"/><circle class="gas" cx="240" cy="100" r="18"/>
+            <text class="alb halo" x="200" y="132" text-anchor="middle">gas · conca di Plezzo</text>
+            <circle class="flash" cx="290" cy="80" r="4"/><circle class="flash" cx="340" cy="140" r="4"/><circle class="flash" cx="375" cy="190" r="4"/>
+            <circle class="flash" cx="405" cy="250" r="4"/><circle class="flash" cx="400" cy="320" r="4"/><circle class="flash" cx="420" cy="380" r="4"/>
+            <circle class="flash" cx="330" cy="110" r="3"/><circle class="flash" cx="395" cy="290" r="3"/>
+          </g>
+
+          <!-- attacchi -->
+          <g class="ov" data-ph="2 3">
+            <path class="arrow" pathLength="100" d="M292 72 C250 95 190 110 152 132 S108 168 96 190"/>
+            <path class="arrowhead" d="M88 198 L92 180 L106 192 Z"/>
+            <path class="arrow" pathLength="100" d="M440 332 C405 305 365 282 328 258 S290 232 278 222"/>
+            <path class="arrowhead" d="M268 213 L286 214 L278 230 Z"/>
+            <text class="alb halo" x="372" y="246" transform="rotate(32 372 246)">12ª Div. slesiana</text>
+            <circle class="ring" cx="270" cy="215" r="13"/>
+          </g>
+          <g class="ov" data-ph="3">
+            <path class="arrow" pathLength="100" d="M446 342 C412 362 372 352 340 332 S300 300 222 280"/>
+            <path class="arrowhead" d="M210 277 L226 270 L226 289 Z"/>
+            <text class="alb halo" x="300" y="360">Alpenkorps · Rommel</text>
+            <path class="flag" d="M206 262 v-22 l14 6 -14 6z"/>
+            <path class="arrow" pathLength="100" d="M262 228 C232 262 200 320 160 412"/>
+            <text class="alb halo" x="120" y="372">verso Cividale</text>
+            <text class="alb halo" x="120" y="386">e Udine</text>
+          </g>
+
+          <!-- toponimi -->
+          <g>
+            <circle class="town" cx="236" cy="66" r="4.5"/><text class="lbl halo" x="226" y="62" text-anchor="end">Plezzo</text>
+            <circle class="town" cx="150" cy="125" r="3.5"/><text class="lbl sm halo" x="140" y="118" text-anchor="end">Saga</text>
+            <circle class="town" cx="270" cy="215" r="5"/><text class="lbl halo" x="250" y="210" text-anchor="end">Caporetto</text>
+            <circle class="town" cx="446" cy="322" r="5"/><text class="lbl halo" x="458" y="306">Tolmino</text>
+            <circle class="town" cx="289" cy="278" r="3.5"/><text class="lbl sm halo" x="298" y="290">Luico</text>
+            <path class="peak" d="M359 176 l6 -10 l6 10z"/><text class="lbl sm halo" x="374" y="176">Monte Nero</text>
+            <path class="peak" d="M202 282 l6 -10 l6 10z"/><text class="lbl sm halo" x="160" y="300">Matajur</text>
+            <path class="peak" d="M89 182 l6 -10 l6 10z"/><text class="lbl sm halo" x="74" y="168">Stol</text>
+            <text class="lbl sm halo" x="345" y="322" transform="rotate(34 345 322)">Kolovrat</text>
+            <path class="peak" d="M228 26 l6 -10 l6 10z"/><text class="lbl sm halo" x="246" y="24">Rombon</text>
+          </g>
+        </g>
+
+        <!-- ===== VISTA 2: FRIULI E VENETO ===== -->
+        <g id="vTheater" class="view hide">
+          <path d="M0 0 H600 V58 C570 62 520 90 470 112 C430 118 400 112 381 118 C330 130 260 150 200 165 C150 178 90 190 0 196 Z" fill="url(#alps)" opacity=".9"/>
+          <path class="sea" d="M0 420 V394 H180 C200 388 214 378 222 370 C236 352 250 340 268 334 C300 330 318 328 340 320 C370 308 392 300 410 294 C440 284 470 272 509 266 C530 268 548 282 560 302 C575 310 590 312 600 314 V420 Z"/>
+          <text class="lbl wat halo" x="330" y="380">Mare Adriatico</text>
+          <path class="river" d="M509 40 C512 60 520 75 551 102 C545 115 536 125 532 132 C528 150 526 170 525 183 C522 210 516 235 510 262"/>
+          <path class="river" d="M381 20 C378 50 370 80 367 102 C369 130 374 155 377 180 C379 205 381 225 381 238 C388 255 398 272 406 290"/>
+          <path class="river" d="M118 140 C124 160 130 178 133 190 C150 200 175 212 198 221 C220 232 240 248 256 258 C266 268 274 280 281 289 C292 300 304 312 316 324"/>
+          <text class="lbl wat halo" x="540" y="232" transform="rotate(-80 540 232)">Isonzo</text>
+          <text class="lbl wat halo" x="352" y="160" transform="rotate(84 352 160)">Tagliamento</text>
+          <text class="lbl wat halo" x="208" y="250" transform="rotate(36 208 250)">Piave</text>
+
+          <g class="ov" data-ph="4 5">
+            <path class="front-ita" style="opacity:.45" d="M505 28 C512 48 538 70 552 100 C546 118 558 140 550 170 C538 190 545 230 520 264"/>
+            <text class="ilb halo" x="566" y="150">fronte</text><text class="ilb halo" x="566" y="163">23 ott.</text>
+          </g>
+          <g class="ov" data-ph="4">
+            <path class="occ" d="M381 22 L505 28 C512 48 538 70 552 100 C546 118 558 140 550 170 C538 190 545 230 520 264 C490 270 440 282 406 290 C398 272 388 255 381 238 C381 225 379 205 377 180 C374 155 369 130 367 102 C370 80 378 50 381 22 Z"/>
+            <path class="arrow" pathLength="100" d="M520 92 C480 110 455 125 438 140"/><path class="arrowhead" d="M430 147 L436 131 L448 143 Z"/>
+            <path class="arrow" pathLength="100" d="M440 152 C420 160 400 170 388 176"/><path class="arrowhead" d="M380 180 L388 166 L396 182 Z"/>
+            <path class="arrow" pathLength="100" d="M500 60 C460 70 420 85 378 98"/><path class="arrowhead" d="M370 100 L382 88 L386 105 Z"/>
+            <path class="front-new" d="M378 22 C375 50 367 80 364 102 C366 130 371 155 374 180 C376 205 378 225 378 238 C385 255 395 272 403 290"/>
+            <text class="ilb halo" x="300" y="208">linea del</text><text class="ilb halo" x="300" y="221">Tagliamento</text>
+          </g>
+          <g class="ov" data-ph="5">
+            <path class="occ" d="M118 140 C190 120 300 60 381 22 L505 28 C512 48 538 70 552 100 C546 118 558 140 550 170 C538 190 545 230 520 264 C490 270 440 282 410 294 C370 308 340 320 316 326 C304 312 292 300 281 289 C274 280 266 268 256 258 C240 248 220 232 198 221 C175 212 150 200 133 190 C130 178 124 160 118 140 Z"/>
+            <path class="front-new" d="M30 204 C60 198 85 206 106 207 C116 198 124 192 133 190 C150 200 175 212 198 221 C220 232 240 248 256 258 C266 268 274 280 281 289 C292 300 304 312 316 324"/>
+            <path class="front-ita ticks" d="M30 204 C60 198 85 206 106 207 C116 198 124 192 133 190 C150 200 175 212 198 221 C220 232 240 248 256 258 C266 268 274 280 281 289 C292 300 304 312 316 324" transform="translate(-5 6)"/>
+            <path class="peak" style="fill:var(--ita)" d="M97 212 l7 -12 l7 12z"/><text class="ilb halo" x="70" y="230">Grappa</text>
+            <text class="ilb halo" x="150" y="256">linea del Piave</text>
+          </g>
+          <g class="ov" data-ph="4 5"><circle class="ring" cx="435" cy="143" r="11"/></g>
+
+          <g>
+            <circle class="town" cx="435" cy="143" r="4.5"/><text class="lbl halo" x="446" y="140">Udine</text>
+            <circle class="town" cx="481" cy="132" r="3.5"/><text class="lbl sm halo" x="488" y="125">Cividale</text>
+            <circle class="town" cx="516" cy="78" r="3.5"/><text class="lbl sm halo" x="524" y="74">Caporetto</text>
+            <circle class="town" cx="525" cy="183" r="3.5"/><text class="lbl sm halo" x="470" y="196">Gorizia</text>
+            <circle class="town" cx="560" cy="282" r="3.5"/><text class="lbl sm halo" x="548" y="272" text-anchor="end">Trieste</text>
+            <circle class="town" cx="376" cy="178" r="3.5"/><text class="lbl sm halo" x="384" y="196">Codroipo</text>
+            <circle class="town" cx="226" cy="356" r="4.5"/><text class="lbl halo" x="214" y="352" text-anchor="end">Venezia</text>
+            <circle class="town" cx="205" cy="275" r="4"/><text class="lbl halo" x="194" y="280" text-anchor="end">Treviso</text>
+            <circle class="town" cx="36" cy="200" r="3.5"/><text class="lbl sm halo" x="18" y="186">Asiago</text>
+            <text class="lbl sm halo" x="200" y="60" style="letter-spacing:.3em">A L P I</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <p class="caption" id="mapCap"></p>
+    <div class="timeline" id="timeline" aria-label="Cronologia sulla mappa"></div>
+    <div class="legend">
+      <span><i style="border-color:var(--ita)"></i>linea italiana</span>
+      <span><i style="border-color:var(--enemy)"></i>attacco austro-tedesco</span>
+      <span><i style="border-color:var(--enemy);opacity:.4;border-top-width:8px"></i>territorio perduto</span>
+      <span class="note">Carta schematica, distanze approssimate.</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="dots" id="dots" aria-hidden="true"></div>
+    <article class="dispatch" id="dispatch" aria-live="polite"></article>
+  </div>
+</div>
+
+<div class="lower">
+  <section>
+    <h4>Fotografie d'epoca</h4>
+    <p>Altre foto originali negli archivi:</p>
+    <a class="photo" href="https://commons.wikimedia.org/wiki/Category:Battle_of_Caporetto" target="_blank" rel="noopener"><strong>Wikimedia Commons</strong><span>Fotografie di pubblico dominio: colonne in ritirata, prigionieri, ponti distrutti.</span></a>
+    <a class="photo" href="https://www.archivioluce.com" target="_blank" rel="noopener"><strong>Archivio Luce</strong><span>Fotografie e filmati della Grande guerra dal fronte italiano.</span></a>
+    <a class="photo" href="https://www.kobariski-muzej.si" target="_blank" rel="noopener"><strong>Museo di Caporetto (Kobarid)</strong><span>Il museo sul luogo della battaglia, con materiali sul fronte dell'Isonzo.</span></a>
+  </section>
+  <section>
+    <h4>Un collegamento con l'alberghiero</h4>
+    <p>Nell'avanzata le truppe austro-ungariche, affamate, si fermarono spesso a saccheggiare i magazzini viveri italiani: anche questo rallentò l'inseguimento.</p>
+    <p class="note">Spunto: progettare il rancio per un reparto in ritirata, con cucine da campo e scorte limitate.</p>
+  </section>
+  <section>
+    <h4>Fonti per l'insegnante</h4>
+    <ul>
+      <li>A. Barbero, <em>Caporetto</em>, Laterza, Roma-Bari 2017.</li>
+      <li>M. Isnenghi, G. Rochat, <em>La Grande Guerra 1914-1918</em>, il Mulino, Bologna 2014.</li>
+      <li>M. Silvestri, <em>Caporetto. Una battaglia e un enigma</em>, Mondadori, Milano 1984.</li>
+      <li>Commissione d'inchiesta, <em>Dall'Isonzo al Piave. 24 ottobre – 9 novembre 1917</em>, Roma 1919.</li>
+      <li>E. Rommel, <em>Infanterie greift an</em>, Potsdam 1937 (memorie, fonte di parte).</li>
+    </ul>
+    <p class="note">Le cifre sono stime: le fonti divergono, soprattutto su prigionieri e profughi.</p>
+    <p class="note"><a href="../grande-guerra/">Kit di ripasso sulla Grande Guerra</a> · <a href="../">Torna al Knowledge Network</a></p>
+  </section>
+</div>
+</div>
+
+<script>
+const PH = [
+ { date:"23 ottobre 1917, sera", chip:"23 ott", view:"detail", title:"La vigilia",
+   cap:"Tra Plezzo e Tolmino si ammassano le truppe della nuova 14ª Armata austro-tedesca.",
+   sit:"Due disertori hanno rivelato che l'attacco è imminente. Nel settore attaccato si trova la 2ª Armata del generale Luigi Capello, stanca dopo l'XI battaglia dell'Isonzo (agosto-settembre). Il generale Cadorna ha ordinato un atteggiamento difensivo.",
+   q:"Come disponi le tue truppe?",
+   o:[
+    {t:"Tutti in prima linea: nessun passo indietro", s:"Massima densità sulle trincee avanzate.", v:0,
+     e:"Una prima linea affollata è il bersaglio ideale per un bombardamento: le perdite iniziali sono altissime e dietro resta il vuoto."},
+    {t:"Difesa in profondità", s:"Poche truppe davanti, riserve pronte nelle valli.", v:3,
+     e:"È la scelta più solida: il primo urto si assorbe, le riserve chiudono le falle. Era il principio delle direttive difensive del Comando supremo."},
+    {t:"Attaccare per primi sul fianco nemico", s:"Anticipare l'offensiva con un contrattacco.", v:1,
+     e:"Capello pensava a una manovra di questo tipo. Con truppe logorate e poco tempo, però, il rischio era di farsi sorprendere a metà preparativi."}
+   ],
+   h:"Nonostante le direttive di Cadorna, gran parte della 2ª Armata rimase schierata in avanti, con le riserve lontane dalle valli decisive."},
+ { date:"24 ottobre, ore 2:00", chip:"24 ott · 2:00", view:"detail", title:"Fuoco e gas",
+   cap:"Il bombardamento colpisce trincee, strade e comandi. Nella conca di Plezzo arriva il gas.",
+   sit:"Inizia un bombardamento violentissimo. Nella conca di Plezzo i reparti tedeschi lanciano gas con centinaia di proiettori: le maschere italiane non proteggono e centinaia di soldati muoiono in pochi minuti. Le linee telefoniche sono interrotte.",
+   q:"Senza ordini dal comando, cosa fa la tua artiglieria?",
+   o:[
+    {t:"Aspetta l'ordine del comando", s:"Rispettare la catena di comando.", v:0,
+     e:"Senza telefoni l'ordine non arriva. I cannoni restano muti mentre il nemico si prepara all'assalto."},
+    {t:"Spara subito sulle zone di raccolta nemiche", s:"Ogni batteria agisce di propria iniziativa.", v:3,
+     e:"Il fuoco di contropreparazione colpisce le truppe nemiche ammassate prima che escano dalle trincee. È la mossa che poteva fare la differenza."},
+    {t:"Ritira i cannoni per salvarli", s:"Evitare di perdere i pezzi.", v:1,
+     e:"Salvi i cannoni, ma lasci la fanteria senza appoggio proprio nel momento decisivo."}
+   ],
+   h:"Gran parte dell'artiglieria del XXVII Corpo (generale Badoglio) non aprì il fuoco di contropreparazione: l'ordine doveva partire dal comando, e i collegamenti erano saltati."},
+ { date:"24 ottobre, ore 8:00", chip:"24 ott · 8:00", view:"detail", title:"Nella nebbia",
+   cap:"Nebbia e pioggia. I reparti d'assalto risalgono il fondovalle verso Caporetto.",
+   sit:"Le fanterie nemiche escono dalle trincee nella nebbia. Non attaccano i punti forti: piccoli reparti d'assalto scivolano negli spazi vuoti e avanzano lungo il fondovalle dell'Isonzo. Molti reparti italiani sono schierati sulle creste e non vedono cosa succede sotto di loro.",
+   q:"Hai un'ultima brigata disponibile. Dove la mandi?",
+   o:[
+    {t:"Sulle creste, come previsto dai piani", s:"Rinforzare le posizioni in quota.", v:0,
+     e:"Il nemico non sale sulle creste: le aggira passando sotto. La brigata arriva dove la battaglia non c'è."},
+    {t:"A sbarrare il fondovalle verso Caporetto", s:"Bloccare strada, ponti e passaggi.", v:3,
+     e:"Il fondovalle è la via dell'infiltrazione: chiuderlo significa fermare la manovra che taglia fuori le truppe in quota."},
+    {t:"Contrattacco frontale su Tolmino", s:"Colpire la base di partenza nemica.", v:1,
+     e:"Coraggioso, ma nella nebbia e senza artiglieria rischi di consumare l'unica riserva contro un nemico ancora fresco."}
+   ],
+   h:"La 12ª Divisione slesiana risalì il fondovalle e nel pomeriggio del 24 ottobre entrò a Caporetto, alle spalle dei reparti italiani rimasti in quota. È la tattica dell'infiltrazione: cercare i vuoti, non i punti forti."},
+ { date:"25–26 ottobre", chip:"25–26 ott", view:"detail", title:"Il Matajur",
+   cap:"Cade la dorsale del Kolovrat. Il 26 ottobre il nemico raggiunge la vetta del Matajur.",
+   sit:"Il battaglione da montagna del Württemberg, guidato dal giovane tenente Erwin Rommel, sale dal Kolovrat al Monte Matajur. Con poche centinaia di uomini cattura, secondo il suo racconto, circa 9.000 prigionieri. Il fronte è sfondato tra Plezzo e Tolmino.",
+   q:"Il nemico avanza verso la pianura. Cosa ordini?",
+   o:[
+    {t:"Resistere ovunque, nessuna ritirata", s:"Ogni reparto tiene la sua posizione.", v:0,
+     e:"Con il fronte già aggirato, tenere ogni posizione significa farsi circondare reparto dopo reparto."},
+    {t:"Ritirata ordinata al Tagliamento", s:"Retroguardie a protezione delle strade e dei ponti.", v:3,
+     e:"È l'unica via per salvare l'esercito: guadagnare tempo con le retroguardie e portare il grosso dietro un grande fiume."},
+    {t:"Ritirata immediata fino al Piave", s:"Abbandonare subito tutto il Friuli.", v:1,
+     e:"Il Piave sarà davvero la linea finale, ma correre così lontano senza retroguardie trasforma la ritirata in una fuga."}
+   ],
+   h:"Il 27 ottobre Cadorna ordinò la ritirata al Tagliamento. Il 28 ottobre le truppe nemiche entrarono a Udine, che fino al giorno prima era la sede del Comando supremo."},
+ { date:"28 ottobre – 4 novembre", chip:"28 ott – 4 nov", view:"theater", title:"I ponti del Tagliamento",
+   cap:"Il Friuli è perduto. Soldati e profughi civili si accalcano verso i ponti del Tagliamento.",
+   sit:"Sulle strade si mescolano reparti in ordine, soldati sbandati, carri e famiglie in fuga. Piove, il fiume è in piena. Il nemico si avvicina ai ponti, ma migliaia di uomini sono ancora sulla riva sinistra.",
+   q:"Quando fai saltare i ponti?",
+   o:[
+    {t:"Subito, prima che arrivi il nemico", s:"Chiudere il passaggio senza rischi.", v:1,
+     e:"Il nemico è fermato, ma abbandoni sulla riva sbagliata decine di migliaia di soldati e civili."},
+    {t:"Tengo i ponti con una retroguardia, poi li faccio saltare", s:"Far passare più gente possibile.", v:3,
+     e:"La scelta più difficile: sacrifichi la retroguardia ma salvi gran parte delle truppe in ritirata."},
+    {t:"Non li faccio saltare", s:"Servono per un futuro contrattacco.", v:0,
+     e:"Lasci al nemico una strada aperta verso il Veneto."}
+   ],
+   h:"Il 30 ottobre i ponti tra Codroipo e Casarsa saltarono mentre una parte delle truppe era ancora a est del fiume: decine di migliaia di uomini furono catturati. Il 2-3 novembre il nemico passò il Tagliamento a Cornino e il 4 novembre fu ordinato il ripiegamento sul Piave."},
+ { date:"9–10 novembre", chip:"9–10 nov", view:"theater", title:"Il Piave",
+   cap:"Nuova linea: altopiano di Asiago, Monte Grappa, Piave fino al mare.",
+   sit:"L'8 novembre il governo Orlando sostituisce Cadorna con il generale Armando Diaz. Alla conferenza di Rapallo (6 novembre) gli alleati hanno promesso divisioni francesi e britanniche. Al fronte arrivano anche i giovanissimi della classe 1899.",
+   q:"Dove si ferma la ritirata?",
+   o:[
+    {t:"Sul Piave e sul Monte Grappa", s:"Un fronte più corto, appoggiato al massiccio.", v:3,
+     e:"Il fronte si accorcia e il Grappa protegge il fianco tra montagna e pianura. Si difende con meno uomini."},
+    {t:"Molto più indietro, sul Mincio", s:"Mettere spazio tra noi e il nemico.", v:1,
+     e:"Se ne discusse davvero. Ma avrebbe significato cedere anche Venezia e gran parte del Veneto."},
+    {t:"Contrattacco per riprendere Udine", s:"Recuperare subito il terreno perduto.", v:0,
+     e:"Un esercito appena uscito da una ritirata di 150 km non ha né le forze né l'organizzazione per contrattaccare."}
+   ],
+   h:"La linea Grappa-Piave tenne. Con la prima battaglia del Piave e la difesa del Grappa (novembre-dicembre 1917) l'avanzata austro-tedesca si fermò."}
+];
+
+const $ = s => document.querySelector(s);
+const state = {turn:0, pts:0, picks:[], playing:null};
+
+// --- mappa ---
+function setMap(i){
+  const p = PH[i];
+  const det = p.view === "detail";
+  $("#vDetail").classList.toggle("hide", !det);
+  $("#vTheater").classList.toggle("hide", det);
+  $("#mapTitle").textContent = det ? "Alto Isonzo" : "Friuli e Veneto";
+  $("#mapDate").textContent = p.date;
+  $("#mapCap").textContent = p.cap;
+  document.querySelectorAll(".ov").forEach(g=>{
+    const on = (g.dataset.ph||"").split(" ").includes(String(i));
+    const faint = (g.dataset.faint||"").split(" ").includes(String(i));
+    g.classList.remove("on","faint");
+    if(on){ void g.getBoundingClientRect(); g.classList.add("on"); }
+    else if(faint) g.classList.add("faint");
+  });
+  document.querySelectorAll("#timeline .chip[data-i]").forEach(c=>c.setAttribute("aria-pressed", String(+c.dataset.i===i)));
+}
+
+function buildTimeline(){
+  const t = $("#timeline");
+  PH.forEach((p,i)=>{
+    const b=document.createElement("button");
+    b.className="chip"; b.dataset.i=i; b.textContent=p.chip; b.type="button";
+    b.addEventListener("click",()=>{stopPlay(); setMap(i);});
+    t.appendChild(b);
+  });
+  const pl=document.createElement("button");
+  pl.className="chip play"; pl.type="button"; pl.id="playBtn"; pl.textContent="▶ Simulazione";
+  pl.addEventListener("click",()=> state.playing ? stopPlay() : startPlay());
+  t.appendChild(pl);
+}
+function startPlay(){
+  let i=0; setMap(0); $("#playBtn").textContent="■ Ferma";
+  state.playing=setInterval(()=>{ i++; if(i>=PH.length){stopPlay();return;} setMap(i); },3800);
+}
+function stopPlay(){ if(state.playing){clearInterval(state.playing); state.playing=null;} const b=$("#playBtn"); if(b) b.textContent="▶ Simulazione"; }
+
+// --- gioco ---
+function dots(){
+  $("#dots").innerHTML = PH.map((_,i)=>`<span class="${i<state.turn?'done':i===state.turn?'now':''}"></span>`).join("");
+}
+function renderTurn(){
+  const i=state.turn, p=PH[i];
+  dots(); setMap(i);
+  const d=$("#dispatch");
+  d.innerHTML = `
+    <div class="dhead"><span>Dispaccio n. ${i+1} di ${PH.length}</span><b>${p.date}</b></div>
+    <h2>${p.title}</h2>
+    <p>${p.sit}</p>
+    <p class="q">${p.q}</p>
+    <div class="opts">${p.o.map((o,k)=>`
+      <button class="opt" type="button" id="opt-${i}-${k}" data-k="${k}"><span class="k">${"ABC"[k]}</span><span>${o.t}<small>${o.s}</small></span></button>`).join("")}
+    </div>
+    <div id="verdict"></div>`;
+  d.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>choose(+b.dataset.k)));
+}
+function choose(k){
+  const p=PH[state.turn], o=p.o[k];
+  document.querySelectorAll(".opt").forEach(b=>{ b.disabled=true; if(+b.dataset.k===k) b.classList.add("picked"); });
+  state.pts += o.v; state.picks.push(o.v);
+  $("#pts").textContent = `${state.pts} / 18`;
+  const cls = o.v===3?"ok":o.v===1?"warn":"bad";
+  const lab = o.v===3?"Scelta efficace · +3":o.v===1?"Scelta rischiosa · +1":"Scelta sbagliata · 0";
+  const last = state.turn===PH.length-1;
+  $("#verdict").innerHTML = `
+    <div class="verdict">
+      <span class="pill ${cls}">${lab}</span>
+      <p>${o.e}</p>
+      <div class="hist"><h3>Cosa accadde davvero</h3><p>${p.h}</p></div>
+      <button class="btn" type="button" id="nextBtn">${last?"Vedi il bilancio":"Turno successivo →"}</button>
+    </div>`;
+  $("#nextBtn").addEventListener("click",()=>{ last ? renderEnd() : (state.turn++, renderTurn()); window.matchMedia("(max-width:860px)").matches && $(".mapcol").scrollIntoView({behavior:"smooth"}); });
+  $("#nextBtn").focus({preventScroll:true});
+}
+function renderEnd(){
+  state.turn=PH.length; dots(); setMap(PH.length-1);
+  const s=state.pts;
+  const msg = s>=15 ? "Hai letto bene il campo di battaglia: difesa in profondità, iniziativa locale, attenzione ai vuoti."
+            : s>=9 ? "Alcune scelte giuste, altre ripetono gli errori del 1917. Rileggi i turni con il punteggio più basso."
+            : "Le tue scelte somigliano molto a quelle che portarono alla disfatta. Ripeti la simulazione confrontando le alternative.";
+  $("#dispatch").innerHTML = `
+    <div class="dhead"><span>Rapporto finale</span><b>10 novembre 1917</b></div>
+    <h2>Bilancio: ${s} punti su 18</h2>
+    <p>${msg}</p>
+    <div class="stats">
+      <div class="stat"><b>~11.000</b><span>soldati italiani morti</span></div>
+      <div class="stat"><b>~29.000</b><span>feriti</span></div>
+      <div class="stat"><b>~280.000</b><span>prigionieri</span></div>
+      <div class="stat"><b>~350.000</b><span>sbandati</span></div>
+      <div class="stat"><b>&gt;3.000</b><span>cannoni perduti</span></div>
+      <div class="stat"><b>150 km</b><span>di ritirata, dall'Isonzo al Piave</span></div>
+    </div>
+    <p>Centinaia di migliaia di civili lasciarono il Friuli e il Veneto orientale come profughi. Un anno dopo, con la battaglia di Vittorio Veneto (ottobre-novembre 1918), l'esercito italiano tornò a vincere.</p>
+    <div class="hist"><h3>Per la discussione in classe</h3>
+      <ol class="reflect">
+        <li>Nel bollettino del 28 ottobre Cadorna attribuì la sconfitta alla viltà di alcuni reparti della 2ª Armata. La Commissione d'inchiesta del 1919 indicò invece gravi responsabilità dei comandi. Perché dare la colpa a chi sta in basso è una tentazione ricorrente?</li>
+        <li>Oggi diciamo «è stata una Caporetto» per indicare un disastro. Che effetto ha, sulla memoria di un evento, diventare un modo di dire?</li>
+        <li>In quali turni la mancanza di informazioni (telefoni interrotti, nebbia) ha pesato più della mancanza di soldati?</li>
+      </ol>
+    </div>
+    <button class="btn ghost" type="button" id="againBtn">Ricomincia</button>`;
+  $("#againBtn").addEventListener("click",()=>{ state.turn=0; state.pts=0; state.picks=[]; $("#pts").textContent="0 / 18"; renderTurn(); });
+}
+
+buildTimeline();
+renderTurn();
+</script>
+
+</body>
+</html>

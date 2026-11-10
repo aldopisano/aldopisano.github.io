@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Knowledge Network — Aldo Pisano</title>
+<meta name="description" content="Knowledge Network: una rete di saperi in cui ogni argomento si collega agli altri. Storia, letteratura, scienze, cittadinanza ed enogastronomia attorno alla Prima guerra mondiale. A cura di Aldo Pisano.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Una sola atmosfera scura, voluta: la rete "si accende" sul buio. Grafo a tutto schermo, scheda del nodo in sovrimpressione. */
+:root{
+  color-scheme:dark;
+  --bg:#070B14; --bg2:#0D1322; --panel:rgba(13,19,34,.92); --ink:#E6ECF7; --muted:#8C97AD; --line:rgba(140,170,230,.16);
+  --c-storia:#F2B45A; --c-lett:#E879A6; --c-sci:#5FD3C6; --c-geo:#7FB2FF; --c-eco:#B79CFF; --c-civ:#9BE37A; --c-arte:#FF8A6B; --c-cibo:#F5D76E;
+  --f-display:"Space Grotesk",system-ui,sans-serif; --f-body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(ellipse at 50% 40%,var(--bg2),var(--bg) 70%);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;overflow:hidden}
+#bg{position:fixed;inset:0;width:100%;height:100%;display:block}
+#net{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+header{position:fixed;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,0px) + 18px) max(18px,env(safe-area-inset-right,0px)) 0 max(18px,env(safe-area-inset-left,0px));pointer-events:none;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+header > *{pointer-events:auto}
+.brand a{color:var(--muted);text-decoration:none;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.brand a:hover{color:var(--ink)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.8rem,5vw,3rem);line-height:1;margin:6px 0 4px;letter-spacing:-.01em}
+.sub{margin:0;color:var(--muted);max-width:30rem;font-size:.92rem}
+.legend{display:flex;flex-direction:column;gap:5px;font-size:.76rem;color:var(--muted);background:rgba(7,11,20,.55);padding:10px 12px;border:1px solid var(--line);border-radius:10px}
+.legend button{all:unset;cursor:pointer;display:flex;align-items:center;gap:7px}
+.legend button[aria-pressed="false"]{opacity:.35}
+.legend button:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:3px}
+.legend i{width:9px;height:9px;border-radius:50%;box-shadow:0 0 8px currentColor;background:currentColor}
+@media (max-width:640px){.legend{display:none}}
+.hint{position:fixed;left:max(18px,env(safe-area-inset-left,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 18px);font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;pointer-events:none;text-align:center;width:max-content;max-width:90vw}
+#card{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:min(380px,calc(100vw - 36px));max-height:min(70vh,560px);overflow:auto;background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+@media (max-width:640px){#card{left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));width:auto;max-height:48vh}}
+#card .area{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
+#card h2{font-family:var(--f-display);font-weight:700;font-size:1.5rem;line-height:1.1;margin:0}
+#card p{margin:0;font-size:.93rem;color:#C9D2E3}
+#card .open{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;padding:9px 14px;border-radius:999px;font-size:.9rem}
+#card .open:focus-visible,.lk:focus-visible,.close:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+#card h3{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:6px 0 0;font-weight:500}
+.links{display:flex;flex-direction:column;gap:6px}
+.lk{all:unset;cursor:pointer;display:grid;grid-template-columns:10px minmax(0,1fr);gap:9px;align-items:start;padding:7px 8px;border-radius:8px;border:1px solid transparent}
+.lk:hover{border-color:var(--line);background:rgba(255,255,255,.03)}
+.lk i{width:9px;height:9px;border-radius:50%;margin-top:6px;background:currentColor;box-shadow:0 0 6px currentColor}
+.lk b{display:block;font-weight:600;font-size:.9rem;color:var(--ink)}
+.lk span{font-size:.82rem;color:var(--muted)}
+.close{all:unset;cursor:pointer;position:absolute;top:10px;right:12px;color:var(--muted);font-size:1.2rem;line-height:1;padding:4px}
+.res{display:flex;gap:8px;flex-wrap:wrap}
+@media (max-width:640px){body{overflow-y:auto;overflow-x:hidden}#net{position:absolute;top:0;left:0;bottom:auto}header{position:absolute}.hint{display:none}}
+noscript{position:fixed;inset:auto 0 40% 0;text-align:center}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<svg id="net" role="img" aria-label="Rete dei saperi: tocca un nodo per vedere i suoi collegamenti"></svg>
+
+<header>
+  <div class="brand">
+    <a href="../">← Aldo Pisano</a>
+    <h1>Knowledge Network</h1>
+    <p class="sub">Ogni sapere è un nodo, ogni filo un legame reale. Tocca un nodo per seguire i collegamenti e aprire le risorse.</p>
+  </div>
+  <div class="legend" id="legend" aria-label="Ambiti del sapere"></div>
+</header>
+
+<aside id="card" aria-live="polite"></aside>
+<p class="hint" id="hint">Tocca un nodo · trascina per spostarlo</p>
+<noscript>Questa pagina richiede JavaScript. Risorse: <a href="grande-guerra/">La Grande Guerra</a> · <a href="caporetto/">Caporetto 1917</a></noscript>
+
+<script>
+const AREAS={
+  storia:{n:"Storia",c:"--c-storia"}, lett:{n:"Letteratura",c:"--c-lett"}, sci:{n:"Scienze e tecnologia",c:"--c-sci"},
+  geo:{n:"Geografia",c:"--c-geo"}, eco:{n:"Economia e società",c:"--c-eco"}, civ:{n:"Cittadinanza ed etica",c:"--c-civ"},
+  arte:{n:"Arti, musica e lingua",c:"--c-arte"}, cibo:{n:"Enogastronomia",c:"--c-cibo"}
+};
+const NODES=[
+ {id:"gg",l:"Prima guerra mondiale",a:"storia",r:30,d:"1914-1918: la prima guerra totale, che coinvolge eserciti di massa, industria e civili.",res:[["Kit di ripasso","grande-guerra/"]]},
+ {id:"cap",l:"Caporetto 1917",a:"storia",r:24,d:"Lo sfondamento austro-tedesco del 24 ottobre 1917 e la ritirata fino al Piave.",res:[["Simulazione interattiva","caporetto/"]]},
+ {id:"rus",l:"Rivoluzione russa",a:"storia",r:15,d:"Nel 1917 due rivoluzioni rovesciano lo zar e portano al potere i bolscevichi; la Russia esce dalla guerra."},
+ {id:"pace",l:"Trattati di pace",a:"storia",r:16,d:"Conferenza di Parigi (1919-20): Versailles, Saint-Germain e gli altri trattati ridisegnano l'Europa."},
+ {id:"fasc",l:"Nascita del fascismo",a:"storia",r:14,d:"Crisi del dopoguerra, reduci, paura della rivoluzione: nel 1922 Mussolini va al potere."},
+ {id:"ung",l:"Ungaretti",a:"lett",r:14,d:"Soldato sul Carso, scrive in trincea le poesie de «Il porto sepolto» (1916)."},
+ {id:"dan",l:"D'Annunzio",a:"lett",r:14,d:"Poeta interventista, compie il volo su Vienna (1918) e occupa Fiume (1919)."},
+ {id:"hem",l:"Hemingway",a:"lett",r:13,d:"Volontario della Croce Rossa sul fronte italiano, racconta la ritirata di Caporetto in «Addio alle armi» (1929)."},
+ {id:"gas",l:"Chimica dei gas",a:"sci",r:14,d:"Cloro, fosgene, iprite: la chimica industriale diventa arma. In Germania il programma è guidato da Fritz Haber."},
+ {id:"armi",l:"Nuove armi",a:"sci",r:14,d:"Mitragliatrici, artiglieria pesante, carri armati, aerei, sottomarini cambiano il modo di combattere."},
+ {id:"med",l:"Medicina e trauma",a:"sci",r:13,d:"Ferite di nuovo tipo, chirurgia d'urgenza, traumi psichici: i «scemi di guerra» dei manicomi."},
+ {id:"fiumi",l:"Isonzo e Piave",a:"geo",r:15,d:"Due fiumi, due fronti: l'Isonzo delle dodici battaglie (1915-17) e il Piave della resistenza (1917-18)."},
+ {id:"conf",l:"Confini e nuovi Stati",a:"geo",r:14,d:"Dopo il 1918 nascono Polonia, Cecoslovacchia, Jugoslavia; l'Italia arriva al Brennero e in Istria."},
+ {id:"eco",l:"Economia di guerra",a:"eco",r:14,d:"Mobilitazione industriale, debito pubblico, inflazione: lo Stato dirige la produzione."},
+ {id:"donne",l:"Donne e lavoro",a:"eco",r:13,d:"Le donne sostituiscono gli uomini in fabbrica, nei campi e nei servizi: è il fronte interno."},
+ {id:"prop",l:"Propaganda e censura",a:"civ",r:14,d:"Bollettini, manifesti, giornali controllati: l'informazione diventa uno strumento di guerra."},
+ {id:"fake",l:"Disinformazione oggi",a:"civ",r:13,d:"Come nascono e circolano le notizie false: dagli antichi bollettini ai social e all'intelligenza artificiale."},
+ {id:"resp",l:"Responsabilità",a:"civ",r:13,d:"Di chi è la colpa di una sconfitta? Il caso Caporetto: i soldati accusati, i comandi indagati."},
+ {id:"cost",l:"Costituzione, art. 11",a:"civ",r:13,d:"«L'Italia ripudia la guerra»: la Repubblica nasce dalla memoria delle due guerre mondiali."},
+ {id:"fut",l:"Futurismo",a:"arte",r:13,d:"Marinetti e i futuristi esaltano macchina e velocità e sono interventisti. Il pittore Boccioni muore nel 1916 durante l'addestramento militare."},
+ {id:"piaves",l:"La leggenda del Piave",a:"arte",r:12,d:"Canzone di E. A. Mario (1918) sulla difesa del fiume, poi diventata uno dei canti più noti della guerra."},
+ {id:"ling",l:"«Una Caporetto»",a:"arte",r:12,d:"Il nome di un paese diventa un modo di dire: in italiano «una Caporetto» significa una disfatta."},
+ {id:"rancio",l:"Rancio e razionamento",a:"cibo",r:14,d:"Il rancio dei soldati, la carne in scatola, il pane razionato per i civili: nutrire una nazione in guerra."},
+ {id:"logi",l:"Logistica dei viveri",a:"cibo",r:13,d:"Magazzini, cucine da campo, trasporti: senza rifornimenti un esercito si ferma."}
+];
+const EDGES=[
+ ["gg","cap","la battaglia del 1917 sul fronte italiano"],
+ ["gg","rus","la Russia esce dalla guerra (1917-18)"],
+ ["cap","rus","truppe tedesche libere dal fronte orientale arrivano sull'Isonzo"],
+ ["gg","pace","la pace di Parigi chiude il conflitto"],
+ ["pace","conf","autodeterminazione dei popoli e nuovi Stati"],
+ ["pace","dan","la «vittoria mutilata» e l'impresa di Fiume"],
+ ["dan","fasc","Fiume anticipa riti e linguaggi del fascismo"],
+ ["gg","fasc","reduci e crisi del dopoguerra"],
+ ["ung","fiumi","poesie scritte in trincea sul Carso, vicino all'Isonzo"],
+ ["hem","cap","«Addio alle armi» racconta la ritirata"],
+ ["fut","gg","i futuristi chiedono l'intervento"],
+ ["fut","dan","estetica della guerra e dell'azione"],
+ ["gas","cap","il gas lanciato a Plezzo il 24 ottobre"],
+ ["gas","armi","la chimica come arma"],
+ ["armi","gg","una guerra industriale"],
+ ["med","armi","ferite e traumi di nuovo tipo"],
+ ["med","gg","milioni di feriti e mutilati"],
+ ["eco","gg","mobilitazione industriale"],
+ ["eco","donne","le donne entrano in fabbrica"],
+ ["donne","gg","il fronte interno"],
+ ["eco","armi","l'industria produce armi e munizioni"],
+ ["rancio","gg","nutrire soldati e civili"],
+ ["rancio","eco","razionamento e prezzi"],
+ ["logi","cap","magazzini viveri saccheggiati durante l'avanzata"],
+ ["logi","rancio","dalle retrovie alla trincea"],
+ ["prop","cap","il bollettino del 28 ottobre accusa i soldati"],
+ ["prop","gg","manifesti, giornali, censura"],
+ ["prop","fake","come si costruisce una falsa narrazione"],
+ ["resp","cap","la Commissione d'inchiesta del 1919"],
+ ["resp","prop","dare la colpa a chi sta in basso"],
+ ["cost","resp","il ripudio della guerra come scelta etica"],
+ ["cost","gg","la memoria dei conflitti mondiali"],
+ ["ling","cap","il nome diventa sinonimo di disfatta"],
+ ["piaves","fiumi","la canzone della difesa del Piave"],
+ ["fiumi","cap","dall'Isonzo al Piave in due settimane"],
+ ["conf","fiumi","il nuovo confine orientale"]
+];
+
+const svg=document.getElementById("net"), NS="http://www.w3.org/2000/svg";
+const css=getComputedStyle(document.documentElement);
+const col=a=>css.getPropertyValue(AREAS[a].c).trim();
+const byId=Object.fromEntries(NODES.map(n=>[n.id,n]));
+const nbr={}; NODES.forEach(n=>nbr[n.id]=[]);
+EDGES.forEach(([a,b,t])=>{nbr[a].push([b,t]);nbr[b].push([a,t]);});
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let W=0,H=0,sel=null,hidden=new Set();
+
+/* ---- layout: simulazione di forze ---- */
+function layout(){
+  W=innerWidth; const narrow=W<640; H=narrow?Math.max(innerHeight,1080):innerHeight; svg.style.height=H+"px"; svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const right=W>=1000?W-430:W-60, cx=(60+right)/2, cy=narrow?H*0.5:H*0.55;
+  const R=Math.min(W,H)*(narrow?0.36:0.34);
+  NODES.forEach((n,i)=>{ if(n.x==null){ const ang=i/NODES.length*Math.PI*2; n.x=cx+Math.cos(ang)*R*(n.id==="gg"?0:1); n.y=cy+Math.sin(ang)*R*(n.id==="gg"?0:1);} n.vx=0;n.vy=0; });
+  const ideal=Math.min(W,H)*(narrow?0.2:0.17);
+  for(let it=0;it<420;it++){
+    for(let i=0;i<NODES.length;i++)for(let j=i+1;j<NODES.length;j++){
+      const a=NODES[i],b=NODES[j]; let dx=b.x-a.x,dy=b.y-a.y; let d=Math.hypot(dx,dy)||1;
+      const f=(ideal*ideal)/(d*d)*1.6; dx/=d;dy/=d; a.vx-=dx*f;a.vy-=dy*f;b.vx+=dx*f;b.vy+=dy*f;
+    }
+    EDGES.forEach(([p,q])=>{const a=byId[p],b=byId[q];let dx=b.x-a.x,dy=b.y-a.y;const d=Math.hypot(dx,dy)||1;const f=(d-ideal)/d*0.06;a.vx+=dx*f;a.vy+=dy*f;b.vx-=dx*f;b.vy-=dy*f;});
+    NODES.forEach(n=>{ n.vx+=(cx-n.x)*0.004; n.vy+=(cy-n.y)*0.004; if(n.fixed){n.vx=n.vy=0;}
+      n.x+=Math.max(-12,Math.min(12,n.vx)); n.y+=Math.max(-12,Math.min(12,n.vy)); n.vx*=0.6; n.vy*=0.6;
+      const padT=narrow?175:150, padB=narrow?230:60;
+      n.x=Math.max(narrow?50:60,Math.min(narrow?W-50:right,n.x)); n.y=Math.max(padT,Math.min(H-padB,n.y)); });
+  }
+}
+
+/* ---- disegno ---- */
+let gE,gN,edgeEls=[],nodeEls={};
+function draw(){
+  svg.innerHTML=`<defs><filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+  gE=document.createElementNS(NS,"g"); gN=document.createElementNS(NS,"g"); svg.append(gE,gN);
+  edgeEls=EDGES.map(([a,b,t])=>{
+    const g=document.createElementNS(NS,"g");
+    const base=document.createElementNS(NS,"path"); base.setAttribute("fill","none"); base.setAttribute("stroke","rgba(150,180,240,.22)"); base.setAttribute("stroke-width","1.2");
+    const pulse=document.createElementNS(NS,"path"); pulse.setAttribute("fill","none"); pulse.setAttribute("stroke",col(byId[a].a)); pulse.setAttribute("stroke-width","2"); pulse.setAttribute("stroke-linecap","round");
+    pulse.setAttribute("pathLength","100"); pulse.setAttribute("stroke-dasharray","6 94"); pulse.style.opacity=".75";
+    g.append(base,pulse); gE.append(g); return {a,b,t,g,base,pulse,off:Math.random()*100,sp:0.25+Math.random()*0.35};
+  });
+  nodeEls={};
+  NODES.forEach(n=>{
+    const g=document.createElementNS(NS,"g"); g.setAttribute("tabindex","0"); g.setAttribute("role","button"); g.setAttribute("aria-label",n.l+", "+AREAS[n.a].n); g.style.cursor="pointer";
+    const c=col(n.a);
+    const halo=document.createElementNS(NS,"circle"); halo.setAttribute("r",n.r*1.9); halo.setAttribute("fill",c); halo.setAttribute("opacity",".10");
+    const dot=document.createElementNS(NS,"circle"); dot.setAttribute("r",n.r*0.55); dot.setAttribute("fill",c); dot.setAttribute("filter","url(#glow)");
+    const ring=document.createElementNS(NS,"circle"); ring.setAttribute("r",n.r*0.95); ring.setAttribute("fill","none"); ring.setAttribute("stroke",c); ring.setAttribute("stroke-opacity",".55"); ring.setAttribute("stroke-width","1.2");
+    const tx=document.createElementNS(NS,"text"); tx.textContent=n.l; tx.setAttribute("y",n.r+16); tx.setAttribute("text-anchor","middle");
+    tx.setAttribute("fill","#E6ECF7"); tx.setAttribute("font-family","Inter,system-ui,sans-serif"); tx.setAttribute("font-size",n.r>20?(W<640?"13.5":"15"):(W<640?"11":"12.5")); tx.setAttribute("font-weight",n.r>20?"600":"500");
+    tx.setAttribute("paint-order","stroke"); tx.setAttribute("stroke","#070B14"); tx.setAttribute("stroke-width","4"); tx.setAttribute("stroke-linejoin","round");
+    g.append(halo,ring,dot,tx); gN.append(g); nodeEls[n.id]={g,halo,dot,ring,tx};
+    g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(n.id);}});
+    dragify(g,n);
+  });
+  place(); style();
+}
+function curve(a,b){const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,dx=b.x-a.x,dy=b.y-a.y;const k=0.12;return `M${a.x},${a.y} Q${mx-dy*k},${my+dx*k} ${b.x},${b.y}`;}
+function place(){
+  edgeEls.forEach(e=>{const d=curve(byId[e.a],byId[e.b]);e.base.setAttribute("d",d);e.pulse.setAttribute("d",d);});
+  NODES.forEach(n=>nodeEls[n.id].g.setAttribute("transform",`translate(${n.x},${n.y})`));
+}
+function style(){
+  const near=sel?new Set([sel,...nbr[sel].map(x=>x[0])]):null;
+  NODES.forEach(n=>{const el=nodeEls[n.id];const off=hidden.has(n.a);const dim=off||(near&&!near.has(n.id));
+    el.g.style.opacity=off?.08:dim?.18:1; el.g.style.pointerEvents=off?"none":"auto";
+    el.ring.setAttribute("stroke-width",n.id===sel?"3":"1.2"); el.halo.setAttribute("opacity",n.id===sel?".28":".10");});
+  edgeEls.forEach(e=>{const off=hidden.has(byId[e.a].a)||hidden.has(byId[e.b].a);const on=sel&&(e.a===sel||e.b===sel);
+    e.g.style.opacity=off?.03:(sel?(on?1:.08):1); e.base.setAttribute("stroke",on?"rgba(230,236,247,.7)":"rgba(150,180,240,.22)"); e.base.setAttribute("stroke-width",on?"2":"1.2");});
+}
+
+/* ---- interazione ---- */
+function dragify(g,n){
+  let start=null,moved=false;
+  g.addEventListener("pointerdown",e=>{start={x:e.clientX,y:e.clientY,nx:n.x,ny:n.y};moved=false;g.setPointerCapture(e.pointerId);});
+  g.addEventListener("pointermove",e=>{if(!start)return;const dx=e.clientX-start.x,dy=e.clientY-start.y;if(Math.hypot(dx,dy)>5)moved=true;if(moved){n.x=start.nx+dx;n.y=start.ny+dy;place();}});
+  g.addEventListener("pointerup",()=>{if(start&&!moved)select(n.id);start=null;});
+}
+function select(id){
+  sel=id; const n=byId[id]; style(); document.getElementById("hint").hidden=true;
+  const c=col(n.a);
+  const res=(n.res||[]).map(([t,h])=>`<a class="open" href="${h}">Apri: ${t} →</a>`).join("");
+  document.getElementById("card").innerHTML=`<button class="close" type="button" aria-label="Chiudi" id="cls">×</button>
+    <span class="area" style="color:${c}">${AREAS[n.a].n}</span><h2>${n.l}</h2><p>${n.d}</p>${res?`<div class="res">${res}</div>`:""}
+    <h3>Collegamenti · ${nbr[id].length}</h3>
+    <div class="links">${nbr[id].map(([o,t])=>`<button class="lk" type="button" data-id="${o}" style="color:${col(byId[o].a)}"><i></i><div><b>${byId[o].l}</b><span>${t}</span></div></button>`).join("")}</div>`;
+  document.querySelectorAll("#card .lk").forEach(b=>b.addEventListener("click",()=>select(b.dataset.id)));
+  document.getElementById("cls").addEventListener("click",()=>{sel=null;style();intro();});
+}
+function intro(){
+  document.getElementById("card").innerHTML=`<span class="area" style="color:${col("storia")}">Da dove partire</span><h2>La Grande Guerra come rete</h2>
+   <p ${innerWidth<640?"hidden":""}>Una guerra non è solo storia: è chimica, poesia, economia, cucina, diritto. Segui i fili per vedere come i saperi si toccano.</p>
+   <div class="res"><a class="open" href="grande-guerra/">Kit di ripasso →</a><a class="open" href="caporetto/">Simulazione Caporetto →</a></div>
+   ${innerWidth<640?"":`<h3>Inizia da un nodo</h3>`}<div class="links" ${innerWidth<640?"hidden":""}>${["gg","cap","gas","ung","rancio","prop"].map(o=>`<button class="lk" type="button" data-id="${o}" style="color:${col(byId[o].a)}"><i></i><div><b>${byId[o].l}</b><span>${nbr[o].length} collegamenti</span></div></button>`).join("")}</div>`;
+  document.querySelectorAll("#card .lk").forEach(b=>b.addEventListener("click",()=>select(b.dataset.id)));
+}
+const lg=document.getElementById("legend");
+Object.entries(AREAS).forEach(([k,a])=>{const b=document.createElement("button");b.type="button";b.setAttribute("aria-pressed","true");b.style.color=col(k);b.innerHTML=`<i></i><span style="color:var(--muted)">${a.n}</span>`;
+  b.addEventListener("click",()=>{hidden.has(k)?hidden.delete(k):hidden.add(k);b.setAttribute("aria-pressed",String(!hidden.has(k)));style();});lg.append(b);});
+
+/* ---- animazione: impulsi lungo le sinapsi ---- */
+function tick(t){
+  edgeEls.forEach(e=>{e.off=(e.off+e.sp)%100;e.pulse.setAttribute("stroke-dashoffset",String(-e.off));});
+  NODES.forEach((n,i)=>{const s=1+Math.sin(t/900+i)*0.08;nodeEls[n.id].halo.setAttribute("r",n.r*1.9*s);});
+  requestAnimationFrame(tick);
+}
+
+/* ---- sfondo: micro-neuroni ---- */
+const bg=document.getElementById("bg"),ctx=bg.getContext("2d");let P=[];
+function bgInit(){const dpr=devicePixelRatio||1;bg.width=innerWidth*dpr;bg.height=innerHeight*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+  P=Array.from({length:Math.round(innerWidth*innerHeight/9000)},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15}));}
+function bgDraw(){ctx.clearRect(0,0,innerWidth,innerHeight);
+  for(let i=0;i<P.length;i++){const p=P[i];if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>innerWidth)p.vx*=-1;if(p.y<0||p.y>innerHeight)p.vy*=-1;}
+    for(let j=i+1;j<P.length;j++){const q=P[j];const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<90){ctx.strokeStyle=`rgba(120,150,220,${(1-d/90)*0.12})`;ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}}
+    ctx.fillStyle="rgba(150,180,240,.35)";ctx.beginPath();ctx.arc(p.x,p.y,1.1,0,6.3);ctx.fill();}
+  if(!reduce)requestAnimationFrame(bgDraw);}
+
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{NODES.forEach(n=>{n.x=null;});layout();draw();bgInit();if(reduce)bgDraw();},200);});
+layout();draw();intro();bgInit();bgDraw();
+if(!reduce)requestAnimationFrame(tick);
+</script>
+</body>
+</html>
