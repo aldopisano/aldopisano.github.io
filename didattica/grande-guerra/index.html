@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Kit di ripasso sulla Prima guerra mondiale: schede, cronologia, mappe, flashcard, quiz e giochi per la classe quinta. A cura di Aldo Pisano.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>La Grande Guerra 1914-1918</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: barra di navigazione fissa con sette strumenti; ogni vista occupa una colonna centrale da carta di stato maggiore. */
+:root{
+  --paper:#E7EAE2; --surface:#F6F7F2; --ink:#1E231F; --muted:#59615A; --line:#C3CABC;
+  --int:#2B58A0; --int-soft:rgba(43,88,160,.15); --cen:#AE3529; --cen-soft:rgba(174,53,41,.15);
+  --neu:#A3A898; --gold:#8F7228; --water:#86AEC6; --land:#DCE1D1; --relief:#C6CDB6;
+  --ok:#2F7A4A; --ok-soft:rgba(47,122,74,.14); --bad:#AE3529; --tile-fg:#FFFFFF;
+  --f-display:"Big Shoulders Display","Impact","Arial Narrow",sans-serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#131713; --surface:#1C211C; --ink:#E3E7DE; --muted:#9AA394; --line:#333B32;
+  --int:#719CE2; --int-soft:rgba(113,156,226,.18); --cen:#E2644F; --cen-soft:rgba(226,100,79,.18);
+  --neu:#5B6258; --gold:#D3B262; --water:#2E4C5D; --land:#222922; --relief:#2F382E;
+  --ok:#6CC28C; --ok-soft:rgba(108,194,140,.15); --bad:#E2644F; --tile-fg:#10140F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#131713; --surface:#1C211C; --ink:#E3E7DE; --muted:#9AA394; --line:#333B32;
+  --int:#719CE2; --int-soft:rgba(113,156,226,.18); --cen:#E2644F; --cen-soft:rgba(226,100,79,.18);
+  --neu:#5B6258; --gold:#D3B262; --water:#2E4C5D; --land:#222922; --relief:#2F382E;
+  --ok:#6CC28C; --ok-soft:rgba(108,194,140,.15); --bad:#E2644F; --tile-fg:#10140F; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0;padding-block:0 56px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.in{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{padding-block:24px 18px}
+.kicker{font-family:var(--f-mono);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(2.6rem,8vw,4.8rem);line-height:.88;margin:0;text-transform:uppercase;letter-spacing:.01em}
+h1 span{color:var(--cen)}
+.lede{max-width:40rem;color:var(--muted);margin:10px 0 0}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--ink)}
+nav .in{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav .in::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto;color:var(--paper);opacity:.72;text-decoration:none;font-family:var(--f-mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:13px 12px;border-bottom:3px solid transparent}
+nav a:hover{opacity:1}
+nav a[aria-current="page"]{opacity:1;border-bottom-color:var(--gold)}
+nav a:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+main{padding-top:28px}
+.view{display:flex;flex-direction:column;gap:22px}
+.view[hidden]{display:none}
+h2{font-family:var(--f-display);font-weight:800;font-size:2.2rem;line-height:1;margin:0;text-transform:uppercase;text-wrap:balance}
+h3{font-family:var(--f-display);font-weight:700;font-size:1.45rem;line-height:1.05;margin:0;text-wrap:balance}
+.intro{max-width:62ch;margin:0;color:var(--muted)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:18px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn,.chip{font:inherit;cursor:pointer}
+.btn{background:var(--ink);color:var(--surface);border:0;border-radius:3px;padding:10px 16px;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.chip{font-family:var(--f-mono);font-size:.76rem;padding:7px 10px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:3px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.btn:focus-visible,.chip:focus-visible,.tile:focus-visible,.opt:focus-visible,.card:focus-visible,.mk:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.note{font-size:.82rem;color:var(--muted);margin:0}
+a{color:var(--int);text-underline-offset:3px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ripasso */
+.mnemo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:620px){.mnemo{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mnemo div{border-top:3px solid var(--cen);padding-top:6px}
+.mnemo b{font-family:var(--f-display);font-size:2.6rem;line-height:.9;display:block}
+.mnemo span{font-size:.88rem;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:720px){.cards{grid-template-columns:minmax(0,1fr)}}
+.sch{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.sch .yr{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;color:var(--cen);text-transform:uppercase}
+.sch ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px;font-size:.93rem}
+.sch .kw{font-size:.82rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.sch .kw b{color:var(--ink)}
+
+/* cronologia */
+.tl{position:relative;display:flex;flex-direction:column;gap:0;padding-left:22px;border-left:2px solid var(--ink);margin-left:6px}
+.ev{position:relative;padding:0 0 18px 12px}
+.ev::before{content:"";position:absolute;left:-30px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2.5px solid var(--ink)}
+.ev.it::before{background:var(--gold);border-color:var(--gold)}
+.ev .d{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.ev .t{font-weight:700}
+.ev p{margin:2px 0 0;font-size:.92rem;max-width:64ch}
+.yearhead{font-family:var(--f-display);font-weight:800;font-size:1.8rem;margin:6px 0 10px -34px;background:var(--paper);padding:2px 0;line-height:1}
+
+/* mappe: cartogramma */
+.mapgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:820px){.mapgrid{grid-template-columns:minmax(0,1fr)}}
+.tiles{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));grid-auto-rows:minmax(44px,auto);gap:4px}
+.tile{border:0;border-radius:3px;padding:4px 2px;font-family:var(--f-body);font-weight:600;font-size:clamp(9px,1.6vw,12.5px);line-height:1.1;color:var(--tile-fg);background:var(--neu);cursor:pointer;overflow-wrap:anywhere;display:flex;align-items:center;justify-content:center;text-align:center;transition:background .35s ease}
+.tile.I{background:var(--int)} .tile.C{background:var(--cen)}
+.tile.N{background:var(--neu);color:var(--ink)}
+.tile.X{background:repeating-linear-gradient(45deg,var(--int) 0 6px,var(--neu) 6px 12px)}
+.tile.sel{outline:3px solid var(--gold);outline-offset:1px}
+.tile.right{box-shadow:inset 0 0 0 3px var(--ok)} .tile.wrong{box-shadow:inset 0 0 0 3px var(--gold)}
+.sea-lbl{grid-column:1/3;grid-row:4/6;align-self:center;font-family:var(--f-mono);font-size:.72rem;color:var(--muted);text-align:center}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:2px;vertical-align:-2px;margin-right:5px}
+.info{display:flex;flex-direction:column;gap:8px}
+.info h3{font-size:1.7rem}
+.badge{display:inline-flex;font-family:var(--f-mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1.5px solid currentColor;width:max-content}
+.badge.I{color:var(--int)} .badge.C{color:var(--cen)} .badge.N,.badge.X{color:var(--muted)}
+
+/* fronte italiano */
+svg.front{display:block;width:100%;height:auto;background:var(--land);border-radius:4px}
+.sea{fill:var(--water);opacity:.6}
+.alps{fill:url(#alpsP)}
+.river{fill:none;stroke:var(--water);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.bd{fill:none;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;transition:opacity .4s}
+.bd.b14{stroke:var(--ink);stroke-dasharray:7 5}
+.bd.f15{stroke:var(--cen)}
+.bd.f17{stroke:var(--int)}
+.bd.b20{stroke:var(--gold);stroke-dasharray:2 5;stroke-width:3.5}
+.bd.off{opacity:0}
+.lbl{font-family:var(--f-body);font-size:12px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--land);stroke-width:3.5px;stroke-linejoin:round}
+.lbl.wat{fill:var(--int);font-style:italic;font-weight:500}
+.mk{cursor:pointer}
+.mk circle.d{fill:var(--ink);stroke:var(--land);stroke-width:2}
+.mk circle.h{fill:transparent;stroke:var(--gold);stroke-width:0}
+.mk:hover circle.h,.mk.act circle.h{stroke-width:3}
+.mk.ok circle.d{fill:var(--ok)} .mk.no circle.d{fill:var(--gold)}
+.mk text{font-family:var(--f-body);font-size:12px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--land);stroke-width:3.5px;stroke-linejoin:round}
+.hidelabels .mk text{opacity:0}
+.lyr .chip i{display:inline-block;width:16px;height:0;border-top:3px solid;vertical-align:middle;margin-right:6px}
+
+/* flashcard */
+.deck{display:flex;flex-direction:column;align-items:center;gap:14px}
+.card{width:100%;max-width:560px;min-height:240px;perspective:1200px;background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit}
+.card .flip{position:relative;width:100%;min-height:240px;transition:transform .5s ease;transform-style:preserve-3d}
+.card.flipped .flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:6px;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:10px;text-align:left}
+.face.f{background:var(--surface);border:1.5px solid var(--ink)}
+.face.b{background:var(--ink);color:var(--surface);transform:rotateY(180deg)}
+.face .lab{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.face .term{font-family:var(--f-display);font-weight:800;font-size:clamp(1.8rem,5vw,2.6rem);line-height:1;text-transform:uppercase}
+.face .def{font-size:1.02rem;line-height:1.5}
+@media (prefers-reduced-motion:reduce){.card .flip{transition:none}}
+.boxes{display:flex;gap:8px;width:100%;max-width:560px}
+.boxes div{flex:1;border:1px solid var(--line);border-radius:3px;padding:6px 8px;background:var(--surface)}
+.boxes b{font-family:var(--f-display);font-size:1.5rem;display:block;line-height:1}
+.boxes span{font-size:.74rem;color:var(--muted)}
+
+/* quiz */
+.qbox{display:flex;flex-direction:column;gap:12px;max-width:720px}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;padding:12px 14px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer;line-height:1.4}
+.opt:hover:not(:disabled){border-color:var(--int)}
+.opt:disabled{cursor:default}
+.opt.good{border-color:var(--ok);background:var(--ok-soft)}
+.opt.badc{border-color:var(--bad);background:var(--cen-soft)}
+.expl{border-left:4px solid var(--gold);padding:8px 12px;background:var(--paper);font-size:.93rem}
+.big{font-family:var(--f-display);font-weight:800;font-size:3.4rem;line-height:1}
+
+/* ordina */
+.olist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;max-width:720px}
+.olist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:4px;padding:10px 12px}
+.olist li.ok{border-color:var(--ok);background:var(--ok-soft)} .olist li.no{border-color:var(--bad);background:var(--cen-soft)}
+.olist .ctl{display:flex;gap:4px}
+.olist .ctl button{width:36px;height:36px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:3px;font-size:1rem;cursor:pointer}
+.olist .when{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+
+<header class="top"><div class="in">
+  <p class="kicker">Kit di ripasso · Storia · Classe quinta</p>
+  <h1>La Grande Guerra <span>1914–1918</span></h1>
+  <p class="lede">Schede, cronologia, mappe e giochi per memorizzare e ripetere la Prima guerra mondiale, con attenzione al fronte italiano.</p>
+</div></header>
+
+<nav aria-label="Strumenti"><div class="in" id="nav">
+  <a href="#ripasso">Schede</a><a href="#cronologia">Cronologia</a><a href="#mappe">Schieramenti</a><a href="#fronte">Fronte italiano</a><a href="#flashcard">Flashcard</a><a href="#quiz">Quiz</a><a href="#ordina">Metti in ordine</a>
+</div></nav>
+
+<main class="in">
+
+<!-- SCHEDE -->
+<section class="view" id="v-ripasso">
+  <h2>Schede di ripasso</h2>
+  <p class="intro">Dieci schede in ordine cronologico. Leggile una volta, poi passa alle flashcard e al quiz: la ripetizione attiva fissa i contenuti meglio della rilettura.</p>
+  <div class="box">
+    <h3 style="margin-bottom:10px">Le cause: ricorda le MANI</h3>
+    <div class="mnemo">
+      <div><b>M</b><span>Militarismo: corsa agli armamenti, eserciti di massa, piani di guerra già pronti.</span></div>
+      <div><b>A</b><span>Alleanze: due blocchi contrapposti, Triplice Alleanza e Triplice Intesa.</span></div>
+      <div><b>N</b><span>Nazionalismo: rivalità tra Stati e popoli senza Stato nei Balcani.</span></div>
+      <div><b>I</b><span>Imperialismo: competizione per colonie, mercati e materie prime.</span></div>
+    </div>
+    <p class="note" style="margin-top:10px">La causa occasionale è l'attentato di Sarajevo (28 giugno 1914). Le MANI sono le cause profonde.</p>
+  </div>
+  <div class="cards" id="schede"></div>
+</section>
+
+<!-- CRONOLOGIA -->
+<section class="view" id="v-cronologia" hidden>
+  <h2>Cronologia</h2>
+  <p class="intro">I punti dorati riguardano l'Italia. Filtra per concentrarti su un solo filo.</p>
+  <div class="row" id="tlFilter">
+    <button class="chip" type="button" data-f="tutto" aria-pressed="true">Tutti gli eventi</button>
+    <button class="chip" type="button" data-f="italia" aria-pressed="false">Solo Italia</button>
+    <button class="chip" type="button" data-f="mondo" aria-pressed="false">Europa e mondo</button>
+  </div>
+  <div class="tl" id="tl"></div>
+</section>
+
+<!-- SCHIERAMENTI -->
+<section class="view" id="v-mappe" hidden>
+  <h2>Chi stava con chi</h2>
+  <p class="intro">Ogni riquadro è un paese, disposto come sulla carta d'Europa. Scegli l'anno e osserva come cambiano gli schieramenti; tocca un paese per leggere la sua storia nella guerra.</p>
+  <div class="row" id="years"></div>
+  <div class="mapgrid">
+    <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+      <div class="tiles" id="tiles"><div class="sea-lbl">Oceano<br>Atlantico</div></div>
+      <div class="legend">
+        <span><i style="background:var(--int)"></i>Intesa e alleati</span>
+        <span><i style="background:var(--cen)"></i>Imperi centrali</span>
+        <span><i style="background:var(--neu)"></i>Neutrale</span>
+        <span><i style="background:repeating-linear-gradient(45deg,var(--int) 0 4px,var(--neu) 4px 8px)"></i>Uscito dalla guerra</span>
+      </div>
+    </div>
+    <div class="box info" id="cinfo"></div>
+  </div>
+  <div class="box" style="display:flex;flex-direction:column;gap:10px">
+    <h3>Gioco: ricostruisci il 1915</h3>
+    <p class="note">Premi «Inizia», poi tocca ogni paese per cambiarne lo schieramento (neutrale → Intesa → Imperi centrali) com'era alla fine del 1915. Infine premi «Verifica».</p>
+    <div class="row"><button class="btn" type="button" id="gStart">Inizia</button><button class="btn ghost" type="button" id="gCheck" disabled>Verifica</button><span id="gRes" class="mono" aria-live="polite"></span></div>
+  </div>
+</section>
+
+<!-- FRONTE ITALIANO -->
+<section class="view" id="v-fronte" hidden>
+  <h2>Il fronte italiano</h2>
+  <p class="intro">Accendi le linee per vedere come si è spostato il fronte. Tocca un luogo per la scheda. Poi mettiti alla prova con «Trova il luogo».</p>
+  <div class="row lyr" id="layers">
+    <button class="chip" type="button" data-l="b14" aria-pressed="true"><i style="border-color:var(--ink);border-top-style:dashed"></i>Confine 1914</button>
+    <button class="chip" type="button" data-l="f15" aria-pressed="false"><i style="border-color:var(--cen)"></i>Fronte 1915-17</button>
+    <button class="chip" type="button" data-l="f17" aria-pressed="false"><i style="border-color:var(--int)"></i>Fronte nov. 1917-18</button>
+    <button class="chip" type="button" data-l="b20" aria-pressed="false"><i style="border-color:var(--gold);border-top-style:dotted"></i>Confine 1920</button>
+  </div>
+  <div class="mapgrid">
+    <div style="min-width:0">
+      <svg class="front" id="fmap" viewBox="0 0 600 380" role="img" aria-label="Carta schematica del fronte italiano">
+        <defs><pattern id="alpsP" width="18" height="14" patternUnits="userSpaceOnUse"><rect width="18" height="14" fill="var(--relief)"/><path d="M2 12 L8 4 L14 12" fill="none" stroke="var(--land)" stroke-width="1.4"/></pattern></defs>
+        <path class="alps" d="M0 0 H600 V70 C560 80 520 85 480 90 C440 92 410 95 380 110 C330 120 290 125 250 140 C200 150 150 150 110 165 C70 172 40 185 0 190 Z"/>
+        <path class="sea" d="M254 380 L254 326 C256 310 258 298 261 292 C275 282 290 274 300 270 C318 264 330 262 345 258 C356 252 364 247 372 244 C390 238 400 236 413 234 C422 230 428 226 435 222 C450 228 462 236 470 242 C468 250 466 256 464 262 C460 280 456 290 455 300 C456 330 458 355 460 380 Z"/>
+        <path class="sea" d="M528 380 C534 350 540 330 546 318 C555 310 562 306 567 306 C580 308 592 312 600 315 V380 Z"/>
+        <text class="lbl wat" x="330" y="330">Mare Adriatico</text>
+        <path class="river" d="M300 40 C285 75 270 100 245 142 C232 158 220 170 203 186 C218 194 230 198 243 204 C258 214 270 224 280 232 C296 246 306 256 317 264"/>
+        <path class="river" d="M380 50 C376 80 372 110 372 130 C374 160 376 190 374 215 C373 228 372 236 372 244"/>
+        <path class="river" d="M437 92 C440 105 442 115 444 122 C452 130 460 136 462 140 C458 152 454 166 450 176 C446 192 440 208 435 222"/>
+        <text class="lbl wat" x="262" y="226" transform="rotate(36 262 226)">Piave</text>
+        <text class="lbl wat" x="362" y="170" transform="rotate(88 362 170)">Tagliamento</text>
+        <text class="lbl wat" x="458" y="170" transform="rotate(-76 458 170)">Isonzo</text>
+        <path class="bd b14" d="M10 110 C25 135 40 160 45 175 C45 185 48 192 60 200 C80 206 100 206 120 192 C140 178 160 166 180 156 C210 140 240 120 270 104 C300 92 330 84 360 82 C390 84 410 92 420 100 C424 120 422 140 418 155 C414 170 410 190 408 205 C407 215 406 225 405 234"/>
+        <path class="bd f15 off" d="M10 112 C28 138 42 165 50 182 C60 198 90 210 125 198 C150 184 175 168 200 155 C240 132 280 106 330 88 C380 76 420 84 432 100 C436 118 446 136 456 150 C460 165 458 182 455 196 C452 208 446 218 440 224"/>
+        <path class="bd f17 off" d="M10 112 C28 138 42 165 50 182 C70 196 110 196 140 194 C160 194 180 192 196 188 C218 194 230 198 243 204 C258 214 270 224 280 232 C296 246 306 256 317 264"/>
+        <path class="bd b20 off" d="M20 14 C80 18 130 12 170 14 C230 20 300 30 360 40 C400 46 430 54 450 62 C470 90 480 120 486 150 C492 190 505 230 520 260 C535 280 552 296 566 304"/>
+        <g id="markers"></g>
+      </svg>
+      <p class="note" style="margin-top:6px">Carta schematica: confini e fronti tracciati in modo approssimato.</p>
+    </div>
+    <div class="box info" id="pinfo"></div>
+  </div>
+  <div class="box" style="display:flex;flex-direction:column;gap:10px">
+    <h3>Gioco: trova il luogo</h3>
+    <p class="note">I nomi spariscono dalla mappa. Leggi la descrizione e tocca il punto giusto. Dieci domande.</p>
+    <div class="row"><button class="btn" type="button" id="fStart">Inizia</button><span id="fQ" aria-live="polite"></span></div>
+  </div>
+</section>
+
+<!-- FLASHCARD -->
+<section class="view" id="v-flashcard" hidden>
+  <h2>Flashcard</h2>
+  <p class="intro">Leggi il termine, prova a spiegarlo ad alta voce, poi gira la carta. Le carte che non sai tornano più spesso; quelle che sai salgono di scatola. I progressi restano salvati su questo dispositivo.</p>
+  <div class="deck">
+    <div class="boxes" id="lboxes"></div>
+    <button class="card" type="button" id="card" aria-live="polite">
+      <div class="flip">
+        <div class="face f"><span class="lab">Termine · tocca per girare</span><span class="term" id="cTerm"></span></div>
+        <div class="face b"><span class="lab">Definizione</span><span class="def" id="cDef"></span></div>
+      </div>
+    </button>
+    <div class="row" style="justify-content:center">
+      <button class="btn ghost" type="button" id="cNo">Da ripassare</button>
+      <button class="btn" type="button" id="cYes">Lo so</button>
+    </div>
+    <button class="chip" type="button" id="cReset">Azzera i progressi</button>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="view" id="v-quiz" hidden>
+  <h2>Quiz</h2>
+  <p class="intro">Dieci domande estratte a caso da una banca di trenta. Dopo ogni risposta trovi la spiegazione.</p>
+  <div class="box qbox" id="quiz"></div>
+</section>
+
+<!-- ORDINA -->
+<section class="view" id="v-ordina" hidden>
+  <h2>Metti in ordine</h2>
+  <p class="intro">Sei eventi mescolati. Usa le frecce per metterli in ordine cronologico, dal più antico al più recente, poi verifica.</p>
+  <ol class="olist" id="olist"></ol>
+  <div class="row"><button class="btn" type="button" id="oCheck">Verifica</button><button class="btn ghost" type="button" id="oNew">Nuova partita</button><span id="oRes" class="mono" aria-live="polite"></span></div>
+</section>
+
+<section class="box" style="margin-top:36px;display:flex;flex-direction:column;gap:8px">
+  <h3>Approfondimento: la simulazione di Caporetto</h3>
+  <p class="note">Sei turni da comandante tra il 23 ottobre e il 10 novembre 1917, con mappe animate. <a href="../caporetto/">Apri la simulazione</a>.</p>
+  <p class="note">Fonti principali: A. Gibelli, <em>La Grande Guerra degli italiani</em>, Sansoni 1998; M. Isnenghi, G. Rochat, <em>La Grande Guerra 1914-1918</em>, il Mulino 2014; A. Barbero, <em>Caporetto</em>, Laterza 2017; H. Strachan, <em>La prima guerra mondiale</em>, Mondadori 2004. Le cifre delle perdite sono stime.</p>
+</section>
+</main>
+
+<script>
+/* ========== DATI ========== */
+const SCHEDE = [
+ {y:"1882–1914", t:"Le alleanze", b:["Triplice Alleanza (1882): Germania, Austria-Ungheria, Italia. Era un patto difensivo.","Triplice Intesa (1907): Francia, Russia, Regno Unito.","Ogni crisi locale rischiava di trascinare tutti i membri dei due blocchi."], k:"Triplice Alleanza, Triplice Intesa"},
+ {y:"Estate 1914", t:"Da Sarajevo alla guerra europea", b:["28 giugno: lo studente nazionalista serbo-bosniaco Gavrilo Princip uccide l'arciduca Francesco Ferdinando.","28 luglio: l'Austria-Ungheria dichiara guerra alla Serbia; le alleanze si attivano a catena.","4 agosto: la Germania invade il Belgio neutrale per applicare il piano Schlieffen; il Regno Unito entra in guerra."], k:"causa occasionale, piano Schlieffen"},
+ {y:"1914", t:"Dalla guerra lampo alla trincea", b:["Tutti si aspettavano una guerra breve.","Sulla Marna (settembre) i franco-britannici fermano i tedeschi davanti a Parigi.","Il fronte occidentale si blocca in una linea di trincee dal Mare del Nord alla Svizzera: inizia la guerra di posizione."], k:"guerra di movimento, guerra di posizione, Marna"},
+ {y:"1914–1915", t:"L'Italia dalla neutralità all'intervento", b:["Agosto 1914: l'Italia resta neutrale, perché l'alleanza era difensiva e l'Austria aveva attaccato senza consultarla.","Neutralisti: liberali di Giolitti, socialisti, gran parte dei cattolici. Interventisti: nazionalisti, irredentisti, democratici, futuristi, Mussolini, D'Annunzio.","26 aprile 1915: Patto di Londra segreto con l'Intesa. 24 maggio 1915: guerra all'Austria-Ungheria."], k:"neutralisti, interventisti, Patto di Londra, maggio radioso"},
+ {y:"1914–1918", t:"Trincea e nuove armi", b:["Mitragliatrici e filo spinato rendono gli assalti frontali una strage.","Gas (dal 1915), carri armati (dal 1916), aerei e sottomarini cambiano il modo di combattere.","In trincea: fango, freddo, malattie, paura; disciplina durissima, nell'esercito italiano anche decimazioni."], k:"guerra di logoramento, decimazione"},
+ {y:"1915–1918", t:"Il fronte italiano", b:["Dodici battaglie dell'Isonzo (1915-1917) con pochi chilometri guadagnati e perdite enormi.","1916: offensiva austriaca sugli altipiani (Strafexpedition); in agosto gli italiani prendono Gorizia.","24 ottobre 1917: sfondamento di Caporetto e ritirata fino al Piave e al Grappa."], k:"Isonzo, Carso, Strafexpedition, Caporetto"},
+ {y:"1917", t:"L'anno di svolta", b:["La Russia esce di scena: rivoluzione di febbraio, poi rivoluzione d'ottobre dei bolscevichi.","Aprile: gli Stati Uniti entrano in guerra dopo la guerra sottomarina tedesca.","Stanchezza ovunque: ammutinamenti in Francia, scioperi, la nota di papa Benedetto XV contro l'«inutile strage»."], k:"rivoluzione russa, intervento USA"},
+ {y:"1918", t:"La fine della guerra", b:["Marzo: pace di Brest-Litovsk tra Russia e Germania.","Giugno: gli italiani respingono l'offensiva austriaca sul Piave (battaglia del Solstizio).","Vittorio Veneto (ottobre-novembre), armistizio di Villa Giusti (in vigore il 4 novembre); l'11 novembre la Germania firma a Compiègne."], k:"Vittorio Veneto, armistizio"},
+ {y:"1919–1920", t:"I trattati di pace", b:["Conferenza di Parigi. I 14 punti di Wilson: autodeterminazione dei popoli e Società delle Nazioni.","Versailles (28 giugno 1919): Germania colpevole della guerra, perdite territoriali, riparazioni pesantissime.","Spariscono gli imperi austro-ungarico, russo, tedesco e ottomano; nascono nuovi Stati come Polonia, Cecoslovacchia, Jugoslavia."], k:"Versailles, autodeterminazione, Società delle Nazioni"},
+ {y:"1919–1920", t:"Il dopoguerra italiano", b:["L'Italia ottiene Trentino, Alto Adige, Trieste e Istria, ma non la Dalmazia promessa a Londra né Fiume.","Si diffonde il mito della «vittoria mutilata»; nel settembre 1919 D'Annunzio occupa Fiume.","Circa 650.000 soldati italiani morti, crisi economica e tensioni sociali (biennio rosso) preparano l'ascesa del fascismo."], k:"vittoria mutilata, impresa di Fiume, biennio rosso"}
+];
+
+const EV = [
+ ["1914-06-28","28 giugno 1914","Attentato di Sarajevo","Ucciso l'erede al trono austro-ungarico Francesco Ferdinando.","m"],
+ ["1914-07-28","28 luglio 1914","L'Austria-Ungheria dichiara guerra alla Serbia","Le alleanze si attivano: in pochi giorni la guerra è europea.","m"],
+ ["1914-08-04","4 agosto 1914","La Germania invade il Belgio","Il Regno Unito entra in guerra a difesa della neutralità belga.","m"],
+ ["1914-08-10","Agosto 1914","L'Italia si dichiara neutrale","Il governo Salandra sostiene che la Triplice è un'alleanza difensiva.","i"],
+ ["1914-08-26","26-30 agosto 1914","Battaglia di Tannenberg","Sul fronte orientale i tedeschi sconfiggono l'esercito russo.","m"],
+ ["1914-09-05","5-12 settembre 1914","Prima battaglia della Marna","L'avanzata tedesca verso Parigi si ferma: fine della guerra lampo.","m"],
+ ["1914-11-02","Novembre 1914","Entra in guerra l'Impero ottomano","Si schiera con gli Imperi centrali.","m"],
+ ["1915-04-22","22 aprile 1915","Gas a Ypres","Primo uso su larga scala di gas tossici, da parte tedesca.","m"],
+ ["1915-04-26","26 aprile 1915","Patto di Londra","Accordo segreto: l'Italia entrerà in guerra con l'Intesa in cambio di territori.","i"],
+ ["1915-05-07","7 maggio 1915","Affondamento del Lusitania","Un sottomarino tedesco affonda il transatlantico: muoiono anche cittadini statunitensi.","m"],
+ ["1915-05-24","24 maggio 1915","L'Italia entra in guerra","Guerra all'Austria-Ungheria; alla Germania solo nell'agosto 1916.","i"],
+ ["1915-06-23","23 giugno 1915","Prima battaglia dell'Isonzo","Inizia la serie di dodici offensive sul fiume.","i"],
+ ["1915-10-14","Ottobre 1915","Entra in guerra la Bulgaria","Si schiera con gli Imperi centrali; la Serbia viene invasa.","m"],
+ ["1916-02-21","21 febbraio 1916","Inizia la battaglia di Verdun","Durerà fino a dicembre: simbolo della guerra di logoramento.","m"],
+ ["1916-05-15","15 maggio 1916","Strafexpedition","Offensiva austriaca sugli altipiani di Asiago, fermata in giugno.","i"],
+ ["1916-07-01","1 luglio 1916","Inizia la battaglia della Somme","Nel suo corso i britannici impiegano i primi carri armati.","m"],
+ ["1916-07-12","12 luglio 1916","Cesare Battisti giustiziato a Trento","Deputato trentino arruolato con gli italiani, catturato e impiccato dagli austriaci.","i"],
+ ["1916-08-09","9 agosto 1916","Presa di Gorizia","Il maggior successo italiano sull'Isonzo.","i"],
+ ["1917-03-15","Marzo 1917","Rivoluzione di febbraio in Russia","Lo zar Nicola II abdica.","m"],
+ ["1917-04-06","6 aprile 1917","Gli Stati Uniti entrano in guerra","Pesano la guerra sottomarina tedesca e gli interessi economici legati all'Intesa.","m"],
+ ["1917-08-01","1 agosto 1917","Nota di Benedetto XV","Il papa invita alla pace e definisce la guerra un'«inutile strage».","i"],
+ ["1917-10-24","24 ottobre 1917","Caporetto","Gli austro-tedeschi sfondano il fronte; ritirata fino al Piave.","i"],
+ ["1917-11-07","7 novembre 1917","Rivoluzione d'ottobre","I bolscevichi di Lenin prendono il potere in Russia.","m"],
+ ["1917-11-09","9 novembre 1917","Diaz al comando, linea del Piave","Armando Diaz sostituisce Cadorna; il fronte si stabilizza.","i"],
+ ["1918-01-08","8 gennaio 1918","I 14 punti di Wilson","Il presidente statunitense propone una pace fondata sull'autodeterminazione dei popoli.","m"],
+ ["1918-03-03","3 marzo 1918","Pace di Brest-Litovsk","La Russia esce dalla guerra cedendo vasti territori.","m"],
+ ["1918-06-15","15 giugno 1918","Battaglia del Solstizio","L'ultima grande offensiva austriaca sul Piave viene respinta.","i"],
+ ["1918-08-08","8 agosto 1918","Battaglia di Amiens","Gli Alleati sfondano sul fronte occidentale.","m"],
+ ["1918-08-09","9 agosto 1918","Volo su Vienna","D'Annunzio guida una squadriglia che lancia volantini sulla capitale austriaca.","i"],
+ ["1918-10-24","24 ottobre 1918","Inizia la battaglia di Vittorio Veneto","L'offensiva finale italiana spezza l'esercito austro-ungarico.","i"],
+ ["1918-11-04","4 novembre 1918","Armistizio di Villa Giusti","Firmato il 3 novembre vicino a Padova, entra in vigore il 4.","i"],
+ ["1918-11-11","11 novembre 1918","Armistizio di Compiègne","La Germania cessa i combattimenti: fine della guerra.","m"],
+ ["1919-01-18","18 gennaio 1919","Si apre la Conferenza di pace di Parigi","Decidono soprattutto Wilson, Clemenceau, Lloyd George e Orlando.","m"],
+ ["1919-06-28","28 giugno 1919","Trattato di Versailles","Pace con la Germania, cinque anni dopo Sarajevo.","m"],
+ ["1919-09-10","10 settembre 1919","Trattato di Saint-Germain","Pace con l'Austria: l'Italia ottiene Trentino e Alto Adige.","i"],
+ ["1919-09-12","12 settembre 1919","Impresa di Fiume","D'Annunzio occupa la città con reparti di volontari.","i"],
+ ["1920-11-12","12 novembre 1920","Trattato di Rapallo","Con la Jugoslavia: Istria e Zara all'Italia, Fiume città libera.","i"]
+];
+
+const COUNTRIES = [
+ {id:"us",n:"Stati Uniti",s:"USA",g:"1/2/1/4",h:[[1914,"N"],[1917,"I"]],d:"Neutrali fino al 1917. Entrano in guerra il 6 aprile 1917 dopo la guerra sottomarina tedesca. Il loro arrivo in Europa dà all'Intesa uomini e mezzi decisivi."},
+ {id:"uk",n:"Regno Unito",s:"Regno Unito",g:"2/3/2/4",h:[[1914,"I"]],d:"Entra in guerra il 4 agosto 1914 dopo l'invasione del Belgio. Ha la flotta più potente del mondo e combatte con le truppe del suo impero."},
+ {id:"no",n:"Norvegia",s:"Norv.",g:"1/5/2/6",h:[[1914,"N"]],d:"Neutrale per tutta la guerra."},
+ {id:"se",n:"Svezia",s:"Svezia",g:"1/6/2/7",h:[[1914,"N"]],d:"Neutrale per tutta la guerra."},
+ {id:"dk",n:"Danimarca",s:"Dan.",g:"2/5/3/6",h:[[1914,"N"]],d:"Neutrale per tutta la guerra."},
+ {id:"ru",n:"Impero russo",s:"Russia",g:"1/7/5/10",h:[[1914,"I"],[1918,"X"]],d:"Mobilita per difendere la Serbia. Subisce sconfitte pesanti; nel 1917 due rivoluzioni rovesciano lo zar e portano al potere i bolscevichi. Esce dalla guerra con la pace di Brest-Litovsk (3 marzo 1918)."},
+ {id:"nl",n:"Paesi Bassi",s:"Olanda",g:"3/4/4/5",h:[[1914,"N"]],d:"Neutrali per tutta la guerra."},
+ {id:"de",n:"Impero tedesco",s:"Germania",g:"3/5/5/7",h:[[1914,"C"]],d:"Guida gli Imperi centrali. Combatte su due fronti, a ovest contro Francia e Regno Unito, a est contro la Russia. Sconfitta, firma l'armistizio di Compiègne (11 novembre 1918) e il Trattato di Versailles."},
+ {id:"be",n:"Belgio",s:"Belgio",g:"4/4/5/5",h:[[1914,"I"]],d:"Neutrale, viene invaso dalla Germania il 4 agosto 1914: è l'evento che porta il Regno Unito in guerra. Quasi tutto il paese resta occupato fino al 1918."},
+ {id:"fr",n:"Francia",s:"Francia",g:"5/3/7/5",h:[[1914,"I"]],d:"Il fronte occidentale corre sul suo territorio. Ferma i tedeschi sulla Marna (1914) e resiste a Verdun (1916). Vuole rivincita e sicurezza: a Versailles riottiene l'Alsazia-Lorena."},
+ {id:"ch",n:"Svizzera",s:"Sviz.",g:"5/5/6/6",h:[[1914,"N"]],d:"Neutrale per tutta la guerra."},
+ {id:"at",n:"Austria-Ungheria",s:"Austria-Ungh.",g:"5/6/6/8",h:[[1914,"C"]],d:"Dichiara guerra alla Serbia il 28 luglio 1914. Impero multinazionale, si dissolve nell'autunno 1918. Firma l'armistizio di Villa Giusti con l'Italia (in vigore il 4 novembre 1918)."},
+ {id:"ro",n:"Romania",s:"Romania",g:"5/8/6/9",h:[[1914,"N"],[1916,"I"]],d:"Entra con l'Intesa nell'agosto 1916, ma viene in gran parte occupata. Firma una pace separata nel maggio 1918 e riprende le armi poco prima della fine."},
+ {id:"pt",n:"Portogallo",s:"Port.",g:"6/1/7/2",h:[[1914,"N"],[1916,"I"]],d:"Entra in guerra con l'Intesa nel marzo 1916; invia truppe sul fronte occidentale."},
+ {id:"es",n:"Spagna",s:"Spagna",g:"6/2/7/4",h:[[1914,"N"]],d:"Neutrale per tutta la guerra."},
+ {id:"it",n:"Regno d'Italia",s:"Italia",g:"6/5/8/6",h:[[1914,"N"],[1915,"I"]],d:"Membro della Triplice Alleanza, nel 1914 resta neutrale. Con il Patto di Londra passa all'Intesa ed entra in guerra il 24 maggio 1915. Combatte sull'Isonzo, subisce Caporetto (1917) e vince a Vittorio Veneto (1918)."},
+ {id:"rs",n:"Serbia",s:"Serbia",g:"6/6/7/7",h:[[1914,"I"]],d:"Il primo paese attaccato. Invasa nel 1915, il suo esercito si ritira attraverso l'Albania e viene trasferito a Corfù dalle flotte alleate."},
+ {id:"bg",n:"Bulgaria",s:"Bulgaria",g:"6/7/7/8",h:[[1914,"N"],[1915,"C"]],d:"Entra con gli Imperi centrali nell'ottobre 1915 per riprendersi i territori perduti nelle guerre balcaniche. È la prima a chiedere l'armistizio, nel settembre 1918."},
+ {id:"me",n:"Montenegro",s:"Monten.",g:"7/6/8/7",h:[[1914,"I"]],d:"Alleato della Serbia dal 1914, viene occupato nel 1916."},
+ {id:"al",n:"Albania",s:"Alb.",g:"8/6/9/7",h:[[1914,"N"]],d:"Stato nato nel 1913. Formalmente neutrale, viene occupato da più eserciti, anche italiano (Valona)."},
+ {id:"gr",n:"Grecia",s:"Grecia",g:"7/7/9/8",h:[[1914,"N"],[1917,"I"]],d:"Divisa tra sostenitori del re, filo-tedesco, e del premier Venizelos, filo-Intesa. Entra con l'Intesa nel giugno 1917."},
+ {id:"ot",n:"Impero ottomano",s:"Ottomano",g:"6/8/9/10",h:[[1914,"C"]],d:"Entra con gli Imperi centrali nel novembre 1914. Respinge lo sbarco alleato a Gallipoli (1915). Durante la guerra il governo organizza il genocidio degli armeni. L'impero si dissolve dopo la sconfitta."}
+];
+
+const PLACES = [
+ {id:"trento",n:"Trento",x:85,y:156,d:"Città austriaca nel 1914, rivendicata dagli irredentisti. Qui gli austriaci giustiziarono Cesare Battisti (12 luglio 1916). Annessa all'Italia nel 1919.",q:"La città dove fu giustiziato Cesare Battisti nel 1916"},
+ {id:"asiago",n:"Asiago",x:142,y:194,d:"Altopiano dove nel maggio-giugno 1916 gli austriaci lanciarono la Strafexpedition, la «spedizione punitiva» contro l'ex alleato italiano.",q:"L'altopiano colpito dalla Strafexpedition"},
+ {id:"grappa",n:"Monte Grappa",x:184,y:196,d:"Massiccio difeso a oltranza dopo Caporetto (novembre-dicembre 1917). Insieme al Piave diventa la nuova linea del fronte.",q:"Il massiccio che chiude la linea del Piave verso la montagna"},
+ {id:"vv",n:"Vittorio Veneto",x:257,y:172,d:"Dà il nome alla battaglia finale (24 ottobre – 4 novembre 1918) che spezza l'esercito austro-ungarico.",q:"La città che dà il nome alla vittoria finale del 1918"},
+ {id:"piave",n:"Piave",x:243,y:208,d:"Il fiume dove l'esercito italiano si attesta dopo Caporetto. Qui, nel giugno 1918, respinge l'offensiva austriaca nella battaglia del Solstizio.",q:"Il fiume della battaglia del Solstizio (giugno 1918)"},
+ {id:"padova",n:"Villa Giusti (Padova)",x:196,y:288,d:"Nella villa vicino a Padova si firma il 3 novembre 1918 l'armistizio con l'Austria-Ungheria, in vigore dal 4 novembre.",q:"Il luogo dell'armistizio con l'Austria-Ungheria"},
+ {id:"udine",n:"Udine",x:391,y:158,d:"Sede del Comando supremo di Cadorna fino all'ottobre 1917. Cade in mano nemica il 28 ottobre, dopo Caporetto.",q:"La sede del Comando supremo italiano fino al 1917"},
+ {id:"caporetto",n:"Caporetto",x:442,y:120,d:"Qui, il 24 ottobre 1917, gli austro-tedeschi sfondano il fronte. Il nome diventa sinonimo di disfatta.",q:"Il luogo dello sfondamento del 24 ottobre 1917"},
+ {id:"gorizia",n:"Gorizia",x:448,y:182,d:"Conquistata dagli italiani il 9 agosto 1916, durante la sesta battaglia dell'Isonzo.",q:"La città conquistata dagli italiani nell'agosto 1916"},
+ {id:"carso",n:"Carso",x:458,y:210,d:"Altopiano roccioso teatro di molte battaglie dell'Isonzo. Vi combatté anche il poeta Giuseppe Ungaretti.",q:"L'altopiano roccioso dove combatté Ungaretti"},
+ {id:"trieste",n:"Trieste",x:470,y:242,d:"Grande porto austriaco a maggioranza italiana, simbolo dell'irredentismo. Le truppe italiane vi sbarcano il 3 novembre 1918.",q:"Il grande porto simbolo dell'irredentismo, raggiunto il 3 novembre 1918"},
+ {id:"fiume",n:"Fiume",x:567,y:304,d:"Non assegnata all'Italia dai trattati. Il 12 settembre 1919 D'Annunzio la occupa: diventa il simbolo della «vittoria mutilata».",q:"La città occupata da D'Annunzio nel 1919"}
+];
+
+const FLASH = [
+ ["Triplice Alleanza","Patto difensivo del 1882 tra Germania, Austria-Ungheria e Italia."],
+ ["Triplice Intesa","Accordo tra Francia, Russia e Regno Unito, completato nel 1907."],
+ ["Causa occasionale","L'attentato di Sarajevo del 28 giugno 1914, in cui viene ucciso l'arciduca Francesco Ferdinando."],
+ ["Piano Schlieffen","Piano tedesco: battere rapidamente la Francia passando per il Belgio, poi voltarsi contro la Russia."],
+ ["Guerra di posizione","Guerra combattuta da trincee fisse, con fronti quasi immobili per anni."],
+ ["Guerra di logoramento","Strategia che punta a consumare uomini e risorse del nemico più che a conquistare terreno. Esempio: Verdun."],
+ ["Guerra totale","Guerra che mobilita tutta la società: economia, industria, propaganda, civili."],
+ ["Fronte interno","La vita dei civili in guerra: lavoro femminile in fabbrica, razionamento, propaganda, censura."],
+ ["Irredentismo","Movimento che voleva unire all'Italia le terre «irredente» abitate da italiani sotto l'Austria, come Trento e Trieste."],
+ ["Neutralisti","In Italia: liberali giolittiani, socialisti e gran parte dei cattolici, contrari all'entrata in guerra."],
+ ["Interventisti","Favorevoli alla guerra: nazionalisti, irredentisti, democratici, futuristi, D'Annunzio, Mussolini."],
+ ["Patto di Londra","26 aprile 1915: accordo segreto con l'Intesa. All'Italia promessi Trentino, Alto Adige, Trieste, Istria e Dalmazia."],
+ ["Maggio radioso","Le manifestazioni interventiste del maggio 1915 che spingono il Parlamento ad accettare la guerra."],
+ ["24 maggio 1915","L'Italia entra in guerra contro l'Austria-Ungheria."],
+ ["Battaglie dell'Isonzo","Dodici offensive italiane tra il 1915 e il 1917, con guadagni minimi e perdite enormi."],
+ ["Strafexpedition","«Spedizione punitiva» austriaca sugli altipiani di Asiago (maggio-giugno 1916)."],
+ ["Decimazione","Fucilazione di soldati estratti a sorte in un reparto accusato di ammutinamento o viltà. Usata nell'esercito di Cadorna."],
+ ["Inutile strage","Espressione di papa Benedetto XV nella nota di pace del 1 agosto 1917."],
+ ["1917, anno di svolta","La Russia esce dalla guerra dopo le rivoluzioni, gli Stati Uniti vi entrano."],
+ ["Caporetto","24 ottobre 1917: sfondamento austro-tedesco e ritirata italiana fino al Piave."],
+ ["Ragazzi del '99","I giovani nati nel 1899, chiamati al fronte dopo Caporetto."],
+ ["Battaglia del Solstizio","Giugno 1918: gli italiani respingono sul Piave l'ultima offensiva austriaca."],
+ ["Vittorio Veneto","24 ottobre – 4 novembre 1918: offensiva finale italiana contro l'Austria-Ungheria."],
+ ["Armistizio di Villa Giusti","Firmato vicino a Padova il 3 novembre 1918, in vigore dal 4 novembre."],
+ ["Brest-Litovsk","Pace del 3 marzo 1918 con cui la Russia bolscevica esce dalla guerra."],
+ ["14 punti di Wilson","Programma di pace del presidente USA (gennaio 1918): autodeterminazione, libertà dei mari, Società delle Nazioni."],
+ ["Autodeterminazione dei popoli","Principio per cui ogni popolo ha diritto a scegliere il proprio Stato e governo."],
+ ["Società delle Nazioni","Organizzazione internazionale nata con i trattati di pace per prevenire nuove guerre. Gli USA non vi aderiscono."],
+ ["Trattato di Versailles","28 giugno 1919: pace con la Germania, dichiarata responsabile della guerra e obbligata a pagare riparazioni."],
+ ["Vittoria mutilata","Espressione di D'Annunzio per la delusione italiana: non ottenute la Dalmazia e Fiume."],
+ ["Impresa di Fiume","12 settembre 1919: D'Annunzio occupa Fiume con reparti di volontari."],
+ ["Genocidio armeno","Lo sterminio degli armeni organizzato dal governo ottomano a partire dal 1915."]
+];
+
+const QUIZ = [
+ ["Chi fu ucciso a Sarajevo il 28 giugno 1914?",["L'arciduca Francesco Ferdinando","L'imperatore Francesco Giuseppe","Il kaiser Guglielmo II","Lo zar Nicola II"],0,"Era l'erede al trono austro-ungarico; lo uccise Gavrilo Princip."],
+ ["Quali paesi formavano la Triplice Intesa?",["Francia, Russia, Regno Unito","Germania, Austria-Ungheria, Italia","Francia, Italia, Stati Uniti","Regno Unito, Germania, Russia"],0,"L'Intesa si completò nel 1907."],
+ ["Perché nel 1914 l'Italia restò neutrale?",["La Triplice era difensiva e l'Austria aveva attaccato senza consultarla","Aveva già firmato il Patto di Londra","Era alleata della Serbia","Il Parlamento era in vacanza"],0,"Il Patto di Londra arriva solo nell'aprile 1915."],
+ ["Quando entrò in guerra l'Italia?",["24 maggio 1915","28 luglio 1914","26 aprile 1915","6 aprile 1917"],0,"Il 26 aprile 1915 è la data del Patto di Londra."],
+ ["Quale politico guidava i neutralisti liberali?",["Giovanni Giolitti","Gabriele D'Annunzio","Benito Mussolini","Filippo Tommaso Marinetti"],0,"D'Annunzio, Mussolini e Marinetti erano interventisti."],
+ ["Che cosa prevedeva il piano Schlieffen?",["Battere la Francia passando per il Belgio, poi attaccare la Russia","Attaccare l'Italia dal Trentino","Bloccare i porti britannici con i sottomarini","Difendersi su tutti i fronti"],0,"Per questo la Germania invase il Belgio neutrale."],
+ ["Dove si fermò l'avanzata tedesca nel settembre 1914?",["Sulla Marna","Sulla Somme","A Verdun","Sull'Isonzo"],0,"La Marna segna la fine della guerra di movimento a ovest."],
+ ["Quale battaglia del 1916 è il simbolo della guerra di logoramento?",["Verdun","Caporetto","Tannenberg","Vittorio Veneto"],0,"Durò da febbraio a dicembre 1916."],
+ ["In quale battaglia apparvero per la prima volta i carri armati?",["Somme, 1916","Marna, 1914","Ypres, 1915","Piave, 1918"],0,"Li impiegarono i britannici nel settembre 1916."],
+ ["Che cosa fu la Strafexpedition?",["Un'offensiva austriaca sugli altipiani di Asiago nel 1916","Lo sbarco alleato a Gallipoli","La ritirata dopo Caporetto","La spedizione di D'Annunzio a Fiume"],0,"Il nome significa «spedizione punitiva»."],
+ ["Perché il 1917 è considerato l'anno di svolta?",["La Russia esce dalla guerra e gli Stati Uniti vi entrano","Finisce la guerra","L'Italia cambia alleanza","Nasce la Società delle Nazioni"],0,"Due eventi che cambiano gli equilibri tra i blocchi."],
+ ["Chi sostituì Cadorna dopo Caporetto?",["Armando Diaz","Luigi Capello","Pietro Badoglio","Vittorio Emanuele Orlando"],0,"Diaz assunse il comando il 9 novembre 1917."],
+ ["Come definì la guerra papa Benedetto XV?",["Un'«inutile strage»","Una «guerra santa»","La «guerra che porrà fine a tutte le guerre»","Una «vittoria mutilata»"],0,"Nella nota di pace del 1 agosto 1917."],
+ ["Chi erano i «ragazzi del '99»?",["I giovani nati nel 1899 chiamati al fronte","I deputati eletti nel 1899","I volontari di Fiume","I soldati della Triplice"],0,"Furono richiamati soprattutto dopo Caporetto."],
+ ["Dove si svolse la battaglia del Solstizio (giugno 1918)?",["Sul Piave","Sull'Isonzo","Sulla Marna","A Caporetto"],0,"Fu l'ultima offensiva austriaca, respinta."],
+ ["Quale battaglia segnò la vittoria italiana finale?",["Vittorio Veneto","Caporetto","Gorizia","Asiago"],0,"24 ottobre – 4 novembre 1918."],
+ ["In che giorno entrò in vigore l'armistizio di Villa Giusti?",["4 novembre 1918","11 novembre 1918","24 ottobre 1918","28 giugno 1919"],0,"Era stato firmato il 3 novembre."],
+ ["Che cosa stabilì la pace di Brest-Litovsk (1918)?",["L'uscita della Russia dalla guerra","L'ingresso degli USA","La fine dell'Impero ottomano","L'annessione di Trieste all'Italia"],0,"La Russia bolscevica cedette ampi territori alla Germania."],
+ ["Quale principio sta al centro dei 14 punti di Wilson?",["L'autodeterminazione dei popoli","Il diritto di conquista","Il ritorno alle monarchie assolute","La libertà di colonizzazione"],0,"I 14 punti proponevano anche la Società delle Nazioni."],
+ ["Con quale paese fu firmato il Trattato di Versailles?",["Germania","Austria","Ungheria","Impero ottomano"],0,"Con l'Austria si firmò Saint-Germain, con l'Ungheria Trianon."],
+ ["Quale di questi imperi scomparve dopo la guerra?",["Austro-ungarico","Britannico","Giapponese","Francese"],0,"Scomparvero anche quello tedesco, russo e ottomano."],
+ ["Che cosa si intende per «vittoria mutilata»?",["La delusione italiana per non aver ottenuto Dalmazia e Fiume","La sconfitta di Caporetto","La perdita delle colonie","La vittoria degli Imperi centrali"],0,"L'espressione è di D'Annunzio."],
+ ["Chi guidò l'occupazione di Fiume nel 1919?",["Gabriele D'Annunzio","Benito Mussolini","Armando Diaz","Cesare Battisti"],0,"Il 12 settembre 1919."],
+ ["Che cos'era il «maggio radioso»?",["Le manifestazioni interventiste del maggio 1915","La vittoria di Vittorio Veneto","Uno sciopero del 1917","La primavera del 1918"],0,"Spinsero il Parlamento verso la guerra."],
+ ["Che cosa significa «fronte interno»?",["La mobilitazione dei civili, dell'economia e della propaganda","Una linea di trincee nelle città","Il fronte tra Italia e Austria","La seconda linea di difesa"],0,"Pensa al lavoro delle donne in fabbrica e al razionamento."],
+ ["Che cosa fu il Lusitania?",["Un transatlantico britannico affondato da un sottomarino tedesco","Una nave da guerra italiana","Un trattato di pace","Un dirigibile tedesco"],0,"Nel 1915 morirono anche cittadini statunitensi."],
+ ["Quali territori ottenne l'Italia con i trattati di pace?",["Trentino, Alto Adige, Trieste, Istria","Dalmazia e Albania","Corsica e Nizza","Malta e Tunisia"],0,"Fiume resterà contesa fino al 1924."],
+ ["Che cos'era la decimazione?",["La fucilazione di soldati estratti a sorte in un reparto punito","Una tassa del dieci per cento","La perdita di un decimo del territorio","Un tipo di bombardamento"],0,"Fu praticata nell'esercito italiano sotto Cadorna."],
+ ["Quale paese entrò in guerra con gli Imperi centrali nell'ottobre 1915?",["Bulgaria","Romania","Grecia","Serbia"],0,"La Romania e la Grecia si schierarono con l'Intesa."],
+ ["Dove combatté il poeta Giuseppe Ungaretti?",["Sul Carso","In Belgio","A Gallipoli","Sulla Marna"],0,"Dall'esperienza del Carso nasce «Il porto sepolto» (1916)."]
+];
+
+/* ========== UTILITÀ ========== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+
+/* ========== NAVIGAZIONE ========== */
+const VIEWS=["ripasso","cronologia","mappe","fronte","flashcard","quiz","ordina"];
+function route(){
+  const h=location.hash.slice(1); const v=VIEWS.includes(h)?h:"ripasso";
+  VIEWS.forEach(x=>{$("#v-"+x).hidden=x!==v;});
+  $$("#nav a").forEach(a=>{ if(a.getAttribute("href")==="#"+v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+}
+window.addEventListener("hashchange",()=>{route(); window.scrollTo({top:$("nav").offsetTop,behavior:"auto"});});
+
+/* ========== SCHEDE ========== */
+$("#schede").innerHTML=SCHEDE.map(s=>`<article class="sch"><span class="yr">${s.y}</span><h3>${s.t}</h3><ul>${s.b.map(x=>`<li>${x}</li>`).join("")}</ul><p class="kw"><b>Parole chiave:</b> ${s.k}</p></article>`).join("");
+
+/* ========== CRONOLOGIA ========== */
+function drawTL(f){
+  let html="",yr="";
+  EV.filter(e=>f==="tutto"||(f==="italia"?e[4]==="i":e[4]==="m")).forEach(e=>{
+    const y=e[0].slice(0,4);
+    if(y!==yr){yr=y;html+=`<div class="yearhead">${y}</div>`;}
+    html+=`<div class="ev ${e[4]==="i"?"it":""}"><span class="d">${e[1]}</span><div class="t">${e[2]}</div><p>${e[3]}</p></div>`;
+  });
+  $("#tl").innerHTML=html;
+}
+$$("#tlFilter .chip").forEach(b=>b.addEventListener("click",()=>{$$("#tlFilter .chip").forEach(c=>c.setAttribute("aria-pressed",String(c===b)));drawTL(b.dataset.f);}));
+drawTL("tutto");
+
+/* ========== SCHIERAMENTI ========== */
+const LAB={I:"Intesa",C:"Imperi centrali",N:"Neutrale",X:"Uscito dalla guerra"};
+let year=1914, game=null, selC="it";
+const statusOf=(c,y)=>{let s="N";c.h.forEach(([yy,st])=>{if(y>=yy)s=st;});return s;};
+[1914,1915,1916,1917,1918].forEach(y=>{const b=document.createElement("button");b.className="chip";b.type="button";b.textContent=y;b.dataset.y=y;b.addEventListener("click",()=>{year=y;game=null;$("#gCheck").disabled=true;$("#gRes").textContent="";paintTiles();});$("#years").appendChild(b);});
+COUNTRIES.forEach(c=>{
+  const b=document.createElement("button"); b.className="tile"; b.type="button"; b.id="t-"+c.id; b.textContent=c.s; b.style.gridArea=c.g; b.setAttribute("aria-label",c.n);
+  b.addEventListener("click",()=>{
+    if(game){ const cyc={N:"I",I:"C",C:"N"}; game[c.id]=cyc[game[c.id]]; paintTiles(); }
+    selC=c.id; showC();
+  });
+  $("#tiles").appendChild(b);
+});
+function paintTiles(){
+  $$("#years .chip").forEach(b=>b.setAttribute("aria-pressed",String(!game&&+b.dataset.y===year)));
+  COUNTRIES.forEach(c=>{const t=$("#t-"+c.id);const s=game?game[c.id]:statusOf(c,year);t.className="tile "+s+(c.id===selC?" sel":"");});
+  showC();
+}
+function showC(){
+  const c=COUNTRIES.find(x=>x.id===selC); const s=game?null:statusOf(c,year);
+  $("#cinfo").innerHTML = game
+    ? `<span class="kicker">Gioco in corso</span><h3>${c.n}</h3><p class="note">Scegli lo schieramento a fine 1915 toccando il riquadro. La scheda del paese apparirà dopo la verifica.</p>`
+    : `<span class="kicker">${year}</span><h3>${c.n}</h3><span class="badge ${s}">${LAB[s]}</span><p style="margin:0">${c.d}</p>`;
+}
+$("#gStart").addEventListener("click",()=>{game={};COUNTRIES.forEach(c=>game[c.id]="N");$("#gCheck").disabled=false;$("#gRes").textContent="";paintTiles();});
+$("#gCheck").addEventListener("click",()=>{
+  let ok=0; COUNTRIES.forEach(c=>{const r=statusOf(c,1915)===game[c.id];if(r)ok++;});
+  const g=game; game=null; year=1915; paintTiles();
+  COUNTRIES.forEach(c=>$("#t-"+c.id).classList.add(statusOf(c,1915)===g[c.id]?"right":"wrong"));
+  $("#gRes").textContent=`${ok} / ${COUNTRIES.length} corretti. Bordo verde: giusto; bordo dorato: da rivedere.`;
+  $("#gCheck").disabled=true;
+});
+paintTiles();
+
+/* ========== FRONTE ITALIANO ========== */
+let selP="caporetto", fgame=null;
+const mg=$("#markers");
+mg.innerHTML=PLACES.map(p=>`<g class="mk" id="m-${p.id}" tabindex="0" role="button" aria-label="${p.n}"><circle class="h" cx="${p.x}" cy="${p.y}" r="11"/><circle class="d" cx="${p.x}" cy="${p.y}" r="5.5"/><text x="${p.x+(p.x>520?-9:9)}" y="${p.y-8}" text-anchor="${p.x>520?"end":"start"}">${p.n.replace(" (Padova)","")}</text><circle cx="${p.x}" cy="${p.y}" r="16" fill="transparent"/></g>`).join("");
+PLACES.forEach(p=>{const el=$("#m-"+p.id);const act=()=>clickPlace(p.id);el.addEventListener("click",act);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();act();}});});
+function showP(){
+  const p=PLACES.find(x=>x.id===selP);
+  $$(".mk").forEach(m=>m.classList.toggle("act",m.id==="m-"+selP));
+  const extra=p.id==="caporetto"?` <a href="../caporetto/">Gioca la simulazione</a>.`:"";
+  $("#pinfo").innerHTML=`<span class="kicker">Fronte italiano</span><h3>${p.n}</h3><p style="margin:0">${p.d}${extra}</p>`;
+}
+function clickPlace(id){
+  if(!fgame){selP=id;showP();return;}
+  if(fgame.lock) return;
+  const target=fgame.list[fgame.i]; const ok=id===target.id;
+  if(ok) fgame.pts++;
+  fgame.lock=true;
+  $("#m-"+target.id).classList.add("ok"); if(!ok) $("#m-"+id).classList.add("no");
+  $("#fQ").innerHTML=`${ok?"Esatto":"No"}: era <b>${target.n}</b>. <span class="mono">${fgame.pts}/${fgame.i+1}</span>`;
+  setTimeout(()=>{$$(".mk").forEach(m=>m.classList.remove("ok","no"));fgame.i++;fgame.lock=false;nextF();},1600);
+}
+function nextF(){
+  if(fgame.i>=fgame.list.length){$("#fmap").classList.remove("hidelabels");$("#fQ").innerHTML=`Fine: <b class="mono">${fgame.pts} / ${fgame.list.length}</b>. ${fgame.pts>=8?"Ottimo orientamento.":"Rileggi le schede dei luoghi sbagliati e riprova."}`;fgame=null;$("#fStart").textContent="Gioca ancora";return;}
+  $("#fQ").innerHTML=`<span class="mono">${fgame.i+1}/10</span> · ${fgame.list[fgame.i].q}`;
+}
+$("#fStart").addEventListener("click",()=>{fgame={list:shuffle(PLACES).slice(0,10),i:0,pts:0};$("#fmap").classList.add("hidelabels");nextF();});
+$$("#layers .chip").forEach(b=>b.addEventListener("click",()=>{const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",String(on));$("."+"bd."+b.dataset.l).classList.toggle("off",!on);}));
+showP();
+
+/* ========== FLASHCARD (scatole di Leitner) ========== */
+let lb=store.get("gg_leitner",{}); FLASH.forEach(f=>{if(!lb[f[0]])lb[f[0]]=1;});
+let cur=null;
+function drawBoxes(){
+  const n=[1,2,3].map(b=>FLASH.filter(f=>lb[f[0]]===b).length);
+  $("#lboxes").innerHTML=`<div><b>${n[0]}</b><span>da imparare</span></div><div><b>${n[1]}</b><span>in ripasso</span></div><div><b>${n[2]}</b><span>sapute</span></div>`;
+}
+function pick(){
+  const w=FLASH.map(f=>({f,w:lb[f[0]]===1?6:lb[f[0]]===2?3:1})).filter(x=>!cur||x.f!==cur);
+  const tot=w.reduce((a,b)=>a+b.w,0); let r=Math.random()*tot;
+  for(const x of w){r-=x.w;if(r<=0){cur=x.f;break;}}
+  $("#card").classList.remove("flipped");
+  setTimeout(()=>{$("#cTerm").textContent=cur[0];$("#cDef").textContent=cur[1];},cur?150:0);
+  drawBoxes();
+}
+$("#card").addEventListener("click",()=>$("#card").classList.toggle("flipped"));
+$("#cYes").addEventListener("click",()=>{lb[cur[0]]=Math.min(3,lb[cur[0]]+1);store.set("gg_leitner",lb);pick();});
+$("#cNo").addEventListener("click",()=>{lb[cur[0]]=1;store.set("gg_leitner",lb);pick();});
+$("#cReset").addEventListener("click",()=>{FLASH.forEach(f=>lb[f[0]]=1);store.set("gg_leitner",lb);pick();});
+cur=FLASH[0]; $("#cTerm").textContent=cur[0]; $("#cDef").textContent=cur[1]; drawBoxes();
+
+/* ========== QUIZ ========== */
+let qz=null;
+function startQuiz(){qz={qs:shuffle(QUIZ).slice(0,10).map(q=>{const o=q[1].map((t,i)=>({t,ok:i===q[2]}));return{q:q[0],o:shuffle(o),e:q[3]};}),i:0,pts:0};drawQ();}
+function drawQ(){
+  const best=store.get("gg_quizbest",0);
+  if(qz.i>=qz.qs.length){
+    if(qz.pts>best) store.set("gg_quizbest",qz.pts);
+    $("#quiz").innerHTML=`<span class="kicker">Risultato</span><span class="big mono">${qz.pts}/10</span><p style="margin:0">${qz.pts>=8?"Preparazione solida.":qz.pts>=6?"Buona base: ripassa con le flashcard i temi sbagliati.":"Torna alle schede, poi riprova: le domande cambiano ogni volta."}</p><p class="note">Miglior risultato su questo dispositivo: ${Math.max(best,qz.pts)}/10</p><button class="btn" type="button" id="qAgain">Nuovo quiz</button>`;
+    $("#qAgain").addEventListener("click",startQuiz); return;
+  }
+  const q=qz.qs[qz.i];
+  $("#quiz").innerHTML=`<div class="prog"><i style="width:${qz.i*10}%"></i></div><span class="kicker">Domanda ${qz.i+1} di 10 · punti ${qz.pts}</span><h3>${q.q}</h3><div class="opts">${q.o.map((o,k)=>`<button class="opt" type="button" id="qo-${k}" data-k="${k}">${o.t}</button>`).join("")}</div><div id="qe"></div>`;
+  $$("#quiz .opt").forEach(b=>b.addEventListener("click",()=>{
+    const k=+b.dataset.k, ok=q.o[k].ok; if(ok) qz.pts++;
+    $$("#quiz .opt").forEach((x,i)=>{x.disabled=true;if(q.o[i].ok)x.classList.add("good");});
+    if(!ok) b.classList.add("badc");
+    $("#qe").innerHTML=`<p class="expl">${ok?"Giusto. ":"Risposta sbagliata. "}${q.e}</p><button class="btn" type="button" id="qNext">${qz.i===9?"Vedi il risultato":"Avanti →"}</button>`;
+    $("#qNext").addEventListener("click",()=>{qz.i++;drawQ();}); $("#qNext").focus({preventScroll:true});
+  }));
+}
+startQuiz();
+
+/* ========== METTI IN ORDINE ========== */
+let ord=[];
+function newOrder(){
+  const pool=shuffle(EV); const picked=[]; const used=new Set();
+  for(const e of pool){ if(picked.length>=6) break; const y=e[0].slice(0,7); if(used.has(y)) continue; used.add(y); picked.push(e); }
+  ord=shuffle(picked); $("#oRes").textContent=""; drawOrder(false);
+}
+function drawOrder(checked){
+  const sorted=ord.slice().sort((a,b)=>a[0].localeCompare(b[0]));
+  $("#olist").innerHTML=ord.map((e,i)=>{
+    const st=checked?(sorted[i]===e?"ok":"no"):"";
+    return `<li class="${st}"><div><div style="font-weight:600">${e[2]}</div>${checked?`<span class="when">${e[1]}</span>`:""}</div><div class="ctl"><button type="button" aria-label="Sposta su" data-i="${i}" data-d="-1" ${i===0?"disabled":""}>↑</button><button type="button" aria-label="Sposta giù" data-i="${i}" data-d="1" ${i===ord.length-1?"disabled":""}>↓</button></div></li>`;
+  }).join("");
+  $$("#olist .ctl button").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.i,j=i+ +b.dataset.d;[ord[i],ord[j]]=[ord[j],ord[i]];$("#oRes").textContent="";drawOrder(false);$(`#olist .ctl button[data-i="${j}"][data-d="${b.dataset.d}"]`)?.focus();}));
+}
+$("#oCheck").addEventListener("click",()=>{const sorted=ord.slice().sort((a,b)=>a[0].localeCompare(b[0]));const n=ord.filter((e,i)=>sorted[i]===e).length;drawOrder(true);$("#oRes").textContent=n===ord.length?"Tutto in ordine.":`${n} / ${ord.length} al posto giusto. Le date sono comparse: usale per correggere.`;});
+$("#oNew").addEventListener("click",newOrder);
+newOrder();
+
+route();
+</script>
+
+</body>
+</html>
