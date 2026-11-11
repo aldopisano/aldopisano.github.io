@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Elementi di etica</title>
+<meta name="description" content="Capitolo 2 di AI and Ethics Literacy for Students: versione digitale con schede, esercizi e lettura ad alta voce.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Lexend:wght@400;600;700&display=swap">
+<style>
+/* Layout: colonna di lettura con glosse laterali (a lato su schermi larghi, in testa al sottoparagrafo su telefono);
+   barra di accessibilità fissa; viste (capitolo, schede, esercizi, glossario) scelte con #hash. */
+:root{
+  --bg:#f2f6fb; --sheet:#ffffff; --ink:#14233a; --muted:#4b5c75; --line:#d3deec;
+  --heading:#123e7c; --accent:#1f5fae; --accent-ink:#ffffff; --band:#123e7c; --on-band:#ffffff;
+  --key:#2f7d4c; --key-soft:#eaf5ee; --works:#2a8bd0; --works-soft:#e9f3fc;
+  --pause:#1f5fae; --pause-soft:#eef3fb; --hl:#fff2b8; --focus:#e0a400; --ok:#2f7d4c; --ko:#b3261e;
+  --font-body:"Atkinson Hyperlegible", Verdana, Arial, sans-serif;
+  --font-head:"Lexend", "Trebuchet MS", Arial, sans-serif;
+  --fs:1; --lh:1.65; --ls:0em; --ws:0em;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1828; --sheet:#14243b; --ink:#e7edf6; --muted:#a9b8cc; --line:#2c3f5b;
+    --heading:#a9cbf5; --accent:#8db9f2; --accent-ink:#0d1828; --band:#0b2550; --on-band:#ffffff;
+    --key:#6cc28d; --key-soft:#16301f; --works:#6cb8ec; --works-soft:#132b40;
+    --pause:#8db9f2; --pause-soft:#172a45; --hl:#5a4a00; --focus:#ffcc33; --ok:#7bd39b; --ko:#ff8a80;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1828; --sheet:#14243b; --ink:#e7edf6; --muted:#a9b8cc; --line:#2c3f5b;
+  --heading:#a9cbf5; --accent:#8db9f2; --accent-ink:#0d1828; --band:#0b2550; --on-band:#ffffff;
+  --key:#6cc28d; --key-soft:#16301f; --works:#6cb8ec; --works-soft:#132b40;
+  --pause:#8db9f2; --pause-soft:#172a45; --hl:#5a4a00; --focus:#ffcc33; --ok:#7bd39b; --ko:#ff8a80;
+  color-scheme:dark;
+}
+:root[data-contrast="alto"]{
+  --bg:#000000; --sheet:#000000; --ink:#ffffff; --muted:#ffffff; --line:#ffffff;
+  --heading:#ffeb3b; --accent:#9fd3ff; --accent-ink:#000000; --band:#000000; --on-band:#ffeb3b;
+  --key:#7cff7c; --key-soft:#000000; --works:#00e5ff; --works-soft:#000000;
+  --pause:#9fd3ff; --pause-soft:#000000; --hl:#5c4b00; --focus:#ffeb3b; --ok:#7cff7c; --ko:#ff8a80;
+  color-scheme:dark;
+}
+html{font-size:calc(100% * var(--fs))}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:var(--lh);letter-spacing:var(--ls);word-spacing:var(--ws)}
+*,*::before,*::after{box-sizing:border-box}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--band)}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+[tabindex="-1"]:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.salta{position:absolute;left:-999px;top:0;background:var(--sheet);color:var(--ink);padding:.6rem 1rem;z-index:30}
+.salta:focus{left:16px}
+
+/* Testata */
+.testata{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--band);color:var(--on-band);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.5rem}
+.testata-in{max-width:72rem;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
+.marchio{display:flex;align-items:center;gap:.6rem;color:var(--on-band);text-decoration:none;min-width:0}
+.marchio img{width:3.4rem;height:auto;background:#fff;border-radius:6px;padding:.2rem .3rem;display:block}
+.marchio span{font-family:var(--font-head);font-weight:600;font-size:.95rem;line-height:1.2}
+.nav{display:flex;flex-wrap:wrap;gap:.25rem;margin-left:auto}
+.nav a{color:var(--on-band);text-decoration:none;font-family:var(--font-head);font-size:.9rem;padding:.35rem .65rem;border-radius:999px}
+.nav a[aria-current="page"]{background:rgba(255,255,255,.18);text-decoration:underline;text-underline-offset:4px}
+.btn-acc{font:inherit;font-family:var(--font-head);font-size:.9rem;background:#fff;color:#123e7c;border:0;border-radius:999px;padding:.4rem .8rem;cursor:pointer;font-weight:600}
+:root[data-contrast="alto"] .btn-acc{background:#ffeb3b;color:#000}
+
+/* Pannello accessibilità */
+.acc{background:var(--sheet);border-bottom:2px solid var(--line);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.8rem}
+.acc-in{max-width:72rem;margin:0 auto;display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;align-items:center}
+.acc-gr{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.acc-gr .t{font-family:var(--font-head);font-size:.85rem;color:var(--muted);margin-right:.2rem}
+.btn{font:inherit;font-family:var(--font-head);font-size:.9rem;font-weight:600;background:var(--accent);color:var(--accent-ink);border:2px solid var(--accent);border-radius:8px;padding:.45rem .8rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;line-height:1.2}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn[aria-pressed="true"]{background:var(--key);border-color:var(--key);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.piccolo{font-size:.85rem;color:var(--muted);margin:.3rem 0 0}
+#voce-msg{flex-basis:100%}
+
+/* Impianto */
+main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.5rem 3rem}
+.vista{max-width:72rem;margin:0 auto}
+.foglio{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:clamp(1rem,3vw,2.4rem)}
+h1,h2,h3{font-family:var(--font-head);color:var(--heading);text-wrap:balance;line-height:1.2}
+h1{font-size:clamp(1.8rem,5vw,2.6rem);margin:.2rem 0 1rem;font-weight:700}
+h2{font-size:clamp(1.4rem,3.6vw,1.9rem);margin:0;font-weight:700}
+h3{font-size:1.2rem;margin:2rem 0 .6rem;font-weight:600}
+h3 .n{color:var(--muted);font-weight:400;margin-right:.3rem}
+p{margin:.65rem 0}
+.lbl{display:block;font-family:var(--font-head);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.intro{max-width:44rem;color:var(--muted)}
+.riga-btn{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+
+/* Apertura */
+.cap-num{font-family:var(--font-head);font-weight:600;color:var(--key);letter-spacing:.08em;text-transform:uppercase;margin:0}
+.stimolo{margin:1rem 0 1.4rem}
+.scelte{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:.6rem 0}
+@media (max-width:760px){.scelte{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scelta{font:inherit;text-align:left;background:#ffffff;border:2px solid var(--line);border-radius:10px;padding:.5rem;cursor:pointer;display:flex;flex-direction:column;gap:.3rem;color:#14233a}
+.scelta svg{width:100%;height:auto;display:block}
+.scelta-cap{font-size:.92rem;line-height:1.3}
+.scelta-cap b{font-family:var(--font-head);color:#123e7c;margin-right:.2rem}
+.scelta[aria-pressed="true"]{border-color:var(--key);box-shadow:0 0 0 3px var(--key)}
+.scelte-t{display:flex;flex-wrap:wrap;gap:.6rem;margin:.6rem 0}
+.scelta-t{flex-direction:row;align-items:center;padding:.55rem .8rem;font-size:1rem}
+.scelta-t b{font-family:var(--font-head);color:#123e7c}
+.stimolo .racconto-fig{max-width:520px;margin:.4rem auto 1rem}
+.racconto{border-left:6px solid var(--line);padding:.2rem 0 .2rem 1rem;margin:0 0 1rem}
+.fonte-r{font-size:.85rem;color:var(--muted);margin:.2rem 0 0}
+.sit{font-weight:700}
+.nav-cap{border:1px solid currentColor;border-radius:999px}
+.domanda{background:var(--pause-soft);border-radius:10px;padding:1rem 1.2rem}
+.domanda-t{font-family:var(--font-head);font-size:1.25rem;font-weight:600;color:var(--heading);margin:.2rem 0}
+.domanda-cap{font-family:var(--font-head);font-size:clamp(1.3rem,3.4vw,1.7rem);font-weight:700;color:var(--heading);text-align:left;margin:1.2rem 0;padding-left:1rem;border-left:6px solid var(--accent)}
+.percorso ol{list-style:none;padding:0;margin:.4rem 0;display:grid;gap:.4rem}
+.percorso a{text-decoration:none;color:var(--ink)}
+.percorso a b{font-family:var(--font-head);color:var(--accent);margin-right:.3rem}
+.legenda ul{list-style:none;padding:0;margin:.4rem 0;display:grid;gap:.35rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.legenda li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.leg-mark{flex:none;width:.4rem;align-self:stretch;border-radius:2px;background:var(--line);min-height:1.4rem}
+.leg-key .leg-mark{background:var(--key)}
+.leg-pausa .leg-mark{background:var(--pause)}
+.leg-scheda .leg-mark{background:var(--heading)}
+.leg-glossa .leg-mark{background:var(--muted)}
+.percorso,.legenda{margin-top:1rem}
+
+/* Paragrafi */
+.par{margin-top:2.6rem;padding-top:1.4rem;border-top:3px solid var(--heading)}
+.par-head{display:grid;gap:.3rem}
+.par-num{font-family:var(--font-head);font-weight:700;color:var(--key);margin:0}
+.par-tools{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+.ponte{font-style:italic;color:var(--muted)}
+.guida{margin:1rem 0;padding:.8rem 1rem;border-radius:10px;background:var(--pause-soft)}
+.guida p{font-family:var(--font-head);font-size:1.15rem;font-weight:600;color:var(--heading);margin:.2rem 0}
+.sotto .testo{display:grid;grid-template-columns:minmax(0,1fr) 15rem;column-gap:2rem;align-items:start}
+.sotto .testo > *{grid-column:1}
+.sotto .testo > h3{grid-column:1 / -1}
+.sotto .glossa{grid-column:2;grid-row:2 / span 40;position:sticky;top:6rem;align-self:start;border-left:3px solid var(--line);padding:.2rem 0 .2rem .9rem;font-size:.95rem;color:var(--muted)}
+.glossa p{margin:.2rem 0}
+@media (max-width:900px){
+  .sotto .testo{display:block}
+  .sotto .glossa{position:static;background:var(--pause-soft);border-left:3px solid var(--muted);border-radius:6px;padding:.5rem .8rem;margin:.4rem 0 .8rem}
+}
+.key{border-left:6px solid var(--key);background:var(--key-soft);border-radius:0 8px 8px 0;padding:.6rem 1rem;margin:1.1rem 0}
+.key .lbl{color:var(--key)}
+.key p{font-weight:700;margin:.2rem 0}
+.pausa{border:2px dashed var(--pause);border-radius:10px;padding:.7rem 1rem;margin:1.1rem 0;background:var(--sheet)}
+.pausa .lbl{color:var(--pause)}
+.nota summary,.descr summary{cursor:pointer;font-family:var(--font-head);font-size:.9rem;color:var(--accent)}
+textarea{width:100%;font:inherit;font-size:1rem;border:2px solid var(--line);border-radius:8px;padding:.6rem;background:var(--sheet);color:var(--ink)}
+.etichetta{font-family:var(--font-head);font-size:.9rem;font-weight:600;display:block;margin-top:.6rem}
+.citazione{margin:1rem 0;padding:.8rem 1rem;border-left:4px solid var(--heading);background:var(--pause-soft);border-radius:0 8px 8px 0}
+.citazione blockquote{margin:0}
+.citazione figcaption{font-size:.85rem;color:var(--muted);margin-top:.4rem}
+.elenco{padding-left:1.3rem}
+.elenco li{margin:.3rem 0}
+.tab-wrap{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;min-width:28rem;font-size:.97rem}
+caption{text-align:left;font-family:var(--font-head);font-weight:600;color:var(--heading);padding-bottom:.4rem}
+th,td{border-bottom:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top}
+thead th{font-family:var(--font-head);font-size:.85rem;color:var(--muted)}
+tbody th{font-family:var(--font-head);color:var(--heading)}
+.fig{margin:1.2rem 0}
+.fig-img{background:#ffffff;border:1px solid var(--line);border-radius:10px;padding:.8rem;max-width:36rem}
+.fig-img svg{width:100%;height:auto;display:block}
+.fig figcaption{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+.scheda-ref{margin:1rem 0;padding:.6rem .9rem;border:1px solid var(--line);border-radius:10px;display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.scheda-ref .lbl{flex-basis:100%}
+.scheda-link{text-decoration:none;font-weight:700;display:inline-flex;gap:.4rem;align-items:baseline}
+.cod{font-family:var(--font-head);font-size:.8rem;font-weight:700;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:.05rem .35rem}
+.kw{font:inherit;font-weight:700;color:inherit;background:none;border:0;padding:0;border-bottom:2px dotted var(--accent);cursor:help}
+.kw-def{display:block;margin:.3rem 0 .5rem;padding:.4rem .7rem;border-radius:6px;background:var(--pause-soft);font-size:.95rem;font-weight:400}
+.readable.letto{background:var(--hl);border-radius:4px;outline:2px solid var(--focus)}
+body.ascolto .readable{cursor:pointer}
+body.ascolto .readable:hover{background:var(--pause-soft)}
+
+/* Sintesi */
+.mappa{list-style:none;padding:0;margin:1rem 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.7rem;counter-reset:m}
+@media (max-width:900px){.mappa{grid-template-columns:minmax(0,1fr)}}
+.mappa li{counter-increment:m;background:var(--pause-soft);border-top:5px solid var(--heading);border-radius:8px;padding:.7rem .8rem;font-size:.97rem;position:relative}
+.mappa li::before{content:counter(m);font-family:var(--font-head);font-weight:700;font-size:1.4rem;color:var(--heading);display:block}
+.mappa .sez{display:block;font-family:var(--font-head);font-size:.78rem;color:var(--muted)}
+.finale{margin:1.4rem 0;padding:1rem 1.2rem;border-radius:10px;background:var(--pause-soft)}
+.opere ul{list-style:none;padding:0;display:grid;gap:.8rem;margin:.6rem 0}
+.opere li{border-left:6px solid var(--works);background:var(--works-soft);border-radius:0 8px 8px 0;padding:.6rem 1rem}
+.opere .tipo{font-family:var(--font-head);font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--works)}
+.opere .tit{font-weight:700;margin:.15rem 0}
+.opere p{margin:.2rem 0}
+
+/* Schede ed esercizi */
+.schede-grid{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}
+.scheda-card{display:flex;flex-direction:column;gap:.3rem;height:100%;padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--sheet);text-decoration:none;color:var(--ink)}
+.scheda-card .cod{align-self:flex-start}
+.scheda-card .t{font-family:var(--font-head);font-weight:600;color:var(--heading)}
+.scheda-card .p{font-size:.85rem;color:var(--muted)}
+.cod-grande{font-family:var(--font-head);font-weight:600;color:var(--key);margin:0}
+.scheda .scheda-corpo{max-width:46rem}
+.scheda-fig{margin:1rem 0}
+.def{list-style:none;padding:0;display:grid;gap:.6rem;counter-reset:d}
+.def li{border-left:5px solid var(--heading);background:var(--pause-soft);border-radius:0 8px 8px 0;padding:.5rem .9rem}
+.def-q{font-style:italic;margin:.1rem 0}
+.def-a{font-weight:700;margin:.1rem 0}
+.tre{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+@media (max-width:700px){.tre{grid-template-columns:minmax(0,1fr)}}
+.col3{border-top:5px solid var(--heading);background:var(--pause-soft);border-radius:8px;padding:.6rem .8rem}
+.timeline{list-style:none;padding:0;margin:1rem 0;border-left:3px solid var(--heading)}
+.timeline li{position:relative;padding:.2rem 0 .5rem 1.2rem}
+.timeline li::before{content:"";position:absolute;left:-.55rem;top:.55rem;width:.8rem;height:.8rem;border-radius:50%;background:var(--key);border:2px solid var(--sheet)}
+.timeline .anno{font-family:var(--font-head);font-weight:700;color:var(--heading)}
+.timeline p{margin:.1rem 0}
+.nota-s{border-left:4px solid var(--key);padding-left:.8rem}
+.fonte{font-size:.85rem;color:var(--muted);margin-top:1.4rem}
+.esercizio{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}
+.esercizio h2{font-size:1.3rem}
+.es-voce{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.es-voce:last-child{border-bottom:0}
+.es-voce select{font:inherit;padding:.35rem;border:2px solid var(--line);border-radius:6px;background:var(--sheet);color:var(--ink);max-width:100%}
+.fb{margin:.3rem 0 0;font-size:.95rem}
+.fb.ok{color:var(--ok)} .fb.ko{color:var(--ko)}
+.fb.ok::before{content:"✓ ";font-weight:700} .fb.ko::before{content:"✗ ";font-weight:700}
+.vf-r{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.3rem}
+.vf-r label{display:inline-flex;gap:.3rem;align-items:center;cursor:pointer}
+.ordina{list-style:none;padding:0;display:grid;gap:.4rem}
+.ordina li{display:flex;align-items:center;gap:.5rem;border:1px solid var(--line);border-radius:8px;padding:.4rem .6rem;background:var(--pause-soft)}
+.ordina li span{flex:1;min-width:0}
+.ordina button{font:inherit;width:2.2rem;height:2.2rem;border-radius:6px;border:2px solid var(--accent);background:var(--sheet);color:var(--accent);cursor:pointer}
+.risposte{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+@media (max-width:700px){.risposte{grid-template-columns:minmax(0,1fr)}}
+.risposta{font:inherit;text-align:left;border:2px solid var(--line);border-radius:10px;padding:.7rem .9rem;background:var(--sheet);color:var(--ink);cursor:pointer}
+.risposta b{font-family:var(--font-head);color:var(--heading)}
+.risposta[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent)}
+.opzioni{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
+.barre{display:grid;gap:.3rem;margin:.6rem 0;max-width:34rem}
+.barra{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:.6rem;align-items:center;font-size:.95rem}
+.barra .b{height:1rem;border-radius:3px;background:var(--accent);min-width:2px}
+.barra.scelta-tua .b{background:var(--key)}
+.barra .v{font-variant-numeric:tabular-nums;font-weight:700;margin-left:.4rem}
+.barra .bw{display:flex;align-items:center}
+.proposta{border-left:4px solid var(--key);padding-left:.8rem;margin:.4rem 0}
+.glossario{display:grid;gap:.2rem}
+.voce{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.voce dt{font-family:var(--font-head);font-weight:600;color:var(--heading)}
+.voce dd{margin:.2rem 0 0}
+footer.piede{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+.piede-in{max-width:72rem;margin:0 auto}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<a class="salta" href="#capitolo">Vai al testo</a>
+<header class="testata">
+  <div class="testata-in">
+    <a class="marchio" href="#capitolo"><img src="logo-ael.jpg" alt="AI and Ethics Literacy" width="720" height="381"><span>for Students<br>Capitolo 2</span></a>
+    <nav class="nav" aria-label="Sezioni">
+      <a href="#capitolo" data-nav="capitolo">Leggi</a>
+      <a href="#schede" data-nav="schede">Schede</a>
+      <a href="#esercizi" data-nav="esercizi">Esercizi</a>
+      <a href="#glossario" data-nav="glossario">Glossario</a>
+      <a href="../" class="nav-cap">Capitolo 1</a>
+    </nav>
+    <button type="button" class="btn-acc" id="apri-acc" aria-expanded="true" aria-controls="acc">Accessibilità</button>
+  </div>
+</header>
+<div class="acc" id="acc" role="region" aria-label="Accessibilità">
+  <div class="acc-in">
+    <div class="acc-gr" role="group" aria-label="Dimensione del testo">
+      <span class="t">Testo</span>
+      <button type="button" class="btn ghost" id="fs-meno" aria-label="Riduci il testo">A−</button>
+      <button type="button" class="btn ghost" id="fs-norm" aria-label="Testo normale">A</button>
+      <button type="button" class="btn ghost" id="fs-piu" aria-label="Ingrandisci il testo">A+</button>
+    </div>
+    <div class="acc-gr">
+      <button type="button" class="btn ghost" id="spazi" aria-pressed="false">Spaziatura ampia</button>
+      <button type="button" class="btn ghost" id="contrasto" aria-pressed="false">Alto contrasto</button>
+    </div>
+    <div class="acc-gr" role="group" aria-label="Lettura ad alta voce">
+      <span class="t">Voce</span>
+      <button type="button" class="btn ghost" id="ascolto" aria-pressed="false">Leggi al clic</button>
+      <button type="button" class="btn ghost" id="ferma">■ Ferma</button>
+      <label class="t" for="velocita">Velocità</label>
+      <input type="range" id="velocita" min="0.7" max="1.3" step="0.1" value="1">
+    </div>
+    <p class="piccolo" id="voce-msg" aria-live="polite">Con «Leggi al clic» attivo, premi un paragrafo per ascoltarlo. Anche il tasto Invio funziona.</p>
+  </div>
+</div>
+
+<main id="main" lang="it">
+  <div class="vista" data-view="capitolo" id="capitolo">
+    <article class="foglio">
+      
+<section class="apertura" id="apertura" aria-labelledby="cap-t">
+  <p class="cap-num">Capitolo 2</p>
+  <h1 id="cap-t" class="readable">Elementi di etica</h1>
+  <div class="stimolo">
+    <p class="lbl">Stimolo · L&#x27;anello di Gige</p>
+    <figure class="fig racconto-fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" role="img" aria-label="Un pastore seduto su una roccia osserva un anello d'oro sul palmo della mano; accanto a lui la sua figura è disegnata per metà trasparente, come se stesse scomparendo. Sullo sfondo, colline e alcune pecore." focusable="false" >
+<defs><linearGradient id="svanisce" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#ffffff" stop-opacity="1"/><stop offset="0.45" stop-color="#ffffff" stop-opacity="1"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0.12"/></linearGradient>
+<mask id="m-svanisce"><rect x="0" y="0" width="360" height="200" fill="url(#svanisce)"/></mask></defs>
+<rect x="0" y="0" width="360" height="200" fill="#ffffff"/>
+<path d="M0 140 C 60 116 120 124 180 134 C 240 146 300 112 360 126 L 360 200 L 0 200 Z" fill="#b9d6b0"/>
+<path d="M0 166 C 80 152 160 172 240 164 C 290 159 330 166 360 162 L 360 200 L 0 200 Z" fill="#a3c79a"/>
+<g fill="#ffffff" stroke="#8a9bb3" stroke-width="1.5">
+<ellipse cx="276" cy="132" rx="14" ry="9"/><ellipse cx="306" cy="140" rx="12" ry="8"/><ellipse cx="330" cy="128" rx="11" ry="7.5"/></g>
+<g fill="#14233a"><circle cx="288" cy="128" r="4"/><circle cx="316" cy="136" r="3.5"/><circle cx="339" cy="125" r="3.2"/></g>
+<path d="M58 178 C 60 150 92 140 128 142 C 156 144 168 162 170 178 Z" fill="#8a9bb3"/>
+<line x1="40" y1="182" x2="200" y2="168" stroke="#8b6b4a" stroke-width="4" stroke-linecap="round"/>
+<g mask="url(#m-svanisce)">
+<circle cx="112" cy="62" r="15" fill="#d8c2ae"/>
+<path d="M97 56 C 99 41 127 41 129 56 C 122 49 104 49 97 56 Z" fill="#123e7c"/>
+<path d="M88 138 C 84 100 140 96 138 138 Z" fill="#1f5fae"/>
+<path d="M92 136 C 100 150 120 152 150 150" fill="none" stroke="#123e7c" stroke-width="11" stroke-linecap="round"/>
+<path d="M134 152 L 140 176" stroke="#123e7c" stroke-width="10" stroke-linecap="round"/>
+<path d="M130 106 C 146 112 158 112 170 104" fill="none" stroke="#1f5fae" stroke-width="10" stroke-linecap="round"/>
+</g>
+<ellipse cx="180" cy="101" rx="13" ry="6" fill="#d8c2ae"/>
+<circle cx="182" cy="92" r="7" fill="none" stroke="#c99a2e" stroke-width="3.5"/>
+<circle cx="182" cy="85" r="3" fill="#3f8f5c"/>
+<g stroke="#c99a2e" stroke-width="2" stroke-linecap="round">
+<line x1="194" y1="80" x2="202" y2="73"/><line x1="197" y1="92" x2="207" y2="92"/><line x1="166" y1="78" x2="160" y2="70"/></g></svg></div></figure>
+    <div class="racconto"><p class="readable">Nella <em>Repubblica</em> Platone racconta la storia di Gige, un pastore al servizio del re di Lidia. Un giorno, dopo un temporale e una scossa di terremoto, la terra si apre proprio dove pascola il gregge. Gige scende nella voragine e trova un grande cavallo di bronzo, cavo. Dentro c'è il corpo di un uomo, più alto del normale, che porta al dito un anello d'oro. Gige prende l'anello e risale.</p><p class="readable">Qualche giorno dopo, seduto in mezzo agli altri pastori, gira per caso il castone dell'anello verso il palmo della mano. All'improvviso nessuno lo vede più, e gli altri parlano di lui come se se ne fosse andato. Lo rigira verso l'esterno, e torna visibile. Gige ha capito il potere dell'anello. Si fa mandare a corte, seduce la regina e, con il suo aiuto, uccide il re e prende il potere.</p><p class="fonte-r">Platone, Repubblica, II, 359b-360d</p></div>
+    <div class="domanda">
+      <p class="readable domanda-t">Se avessi l&#x27;anello di Gige e nessuno potesse vederti, ti comporteresti allo stesso modo?</p>
+      <p class="readable">Scegli una risposta e scrivi perché, prima di andare avanti. La ritroverai alla fine del capitolo.</p>
+      <div class="scelte scelte-t" role="group" data-esclusiva="1" aria-label="Scegli una risposta"><button type="button" class="scelta scelta-t" data-scelta="A" aria-pressed="false"><b>A</b> Sì, allo stesso modo</button><button type="button" class="scelta scelta-t" data-scelta="B" aria-pressed="false"><b>B</b> No, farei cose che ora non faccio</button><button type="button" class="scelta scelta-t" data-scelta="C" aria-pressed="false"><b>C</b> Non lo so</button></div>
+      <p class="piccolo" id="scelta-stato" aria-live="polite">Premi una risposta per scegliere. La scelta resta solo su questo dispositivo.</p>
+      <label for="perche-inizio" class="etichetta">Perché?</label>
+      <textarea id="perche-inizio" data-store="perche-inizio" rows="3"></textarea>
+    </div>
+  </div>
+  <p class="readable">Nel dialogo la storia è raccontata da Glaucone, fratello di Platone, per sostenere che nessuno è giusto per scelta: con un anello come quello, una persona giusta e una ingiusta finirebbero per comportarsi allo stesso modo. Saremmo giusti solo per paura di essere scoperti e puniti. Se avesse ragione, l'etica sarebbe soltanto una questione di controlli e di punizioni. Questo capitolo prova a capire se c'è dell'altro.</p>
+  <p class="domanda-cap readable">Che cos&#x27;è l&#x27;etica?</p>
+  <div class="percorso"><p class="lbl">Il percorso del capitolo</p><ol><li><a href="#p2-1"><b>2.1</b> Morale, etica, diritto: che cosa ci chiede l&#x27;etica</a></li><li><a href="#p2-2"><b>2.2</b> Tre lenti: conseguenze, doveri, virtù</a></li><li><a href="#p2-3"><b>2.3</b> Argomentare, giudicare, rispondere: come si ragiona in etica</a></li></ol></div>
+  <div class="legenda"><p class="lbl">Come leggere questo capitolo</p><ul><li class="leg-key"><span class="leg-mark" aria-hidden="true"></span><b>Concetto chiave</b>: la linea verde segna l&#x27;idea da ricordare</li><li class="leg-pausa"><span class="leg-mark" aria-hidden="true"></span><b>Pausa per pensare</b>: fermati e rispondi, per iscritto o a voce</li><li class="leg-scheda"><span class="leg-mark" aria-hidden="true"></span><b>Scheda online</b>: dieci righe di approfondimento: inquadra il codice e torna subito al testo</li><li class="leg-glossa"><span class="leg-mark" aria-hidden="true"></span><b>Glossa</b>: a lato, in breve, che cosa dice ogni parte del paragrafo</li></ul></div>
+</section><section class="par" id="p2-1" aria-labelledby="p2-1-t"><header class="par-head"><p class="par-num">§ 2.1</p><h2 id="p2-1-t" class="readable">Che cosa ci chiede l'etica: morale, etica, diritto</h2><div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="p2-1"><span aria-hidden="true">▶</span> Ascolta il paragrafo</button><a class="btn ghost" href="#esercizi-2-1">Esercizi del § 2.1</a></div></header><div class="guida"><span class="lbl">Domanda-guida</span><p class="readable">Ciò che è legale è sempre giusto?</p></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.1.1</span> Due parole, una famiglia</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">«Etica» viene dal greco ethos, «morale» dal latino mos: le due parole indicano lo stesso campo.</p></aside><p class="readable">Le parole «etica» e «morale» vengono da due lingue diverse. «Etica» viene dal greco <em>ethos</em>, che indicava il carattere di una persona e il suo modo abituale di comportarsi. «Morale» viene dal latino <em>mos</em>, al plurale <em>mores</em>, che significa costume, usanza. Fu Cicerone, nel I secolo a.C., a proporre l'aggettivo <em>moralis</em> per tradurre in latino il greco <em>ethikós</em>.</p><p class="readable">Nel linguaggio di tutti i giorni le due parole si usano come sinonimi, e così faremo in questo libro. A volte, però, si chiama «morale» l'insieme delle regole che una comunità segue ed «etica» la riflessione su quelle regole: ritroveremo questa distinzione nel § 2.1.5.</p><p class="readable">Già Aristotele notava che la virtù del carattere «deriva dall'abitudine (<em>ethos</em>), da cui ha tratto anche il nome»: l'etica riguarda anche i gesti di ogni giorno, che ripetuti ci rendono un certo tipo di persona.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.1.2</span> Regole che chiedono qualcosa</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">L'etica è un'istituzione normativa: dice come dovremmo agire e orienta approvazione e disapprovazione.</p></aside><p class="readable">Il filosofo Maurizio Mori descrive l'etica come una particolare <button type="button" class="kw" data-term="Istituzione normativa" aria-expanded="false">istituzione normativa</button>. «Istituzione», perché è un insieme ordinato di norme e di valori che permette alle persone di vivere insieme, coordinando desideri che altrimenti entrerebbero in conflitto. «Normativa», perché dice come <em>dovrebbero</em> comportarsi e ci fa provare approvazione o ripugnanza per certe azioni.</p><p class="readable">La caratteristica principale dell'etica è dunque la <button type="button" class="kw" data-term="Prescrittività" aria-expanded="false">prescrittività</button>: le sue frasi hanno la forma del «devi», del «non devi», del «è giusto», del «è sbagliato». «Molte persone copiano durante le verifiche» è una descrizione; «non si dovrebbe copiare» è una prescrizione.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">L'etica è un insieme di norme e di valori che dice come dovremmo agire: la sua caratteristica principale è la prescrittività.</p></div><p class="readable">Ma anche il codice della strada e il galateo ci dicono che cosa fare. Che cosa distingue l'etica da queste regole?</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.1.3</span> Etica e diritto</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Il diritto vale in uno Stato ed è garantito da sanzioni; la norma morale aspira a valere per tutti e la sua sanzione è il rimorso.</p></aside><p class="readable">Il <button type="button" class="kw" data-term="Diritto" aria-expanded="false">diritto</button> condivide con l'etica due scopi importanti: garantire la sicurezza delle persone e la pace sociale. Le norme giuridiche, però, valgono per i cittadini di un determinato Stato, sono scritte e rese pubbliche, e chi le viola va incontro a una <button type="button" class="kw" data-term="Sanzione" aria-expanded="false">sanzione</button>: una multa, una pena. Spesso le rispettiamo anche per paura della pena, proprio come pensava Glaucone.</p><p class="readable">La norma morale non è scritta in un codice e non ha un tribunale che la faccia rispettare: aspira a valere per tutte le persone, in ogni luogo. La sua «sanzione» è interiore: il rimorso, la disapprovazione delle persone che stimiamo.</p><p class="readable">Le due sfere spesso coincidono: uccidere e rubare sono vietati sia dalla legge sia dalla morale. Ma non sempre. Non mantenere una promessa fatta a un amico è legale, eppure quasi tutti lo giudicano scorretto. E ci sono state leggi che oggi riconosciamo come gravemente ingiuste. Nel 1938 il governo fascista approvò in Italia le leggi razziali: un decreto del 5 settembre escluse dalle scuole pubbliche studenti, studentesse e docenti di origine ebraica. Era la legge, ed era ingiusta.</p><p class="readable">Il filosofo Immanuel Kant distingueva per questo la <button type="button" class="kw" data-term="Legalità" aria-expanded="false">legalità</button>, il semplice accordo di un'azione con la legge, dalla <button type="button" class="kw" data-term="Moralità" aria-expanded="false">moralità</button>, che dipende dal motivo per cui agiamo: un negoziante onesto solo perché gli conviene si comporta in modo corretto, ma non per dovere.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Ciò che è legale non è sempre giusto: il diritto stabilisce che cosa è permesso in uno Stato, l'etica si chiede che cosa è giusto, anche oltre la legge.</p></div><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">C'è una regola che rispetti solo per paura della sanzione? E una che rispetteresti anche se nessuno controllasse?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-1">La tua risposta</label><textarea id="pausa-1" data-store="pausa-1" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.1.4</span> Galateo, costumi, pregiudizi</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Etichetta e costume orientano i comportamenti; tabù, pregiudizi e superstizioni si sentono come morali, ma non hanno ragioni che reggono.</p></aside><p class="readable">L'<button type="button" class="kw" data-term="Etichetta" aria-expanded="false">etichetta</button>, o galateo, stabilisce le buone maniere in un certo contesto, come vestirsi a un matrimonio o quando dare del «lei»: le sue regole cambiano da un luogo all'altro e violarle ci espone, al massimo, a una brutta figura.</p><p class="readable">Il <button type="button" class="kw" data-term="Costume" aria-expanded="false">costume</button> è l'insieme delle abitudini di un gruppo sociale, che nessuno ha stabilito con un atto preciso: le consuetudini, come il modo di festeggiare un compleanno, le convinzioni assorbite da piccoli, ma anche <button type="button" class="kw" data-term="Tabù" aria-expanded="false">tabù</button>, <button type="button" class="kw" data-term="Pregiudizio" aria-expanded="false">pregiudizi</button> e superstizioni.</p><p class="readable">Un pregiudizio è un'opinione sostenuta da emozioni forti ma fondata su credenze false, come l'idea che le persone di un certo paese siano tutte pigre. Un tabù è un divieto sentito con forza solo perché interiorizzato. Una superstizione lega due eventi senza alcun rapporto di causa, come il venerdì 17 e la sfortuna. Tutti e tre somigliano alla morale, perché li sentiamo in modo intenso; manca loro, però, una giustificazione razionale.</p><div class="tab-wrap"><table><caption>Quattro modi di regolare i comportamenti</caption><thead><tr><th scope="col"></th><th scope="col">Chi la stabilisce</th><th scope="col">Per chi vale</th><th scope="col">Se la violi</th></tr></thead><tbody><tr><th scope="row">Diritto</th><td>Lo Stato, con atti scritti e pubblici</td><td>I cittadini di quello Stato</td><td>Sanzione: multa, pena</td></tr><tr><th scope="row">Etichetta</th><td>L'uso di un ambiente sociale</td><td>Chi partecipa a quel contesto</td><td>Brutta figura</td></tr><tr><th scope="row">Costume</th><td>Nessuno in particolare: si forma nel tempo</td><td>Un gruppo, una comunità</td><td>Disapprovazione del gruppo</td></tr><tr><th scope="row">Etica</th><td>Nessuno in particolare: si cerca con le ragioni</td><td>Aspira a valere per tutti</td><td>Rimorso, disapprovazione</td></tr></tbody></table></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.1.5</span> Dalla regola alla riflessione</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">L'etica è sia l'insieme delle norme che seguiamo sia la riflessione critica che ne cerca le ragioni.</p></aside><p class="readable">Come distinguere una norma morale da un pregiudizio? Sottoponendola a un esame: è il secondo significato della parola etica. Accanto all'etica come insieme di regole e convinzioni che una comunità segue c'è la <button type="button" class="kw" data-term="Teoria etica" aria-expanded="false">teoria etica</button>, una riflessione filosofica che parte dai casi concreti, formula una regola generale e ne cerca le ragioni, poi torna ai casi per verificare se la regola regge.</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 186" role="img" aria-label="La teoria etica parte dai casi, formula una regola e torna ai casi per metterla alla prova." focusable="false" >
+<defs>
+<marker id="fc-123e7c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#123e7c"/></marker>
+<marker id="fc-3f8f5c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#3f8f5c"/></marker>
+</defs>
+<rect x="10" y="20" width="120" height="52" rx="10" fill="#e6eff9" stroke="#123e7c" stroke-width="2"/><text x="70.0" y="43" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="13" font-weight="700" fill="#123e7c">Casi concreti</text><text x="70.0" y="61" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">che cosa è successo?</text>
+<rect x="220" y="20" width="130" height="52" rx="10" fill="#e6eff9" stroke="#123e7c" stroke-width="2"/><text x="285.0" y="43" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="13" font-weight="700" fill="#123e7c">Regola generale</text><text x="285.0" y="61" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">con le sue ragioni</text>
+<rect x="115" y="124" width="130" height="52" rx="10" fill="#e6eff9" stroke="#123e7c" stroke-width="2"/><text x="180.0" y="147" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="13" font-weight="700" fill="#123e7c">Verifica sui casi</text><text x="180.0" y="165" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">la regola regge?</text>
+<path d="M134 46 L 214 46" fill="none" stroke="#123e7c" stroke-width="2.5" stroke-linecap="round" marker-end="url(#fc-123e7c)"/>
+<text x="174" y="38" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">generalizzare</text>
+<path d="M286 76 C 286 110 270 140 252 146" fill="none" stroke="#123e7c" stroke-width="2.5" stroke-linecap="round" marker-end="url(#fc-123e7c)"/>
+<text x="306" y="118" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">applicare</text>
+<path d="M112 150 C 70 150 56 112 64 80" fill="none" stroke="#3f8f5c" stroke-width="2.5" stroke-linecap="round" marker-end="url(#fc-3f8f5c)"/>
+<text x="44" y="126" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">correggere</text></svg></div><figcaption>La teoria etica parte dai casi, formula una regola e torna ai casi per metterla alla prova.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Schema circolare in tre tappe collegate da frecce: casi concreti, regola generale con le sue ragioni, verifica sui casi. Dalla verifica una freccia torna ai casi concreti.</p></details></figure><p class="readable">Il filosofo Antonio Da Re parla di un «duplice compito» dell'etica: aiutare ciascuno a costruire il proprio carattere e mettere in discussione le regole che una società considera ovvie, quando non reggono all'esame. Lo faceva Socrate ad Atene, interrogando i concittadini su che cosa fossero la giustizia o il coraggio. Lo fa Antigone nella tragedia di Sofocle, quando sfida il divieto del re Creonte in nome di leggi non scritte.</p><p class="readable">Per questo l'etica non è un gusto personale. «Il gelato al pistacchio è il migliore» esprime una preferenza; «è giusto escludere qualcuno dalla classe per la sua religione» è un'affermazione di cui si possono chiedere, ed esaminare, le ragioni.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">L'etica non è un'opinione: è la ricerca di ragioni che anche gli altri possano esaminare e condividere.</p></div><p class="readable">E Gige? Nella <em>Repubblica</em> Socrate risponde a Glaucone che la giustizia vale per sé stessa, non per la reputazione che procura: l'anima deve agire con giustizia, «abbia o non abbia l'anello di Gige». Sei d'accordo? Nel prossimo paragrafo vedremo tre modi di argomentare una risposta.</p><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s2-1-a" href="#scheda-s2-1-a"><span class="cod">S2.1-a</span> Le parole dell&#x27;etica</a><a class="scheda-link" id="rif-s2-1-b" href="#scheda-s2-1-b"><span class="cod">S2.1-b</span> Antigone e le leggi non scritte</a></aside></div></div></section><section class="par" id="p2-2" aria-labelledby="p2-2-t"><header class="par-head"><p class="par-num">§ 2.2</p><h2 id="p2-2-t" class="readable">Tre lenti per guardare un'azione: conseguenze, doveri, virtù</h2><div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="p2-2"><span aria-hidden="true">▶</span> Ascolta il paragrafo</button><a class="btn ghost" href="#esercizi-2-2">Esercizi del § 2.2</a></div></header><p class="ponte readable">Abbiamo visto che l'etica cerca ragioni da esaminare insieme. Ma quali ragioni? Le teorie etiche propongono criteri diversi per giudicare un'azione.</p><div class="guida"><span class="lbl">Domanda-guida</span><p class="readable">Conta di più il risultato o il motivo per cui agisci?</p></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.2.1</span> Una domanda in classe</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Alla stessa decisione si possono dare ragioni diverse: guardare al dovere, alle conseguenze o alla persona che agisce.</p></aside><p class="readable">Durante una spiegazione, Luca chiede di uscire. La professoressa risponde di no. «Perché?», chiede lui. La professoressa può rispondere in due modi:</p><ul class="elenco"><li class="readable">A. «Perché durante la spiegazione non si esce: è la regola, ed è giusto rispettarla.»</li><li class="readable">B. «Perché se esci disturbi la lezione e tutta la classe perde il filo.»</li></ul><p class="readable">Il risultato è lo stesso: Luca resta in classe. Le ragioni, però, sono diverse: la risposta A guarda a un dovere, che vale prima di sapere che cosa succederà; la risposta B guarda agli effetti, a ciò che succede dopo. In filosofia sono l'etica <button type="button" class="kw" data-term="Etica deontologica" aria-expanded="false">deontologica</button> e l'etica <button type="button" class="kw" data-term="Consequenzialismo" aria-expanded="false">consequenzialista</button>. Una terza prospettiva, più antica, guarda invece alla persona che agisce.</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 232" role="img" aria-label="Tre lenti per la stessa azione: il dovere (prima), le conseguenze (dopo), il carattere di chi agisce." focusable="false" >
+<line x1="40" y1="70" x2="320" y2="70" stroke="#8a9bb3" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="40" y="20" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#8a9bb3">prima</text>
+<text x="320" y="20" text-anchor="end" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#8a9bb3">dopo</text>
+<circle cx="180" cy="70" r="30" fill="#123e7c"/>
+<text x="180" y="75" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">azione</text>
+<line x1="97" y1="103" x2="113" y2="119" stroke="#1f5fae" stroke-width="7" stroke-linecap="round"/><circle cx="64" cy="70" r="45" fill="#ffffff" stroke="#1f5fae" stroke-width="5"/><text x="64" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f5fae">Dovere</text><text x="64" y="85" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">la regola</text>
+<line x1="329" y1="103" x2="345" y2="119" stroke="#1f5fae" stroke-width="7" stroke-linecap="round"/><circle cx="296" cy="70" r="45" fill="#ffffff" stroke="#1f5fae" stroke-width="5"/><text x="296" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1f5fae">Conseguenze</text><text x="296" y="85" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">gli effetti</text>
+<line x1="213" y1="199" x2="229" y2="215" stroke="#3f8f5c" stroke-width="7" stroke-linecap="round"/><circle cx="180" cy="166" r="45" fill="#ffffff" stroke="#3f8f5c" stroke-width="5"/><text x="180" y="164" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#3f8f5c">Virtù</text><text x="180" y="181" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">chi agisce</text></svg></div><figcaption>Tre lenti per la stessa azione: il dovere (prima), le conseguenze (dopo), il carattere di chi agisce.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Al centro un cerchio con la scritta azione. A sinistra una lente con la scritta dovere: prima dell&#x27;azione. A destra una lente con la scritta conseguenze: dopo l&#x27;azione. In basso una lente con la scritta virtù: chi agisce.</p></details></figure></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.2.2</span> La lente delle conseguenze</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Per il consequenzialismo un'azione è giusta se produce le conseguenze migliori: si giudica dopo, dai suoi effetti.</p></aside><p class="readable">Per il <button type="button" class="kw" data-term="Consequenzialismo" aria-expanded="false">consequenzialismo</button> un'azione è giusta o sbagliata in base alle sue conseguenze: nessuna azione è buona o cattiva in sé. I doveri valgono, per così dire, dopo l'azione, <em>ex post</em>: per sapere che cosa bisogna fare occorre chiedersi che cosa succederà.</p><p class="readable">La forma più nota è l'<button type="button" class="kw" data-term="Utilitarismo" aria-expanded="false">utilitarismo</button>, elaborato in Inghilterra tra Settecento e Ottocento. Per Jeremy Bentham l'azione giusta è quella che produce la massima felicità per il maggior numero di persone. Piacere e dolore, felicità e infelicità si possono in qualche modo misurare e sommare: è giusto ciò che fa crescere la felicità complessiva più di quanto la diminuisca. Ha un grande merito: ogni persona coinvolta conta allo stesso modo.</p><p class="readable">John Stuart Mill, cresciuto nella cerchia di Bentham, corresse questa idea: i piaceri non differiscono solo per quantità, ma anche per qualità. «È meglio essere un essere umano insoddisfatto che un maiale soddisfatto», scrive Mill nell'<em>Utilitarismo</em> (1861), «meglio Socrate insoddisfatto che uno sciocco soddisfatto».</p><p class="readable">Il consequenzialismo incontra due problemi. Il primo: come si calcolano le conseguenze? Molte sono difficili da prevedere, altre arrivano dopo anni, e piaceri di qualità diversa non si sommano come numeri. Il secondo: di chi è la felicità che conta? Se l'unico criterio fosse il benessere del maggior numero, potremmo giustificare un'ingiustizia verso pochi, purché renda felici molti.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.2.3</span> La lente del dovere</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Per l'etica deontologica alcune azioni sono doverose o vietate in sé, prima delle conseguenze: conta l'intenzione.</p></aside><p class="readable">Per l'etica deontologica, dal greco <em>deon</em>, «ciò che si deve», i doveri valgono prima dell'azione, <em>ex ante</em>: alcune azioni sono giuste o sbagliate in sé, indipendentemente da ciò che producono. Conta soprattutto l'intenzione di chi agisce, che segue la norma perché è giusta.</p><p class="readable">Chi ha dato a questa prospettiva la forma più rigorosa è Immanuel Kant. Nella <em>Fondazione della metafisica dei costumi</em> (1785) presenta la legge morale come un <button type="button" class="kw" data-term="Imperativo categorico" aria-expanded="false">imperativo categorico</button>, un comando che vale senza condizioni: non «se vuoi ottenere qualcosa, fai così», ma «fai così». Una delle sue formulazioni recita:</p><figure class="citazione"><blockquote class="readable">Agisci in modo da trattare l'umanità, tanto nella tua persona quanto in quella di ogni altro, sempre anche come fine e mai semplicemente come mezzo.</blockquote><figcaption>I. Kant, Fondazione della metafisica dei costumi, 1785</figcaption></figure><p class="readable">Usare una persona soltanto come strumento per i propri scopi, ingannandola o manipolandola, è sbagliato anche quando ne derivano buone conseguenze. Qui sta la forza della lente del dovere: protegge la <button type="button" class="kw" data-term="Dignità" aria-expanded="false">dignità</button> di ogni persona, che non può essere sacrificata a un calcolo.</p><p class="readable">Qui sta anche il suo limite. Se un dovere è assoluto, non ammette eccezioni: Kant sostenne che non si deve mentire nemmeno a un assassino che chiede dove si è nascosto un amico. Molte persone trovano questa conclusione inaccettabile. Nel Novecento il filosofo William David Ross propose una via d'uscita: i doveri, come mantenere le promesse, non fare del male, essere grati, sono <button type="button" class="kw" data-term="Dovere prima facie" aria-expanded="false">doveri prima facie</button>, cioè validi «a prima vista». Valgono finché non entrano in conflitto con un dovere più forte in quella situazione. Dire la verità è un dovere; salvare una vita, in quel caso, lo è di più.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Per la lente del dovere alcune azioni sono giuste o sbagliate in sé: nessuna persona va trattata solo come un mezzo.</p></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.2.4</span> La lente delle virtù</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">L'etica delle virtù guarda al carattere: si diventa giusti praticando la giustizia, guidati dalla saggezza pratica.</p></aside><p class="readable">La terza lente è la più antica. L'<button type="button" class="kw" data-term="Etica delle virtù" aria-expanded="false">etica delle virtù</button> non chiede prima di tutto «quale azione devo compiere?», ma «che tipo di persona voglio essere?». Al centro non ci sono l'azione o la regola, ma il carattere di chi agisce.</p><p class="readable">Per Aristotele, nel IV secolo a.C., le <button type="button" class="kw" data-term="Virtù" aria-expanded="false">virtù</button> sono disposizioni del carattere che si acquisiscono con l'esercizio, come si impara a suonare uno strumento: si diventa giusti compiendo azioni giuste, coraggiosi compiendo azioni coraggiose. La virtù sta spesso in un giusto mezzo tra due eccessi: il coraggio tra la viltà e la temerarietà, la generosità tra l'avarizia e lo spreco.</p><p class="readable">Come si trova il giusto mezzo in una situazione concreta? Non con una formula. Serve la <button type="button" class="kw" data-term="Phrònesis" aria-expanded="false">phrònesis</button>, la saggezza pratica: la capacità di deliberare bene su ciò che è buono per una vita riuscita, cogliendo ciò che conta nel caso particolare. Nessuna regola dice in anticipo quando il coraggio diventa temerarietà; la persona saggia lo riconosce, perché ha esperienza e sa guardare la situazione.</p><p class="readable">A metà del Novecento alcune filosofe inglesi, tra cui Elizabeth Anscombe, Philippa Foot e Iris Murdoch, hanno riportato l'attenzione sulle virtù, seguite da autori come Alasdair MacIntyre. Il limite di questa lente è che non sempre dice che cosa fare: chi è la persona saggia, e che cosa farebbe proprio qui?</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">La phrònesis, la saggezza pratica, è la capacità di capire che cosa è giusto fare nella situazione concreta: nessuna regola la sostituisce.</p></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.2.5</span> I dilemmi: una palestra, non un quiz</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">I dilemmi allenano il giudizio: mostrano che le lenti possono portare a risposte diverse e che nessuna basta da sola.</p></aside><p class="readable">Le tre lenti spesso portano alla stessa conclusione. Quando non succede, nasce un <button type="button" class="kw" data-term="Dilemma" aria-expanded="false">dilemma</button>: una situazione in cui ogni scelta sacrifica qualcosa di importante. Il più famoso è il dilemma del carrello, discusso dalla filosofa Philippa Foot nel 1967. Nella versione più nota, un carrello ferroviario senza freni corre verso cinque persone che non possono spostarsi. Puoi azionare uno scambio e deviarlo su un binario laterale, dove però c'è una persona. Lo fai?</p><p class="readable">Chi guarda alle conseguenze tende a rispondere di sì: una vita persa è meno grave di cinque. La filosofa Judith Jarvis Thomson propose però una variante: per fermare il carrello dovresti spingere giù da un ponte una persona molto robusta. Le conseguenze sono identiche, una vita contro cinque, eppure quasi tutti rispondono di no. La lente del dovere aiuta a capire perché: questa volta useresti una persona come un mezzo.</p><p class="readable">I dilemmi non sono quiz con una risposta esatta, ma una palestra: servono a capire quali ragioni ci guidano e a scoprire che una lente sola non basta. Hanno anche un limite: tolgono il contesto. Nella vita reale non sappiamo con certezza che cosa accadrà, conosciamo le persone coinvolte, possiamo cercare altre strade. Su questo insiste l'<button type="button" class="kw" data-term="Etica della cura" aria-expanded="false">etica della cura</button>, nata dal lavoro della psicologa Carol Gilligan negli anni Ottanta: prima dei principi astratti contano le relazioni e l'attenzione alla persona concreta.</p><div class="tab-wrap"><table><caption>Tre lenti a confronto</caption><thead><tr><th scope="col"></th><th scope="col">Che cosa guarda</th><th scope="col">Quando giudica</th><th scope="col">Autori</th><th scope="col">Rischio</th></tr></thead><tbody><tr><th scope="row">Conseguenze</th><td>Gli effetti dell'azione</td><td>Dopo (ex post)</td><td>Bentham, Mill</td><td>Sacrificare pochi al benessere di molti</td></tr><tr><th scope="row">Dovere</th><td>La regola e l'intenzione</td><td>Prima (ex ante)</td><td>Kant, Ross</td><td>Rigidità: nessuna eccezione</td></tr><tr><th scope="row">Virtù</th><td>Il carattere di chi agisce</td><td>Nel tempo, con l'esercizio</td><td>Aristotele, Anscombe, Foot</td><td>Non dire che cosa fare nel caso concreto</td></tr></tbody></table></div><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">Nel dilemma del carrello che cosa faresti, nella versione dello scambio e in quella del ponte? Quale lente hai usato per decidere?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-2">La tua risposta</label><textarea id="pausa-2" data-store="pausa-2" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s2-2-a" href="#scheda-s2-2-a"><span class="cod">S2.2-a</span> L&#x27;etica in una linea</a><a class="scheda-link" id="rif-s2-2-b" href="#scheda-s2-2-b"><span class="cod">S2.2-b</span> Il dilemma del carrello</a><a class="scheda-link" id="rif-s2-2-c" href="#scheda-s2-2-c"><span class="cod">S2.2-c</span> Tre lenti, una situazione</a></aside></div></div></section><section class="par" id="p2-3" aria-labelledby="p2-3-t"><header class="par-head"><p class="par-num">§ 2.3</p><h2 id="p2-3-t" class="readable">Argomentare, giudicare, rispondere</h2><div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="p2-3"><span aria-hidden="true">▶</span> Ascolta il paragrafo</button><a class="btn ghost" href="#esercizi-2-3">Esercizi del § 2.3</a></div></header><p class="ponte readable">Abbiamo visto che le teorie etiche offrono ragioni diverse, a volte in conflitto. Come si decide quale ragione è migliore? Prima di tutto, imparando a riconoscere un buon ragionamento.</p><div class="guida"><span class="lbl">Domanda-guida</span><p class="readable">Come si capisce se un ragionamento regge?</p></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.3.1</span> Premesse e conclusione</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Un argomento è fatto di premesse e di una conclusione: regge se le premesse sono accettabili e la conclusione ne segue.</p></aside><p class="readable">In etica non basta avere un'opinione: bisogna saperla sostenere. Un <button type="button" class="kw" data-term="Argomento" aria-expanded="false">argomento</button> è un insieme di frasi, le <button type="button" class="kw" data-term="Premessa" aria-expanded="false">premesse</button>, che offrono ragioni a favore di un'altra frase, la <button type="button" class="kw" data-term="Conclusione" aria-expanded="false">conclusione</button>. Per esempio:</p><ul class="elenco"><li class="readable">Premessa 1: è sbagliato causare a qualcuno una sofferenza inutile.</li><li class="readable">Premessa 2: prendere in giro un compagno o una compagna per il suo aspetto gli causa una sofferenza inutile.</li><li class="readable">Conclusione: è sbagliato prendere in giro qualcuno per il suo aspetto.</li></ul><p class="readable">Per valutare un argomento si fanno due domande: le premesse sono vere, o almeno accettabili? La conclusione segue davvero dalle premesse? Regge solo se supera entrambe le prove.</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 196" role="img" aria-label="Le premesse sostengono la conclusione; per una conclusione morale serve almeno una premessa morale." focusable="false" >
+<defs><marker id="fa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#123e7c"/></marker></defs>
+<rect x="8" y="10" width="206" height="50" rx="9" fill="#eaf5ee" stroke="#3f8f5c" stroke-width="2"/><text x="111.0" y="31" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#3f8f5c">Premessa morale</text><text x="111.0" y="48" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">è sbagliato causare dolore inutile</text>
+<rect x="8" y="74" width="206" height="50" rx="9" fill="#e6eff9" stroke="#1f5fae" stroke-width="2"/><text x="111.0" y="95" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#1f5fae">Premessa sui fatti</text><text x="111.0" y="112" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">prendere in giro causa dolore inutile</text>
+<path d="M216 35 C 236 35 240 62 252 78" fill="none" stroke="#123e7c" stroke-width="2.5" marker-end="url(#fa)"/>
+<path d="M216 99 C 230 99 238 96 250 96" fill="none" stroke="#123e7c" stroke-width="2.5" marker-end="url(#fa)"/>
+<rect x="256" y="66" width="156" height="56" rx="9" fill="#ffffff" stroke="#123e7c" stroke-width="2"/><text x="334.0" y="87" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#123e7c">Conclusione</text><text x="334.0" y="104" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">è sbagliato prendere in giro</text>
+<rect x="8" y="146" width="404" height="40" rx="9" fill="#ffffff" stroke="#8a9bb3" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="24" y="171" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">Solo fatti: «molti copiano»</text>
+<line x1="200" y1="166" x2="240" y2="166" stroke="#8a9bb3" stroke-width="2.5"/>
+<line x1="212" y1="157" x2="226" y2="175" stroke="#b3261e" stroke-width="2.5"/>
+<text x="256" y="171" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">non segue: «è giusto copiare»</text></svg></div><figcaption>Le premesse sostengono la conclusione; per una conclusione morale serve almeno una premessa morale.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Due riquadri in alto, premessa morale e premessa sui fatti, collegati da frecce a un riquadro in basso, la conclusione. Accanto, un riquadro barrato: dai soli fatti non segue un dovere.</p></details></figure><p class="readable">In etica serve un'attenzione in più. Il filosofo scozzese David Hume osservò, nel <em>Trattato sulla natura umana</em> (1739-1740), che molti ragionamenti passano senza accorgersene da come le cose stanno, «è», a come dovrebbero stare, «deve». Ma che molte persone copino non dimostra che copiare sia giusto. Per arrivare a una conclusione morale serve almeno una premessa morale, come la prima del nostro esempio.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Un argomento regge se le premesse sono accettabili e la conclusione ne segue davvero; per una conclusione morale serve almeno una premessa morale.</p></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.3.2</span> Ragionamenti che sembrano buoni</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Le fallacie sono errori di ragionamento che sembrano convincenti: riconoscerle protegge il giudizio.</p></aside><p class="readable">Alcuni ragionamenti sembrano convincenti ma non lo sono. Si chiamano <button type="button" class="kw" data-term="Fallacia" aria-expanded="false">fallacie</button> e compaiono ovunque: nelle discussioni in classe, nei dibattiti televisivi, nei commenti sui social. Eccone cinque tra le più comuni.</p><div class="tab-wrap"><table><caption>Cinque fallacie</caption><thead><tr><th scope="col">Fallacia</th><th scope="col">In che cosa consiste</th><th scope="col">Esempio</th></tr></thead><tbody><tr><th scope="row">Attacco alla persona</th><td>Si critica chi parla invece di ciò che dice</td><td>«Non ascoltare la sua proposta sulla mensa: ha preso 4 in matematica.»</td></tr><tr><th scope="row">Uomo di paglia</th><td>Si deforma la tesi dell'altro per confutarla più facilmente</td><td>«Vuoi meno compiti? Allora vuoi che nessuno studi più.»</td></tr><tr><th scope="row">Falso dilemma</th><td>Si presentano due sole possibilità quando ce ne sono altre</td><td>«O vietiamo i telefoni a scuola, o nessuno seguirà più le lezioni.»</td></tr><tr><th scope="row">Appello alla maggioranza</th><td>Si considera vera una tesi solo perché molti la sostengono</td><td>«Lo fanno tutti, quindi non può essere sbagliato.»</td></tr><tr><th scope="row">Pendio scivoloso</th><td>Si dà per certo che un primo passo porterà a conseguenze estreme</td><td>«Se oggi ti faccio uscire prima, domani lo chiederanno tutti e la scuola si svuoterà.»</td></tr></tbody></table></div><p class="readable">Riconoscere una fallacia non significa avere vinto: anche una tesi sostenuta male può essere vera. Significa chiedere ragioni migliori. Come ricordano Giovanni Boniolo e Paolo Vidali, argomentare è un confronto tra posizioni in cui ci si impegna a non contraddirsi e a non usare scorrettezze: per questo è anche una pratica democratica.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.3.3</span> Rispondere di, rispondere a</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Responsabilità viene da «rispondere»: rendere conto delle proprie azioni a qualcuno, anche a chi verrà dopo di noi.</p></aside><p class="readable">La parola <button type="button" class="kw" data-term="Responsabilità" aria-expanded="false">responsabilità</button> viene dal latino <em>respondere</em>, «rispondere». Essere responsabili significa rispondere <em>di</em> qualcosa, cioè delle proprie azioni e delle loro conseguenze, e rispondere <em>a</em> qualcuno: alle persone colpite da ciò che facciamo, alla comunità, a noi stessi.</p><p class="readable">Servono due condizioni, già indicate da Aristotele: la libertà, perché non si risponde di ciò che si è costretti a fare, e la conoscenza, perché chi non poteva sapere gli effetti di un gesto ne risponde meno. Per questo diciamo «non l'ho fatto apposta» o «non lo sapevo».</p><p class="readable">Nel 1979 il filosofo Hans Jonas, nel <em>Principio responsabilità</em>, osservò che la tecnica moderna ha cambiato la scala delle nostre azioni: possiamo modificare il clima, l'ambiente, il futuro della specie. Propose quindi un nuovo imperativo, che estende la responsabilità a chi ancora non c'è:</p><figure class="citazione"><blockquote class="readable">Agisci in modo che le conseguenze della tua azione siano compatibili con la permanenza di un'autentica vita umana sulla terra.</blockquote><figcaption>H. Jonas, Il principio responsabilità, 1979</figcaption></figure><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Essere responsabili significa rispondere delle proprie azioni a qualcuno: alle persone di oggi e a quelle che verranno.</p></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.3.4</span> Giudicare insieme</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Il giudizio morale si allena nel confronto con gli altri e con le storie: deliberare è un esercizio condiviso.</p></aside><p class="readable">Nel film <em>La parola ai giurati</em> (1957) di Sidney Lumet, dodici giurati devono decidere se un ragazzo è colpevole di omicidio. All'inizio undici votano «colpevole»; uno solo chiede di discutere, perché non è sicuro. Non sostiene che il ragazzo sia innocente: chiede di esaminare le prove una per una. Emergono pregiudizi, fretta, attacchi personali, ma anche dubbi ragionevoli; alla fine il verdetto cambia.</p><p class="readable">Giudicare si fa meglio insieme: deliberare, cioè pesare le ragioni prima di decidere, richiede ascolto e disponibilità a cambiare idea. Qui torna la phrònesis, che si allena con l'esperienza, nel confronto con gli altri e con le storie che ci fanno vivere situazioni morali mai attraversate. Lo dice Maurizio Mori:</p><figure class="citazione"><blockquote class="readable">Ha influito di più sulla moralità La carica dei 101 o Mulan di Walt Disney, [...] oppure i poemi omerici, Anna Karenina di Lev Tolstoj, [...] che decine di libri di etica principista.</blockquote><figcaption>M. Mori, Manuale di bioetica, 2010</figcaption></figure><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">C'è una storia, un libro, un film o una serie, che ti ha fatto cambiare idea su qualcosa di giusto o di sbagliato? Che cosa ti ha mostrato?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-3">La tua risposta</label><textarea id="pausa-3" data-store="pausa-3" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">2.3.5</span> Dalle persone alle macchine</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Lenti, argomenti e responsabilità ci serviranno nel capitolo 3 per giudicare l'uso dell'intelligenza artificiale.</p></aside><p class="readable">Nel capitolo 1 abbiamo visto che i sistemi di IA producono risultati senza comprendere. Nel capitolo 3 ci chiederemo che cosa succede quando una decisione importante viene affidata a un algoritmo: quali conseguenze produce, quali doveri rispetta, che persone diventiamo se smettiamo di giudicare da soli.</p><p class="readable">Soprattutto ci chiederemo chi ne risponde. Un sistema di IA non è libero nel senso in cui lo è una persona e non può rendere conto di ciò che fa. Ne rispondono le persone che lo finanziano, lo progettano, lo regolano e lo usano.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Un sistema di IA non può rispondere di ciò che fa: la responsabilità resta delle persone che lo progettano, lo regolano e lo usano.</p></div><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s2-3-a" href="#scheda-s2-3-a"><span class="cod">S2.3-a</span> Cinque fallacie da riconoscere</a><a class="scheda-link" id="rif-s2-3-b" href="#scheda-s2-3-b"><span class="cod">S2.3-b</span> Hans Jonas e la responsabilità verso il futuro</a></aside></div></div></section>
+<section class="par sintesi" id="sintesi" aria-labelledby="sintesi-t">
+  <header class="par-head"><p class="par-num">Schema di sintesi</p><h2 id="sintesi-t" class="readable">Che cosa abbiamo detto</h2>
+  <div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="sintesi"><span aria-hidden="true">▶</span> Ascolta la sintesi</button></div></header>
+  <ol class="mappa"><li class="readable"><span class="sez">§ 2.1</span>Etica e morale indicano lo stesso campo: norme e valori che dicono come dovremmo agire.</li><li class="readable"><span class="sez">§ 2.1</span>Ciò che è legale non è sempre giusto, e non ogni regola sentita come morale ha ragioni che reggono.</li><li class="readable"><span class="sez">§ 2.2</span>Tre lenti per giudicare un'azione, conseguenze, dovere, virtù: nessuna basta da sola, serve la phrònesis.</li><li class="readable"><span class="sez">§ 2.3</span>Un buon argomento ha premesse accettabili e una conclusione che ne segue; le fallacie lo imitano.</li><li class="readable"><span class="sez">§ 2.3</span>Essere responsabili significa rispondere delle proprie azioni a qualcuno, anche a chi verrà.</li></ol>
+  <div class="finale" id="domanda-finale">
+    <p class="lbl">Domanda finale</p>
+    <p class="domanda-t readable">Torna all&#x27;anello di Gige. Lo indosseresti? Che cosa faresti, se nessuno potesse vederti? Scrivi un breve argomento a sostegno della tua risposta e indica quale lente hai usato: le conseguenze, il dovere o le virtù.</p>
+    <p class="readable">Rispondi come preferisci: scrivendo, disegnando o registrando un messaggio vocale.</p>
+    <p class="piccolo" id="scelta-ricordo" aria-live="polite"></p>
+    <label for="risposta-finale" class="etichetta">La tua risposta</label>
+    <textarea id="risposta-finale" data-store="risposta-finale" rows="4"></textarea>
+    <p class="piccolo">Resta salvata solo su questo dispositivo.</p>
+  </div>
+  <div class="opere"><p class="lbl">Per leggere, vedere, ascoltare</p><ul><li><span class="tipo">Saggio</span><p class="tit readable">Fernando Savater, <em>Etica per un figlio</em>, Laterza, 1992</p><p class="readable">Un padre scrive al figlio adolescente: che cosa significa vivere bene? Un libro breve e ironico per cominciare a pensare l'etica senza prediche.</p></li><li><span class="tipo">Tragedia</span><p class="tit readable">Sofocle, <em>Antigone</em>, V secolo a.C.</p><p class="readable">Antigone sfida il decreto del re per seppellire il fratello: la legge della città contro le leggi non scritte. Un conflitto che si ripresenta ancora oggi.</p></li><li><span class="tipo">Film</span><p class="tit readable"><em>La parola ai giurati</em>, regia di Sidney Lumet, 1957</p><p class="readable">Dodici giurati, una stanza, un verdetto da decidere: come si ragiona insieme, come si riconoscono i pregiudizi, come si cambia idea.</p></li><li><span class="tipo">Serie TV</span><p class="tit readable"><em>The Good Place</em>, ideata da Michael Schur, 2016-2020</p><p class="readable">Una commedia ambientata nell'aldilà, in cui un professore di filosofia morale prova a insegnare l'etica ai suoi compagni. C'è anche un episodio sul dilemma del carrello.</p></li></ul></div>
+</section>
+    </article>
+  </div>
+  
+<section class="vista" data-view="schede" hidden aria-labelledby="schede-t">
+  <h1 id="schede-t" tabindex="-1">Schede di approfondimento</h1>
+  <p class="intro">Ogni scheda si legge in un minuto: dieci righe e un'immagine. Poi il pulsante «Torna» ti riporta al punto del libro da cui sei partito.</p>
+  <ul class="schede-grid"><li><a class="scheda-card" href="#scheda-s2-1-a"><span class="cod">S2.1-a</span><span class="t">Le parole dell&#x27;etica</span><span class="p">§ 2.1</span></a></li><li><a class="scheda-card" href="#scheda-s2-1-b"><span class="cod">S2.1-b</span><span class="t">Antigone e le leggi non scritte</span><span class="p">§ 2.1</span></a></li><li><a class="scheda-card" href="#scheda-s2-2-a"><span class="cod">S2.2-a</span><span class="t">L&#x27;etica in una linea</span><span class="p">§ 2.2</span></a></li><li><a class="scheda-card" href="#scheda-s2-2-b"><span class="cod">S2.2-b</span><span class="t">Il dilemma del carrello</span><span class="p">§ 2.2</span></a></li><li><a class="scheda-card" href="#scheda-s2-2-c"><span class="cod">S2.2-c</span><span class="t">Tre lenti, una situazione</span><span class="p">§ 2.2</span></a></li><li><a class="scheda-card" href="#scheda-s2-3-a"><span class="cod">S2.3-a</span><span class="t">Cinque fallacie da riconoscere</span><span class="p">§ 2.3</span></a></li><li><a class="scheda-card" href="#scheda-s2-3-b"><span class="cod">S2.3-b</span><span class="t">Hans Jonas e la responsabilità verso il futuro</span><span class="p">§ 2.3</span></a></li></ul>
+</section>
+<section class="vista scheda" data-view="scheda-s2-1-a" hidden aria-labelledby="scheda-s2-1-a-t">
+  <p class="cod-grande">Scheda S2.1-a · § 2.1</p>
+  <h1 id="scheda-s2-1-a-t" class="readable" tabindex="-1">Le parole dell&#x27;etica</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s2-1-a" data-back="S2.1-a">← Torna al § 2.1</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s2-1-a-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s2-1-a-corpo"><ol class="def"><li><p class="def-q readable">ethos (ἔθος)</p><p class="def-a readable">in greco: abitudine, uso. Da qui, per Aristotele, nascono le virtù del carattere.</p></li><li><p class="def-q readable">ēthos (ἦθος)</p><p class="def-a readable">in greco: carattere, modo di essere; in origine anche la dimora, il luogo abituale.</p></li><li><p class="def-q readable">mos, moris</p><p class="def-a readable">in latino: costume, usanza; al plurale mores, i costumi di un popolo.</p></li><li><p class="def-q readable">moralis</p><p class="def-a readable">aggettivo proposto da Cicerone per tradurre il greco ethikós: da qui la parola «morale».</p></li><li><p class="def-q readable">etica e morale</p><p class="def-a readable">oggi si usano spesso come sinonimi; a volte si chiama «etica» la riflessione sulle regole morali.</p></li></ol></div>
+  <p class="fonte">Fonte: <a href="https://www.thelatinlibrary.com/cicero/fato.shtml" target="_blank" rel="noopener">Cicerone, De fato, 1</a></p>
+</section>
+<section class="vista scheda" data-view="scheda-s2-1-b" hidden aria-labelledby="scheda-s2-1-b-t">
+  <p class="cod-grande">Scheda S2.1-b · § 2.1</p>
+  <h1 id="scheda-s2-1-b-t" class="readable" tabindex="-1">Antigone e le leggi non scritte</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s2-1-b" data-back="S2.1-b">← Torna al § 2.1</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s2-1-b-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s2-1-b-corpo"><ul class='elenco'><li class="readable">Tebe, dopo una guerra tra fratelli: Eteocle e Polinice si sono uccisi a vicenda.</li><li class="readable">Il re Creonte ordina di seppellire con onore Eteocle e di lasciare insepolto Polinice, che ha combattuto contro la città.</li><li class="readable">Antigone, sorella di entrambi, disobbedisce e copre di terra il corpo di Polinice.</li><li class="readable">Davanti a Creonte dichiara di aver seguito le leggi non scritte e incrollabili degli dèi, che nessun decreto umano può superare.</li><li class="readable">Creonte la condanna. Cambierà idea troppo tardi, e la tragedia travolgerà anche la sua famiglia.</li><li class="readable">Da oltre duemila anni Antigone è il simbolo del conflitto tra la legge della città e la coscienza.</li></ul></div>
+  <p class="fonte">Fonte: <a href="https://it.wikipedia.org/wiki/Antigone_(Sofocle)" target="_blank" rel="noopener">Sofocle, Antigone, vv. 450-457</a></p>
+</section>
+<section class="vista scheda" data-view="scheda-s2-2-a" hidden aria-labelledby="scheda-s2-2-a-t">
+  <p class="cod-grande">Scheda S2.2-a · § 2.2</p>
+  <h1 id="scheda-s2-2-a-t" class="readable" tabindex="-1">L&#x27;etica in una linea</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s2-2-a" data-back="S2.2-a">← Torna al § 2.2</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s2-2-a-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s2-2-a-corpo"><ol class="timeline"><li><span class="anno">V sec. a.C.</span><p class="readable">Socrate interroga gli ateniesi su giustizia, coraggio, virtù.</p></li><li><span class="anno">IV sec. a.C.</span><p class="readable">Aristotele scrive l&#x27;Etica Nicomachea: virtù e saggezza pratica.</p></li><li><span class="anno">1785</span><p class="readable">Kant pubblica la Fondazione della metafisica dei costumi.</p></li><li><span class="anno">1789</span><p class="readable">Bentham pubblica l&#x27;Introduzione ai principi della morale e della legislazione.</p></li><li><span class="anno">1861</span><p class="readable">Mill pubblica L&#x27;utilitarismo.</p></li><li><span class="anno">1930</span><p class="readable">Ross propone i doveri prima facie in Il giusto e il bene.</p></li><li><span class="anno">1958</span><p class="readable">Anscombe pubblica La filosofia morale moderna e rilancia l&#x27;etica delle virtù.</p></li><li><span class="anno">1967</span><p class="readable">Foot discute il dilemma del carrello.</p></li><li><span class="anno">1979</span><p class="readable">Jonas pubblica Il principio responsabilità.</p></li><li><span class="anno">1982</span><p class="readable">Gilligan pubblica Con voce di donna: nasce l&#x27;etica della cura.</p></li></ol></div>
+  
+</section>
+<section class="vista scheda" data-view="scheda-s2-2-b" hidden aria-labelledby="scheda-s2-2-b-t">
+  <p class="cod-grande">Scheda S2.2-b · § 2.2</p>
+  <h1 id="scheda-s2-2-b-t" class="readable" tabindex="-1">Il dilemma del carrello</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s2-2-b" data-back="S2.2-b">← Torna al § 2.2</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s2-2-b-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s2-2-b-corpo"><div class="fig-img scheda-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 166" role="img" aria-label="Il dilemma del carrello" focusable="false" >
+<line x1="10" y1="70" x2="350" y2="70" stroke="#8a9bb3" stroke-width="3"/>
+<line x1="10" y1="76" x2="350" y2="76" stroke="#8a9bb3" stroke-width="3"/>
+<path d="M150 76 C 190 80 210 120 250 132 L 350 132" fill="none" stroke="#8a9bb3" stroke-width="3"/>
+<path d="M150 82 C 188 86 208 126 250 138 L 350 138" fill="none" stroke="#8a9bb3" stroke-width="3"/>
+<rect x="40" y="46" width="56" height="24" rx="4" fill="#123e7c"/>
+<circle cx="52" cy="74" r="5" fill="#14233a"/><circle cx="84" cy="74" r="5" fill="#14233a"/>
+<g stroke="#1f5fae" stroke-width="2" stroke-linecap="round"><line x1="16" y1="52" x2="32" y2="52"/><line x1="12" y1="60" x2="32" y2="60"/></g>
+<circle cx="250" cy="53" r="4.5" fill="#d8c2ae"/><rect x="246" y="58" width="8" height="12" rx="3" fill="#14233a"/><circle cx="264" cy="53" r="4.5" fill="#d8c2ae"/><rect x="260" y="58" width="8" height="12" rx="3" fill="#14233a"/><circle cx="278" cy="53" r="4.5" fill="#d8c2ae"/><rect x="274" y="58" width="8" height="12" rx="3" fill="#14233a"/><circle cx="292" cy="53" r="4.5" fill="#d8c2ae"/><rect x="288" y="58" width="8" height="12" rx="3" fill="#14233a"/><circle cx="306" cy="53" r="4.5" fill="#d8c2ae"/><rect x="302" y="58" width="8" height="12" rx="3" fill="#14233a"/>
+<circle cx="300" cy="115" r="4.5" fill="#d8c2ae"/><rect x="296" y="120" width="8" height="12" rx="3" fill="#14233a"/>
+<line x1="150" y1="104" x2="150" y2="84" stroke="#123e7c" stroke-width="3"/>
+<line x1="150" y1="104" x2="160" y2="90" stroke="#3f8f5c" stroke-width="4" stroke-linecap="round"/>
+<circle cx="160" cy="88" r="4" fill="#3f8f5c"/>
+<circle cx="136" cy="103" r="4.5" fill="#d8c2ae"/><rect x="132" y="108" width="8" height="12" rx="3" fill="#1f5fae"/>
+<text x="136" y="140" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">tu, allo scambio</text>
+<text x="285" y="40" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">cinque persone</text>
+<text x="300" y="156" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">una persona</text></svg></div><ul class='elenco'><li class="readable">Un carrello senza freni corre verso cinque persone che non possono spostarsi.</li><li class="readable">Versione dello scambio: puoi deviarlo su un binario laterale, dove c&#x27;è una sola persona.</li><li class="readable">Versione del ponte: puoi fermarlo solo spingendo giù da un ponte una persona robusta.</li><li class="readable">Le conseguenze sono le stesse, una vita contro cinque, ma le risposte cambiano: molte persone azionano lo scambio, pochissime spingono.</li><li class="readable">Il caso fu discusso da Philippa Foot (1967) e reso celebre da Judith Jarvis Thomson, che ne propose le varianti.</li><li class="readable">Oggi il dilemma torna nelle discussioni sulle auto a guida autonoma, con un avvertimento: le strade reali non sono binari.</li></ul></div>
+  <p class="fonte">Fonte: <a href="https://it.wikipedia.org/wiki/Problema_del_carrello" target="_blank" rel="noopener">Problema del carrello</a></p>
+</section>
+<section class="vista scheda" data-view="scheda-s2-2-c" hidden aria-labelledby="scheda-s2-2-c-t">
+  <p class="cod-grande">Scheda S2.2-c · § 2.2</p>
+  <h1 id="scheda-s2-2-c-t" class="readable" tabindex="-1">Tre lenti, una situazione</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s2-2-c" data-back="S2.2-c">← Torna al § 2.2</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s2-2-c-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s2-2-c-corpo"><p class="readable sit">Durante una verifica, la persona accanto a te ti chiede di passarle le risposte.</p><div class="tre"><div class="col3"><p class="lbl">Conseguenze</p><p class="readable">Che cosa succede se la aiuto? Prende un voto che non dice che cosa sa; la verifica perde valore per tutta la classe; se ci scoprono, rischiamo entrambi.</p></div><div class="col3"><p class="lbl">Dovere</p><p class="readable">È giusto ingannare chi corregge? Vorrei che tutti facessero così? E sto davvero rispettando chi mi chiede aiuto, o la lascio senza imparare?</p></div><div class="col3"><p class="lbl">Virtù</p><p class="readable">Che persona divento se lo faccio? Leale verso un&#x27;amica o complice di un inganno? Che cosa farebbe al mio posto una persona giusta e generosa?</p></div></div><p class="readable">Le tre lenti non danno per forza risposte diverse: qui forse convergono. Ma ciascuna fa notare qualcosa che le altre lasciano in ombra.</p></div>
+  
+</section>
+<section class="vista scheda" data-view="scheda-s2-3-a" hidden aria-labelledby="scheda-s2-3-a-t">
+  <p class="cod-grande">Scheda S2.3-a · § 2.3</p>
+  <h1 id="scheda-s2-3-a-t" class="readable" tabindex="-1">Cinque fallacie da riconoscere</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s2-3-a" data-back="S2.3-a">← Torna al § 2.3</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s2-3-a-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s2-3-a-corpo"><ol class="def"><li><p class="def-q readable">Attacco alla persona</p><p class="def-a readable">si parla di chi sostiene la tesi, non della tesi. Chiediti: le sue ragioni reggono, chiunque le dica?</p></li><li><p class="def-q readable">Uomo di paglia</p><p class="def-a readable">la tesi dell&#x27;altro viene esagerata o deformata. Chiediti: è davvero ciò che ha detto?</p></li><li><p class="def-q readable">Falso dilemma</p><p class="def-a readable">restano solo due possibilità. Chiediti: ci sono altre strade?</p></li><li><p class="def-q readable">Appello alla maggioranza</p><p class="def-a readable">«lo pensano tutti». Chiediti: il numero di chi ci crede dice qualcosa sulla verità?</p></li><li><p class="def-q readable">Pendio scivoloso</p><p class="def-a readable">un primo passo porterebbe per forza alla catastrofe. Chiediti: ogni passaggio della catena è davvero probabile?</p></li></ol></div>
+  
+</section>
+<section class="vista scheda" data-view="scheda-s2-3-b" hidden aria-labelledby="scheda-s2-3-b-t">
+  <p class="cod-grande">Scheda S2.3-b · § 2.3</p>
+  <h1 id="scheda-s2-3-b-t" class="readable" tabindex="-1">Hans Jonas e la responsabilità verso il futuro</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s2-3-b" data-back="S2.3-b">← Torna al § 2.3</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s2-3-b-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s2-3-b-corpo"><ul class='elenco'><li class="readable">Hans Jonas (1903-1993), filosofo tedesco di origine ebraica, lasciò la Germania nel 1933, quando il nazismo prese il potere.</li><li class="readable">Nel 1979 pubblica Il principio responsabilità.</li><li class="readable">La sua tesi: la tecnica moderna ha moltiplicato il potere delle nostre azioni, che ora raggiungono luoghi lontani e generazioni future.</li><li class="readable">Le etiche tradizionali riguardavano le persone vicine nel tempo e nello spazio: per Jonas non bastano più.</li><li class="readable">Il suo imperativo: agire in modo che le conseguenze delle nostre azioni siano compatibili con la permanenza di un&#x27;autentica vita umana sulla terra.</li><li class="readable">L&#x27;«euristica della paura»: quando gli effetti sono incerti, conviene dare più peso alle previsioni negative che a quelle positive.</li></ul></div>
+  <p class="fonte">Fonte: <a href="https://it.wikipedia.org/wiki/Hans_Jonas" target="_blank" rel="noopener">Hans Jonas</a></p>
+</section>
+  
+<section class="vista" data-view="esercizi" hidden aria-labelledby="esercizi-t">
+  <h1 id="esercizi-t" tabindex="-1">Esercizi</h1>
+  <p class="intro">Per ogni paragrafo: un esercizio per mettere alla prova i concetti, un vero o falso, una domanda per ragionare. Nessun voto: servono a te.</p>
+  <ul class="schede-grid"><li><a class="scheda-card" href="#esercizi-2-1"><span class="cod">§ 2.1</span><span class="t">Morale, etica, diritto</span><span class="p">3 esercizi</span></a></li><li><a class="scheda-card" href="#esercizi-2-2"><span class="cod">§ 2.2</span><span class="t">Tre lenti</span><span class="p">3 esercizi</span></a></li><li><a class="scheda-card" href="#esercizi-2-3"><span class="cod">§ 2.3</span><span class="t">Argomentare, giudicare, rispondere</span><span class="p">3 esercizi</span></a></li></ul>
+</section>
+<section class="vista esercizi" data-view="esercizi-2-1" hidden aria-labelledby="esercizi-2-1-t">
+  <p class="cod-grande">Esercizi · § 2.1</p>
+  <h1 id="esercizi-2-1-t" tabindex="-1">Morale, etica, diritto</h1>
+  <div class="riga-btn"><a class="btn ghost" href="#p2-1">← Torna al § 2.1</a></div>
+  <div class="es-container" data-par="2.1"></div>
+</section>
+<section class="vista esercizi" data-view="esercizi-2-2" hidden aria-labelledby="esercizi-2-2-t">
+  <p class="cod-grande">Esercizi · § 2.2</p>
+  <h1 id="esercizi-2-2-t" tabindex="-1">Tre lenti</h1>
+  <div class="riga-btn"><a class="btn ghost" href="#p2-2">← Torna al § 2.2</a></div>
+  <div class="es-container" data-par="2.2"></div>
+</section>
+<section class="vista esercizi" data-view="esercizi-2-3" hidden aria-labelledby="esercizi-2-3-t">
+  <p class="cod-grande">Esercizi · § 2.3</p>
+  <h1 id="esercizi-2-3-t" tabindex="-1">Argomentare, giudicare, rispondere</h1>
+  <div class="riga-btn"><a class="btn ghost" href="#p2-3">← Torna al § 2.3</a></div>
+  <div class="es-container" data-par="2.3"></div>
+</section>
+  
+<section class="vista" data-view="glossario" hidden aria-labelledby="glossario-t">
+  <h1 id="glossario-t" tabindex="-1">Glossario del capitolo</h1>
+  <p class="intro">Le parole in grassetto nel testo: premile per leggere la definizione senza lasciare la pagina.</p>
+  <dl class="glossario"><div class="voce" id="g-argomento"><dt class="readable">Argomento</dt><dd class="readable">Un insieme di frasi, le premesse, che offrono ragioni a favore di un&#x27;altra frase, la conclusione.</dd></div><div class="voce" id="g-conclusione"><dt class="readable">Conclusione</dt><dd class="readable">La frase che un argomento vuole sostenere a partire dalle premesse.</dd></div><div class="voce" id="g-consequenzialismo"><dt class="readable">Consequenzialismo</dt><dd class="readable">Teoria etica per cui un&#x27;azione è giusta o sbagliata in base alle sue conseguenze.</dd></div><div class="voce" id="g-costume"><dt class="readable">Costume</dt><dd class="readable">L&#x27;insieme delle abitudini di un gruppo sociale, che nessuno ha stabilito con un atto preciso.</dd></div><div class="voce" id="g-dignit-"><dt class="readable">Dignità</dt><dd class="readable">Il valore che ogni persona ha in quanto persona, e che non può essere scambiato o sacrificato a un calcolo.</dd></div><div class="voce" id="g-dilemma"><dt class="readable">Dilemma</dt><dd class="readable">Una situazione in cui ogni scelta possibile sacrifica qualcosa di importante.</dd></div><div class="voce" id="g-diritto"><dt class="readable">Diritto</dt><dd class="readable">L&#x27;insieme delle norme di uno Stato, scritte e pubbliche, garantite da sanzioni.</dd></div><div class="voce" id="g-dovere-prima-facie"><dt class="readable">Dovere prima facie</dt><dd class="readable">Un dovere valido «a prima vista», che può cedere a un dovere più forte nella situazione concreta (W.D. Ross).</dd></div><div class="voce" id="g-etica-della-cura"><dt class="readable">Etica della cura</dt><dd class="readable">Prospettiva che mette al centro le relazioni, l&#x27;attenzione alla persona concreta e il contesto (C. Gilligan).</dd></div><div class="voce" id="g-etica-delle-virt-"><dt class="readable">Etica delle virtù</dt><dd class="readable">Teoria etica che guarda al carattere di chi agisce più che alla singola azione.</dd></div><div class="voce" id="g-etica-deontologica"><dt class="readable">Etica deontologica</dt><dd class="readable">Teoria etica per cui alcune azioni sono doverose o vietate in sé, prima delle conseguenze.</dd></div><div class="voce" id="g-etichetta"><dt class="readable">Etichetta</dt><dd class="readable">Le regole delle buone maniere in un certo contesto, chiamate anche galateo.</dd></div><div class="voce" id="g-fallacia"><dt class="readable">Fallacia</dt><dd class="readable">Un errore di ragionamento che sembra convincente.</dd></div><div class="voce" id="g-imperativo-categorico"><dt class="readable">Imperativo categorico</dt><dd class="readable">Per Kant, il comando morale che vale senza condizioni.</dd></div><div class="voce" id="g-istituzione-normativa"><dt class="readable">Istituzione normativa</dt><dd class="readable">Un insieme ordinato di norme e valori che svolge una funzione sociale e dice come agire (M. Mori).</dd></div><div class="voce" id="g-legalit-"><dt class="readable">Legalità</dt><dd class="readable">Per Kant, il semplice accordo di un&#x27;azione con la legge, qualunque sia il motivo per cui la si compie.</dd></div><div class="voce" id="g-moralit-"><dt class="readable">Moralità</dt><dd class="readable">Per Kant, il valore di un&#x27;azione compiuta perché è giusta, per dovere.</dd></div><div class="voce" id="g-phr-nesis"><dt class="readable">Phrònesis</dt><dd class="readable">Parola greca per saggezza pratica: la capacità di capire che cosa è bene fare nella situazione concreta.</dd></div><div class="voce" id="g-pregiudizio"><dt class="readable">Pregiudizio</dt><dd class="readable">Un&#x27;opinione sostenuta da emozioni forti ma fondata su credenze false.</dd></div><div class="voce" id="g-premessa"><dt class="readable">Premessa</dt><dd class="readable">Ciascuna delle frasi che, in un argomento, offrono ragioni a favore della conclusione.</dd></div><div class="voce" id="g-prescrittivit-"><dt class="readable">Prescrittività</dt><dd class="readable">Il carattere delle norme che dicono come si deve agire, e non come si agisce di fatto.</dd></div><div class="voce" id="g-responsabilit-"><dt class="readable">Responsabilità</dt><dd class="readable">Dal latino respondere: rispondere delle proprie azioni e delle loro conseguenze a qualcuno.</dd></div><div class="voce" id="g-sanzione"><dt class="readable">Sanzione</dt><dd class="readable">La conseguenza prevista per chi viola una norma: una multa, una pena.</dd></div><div class="voce" id="g-tab-"><dt class="readable">Tabù</dt><dd class="readable">Un divieto sentito con forza perché interiorizzato, ma di cui non si sa dare una ragione.</dd></div><div class="voce" id="g-teoria-etica"><dt class="readable">Teoria etica</dt><dd class="readable">La riflessione filosofica che cerca le ragioni delle norme morali e le mette alla prova sui casi concreti.</dd></div><div class="voce" id="g-utilitarismo"><dt class="readable">Utilitarismo</dt><dd class="readable">Forma di consequenzialismo: è giusta l&#x27;azione che produce la massima felicità per il maggior numero.</dd></div><div class="voce" id="g-virt-"><dt class="readable">Virtù</dt><dd class="readable">Una disposizione del carattere che si acquisisce con l&#x27;esercizio, come il coraggio o la giustizia.</dd></div></dl>
+</section>
+</main>
+<footer class="piede"><div class="piede-in">
+  <p><b>AI and Ethics Literacy for Students</b> · Capitolo 2, bozza per la validazione nelle scuole · Coordinamento scientifico: SIpEIA e Università della Calabria (DICES).</p>
+  <p>Le risposte che scrivi nelle caselle restano solo su questo dispositivo.</p>
+</div></footer>
+
+<script type="application/json" id="dati">{"esercizi": {"2.1": {"classifica": {"titolo": "Diritto, etica, etichetta o costume?", "consegna": "Per ogni regola scegli da dove viene, poi premi «Verifica».", "categorie": ["Diritto", "Etica", "Etichetta", "Costume"], "voci": [["Non si passa con il semaforo rosso", "Diritto", "È una norma del codice della strada, garantita da una sanzione."], ["Mantenere una promessa fatta a un amico, anche se nessuno lo saprebbe", "Etica", "Nessuna legge lo impone: è una questione di correttezza verso l'altro."], ["A un matrimonio non ci si veste di bianco, se non si è la sposa", "Etichetta", "È una regola di buone maniere, legata a un contesto preciso."], ["A Natale si mangia il panettone", "Costume", "È una consuetudine: nessuno l'ha stabilita, si è formata nel tempo."], ["Il venerdì 17 porta sfortuna", "Costume", "È una superstizione: non c'è alcun legame di causa."], ["Non prendere in giro qualcuno per il suo accento", "Etica", "Riguarda il rispetto della dignità di una persona."], ["Dare del «lei» a una persona adulta che non si conosce", "Etichetta", "È una forma di cortesia, che cambia da un paese all'altro."], ["Per guidare un'automobile serve la patente", "Diritto", "Lo stabilisce la legge, che prevede sanzioni per chi guida senza."]]}, "vf": [["«Etica» e «morale» indicano due campi completamente diversi.", false, "Vengono da ethos (greco) e mos (latino) e si usano spesso come sinonimi."], ["Una legge può essere ingiusta.", true, "Le leggi razziali del 1938 erano legge, ed erano ingiuste."], ["Un pregiudizio è un'opinione sostenuta da emozioni forti ma senza fondamento razionale.", true, "Si fonda su credenze false."], ["Per Kant un'azione conforme alla legge è sempre anche morale.", false, "Kant distingue la legalità dalla moralità, che dipende dal motivo per cui si agisce."]], "aperta": ["Pensa a una regola della tua scuola. Da dove viene: diritto, etica, etichetta o costume? Quali ragioni la giustificano, e reggono all'esame?", "Per esempio: «non si usa il telefono durante le verifiche». È una regola del regolamento scolastico, quindi vicina al diritto, perché prevede sanzioni. Ma ha anche una ragione etica: garantire che ciascuno sia valutato per ciò che sa, in modo equo. Questa ragione regge, e per questo la rispetterei anche senza controlli."]}, "2.2": {"classifica": {"titolo": "Quale lente?", "consegna": "Per ogni frase scegli la lente che usa: conseguenze, dovere o virtù. Poi premi «Verifica».", "categorie": ["Conseguenze", "Dovere", "Virtù"], "voci": [["Non le dico che il vestito non mi piace: la renderei triste per niente.", "Conseguenze", "Guarda agli effetti della frase sull'altra persona."], ["Una promessa va mantenuta, anche quando costa.", "Dovere", "Il dovere vale prima e indipendentemente dalle conseguenze."], ["Voglio essere una persona coraggiosa: per questo difendo chi viene preso in giro.", "Virtù", "Guarda al carattere che si vuole costruire."], ["Donare a questa associazione salva più vite che donare all'altra.", "Conseguenze", "Confronta i risultati delle due scelte."], ["Non si usa una persona solo come strumento per i propri scopi.", "Dovere", "È la formula dell'umanità di Kant."], ["Che persona diventerei, se copiassi sempre i compiti?", "Virtù", "Si chiede quale abitudine, e quale carattere, nasce da un'azione ripetuta."]]}, "ordina": {"titolo": "Metti in ordine la linea del tempo", "consegna": "Usa i pulsanti ↑ e ↓ per mettere gli eventi dal più antico al più recente, poi premi «Verifica».", "eventi": [["IV sec. a.C.", "Aristotele scrive l'Etica Nicomachea"], ["1785", "Kant pubblica la Fondazione della metafisica dei costumi"], ["1861", "Mill pubblica L'utilitarismo"], ["1930", "Ross propone i doveri prima facie"], ["1967", "Foot discute il dilemma del carrello"], ["1982", "Gilligan pubblica Con voce di donna"]]}, "vf": [["Per il consequenzialismo un'azione si giudica prima di compierla, in base al dovere.", false, "Si giudica dalle conseguenze, cioè dopo (ex post)."], ["Mill distingue tra piaceri di qualità diversa.", true, "Per lui non conta solo la quantità del piacere."], ["Per Ross i doveri prima facie possono entrare in conflitto tra loro.", true, "Nel caso concreto uno può cedere a un dovere più forte."], ["L'etica delle virtù guarda soprattutto al carattere di chi agisce.", true, "Chiede che tipo di persona vogliamo essere."], ["Il dilemma del carrello ha una sola risposta giusta, che si trova con un calcolo.", false, "Serve ad allenare il giudizio e a confrontare le ragioni."]]}, "2.3": {"classifica": {"titolo": "Riconosci la fallacia", "consegna": "Per ogni frase scegli la fallacia che contiene, poi premi «Verifica».", "categorie": ["Attacco alla persona", "Uomo di paglia", "Falso dilemma", "Appello alla maggioranza", "Pendio scivoloso"], "voci": [["Lo usano tutti, quindi non può essere sbagliato.", "Appello alla maggioranza", "Che molte persone lo facciano non dice se è giusto."], ["O vietiamo i telefoni a scuola, o nessuno studierà più.", "Falso dilemma", "Ci sono altre possibilità, per esempio regole d'uso precise."], ["Se oggi ti lascio uscire prima, domani lo chiederanno tutti e la scuola si svuoterà.", "Pendio scivoloso", "Ogni passaggio della catena andrebbe dimostrato."], ["Non dare retta alla sua proposta sulla mensa: ha preso 4 in matematica.", "Attacco alla persona", "Il voto in matematica non dice nulla sulla proposta."], ["Chi vuole regole per l'IA vuole tornare all'età della pietra.", "Uomo di paglia", "La tesi dell'altro viene deformata per renderla ridicola."], ["Ha solo sedici anni: che cosa vuoi che ne sappia di etica?", "Attacco alla persona", "L'età di chi parla non dice se le sue ragioni reggono."]]}, "riscrivi": {"titolo": "Riscrivi senza fallacia", "consegna": "Riscrivi ogni frase in modo che offra una ragione vera, poi confronta con una proposta.", "frasi": [["Lo dicono tutti sui social, quindi è vero.", "Molte persone lo affermano: prima di crederci, cerco una fonte affidabile che lo confermi."], ["O sei con noi o sei contro di noi.", "Su questa questione ci sono più posizioni possibili: vediamo le ragioni di ciascuna."], ["Non ascoltarla: è troppo giovane per capire.", "Valutiamo la sua proposta: le premesse sono vere? La conclusione ne segue?"]]}, "vf": [["Un ragionamento corretto nella forma può partire da premesse false.", true, "Per questo bisogna controllare sia le premesse sia il passaggio alla conclusione."], ["Per Hume, da come stanno le cose non si ricava da solo come dovrebbero essere.", true, "Per una conclusione morale serve almeno una premessa morale."], ["Essere responsabili significa soltanto essere puniti quando si sbaglia.", false, "Significa rispondere delle proprie azioni a qualcuno, anche quando vanno bene."], ["Jonas estende la responsabilità alle generazioni future.", true, "Perché la tecnica rende le nostre azioni capaci di effetti molto lontani."]]}}, "glossario": [["Argomento", "Un insieme di frasi, le premesse, che offrono ragioni a favore di un'altra frase, la conclusione."], ["Conclusione", "La frase che un argomento vuole sostenere a partire dalle premesse."], ["Consequenzialismo", "Teoria etica per cui un'azione è giusta o sbagliata in base alle sue conseguenze."], ["Costume", "L'insieme delle abitudini di un gruppo sociale, che nessuno ha stabilito con un atto preciso."], ["Dignità", "Il valore che ogni persona ha in quanto persona, e che non può essere scambiato o sacrificato a un calcolo."], ["Dilemma", "Una situazione in cui ogni scelta possibile sacrifica qualcosa di importante."], ["Diritto", "L'insieme delle norme di uno Stato, scritte e pubbliche, garantite da sanzioni."], ["Dovere prima facie", "Un dovere valido «a prima vista», che può cedere a un dovere più forte nella situazione concreta (W.D. Ross)."], ["Etica della cura", "Prospettiva che mette al centro le relazioni, l'attenzione alla persona concreta e il contesto (C. Gilligan)."], ["Etica delle virtù", "Teoria etica che guarda al carattere di chi agisce più che alla singola azione."], ["Etica deontologica", "Teoria etica per cui alcune azioni sono doverose o vietate in sé, prima delle conseguenze."], ["Etichetta", "Le regole delle buone maniere in un certo contesto, chiamate anche galateo."], ["Fallacia", "Un errore di ragionamento che sembra convincente."], ["Imperativo categorico", "Per Kant, il comando morale che vale senza condizioni."], ["Istituzione normativa", "Un insieme ordinato di norme e valori che svolge una funzione sociale e dice come agire (M. Mori)."], ["Legalità", "Per Kant, il semplice accordo di un'azione con la legge, qualunque sia il motivo per cui la si compie."], ["Moralità", "Per Kant, il valore di un'azione compiuta perché è giusta, per dovere."], ["Phrònesis", "Parola greca per saggezza pratica: la capacità di capire che cosa è bene fare nella situazione concreta."], ["Pregiudizio", "Un'opinione sostenuta da emozioni forti ma fondata su credenze false."], ["Premessa", "Ciascuna delle frasi che, in un argomento, offrono ragioni a favore della conclusione."], ["Prescrittività", "Il carattere delle norme che dicono come si deve agire, e non come si agisce di fatto."], ["Responsabilità", "Dal latino respondere: rispondere delle proprie azioni e delle loro conseguenze a qualcuno."], ["Sanzione", "La conseguenza prevista per chi viola una norma: una multa, una pena."], ["Tabù", "Un divieto sentito con forza perché interiorizzato, ma di cui non si sa dare una ragione."], ["Teoria etica", "La riflessione filosofica che cerca le ragioni delle norme morali e le mette alla prova sui casi concreti."], ["Utilitarismo", "Forma di consequenzialismo: è giusta l'azione che produce la massima felicità per il maggior numero."], ["Virtù", "Una disposizione del carattere che si acquisisce con l'esercizio, come il coraggio o la giustizia."]], "nomiScelte": {"A": "A, «Sì, allo stesso modo»", "B": "B, «No, farei cose che ora non faccio»", "C": "C, «Non lo so»"}, "schedePar": {"scheda-s2-1-a": "2.1", "scheda-s2-1-b": "2.1", "scheda-s2-2-a": "2.2", "scheda-s2-2-b": "2.2", "scheda-s2-2-c": "2.2", "scheda-s2-3-a": "2.3", "scheda-s2-3-b": "2.3"}}</script>
+<script>
+(function(){
+  document.documentElement.lang = 'it';
+  var D = JSON.parse(document.getElementById('dati').textContent);
+  var root = document.documentElement;
+
+  function get(k, d){ try { var v = localStorage.getItem('ael2-' + k); return v === null ? d : v; } catch(e){ return d; } }
+  function set(k, v){ try { localStorage.setItem('ael2-' + k, v); } catch(e){} }
+
+  /* ---------- Accessibilità ---------- */
+  var scale = [0.9, 1, 1.12, 1.25, 1.4, 1.6];
+  var fsIdx = parseInt(get('fs', '1'), 10); if (isNaN(fsIdx)) fsIdx = 1;
+  function applyFs(){ fsIdx = Math.max(0, Math.min(scale.length - 1, fsIdx)); root.style.setProperty('--fs', scale[fsIdx]); set('fs', fsIdx); }
+  document.getElementById('fs-meno').onclick = function(){ fsIdx--; applyFs(); };
+  document.getElementById('fs-piu').onclick = function(){ fsIdx++; applyFs(); };
+  document.getElementById('fs-norm').onclick = function(){ fsIdx = 1; applyFs(); };
+  applyFs();
+
+  function toggle(id, on, apply){ var b = document.getElementById(id); b.setAttribute('aria-pressed', on ? 'true' : 'false'); apply(on); set(id, on ? '1' : '0'); }
+  function spazi(on){ root.style.setProperty('--lh', on ? '1.95' : '1.65'); root.style.setProperty('--ls', on ? '0.03em' : '0em'); root.style.setProperty('--ws', on ? '0.12em' : '0em'); }
+  function contrasto(on){ if (on) root.setAttribute('data-contrast', 'alto'); else root.removeAttribute('data-contrast'); }
+  ['spazi', 'contrasto'].forEach(function(id){
+    var fn = id === 'spazi' ? spazi : contrasto;
+    toggle(id, get(id, '0') === '1', fn);
+    document.getElementById(id).onclick = function(){ toggle(id, this.getAttribute('aria-pressed') !== 'true', fn); };
+  });
+  var acc = document.getElementById('acc'), apri = document.getElementById('apri-acc');
+  apri.onclick = function(){ var open = acc.hidden; acc.hidden = !open; apri.setAttribute('aria-expanded', open ? 'true' : 'false'); set('acc', open ? '1' : '0'); };
+  if (get('acc', window.innerWidth < 700 ? '0' : '1') === '0'){ acc.hidden = true; apri.setAttribute('aria-expanded', 'false'); }
+
+  /* ---------- Lettura ad alta voce ---------- */
+  var synth = window.speechSynthesis, msg = document.getElementById('voce-msg');
+  var voce = null, coda = [], attivo = null;
+  function scegliVoce(){ if (!synth) return; var v = synth.getVoices(); voce = v.filter(function(x){ return /^it/i.test(x.lang); })[0] || null; }
+  if (synth){ scegliVoce(); if (typeof synth.onvoiceschanged !== 'undefined') synth.onvoiceschanged = scegliVoce; }
+  else { msg.textContent = 'La lettura ad alta voce non è disponibile in questo browser. Puoi usare il lettore di schermo del dispositivo.'; ['ascolto', 'ferma', 'velocita'].forEach(function(id){ document.getElementById(id).disabled = true; }); }
+  function testoDi(el){ var c = el.cloneNode(true); c.querySelectorAll('.kw-def,.sr,textarea').forEach(function(x){ x.remove(); }); return c.textContent.replace(/\s+/g, ' ').trim(); }
+  function evid(el){ if (attivo) attivo.classList.remove('letto'); attivo = el; if (el){ el.classList.add('letto'); } }
+  function ferma(){ coda = []; if (synth) synth.cancel(); evid(null); }
+  function prossimo(){
+    if (!coda.length){ evid(null); return; }
+    var el = coda.shift(), t = testoDi(el);
+    if (!t){ prossimo(); return; }
+    var u = new SpeechSynthesisUtterance(t);
+    u.lang = 'it-IT'; if (voce) u.voice = voce; u.rate = parseFloat(document.getElementById('velocita').value) || 1;
+    u.onstart = function(){ evid(el); };
+    u.onend = function(){ prossimo(); };
+    u.onerror = function(){ evid(null); };
+    synth.speak(u);
+  }
+  function leggi(els){ if (!synth) return; ferma(); coda = Array.prototype.slice.call(els); prossimo(); }
+  document.getElementById('ferma').onclick = ferma;
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') ferma(); });
+  var ascolto = get('ascolto', '0') === '1';
+  function setAscolto(on){
+    ascolto = on; document.body.classList.toggle('ascolto', on);
+    document.getElementById('ascolto').setAttribute('aria-pressed', on ? 'true' : 'false'); set('ascolto', on ? '1' : '0');
+    document.querySelectorAll('.readable').forEach(function(el){ if (on) el.setAttribute('tabindex', '0'); else el.removeAttribute('tabindex'); });
+    if (!on) ferma();
+  }
+  document.getElementById('ascolto').onclick = function(){ setAscolto(!ascolto); };
+  setAscolto(ascolto && !!synth);
+  document.addEventListener('click', function(e){
+    if (!ascolto) return;
+    if (e.target.closest('button, a, textarea, input, select, summary, label')) return;
+    var el = e.target.closest('.readable'); if (el) leggi([el]);
+  });
+  document.addEventListener('keydown', function(e){
+    if (!ascolto || e.key !== 'Enter') return;
+    var el = document.activeElement; if (el && el.classList && el.classList.contains('readable')){ e.preventDefault(); leggi([el]); }
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.ascolta-sez'); if (!b) return;
+    var sez = document.getElementById(b.getAttribute('data-target'));
+    if (sez) leggi(sez.querySelectorAll('.readable'));
+  });
+
+  /* ---------- Parole chiave ---------- */
+  var G = {}; D.glossario.forEach(function(g){ G[g[0]] = g[1]; });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.kw'); if (!b) return;
+    var open = b.getAttribute('aria-expanded') === 'true';
+    var next = b.nextElementSibling;
+    if (open && next && next.classList.contains('kw-def')){ next.remove(); b.setAttribute('aria-expanded', 'false'); return; }
+    var s = document.createElement('span'); s.className = 'kw-def'; s.setAttribute('role', 'note');
+    s.textContent = b.getAttribute('data-term') + ': ' + (G[b.getAttribute('data-term')] || '');
+    b.insertAdjacentElement('afterend', s); b.setAttribute('aria-expanded', 'true');
+  });
+
+  /* ---------- Stimolo ---------- */
+  var scelte = document.querySelectorAll('.scelta'), nessuna = document.getElementById('nessuna');
+  var stato = document.getElementById('scelta-stato'), ricordo = document.getElementById('scelta-ricordo');
+  var esclusiva = !!document.querySelector('.scelte[data-esclusiva]');
+  var nomi = D.nomiScelte || {};
+  var invito = esclusiva ? 'Premi una risposta per scegliere.' : 'Premi una o più immagini per scegliere.';
+  function salvaScelta(){
+    var s = []; scelte.forEach(function(b){ if (b.getAttribute('aria-pressed') === 'true') s.push(b.getAttribute('data-scelta')); });
+    if (nessuna && nessuna.getAttribute('aria-pressed') === 'true') s = ['nessuna'];
+    set('scelta', s.join(','));
+    var txt = !s.length ? 'Non hai ancora scelto.' : (s[0] === 'nessuna' ? 'Hai scelto: nessuna delle quattro.' : 'Hai scelto: ' + s.map(function(x){ return nomi[x] || x; }).join('; ') + '.');
+    if (stato) stato.textContent = s.length ? txt + ' La scelta resta solo su questo dispositivo.' : invito + ' La scelta resta solo su questo dispositivo.';
+    if (ricordo) ricordo.textContent = s.length ? 'All\'inizio del capitolo ' + txt.charAt(0).toLowerCase() + txt.slice(1) : 'All\'inizio del capitolo non avevi ancora scelto: puoi farlo ora, tornando all\'apertura.';
+  }
+  scelte.forEach(function(b){ b.onclick = function(){
+    var on = b.getAttribute('aria-pressed') !== 'true';
+    if (esclusiva) scelte.forEach(function(o){ o.setAttribute('aria-pressed', 'false'); });
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (nessuna) nessuna.setAttribute('aria-pressed', 'false'); salvaScelta(); }; });
+  if (nessuna) nessuna.onclick = function(){ var on = nessuna.getAttribute('aria-pressed') !== 'true'; nessuna.setAttribute('aria-pressed', on ? 'true' : 'false'); if (on) scelte.forEach(function(b){ b.setAttribute('aria-pressed', 'false'); }); salvaScelta(); };
+  (get('scelta', '') || '').split(',').forEach(function(x){
+    if (x === 'nessuna' && nessuna) nessuna.setAttribute('aria-pressed', 'true');
+    scelte.forEach(function(b){ if (b.getAttribute('data-scelta') === x) b.setAttribute('aria-pressed', 'true'); });
+  });
+  salvaScelta();
+
+  /* ---------- Caselle di testo salvate ---------- */
+  document.querySelectorAll('textarea[data-store]').forEach(function(t){
+    t.value = get('t-' + t.getAttribute('data-store'), '');
+    t.addEventListener('input', function(){ set('t-' + t.getAttribute('data-store'), t.value); });
+  });
+
+  /* ---------- Esercizi ---------- */
+  function el(tag, attrs, html){ var e = document.createElement(tag); if (attrs) Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); }); if (html !== undefined) e.innerHTML = html; return e; }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var uid = 0;
+  function box(titolo, consegna){ var b = el('section', { 'class': 'esercizio' }); b.appendChild(el('h2', null, esc(titolo))); if (consegna) b.appendChild(el('p', { 'class': 'readable' }, esc(consegna))); return b; }
+
+  function classifica(d){
+    var b = box(d.titolo, d.consegna), rows = [];
+    d.voci.forEach(function(v){
+      var id = 'cl-' + (++uid), r = el('div', { 'class': 'es-voce' });
+      r.innerHTML = '<label for="' + id + '" class="readable">' + esc(v[0]) + '</label><br>';
+      var s = el('select', { id: id }); s.appendChild(el('option', { value: '' }, 'Scegli…'));
+      d.categorie.forEach(function(c){ s.appendChild(el('option', { value: c }, esc(c))); });
+      var fb = el('p', { 'class': 'fb', 'aria-live': 'polite' });
+      r.appendChild(s); r.appendChild(fb); b.appendChild(r); rows.push([s, fb, v]);
+    });
+    var tot = el('p', { 'class': 'piccolo', 'aria-live': 'polite' });
+    var btn = el('button', { type: 'button', 'class': 'btn' }, 'Verifica');
+    btn.onclick = function(){ var ok = 0; rows.forEach(function(x){ var g = x[0].value === x[2][1]; if (g) ok++; x[1].className = 'fb ' + (g ? 'ok' : 'ko'); x[1].textContent = (g ? 'Giusto. ' : (x[0].value ? 'Non proprio: la risposta è «' + x[2][1] + '». ' : 'Manca la risposta: è «' + x[2][1] + '». ')) + x[2][2]; }); tot.textContent = 'Risposte giuste: ' + ok + ' su ' + rows.length + '.'; };
+    var rb = el('div', { 'class': 'riga-btn' }); rb.appendChild(btn); rb.appendChild(tot); b.appendChild(rb);
+    return b;
+  }
+
+  function vf(list){
+    var b = box('Vero o falso', 'Per ogni frase scegli vero o falso, poi premi «Verifica».'), rows = [];
+    list.forEach(function(v){
+      var n = 'vf-' + (++uid), r = el('fieldset', { 'class': 'es-voce', style: 'border:0;padding:.6rem 0;margin:0' });
+      r.innerHTML = '<legend class="readable">' + esc(v[0]) + '</legend><div class="vf-r"><label><input type="radio" name="' + n + '" value="1"> Vero</label><label><input type="radio" name="' + n + '" value="0"> Falso</label></div>';
+      var fb = el('p', { 'class': 'fb', 'aria-live': 'polite' }); r.appendChild(fb); b.appendChild(r); rows.push([n, fb, v]);
+    });
+    var btn = el('button', { type: 'button', 'class': 'btn' }, 'Verifica'), tot = el('p', { 'class': 'piccolo', 'aria-live': 'polite' });
+    btn.onclick = function(){ var ok = 0; rows.forEach(function(x){ var c = b.querySelector('input[name="' + x[0] + '"]:checked'); var g = c && (c.value === '1') === x[2][1]; if (g) ok++; x[1].className = 'fb ' + (g ? 'ok' : 'ko'); x[1].textContent = (x[2][1] ? 'Vero. ' : 'Falso. ') + x[2][2]; }); tot.textContent = 'Risposte giuste: ' + ok + ' su ' + rows.length + '.'; };
+    var rb = el('div', { 'class': 'riga-btn' }); rb.appendChild(btn); rb.appendChild(tot); b.appendChild(rb);
+    return b;
+  }
+
+  function aperta(d){
+    var b = box('Ragiona con le tue parole', null), id = 'ap-' + (++uid);
+    b.appendChild(el('p', { 'class': 'readable' }, esc(d[0])));
+    b.appendChild(el('label', { 'for': id, 'class': 'etichetta' }, 'La tua risposta'));
+    var t = el('textarea', { id: id, 'data-store': id, rows: '4' }); t.value = get('t-' + id, ''); t.addEventListener('input', function(){ set('t-' + id, t.value); }); b.appendChild(t);
+    var det = el('details', { 'class': 'nota' }); det.innerHTML = '<summary>Mostra una risposta possibile</summary><p class="proposta readable">' + esc(d[1]) + '</p>'; b.appendChild(det);
+    return b;
+  }
+
+  function ordina(d){
+    var b = box(d.titolo, d.consegna), ol = el('ol', { 'class': 'ordina' });
+    var items = d.eventi.map(function(e, i){ return { k: i, a: e[0], t: e[1] }; });
+    var mix = [3, 0, 5, 2, 4, 1].map(function(i){ return items[i]; });
+    function draw(focusK, dir){
+      ol.innerHTML = '';
+      mix.forEach(function(it, i){
+        var li = el('li'); li.appendChild(el('span', null, esc(it.t)));
+        var up = el('button', { type: 'button', 'aria-label': 'Sposta su: ' + it.t }, '↑'); up.disabled = i === 0;
+        var dn = el('button', { type: 'button', 'aria-label': 'Sposta giù: ' + it.t }, '↓'); dn.disabled = i === mix.length - 1;
+        up.onclick = function(){ var t = mix[i - 1]; mix[i - 1] = mix[i]; mix[i] = t; draw(it.k, 'up'); };
+        dn.onclick = function(){ var t = mix[i + 1]; mix[i + 1] = mix[i]; mix[i] = t; draw(it.k, 'dn'); };
+        li.appendChild(up); li.appendChild(dn); ol.appendChild(li);
+        if (focusK === it.k){ setTimeout(function(){ (dir === 'up' && !up.disabled ? up : (!dn.disabled ? dn : up)).focus(); }, 0); }
+      });
+    }
+    draw();
+    b.appendChild(ol);
+    var fb = el('p', { 'class': 'fb', 'aria-live': 'polite' }), btn = el('button', { type: 'button', 'class': 'btn' }, 'Verifica');
+    btn.onclick = function(){ var ok = mix.every(function(it, i){ return it.k === i; }); fb.className = 'fb ' + (ok ? 'ok' : 'ko'); fb.textContent = ok ? 'Ordine corretto: ' + items.map(function(x){ return x.a; }).join(', ') + '.' : 'Non ancora: controlla le date nella scheda «La storia dell\'IA in una linea».'; };
+    var rb = el('div', { 'class': 'riga-btn' }); rb.appendChild(btn); b.appendChild(rb); b.appendChild(fb);
+    return b;
+  }
+
+  function imitazione(d){
+    var b = box(d.titolo, d.consegna);
+    d.round.forEach(function(r, i){
+      var w = el('div', { 'class': 'es-voce' });
+      w.appendChild(el('p', { 'class': 'readable' }, '<b>Domanda ' + (i + 1) + ':</b> «' + esc(r[0]) + '»'));
+      var rr = el('div', { 'class': 'risposte' }), fb = el('p', { 'class': 'fb', 'aria-live': 'polite' });
+      ['A', 'B'].forEach(function(L, j){
+        var bt = el('button', { type: 'button', 'class': 'risposta', 'aria-pressed': 'false' }, '<b>' + L + '</b> «' + esc(r[1 + j]) + '»');
+        bt.onclick = function(){ rr.querySelectorAll('.risposta').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); }); bt.setAttribute('aria-pressed', 'true'); var g = L === r[3]; fb.className = 'fb ' + (g ? 'ok' : 'ko'); fb.textContent = (g ? 'Sì, è ' + r[3] + '. ' : 'Questa volta la macchina era ' + r[3] + '. ') + r[4]; };
+        rr.appendChild(bt);
+      });
+      w.appendChild(rr); w.appendChild(fb); b.appendChild(w);
+    });
+    b.appendChild(el('p', { 'class': 'piccolo' }, esc(d.nota)));
+    return b;
+  }
+
+  function token(d){
+    var b = box(d.titolo, d.consegna);
+    d.round.forEach(function(r, i){
+      var w = el('div', { 'class': 'es-voce' });
+      w.appendChild(el('p', { 'class': 'readable' }, '<b>' + (i + 1) + '.</b> «' + esc(r[0]) + '»'));
+      var op = el('div', { 'class': 'opzioni' }), out = el('div', { 'aria-live': 'polite' });
+      r[1].forEach(function(o, j){
+        var bt = el('button', { type: 'button', 'class': 'btn ghost', 'aria-pressed': 'false' }, esc(o[0]));
+        bt.onclick = function(){
+          op.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); }); bt.setAttribute('aria-pressed', 'true');
+          var max = Math.max.apply(null, r[1].map(function(x){ return x[1]; })) || 1;
+          var h = '<div class="barre" role="list" aria-label="Probabilità di esempio">';
+          r[1].forEach(function(x, k){ h += '<div class="barra' + (k === j ? ' scelta-tua' : '') + '" role="listitem"><span>' + esc(x[0]) + '</span><span class="bw"><span class="b" style="width:' + Math.max(1, x[1] / max * 100) + '%"></span><span class="v">' + x[1] + '%</span></span></div>'; });
+          h += '</div><p class="proposta readable">' + esc(r[2]) + '</p>';
+          out.innerHTML = h;
+        };
+        op.appendChild(bt);
+      });
+      w.appendChild(op); w.appendChild(out); b.appendChild(w);
+    });
+    b.appendChild(el('p', { 'class': 'piccolo' }, esc(d.nota)));
+    return b;
+  }
+
+  function riscrivi(d){
+    var b = box(d.titolo, d.consegna);
+    d.frasi.forEach(function(f){
+      var id = 'rs-' + (++uid), w = el('div', { 'class': 'es-voce' });
+      w.appendChild(el('label', { 'for': id, 'class': 'readable' }, '«' + esc(f[0]) + '»'));
+      var t = el('textarea', { id: id, rows: '2' }); t.value = get('t-' + id, ''); t.addEventListener('input', function(){ set('t-' + id, t.value); });
+      w.appendChild(t);
+      var det = el('details', { 'class': 'nota' }); det.innerHTML = '<summary>Confronta con una proposta</summary><p class="proposta readable">«' + esc(f[1]) + '»</p>';
+      w.appendChild(det); b.appendChild(w);
+    });
+    return b;
+  }
+
+  document.querySelectorAll('.es-container').forEach(function(c){
+    var E = D.esercizi[c.getAttribute('data-par')];
+    if (E.classifica) c.appendChild(classifica(E.classifica));
+    if (E.ordina) c.appendChild(ordina(E.ordina));
+    if (E.imitazione) c.appendChild(imitazione(E.imitazione));
+    if (E.token) c.appendChild(token(E.token));
+    if (E.riscrivi) c.appendChild(riscrivi(E.riscrivi));
+    if (E.vf) c.appendChild(vf(E.vf));
+    if (E.aperta) c.appendChild(aperta(E.aperta));
+  });
+  if (ascolto) setAscolto(true);
+
+  /* ---------- Viste (#hash) ---------- */
+  var viste = document.querySelectorAll('[data-view]');
+  function mostra(){
+    var h = (location.hash || '').replace('#', '') || 'capitolo';
+    var target = h, scroll = null;
+    if (!document.querySelector('[data-view="' + h + '"]')){ target = 'capitolo'; scroll = document.getElementById(h); }
+    viste.forEach(function(v){ v.hidden = v.getAttribute('data-view') !== target; });
+    var nav = target.indexOf('scheda') === 0 ? 'schede' : (target.indexOf('esercizi') === 0 ? 'esercizi' : target);
+    document.querySelectorAll('.nav a').forEach(function(a){ if (a.getAttribute('data-nav') === nav) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    ferma();
+    if (scroll){ scroll.scrollIntoView({ block: 'start' }); window.scrollBy(0, -90); if (!scroll.hasAttribute('tabindex')) scroll.setAttribute('tabindex', '-1'); scroll.focus({ preventScroll: true }); }
+    else if (target !== 'capitolo' || h === 'capitolo'){ window.scrollTo(0, 0); var t = document.querySelector('[data-view="' + target + '"] h1'); if (t && target !== 'capitolo') t.focus({ preventScroll: true }); }
+  }
+  window.addEventListener('hashchange', mostra);
+  mostra();
+})();
+</script>
+</body>
+</html>
