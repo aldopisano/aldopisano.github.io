@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#f5efe4">
+<title>Giappone 2027 · itinerario di famiglia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Pagina privata, non collegata dal sito. Carta washi, inchiostro, rosso torii. */
+:root{
+  --paper:#f5efe4; --card:#fffdf8; --ink:#1f1c19; --muted:#6b645b; --line:#e3d9c8;
+  --torii:#c4412b; --torii-soft:#f6dcd4; --bamboo:#4c6b4f; --bamboo-soft:#e1ebdf;
+  --indigo:#2d3b58; --indigo-soft:#e2e6ef; --gold:#a8792a; --gold-soft:#f4e8cf;
+  --display:"Fraunces", Georgia, serif; --body:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--body)}
+a{color:var(--indigo);text-underline-offset:2px}
+.wrap{max-width:46rem;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left)) 4rem}
+header.hero{padding:2.6rem 0 1.6rem;border-bottom:1px solid var(--line)}
+.kicker{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--torii);font-weight:700;margin:0 0 .6rem}
+h1{font:650 clamp(2rem,7vw,3rem)/1.05 var(--display);margin:0 0 .7rem;letter-spacing:-.01em}
+h1 span{font-style:italic;font-weight:500;color:var(--torii)}
+.lede{color:var(--muted);margin:0;max-width:36rem}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin:1.4rem 0 0}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.7rem .85rem}
+.fact b{display:block;font:650 1.15rem/1.2 var(--display)}
+.fact small{color:var(--muted);font-size:.78rem}
+@media(min-width:640px){.facts{grid-template-columns:repeat(4,1fr)}}
+
+nav.toc{position:sticky;top:0;z-index:5;background:rgba(245,239,228,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:0 calc(-1*max(18px,env(safe-area-inset-left)));padding:.55rem max(18px,env(safe-area-inset-left));overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{display:inline-block;font-size:.82rem;font-weight:600;text-decoration:none;color:var(--ink);padding:.3rem .7rem;border:1px solid var(--line);border-radius:99px;margin-right:.35rem;background:var(--card)}
+
+section{padding-top:2.2rem}
+h2{font:650 1.55rem/1.15 var(--display);margin:0 0 .35rem}
+.sub{color:var(--muted);margin:0 0 1.1rem;font-size:.95rem}
+
+/* percorso */
+.route{list-style:none;margin:0;padding:0;position:relative}
+.route li{position:relative;padding:0 0 1rem 2.1rem}
+.route li::before{content:"";position:absolute;left:.55rem;top:.35rem;width:.75rem;height:.75rem;border-radius:50%;background:var(--card);border:3px solid var(--torii)}
+.route li::after{content:"";position:absolute;left:.88rem;top:1.25rem;bottom:-.1rem;width:2px;background:var(--torii-soft)}
+.route li:last-child::after{display:none}
+.route b{font:650 1.05rem var(--display)}
+.route .n{font-size:.78rem;font-weight:700;color:var(--torii);margin-left:.4rem}
+.route p{margin:.1rem 0 0;color:var(--muted);font-size:.9rem}
+
+/* giorni */
+.leg{margin:1.8rem 0 .7rem;display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.leg h3{font:650 1.25rem var(--display);margin:0}
+.leg span{font-size:.8rem;color:var(--muted)}
+.day{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem 1.05rem;margin:0 0 .75rem;display:grid;grid-template-columns:3.3rem 1fr;gap:.2rem .9rem}
+.date{grid-row:span 3;text-align:center;border-right:1px solid var(--line);padding-right:.8rem}
+.date .d{font:650 1.6rem/1 var(--display)}
+.date .m{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.date .w{font-size:.72rem;color:var(--muted);margin-top:.15rem}
+.day h4{margin:0;font-size:1.02rem;line-height:1.3}
+.day ul{margin:.35rem 0 0;padding-left:1.05rem}
+.day li{margin:.18rem 0;font-size:.93rem}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}
+.chip{font-size:.72rem;font-weight:600;padding:.18rem .55rem;border-radius:99px;background:var(--indigo-soft);color:var(--indigo);text-decoration:none}
+.chip.must{background:var(--torii-soft);color:#8f2a17}
+.chip.opt{background:var(--gold-soft);color:#7a5517}
+.chip.map{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.clara{margin-top:.55rem;background:var(--bamboo-soft);color:#2f4a33;border-radius:10px;padding:.5rem .7rem;font-size:.86rem}
+.clara b{font-weight:700}
+.day.optional{border-style:dashed}
+.day.travel{background:transparent}
+
+/* box */
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--torii);border-radius:10px;padding:.85rem 1rem;margin:.8rem 0;font-size:.93rem}
+.note.green{border-left-color:var(--bamboo)}
+.note.blue{border-left-color:var(--indigo)}
+.note p{margin:.25rem 0}
+
+/* scadenze */
+table{width:100%;border-collapse:collapse;font-size:.9rem;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:#fbf7ef}
+tr:last-child td{border-bottom:0}
+td.when{white-space:nowrap;font-weight:700}
+tr.hot td.when{color:var(--torii)}
+
+/* da decidere */
+.cands{display:grid;gap:.7rem}
+@media(min-width:640px){.cands{grid-template-columns:1fr 1fr}}
+.cand{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.85rem 1rem}
+.cand h4{margin:0 0 .2rem;font-size:1rem}
+.cand p{margin:.2rem 0;font-size:.88rem;color:var(--muted)}
+.cand .cost{font-size:.78rem;font-weight:700;color:var(--gold)}
+
+.grid2{display:grid;gap:.7rem}
+@media(min-width:640px){.grid2{grid-template-columns:1fr 1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem}
+.panel h4{margin:0 0 .35rem;font-size:1rem}
+.panel ul{margin:0;padding-left:1.05rem}
+.panel li{font-size:.9rem;margin:.2rem 0}
+
+footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+footer ol{padding-left:1.2rem}
+footer li{margin:.2rem 0}
+.stamp{display:inline-block;margin-top:.8rem;font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="kicker">Bozza di itinerario · versione 1</p>
+  <h1>Giappone, <span>in tre</span></h1>
+  <p class="lede">Da Tokyo a Osaka passando per il Fuji, Ghibli Park, Kyoto e Hiroshima, con un ritmo pensato per Clara: una cosa importante al giorno, pause lunghe, spostamenti brevi.</p>
+  <div class="facts">
+    <div class="fact"><b>25 mag – 12 giu</b><small>2027 · date flessibili</small></div>
+    <div class="fact"><b>17 notti</b><small>7 basi</small></div>
+    <div class="fact"><b>2 + 1</b><small>Clara avrà ~10 mesi</small></div>
+    <div class="fact"><b>Tokyo → Osaka</b><small>volo multi-tratta</small></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sezioni">
+  <a href="#percorso">Percorso</a><a href="#giorni">Giorno per giorno</a><a href="#scadenze">Da prenotare</a><a href="#decidere">Da decidere</a><a href="#pratico">Pratico</a><a href="#fonti">Fonti</a>
+</nav>
+
+<section id="percorso">
+  <h2>Il percorso</h2>
+  <p class="sub">Si va da est a ovest: arrivo a Tokyo, partenza da Osaka, senza tornare indietro.</p>
+  <ol class="route">
+    <li><b>Tokyo</b><span class="n">4 notti</span><p>Smaltire il fuso, Asakusa, Meiji Jingū, Shibuya.</p></li>
+    <li><b>Kawaguchiko · Monte Fuji</b><span class="n">2 notti</span><p>Due albe per vedere il Fuji, Chūreitō, foresta di Aokigahara.</p></li>
+    <li><b>Nagoya</b><span class="n">2 notti</span><p>Base per Ghibli Park (mercoledì 2 giugno).</p></li>
+    <li><b>Kyoto</b><span class="n">4 notti</span><p>Bambù di Arashiyama, Fushimi Inari, Gion; Nara in giornata.</p></li>
+    <li><b>Hiroshima</b><span class="n">1 notte</span><p>Parco e Museo della Pace.</p></li>
+    <li><b>Miyajima</b><span class="n">1 notte</span><p>Il torii nell'acqua con l'alta marea, la sera sull'isola.</p></li>
+    <li><b>Osaka</b><span class="n">3 notti</span><p>Castello, acquario Kaiyūkan, Dōtonbori; volo da Kansai.</p></li>
+  </ol>
+  <div class="note blue">
+    <p><b>Perché il Fuji all'inizio.</b> Il Fuji si vede bene solo in una parte dei giorni e la visibilità cala con l'arrivo della stagione delle piogge: i dati di Fuji City danno circa il 9,5% per inizio giugno. Le piogge (tsuyu) arrivano in media intorno al 6–8 giugno nel Kansai e nel Kantō, quindi conviene passare dal Fuji a fine maggio e lasciare a giugno le città, dove ci sono più alternative al coperto.</p>
+  </div>
+</section>
+
+<section id="giorni">
+  <h2>Giorno per giorno</h2>
+  <p class="sub">Bordo tratteggiato = giornata che si può tagliare per stare in due settimane.</p>
+
+  <div class="leg"><h3>Tokyo</h3><span>mer 26 – dom 30 maggio</span></div>
+
+  <article class="day travel">
+    <div class="date"><div class="d">25</div><div class="m">mag</div><div class="w">mar</div></div>
+    <h4>Partenza dall'Italia</h4>
+    <ul><li>Volo via hub (Roma, Istanbul, Doha, Dubai…) verso Tokyo Haneda: Haneda è più vicino al centro di Narita.</li></ul>
+    <div class="clara"><b>Clara:</b> chiedere alla compagnia la culla di bordo (bassinet) al momento della prenotazione; i posti sono pochi e hanno limiti di peso.</div>
+  </article>
+
+  <article class="day">
+    <div class="date"><div class="d">26</div><div class="m">mag</div><div class="w">mer</div></div>
+    <h4>Arrivo e assestamento</h4>
+    <ul>
+      <li>Check-in in zona Ueno/Asakusa o Tokyo Station (comode per i treni successivi).</li>
+      <li>Passeggiata breve, cena presto, a letto.</li>
+    </ul>
+    <div class="chips"><span class="chip">riposo</span></div>
+  </article>
+
+  <article class="day">
+    <div class="date"><div class="d">27</div><div class="m">mag</div><div class="w">gio</div></div>
+    <h4>Asakusa e il fiume</h4>
+    <ul>
+      <li>Sensō-ji la mattina presto, prima della folla; Nakamise-dōri.</li>
+      <li>Battello sul Sumida o parco di Ueno nel pomeriggio.</li>
+    </ul>
+    <div class="chips"><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Senso-ji+Asakusa+Tokyo">mappa</a></div>
+  </article>
+
+  <article class="day">
+    <div class="date"><div class="d">28</div><div class="m">mag</div><div class="w">ven</div></div>
+    <h4>Meiji Jingū, Harajuku, Shibuya</h4>
+    <ul>
+      <li>Il bosco del santuario Meiji la mattina, Omotesandō a piedi.</li>
+      <li>Incrocio di Shibuya al tramonto.</li>
+      <li><i>Facoltativo:</i> Museo Ghibli di Mitaka (vedi «Da decidere»).</li>
+    </ul>
+    <div class="chips"><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Tokyo">mappa</a></div>
+  </article>
+
+  <article class="day optional">
+    <div class="date"><div class="d">29</div><div class="m">mag</div><div class="w">sab</div></div>
+    <h4>Giornata libera a Tokyo</h4>
+    <ul>
+      <li>Margine per il fuso di Clara, o un quartiere a scelta (Yanaka, Shinjuku Gyoen, Odaiba).</li>
+    </ul>
+    <div class="chips"><span class="chip opt">tagliabile</span></div>
+  </article>
+
+  <div class="leg"><h3>Monte Fuji · Kawaguchiko</h3><span>dom 30 maggio – mar 1 giugno</span></div>
+
+  <article class="day">
+    <div class="date"><div class="d">30</div><div class="m">mag</div><div class="w">dom</div></div>
+    <h4>Tokyo → Kawaguchiko</h4>
+    <ul>
+      <li>Treno diretto Fuji Excursion da Shinjuku (circa 2 ore, posti riservati) o autobus.</li>
+      <li>Pomeriggio sul lago, sponda nord e Oishi Park.</li>
+      <li>Notte in ryokan con onsen privato (kashikiri): con un bambino piccolo è più comodo di quello comune.</li>
+    </ul>
+    <div class="chips"><span class="chip must">Fuji</span><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Oishi+Park+Kawaguchiko">mappa</a></div>
+  </article>
+
+  <article class="day">
+    <div class="date"><div class="d">31</div><div class="m">mag</div><div class="w">lun</div></div>
+    <h4>Chūreitō all'alba, poi la foresta di Aokigahara</h4>
+    <ul>
+      <li>Pagoda Chūreitō presto: le ore migliori per vedere il Fuji sono quelle del mattino. Sono 398 gradini.</li>
+      <li>Aokigahara (Jukai, «mare di alberi»): grotta del vento di Fugaku → sentiero Tōkai nella foresta (20–30 minuti) → grotta del ghiaccio di Narusawa.</li>
+      <li>Si resta sui sentieri segnati: fuori traccia è facile perdersi. È un luogo che in Giappone si visita in silenzio e con rispetto.</li>
+    </ul>
+    <div class="clara"><b>Clara:</b> marsupio, non passeggino (gradini, radici, lava). Le grotte sono intorno a 0 °C, con soffitti bassi e scale: entrate a turno, uno resta fuori con lei.</div>
+    <div class="chips"><span class="chip must">foresta</span><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Chureito+Pagoda">Chūreitō</a><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Fugaku+Wind+Cave">Fugaku</a><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Narusawa+Ice+Cave">Narusawa</a></div>
+  </article>
+
+  <article class="day">
+    <div class="date"><div class="d">1</div><div class="m">giu</div><div class="w">mar</div></div>
+    <h4>Seconda alba sul Fuji, poi Nagoya</h4>
+    <ul>
+      <li>Se il 31 era nuvoloso: funivia Kachikachi o lungolago all'alba.</li>
+      <li>Autobus per Mishima, poi Shinkansen per Nagoya (in tutto 3–3,5 ore).</li>
+    </ul>
+    <div class="chips"><span class="chip">spostamento</span></div>
+  </article>
+
+  <div class="leg"><h3>Nagoya · Ghibli Park</h3><span>mar 1 – gio 3 giugno</span></div>
+
+  <article class="day">
+    <div class="date"><div class="d">2</div><div class="m">giu</div><div class="w">mer</div></div>
+    <h4>Ghibli Park</h4>
+    <ul>
+      <li>Biglietto Premium: tutte e cinque le aree e gli interni (casa di Satsuki e Mei, castello di Howl, Okino Residence).</li>
+      <li>Autobus diretto Meitetsu da Nagoya (circa 40 minuti) o metro + Linimo fino ad Ai-Chikyūhaku-Kinen-Kōen.</li>
+      <li>Orari: 10–17 nei giorni feriali. Il parco è chiuso il martedì, per questo è di mercoledì.</li>
+    </ul>
+    <div class="clara"><b>Clara:</b> sotto i 4 anni entra gratis e non conta nel gruppo.</div>
+    <div class="chips"><span class="chip must">Ghibli</span><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Ghibli+Park+Aichi">mappa</a><a class="chip" href="https://ghibli-park.jp/en/ticket/">biglietti esteri</a></div>
+  </article>
+
+  <div class="leg"><h3>Kyoto</h3><span>gio 3 – lun 7 giugno</span></div>
+
+  <article class="day">
+    <div class="date"><div class="d">3</div><div class="m">giu</div><div class="w">gio</div></div>
+    <h4>Nagoya → Kyoto, Gion la sera</h4>
+    <ul>
+      <li>Shinkansen di circa 35 minuti.</li>
+      <li>Higashiyama, Ninenzaka e Gion al tramonto.</li>
+    </ul>
+    <div class="chips"><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Ninenzaka+Kyoto">mappa</a></div>
+  </article>
+
+  <article class="day">
+    <div class="date"><div class="d">4</div><div class="m">giu</div><div class="w">ven</div></div>
+    <h4>Foresta di bambù di Arashiyama</h4>
+    <ul>
+      <li>Al boschetto di bambù entro le 7–7:30, prima dei gruppi organizzati.</li>
+      <li>Giardino del Tenryū-ji, ponte Togetsukyō, pomeriggio lento lungo il fiume.</li>
+    </ul>
+    <div class="clara"><b>Clara:</b> il viale dei bambù è pianeggiante, il passeggino va bene.</div>
+    <div class="chips"><span class="chip must">bambù</span><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Arashiyama+Bamboo+Grove">mappa</a></div>
+  </article>
+
+  <article class="day optional">
+    <div class="date"><div class="d">5</div><div class="m">giu</div><div class="w">sab</div></div>
+    <h4>Nara in giornata</h4>
+    <ul>
+      <li>Circa 45 minuti di treno. Cervi del parco, Tōdai-ji con il grande Buddha.</li>
+    </ul>
+    <div class="chips"><span class="chip opt">da decidere</span><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Todai-ji+Nara">mappa</a></div>
+  </article>
+
+  <article class="day">
+    <div class="date"><div class="d">6</div><div class="m">giu</div><div class="w">dom</div></div>
+    <h4>Fushimi Inari e Kiyomizu-dera</h4>
+    <ul>
+      <li>I torii arancioni di Fushimi Inari all'alba; basta il primo tratto, non serve la cima.</li>
+      <li>Kiyomizu-dera e la passeggiata verso Gion.</li>
+    </ul>
+    <div class="clara"><b>Clara:</b> a Fushimi ci sono molti gradini, meglio il marsupio.</div>
+    <div class="chips"><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha">mappa</a></div>
+  </article>
+
+  <div class="leg"><h3>Hiroshima e Miyajima</h3><span>lun 7 – mer 9 giugno</span></div>
+
+  <article class="day">
+    <div class="date"><div class="d">7</div><div class="m">giu</div><div class="w">lun</div></div>
+    <h4>Kyoto → Hiroshima</h4>
+    <ul>
+      <li>Shinkansen di circa 1 ora e 40.</li>
+      <li>Parco del Memoriale della Pace, Cupola della bomba atomica, Museo.</li>
+      <li>Okonomiyaki in stile Hiroshima per cena.</li>
+    </ul>
+    <div class="chips"><span class="chip must">Hiroshima</span><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Hiroshima+Peace+Memorial+Museum">mappa</a></div>
+  </article>
+
+  <article class="day">
+    <div class="date"><div class="d">8</div><div class="m">giu</div><div class="w">mar</div></div>
+    <h4>Miyajima: il torii nell'acqua</h4>
+    <ul>
+      <li>Treno JR per Miyajimaguchi + traghetto di 10 minuti; tassa di accesso all'isola di 100 ¥.</li>
+      <li>Il grande torii del santuario di Itsukushima sembra galleggiare quando la marea supera circa 250 cm; sotto i 100 cm ci si arriva a piedi.</li>
+      <li>Notte sull'isola: la sera, partiti i gitanti, è un'altra cosa.</li>
+    </ul>
+    <div class="note" style="margin:.6rem 0 0"><p>La data va scelta guardando la tabella delle maree dell'associazione turistica di Miyajima, prima di prenotare il ryokan.</p></div>
+    <div class="chips"><span class="chip must">torii</span><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Itsukushima+Shrine+Great+Torii">mappa</a></div>
+  </article>
+
+  <article class="day">
+    <div class="date"><div class="d">9</div><div class="m">giu</div><div class="w">mer</div></div>
+    <h4>Bassa marea al torii, poi Osaka (sosta a Himeji?)</h4>
+    <ul>
+      <li>Mattina: a piedi fino alla base del torii con la bassa marea.</li>
+      <li>Shinkansen per Osaka; <i>facoltativo</i> sosta di 2–3 ore al castello di Himeji, che è sulla linea.</li>
+    </ul>
+    <div class="chips"><span class="chip opt">Himeji da decidere</span><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Himeji+Castle">Himeji</a></div>
+  </article>
+
+  <div class="leg"><h3>Osaka</h3><span>mer 9 – sab 12 giugno</span></div>
+
+  <article class="day">
+    <div class="date"><div class="d">10</div><div class="m">giu</div><div class="w">gio</div></div>
+    <h4>Castello e acquario</h4>
+    <ul>
+      <li>Parco del castello di Osaka la mattina.</li>
+      <li>Acquario Kaiyūkan nel pomeriggio: al coperto, buono anche con la pioggia.</li>
+      <li>Dōtonbori la sera.</li>
+    </ul>
+    <div class="chips"><span class="chip must">Osaka</span><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Osaka+Castle">castello</a><a class="chip map" href="https://www.google.com/maps/search/?api=1&query=Kaiyukan+Osaka">Kaiyūkan</a></div>
+  </article>
+
+  <article class="day optional">
+    <div class="date"><div class="d">11</div><div class="m">giu</div><div class="w">ven</div></div>
+    <h4>Osaka da mangiare</h4>
+    <ul>
+      <li>Mercato Kuromon, Shinsekai, Umeda Sky Building al tramonto; oppure Kobe in mezza giornata.</li>
+    </ul>
+    <div class="chips"><span class="chip opt">tagliabile</span></div>
+  </article>
+
+  <article class="day travel">
+    <div class="date"><div class="d">12</div><div class="m">giu</div><div class="w">sab</div></div>
+    <h4>Volo di rientro da Osaka Kansai (KIX)</h4>
+    <ul><li>Dal centro a Kansai: treno Haruka o Nankai Rapi:t, 40–50 minuti.</li></ul>
+  </article>
+
+  <div class="note green">
+    <p><b>Versione da due settimane</b> (circa 15 giorni): togliere la giornata libera a Tokyo, Nara, la sosta a Himeji e il secondo giorno a Osaka. Il resto non cambia.</p>
+  </div>
+</section>
+
+<section id="scadenze">
+  <h2>Da prenotare, in ordine</h2>
+  <p class="sub">Gli orari giapponesi sono già convertiti in ora italiana.</p>
+  <table>
+    <thead><tr><th>Quando</th><th>Cosa</th></tr></thead>
+    <tbody>
+      <tr class="hot"><td class="when">Ora</td><td>Passaporto per Clara. Voli multi-tratta (arrivo Tokyo, partenza Osaka) con richiesta della culla di bordo.</td></tr>
+      <tr><td class="when">Gennaio–febbraio</td><td>Ryokan a Kawaguchiko e a Miyajima (pochi posti, si riempiono). Per Miyajima scegliere prima la data in base alle maree.</td></tr>
+      <tr><td class="when">Febbraio–marzo</td><td>Hotel a Tokyo, Nagoya, Kyoto, Hiroshima, Osaka, con cancellazione gratuita. Assicurazione sanitaria di viaggio per tutti e tre.</td></tr>
+      <tr class="hot"><td class="when">10 aprile, 07:00</td><td><b>Ghibli Park</b> per il 2 giugno: le vendite aprono il 10 di due mesi prima alle 14:00 giapponesi. Si esauriscono in fretta: sveglia puntata.</td></tr>
+      <tr><td class="when">10 aprile, 03:00</td><td><i>Solo se lo teniamo:</i> Museo Ghibli di Mitaka per il 28 maggio (vendite alle 10:00 giapponesi del 10 del mese precedente).</td></tr>
+      <tr><td class="when">Fine aprile – maggio</td><td>Shinkansen con l'app smartEX; Fuji Excursion da Shinjuku. Registrazione su Visit Japan Web (dogana e immigrazione) prima di partire.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="decidere">
+  <h2>Da decidere insieme</h2>
+  <p class="sub">Cose che potrebbero entrare o restare fuori. Ne parliamo e aggiorno la pagina.</p>
+  <div class="cands">
+    <div class="cand"><h4>Museo Ghibli di Mitaka (Tokyo)</h4><p>Museo piccolo e diverso dal parco, con cortometraggi che si vedono solo lì. Biglietti difficilissimi, venduti un mese prima.</p><p class="cost">+ mezza giornata a Tokyo</p></div>
+    <div class="cand"><h4>Nara</h4><p>Cervi liberi nel parco e il Tōdai-ji. Facile in giornata da Kyoto.</p><p class="cost">+ 1 giorno (già in bozza, tagliabile)</p></div>
+    <div class="cand"><h4>Castello di Himeji</h4><p>Uno dei pochi castelli originali rimasti, patrimonio UNESCO, sulla linea tra Hiroshima e Osaka.</p><p class="cost">+ 2–3 ore lungo il tragitto</p></div>
+    <div class="cand"><h4>Hakone</h4><p>Onsen, lago Ashi con un altro torii nell'acqua, vista sul Fuji dal lato sud. Alternativa o aggiunta a Kawaguchiko.</p><p class="cost">+ 1–2 notti</p></div>
+    <div class="cand"><h4>Acquario Kaiyūkan (Osaka)</h4><p>Lo squalo balena, tutto al coperto: piano B ideale con la pioggia.</p><p class="cost">già in bozza</p></div>
+    <div class="cand"><h4>Auto a noleggio al Fuji</h4><p>Con seggiolino per Clara: rende più semplici Chūreitō, Aokigahara e le albe. Serve il permesso di guida internazionale.</p><p class="cost">2 giorni</p></div>
+  </div>
+</section>
+
+<section id="pratico">
+  <h2>Pratico</h2>
+  <div class="grid2">
+    <div class="panel">
+      <h4>Treni</h4>
+      <ul>
+        <li>Il Japan Rail Pass non conviene con questo giro: le tratte lunghe sommate costano molto meno del pass da 14 giorni (80.000 ¥ sul sito ufficiale, 84.000 ¥ dalle agenzie estere dal 1° ottobre 2026).</li>
+        <li>Biglietti singoli con smartEX + carta IC (Suica/ICOCA nel portafoglio del telefono).</li>
+        <li>Sotto i 6 anni si viaggia gratis senza posto proprio.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Con Clara</h4>
+      <ul>
+        <li>Passeggino leggero e pieghevole + marsupio: il passeggino porta le borse, il marsupio serve su scale e sentieri.</li>
+        <li>Baby room in stazioni, centri commerciali e grandi magazzini, con fasciatoio e spazio per allattare.</li>
+        <li>Pannolini e omogeneizzati si comprano sul posto (Akachan Honpo, farmacie).</li>
+        <li>Spedire le valigie tra gli hotel con il servizio takkyūbin.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Meteo</h4>
+      <ul>
+        <li>Fine maggio: caldo mite, giornate lunghe.</li>
+        <li>Da circa il 6–8 giugno inizia in media la stagione delle piogge su Kyoto, Osaka e Hiroshima: ombrello sempre, e un piano al coperto per ogni giorno.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Costi da ricordare</h4>
+      <ul>
+        <li>Tassa di uscita dal Giappone: 3.000 ¥ a persona dal 1° luglio 2026, già inclusa nel biglietto aereo.</li>
+        <li>Ghibli Park Premium: 7.300 ¥ nei feriali (prezzi 2026).</li>
+        <li>Miyajima: 100 ¥ di tassa di accesso, santuario 300 ¥.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer id="fonti">
+  <b>Fonti consultate (novembre 2026)</b>
+  <ol>
+    <li><a href="https://ghibli-park.jp/en/ticket/">Ghibli Park – biglietti per l'estero</a></li>
+    <li><a href="https://www.japan-travel-kit.com/guides/attractions/ghibli-park-tickets">Japan Travel Kit – prezzi, chiusure e accesso a Ghibli Park</a></li>
+    <li><a href="https://www.tanaka-tokyotours.com/2026/04/10/another-price-increase-for-the-japan-rail-pass-oct-2026/">Prezzi del Japan Rail Pass da ottobre 2026</a></li>
+    <li><a href="https://www.mlit.go.jp/kankocho/content/001996466.pdf">Japan Tourism Agency – International Tourist Tax</a></li>
+    <li><a href="https://www.jrailpass.com/blog/rainy-season-japan">Date medie della stagione delle piogge</a></li>
+    <li><a href="https://www.magical-trip.com/media/mt-fuji-weather-guide-2025-seasonal-climate-insights-best-viewing-times-and-climbing-conditions/">Visibilità del Fuji per mese (dati Fuji City)</a></li>
+    <li><a href="https://www.japan.travel/en/spot/1335/">JNTO – Aokigahara</a> · <a href="https://www.japan.travel/spot/201/">Narusawa Ice Cave</a></li>
+    <li><a href="https://goasia.cc/en/article/itsukushima-shrine-miyajima">Miyajima: maree, tassa, traghetti</a></li>
+    <li><a href="https://watabi.org/en/articles/japan-family-travel-guide">Viaggiare in Giappone con bambini</a></li>
+  </ol>
+  <span class="stamp">Pagina privata, non indicizzata e non collegata dal sito. Ultimo aggiornamento: 15 novembre 2026.</span>
+</footer>
+
+</div>
+</body>
+</html>
