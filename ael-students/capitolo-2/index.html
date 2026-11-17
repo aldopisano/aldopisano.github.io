@@ -111,7 +111,10 @@ p{margin:.65rem 0}
 .racconto{border-left:6px solid var(--line);padding:.2rem 0 .2rem 1rem;margin:0 0 1rem}
 .fonte-r{font-size:.85rem;color:var(--muted);margin:.2rem 0 0}
 .sit{font-weight:700}
-.nav-cap{border:1px solid currentColor;border-radius:999px}
+.nav-caps{display:inline-flex;align-items:center;gap:.3rem;margin-left:.3rem}
+.nav-caps .nc-l{font-size:.85rem;opacity:.85}
+.nav-caps a{min-width:2.1rem;text-align:center;border:1px solid currentColor;border-radius:999px;padding:.2rem .45rem}
+.nav-caps a[aria-current="page"]{background:#ffffff;color:#123e7c;font-weight:700}
 .domanda{background:var(--pause-soft);border-radius:10px;padding:1rem 1.2rem}
 .domanda-t{font-family:var(--font-head);font-size:1.25rem;font-weight:600;color:var(--heading);margin:.2rem 0}
 .domanda-cap{font-family:var(--font-head);font-size:clamp(1.3rem,3.4vw,1.7rem);font-weight:700;color:var(--heading);text-align:left;margin:1.2rem 0;padding-left:1rem;border-left:6px solid var(--accent)}
@@ -261,7 +264,7 @@ footer.piede{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:
       <a href="#schede" data-nav="schede">Schede</a>
       <a href="#esercizi" data-nav="esercizi">Esercizi</a>
       <a href="#glossario" data-nav="glossario">Glossario</a>
-      <a href="../" class="nav-cap">Capitolo 1</a>
+      <span class="nav-caps" role="group" aria-label="Capitoli"><span class="nc-l" aria-hidden="true">Cap.</span><a href="../" aria-label="Capitolo 1">1</a><a href="./" aria-current="page" aria-label="Capitolo 2, quello che stai leggendo">2</a><a href="../capitolo-3/" aria-label="Capitolo 3">3</a></span>
     </nav>
     <button type="button" class="btn-acc" id="apri-acc" aria-expanded="true" aria-controls="acc">Accessibilità</button>
   </div>
@@ -767,7 +770,7 @@ footer.piede{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:
     if (!document.querySelector('[data-view="' + h + '"]')){ target = 'capitolo'; scroll = document.getElementById(h); }
     viste.forEach(function(v){ v.hidden = v.getAttribute('data-view') !== target; });
     var nav = target.indexOf('scheda') === 0 ? 'schede' : (target.indexOf('esercizi') === 0 ? 'esercizi' : target);
-    document.querySelectorAll('.nav a').forEach(function(a){ if (a.getAttribute('data-nav') === nav) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    document.querySelectorAll('.nav a[data-nav]').forEach(function(a){ if (a.getAttribute('data-nav') === nav) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     ferma();
     if (scroll){ scroll.scrollIntoView({ block: 'start' }); window.scrollBy(0, -90); if (!scroll.hasAttribute('tabindex')) scroll.setAttribute('tabindex', '-1'); scroll.focus({ preventScroll: true }); }
     else if (target !== 'capitolo' || h === 'capitolo'){ window.scrollTo(0, 0); var t = document.querySelector('[data-view="' + target + '"] h1'); if (t && target !== 'capitolo') t.focus({ preventScroll: true }); }

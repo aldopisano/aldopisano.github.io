@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Elementi di etica e intelligenza artificiale</title>
+<meta name="description" content="Capitolo 3 di AI and Ethics Literacy for Students: versione digitale con schede, esercizi e lettura ad alta voce.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Lexend:wght@400;600;700&display=swap">
+<style>
+/* Layout: colonna di lettura con glosse laterali (a lato su schermi larghi, in testa al sottoparagrafo su telefono);
+   barra di accessibilità fissa; viste (capitolo, schede, esercizi, glossario) scelte con #hash. */
+:root{
+  --bg:#f2f6fb; --sheet:#ffffff; --ink:#14233a; --muted:#4b5c75; --line:#d3deec;
+  --heading:#123e7c; --accent:#1f5fae; --accent-ink:#ffffff; --band:#123e7c; --on-band:#ffffff;
+  --key:#2f7d4c; --key-soft:#eaf5ee; --works:#2a8bd0; --works-soft:#e9f3fc;
+  --pause:#1f5fae; --pause-soft:#eef3fb; --hl:#fff2b8; --focus:#e0a400; --ok:#2f7d4c; --ko:#b3261e;
+  --font-body:"Atkinson Hyperlegible", Verdana, Arial, sans-serif;
+  --font-head:"Lexend", "Trebuchet MS", Arial, sans-serif;
+  --fs:1; --lh:1.65; --ls:0em; --ws:0em;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1828; --sheet:#14243b; --ink:#e7edf6; --muted:#a9b8cc; --line:#2c3f5b;
+    --heading:#a9cbf5; --accent:#8db9f2; --accent-ink:#0d1828; --band:#0b2550; --on-band:#ffffff;
+    --key:#6cc28d; --key-soft:#16301f; --works:#6cb8ec; --works-soft:#132b40;
+    --pause:#8db9f2; --pause-soft:#172a45; --hl:#5a4a00; --focus:#ffcc33; --ok:#7bd39b; --ko:#ff8a80;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1828; --sheet:#14243b; --ink:#e7edf6; --muted:#a9b8cc; --line:#2c3f5b;
+  --heading:#a9cbf5; --accent:#8db9f2; --accent-ink:#0d1828; --band:#0b2550; --on-band:#ffffff;
+  --key:#6cc28d; --key-soft:#16301f; --works:#6cb8ec; --works-soft:#132b40;
+  --pause:#8db9f2; --pause-soft:#172a45; --hl:#5a4a00; --focus:#ffcc33; --ok:#7bd39b; --ko:#ff8a80;
+  color-scheme:dark;
+}
+:root[data-contrast="alto"]{
+  --bg:#000000; --sheet:#000000; --ink:#ffffff; --muted:#ffffff; --line:#ffffff;
+  --heading:#ffeb3b; --accent:#9fd3ff; --accent-ink:#000000; --band:#000000; --on-band:#ffeb3b;
+  --key:#7cff7c; --key-soft:#000000; --works:#00e5ff; --works-soft:#000000;
+  --pause:#9fd3ff; --pause-soft:#000000; --hl:#5c4b00; --focus:#ffeb3b; --ok:#7cff7c; --ko:#ff8a80;
+  color-scheme:dark;
+}
+html{font-size:calc(100% * var(--fs))}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:var(--lh);letter-spacing:var(--ls);word-spacing:var(--ws)}
+*,*::before,*::after{box-sizing:border-box}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--band)}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+[tabindex="-1"]:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.salta{position:absolute;left:-999px;top:0;background:var(--sheet);color:var(--ink);padding:.6rem 1rem;z-index:30}
+.salta:focus{left:16px}
+
+/* Testata */
+.testata{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--band);color:var(--on-band);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.5rem}
+.testata-in{max-width:72rem;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem}
+.marchio{display:flex;align-items:center;gap:.6rem;color:var(--on-band);text-decoration:none;min-width:0}
+.marchio img{width:3.4rem;height:auto;background:#fff;border-radius:6px;padding:.2rem .3rem;display:block}
+.marchio span{font-family:var(--font-head);font-weight:600;font-size:.95rem;line-height:1.2}
+.nav{display:flex;flex-wrap:wrap;gap:.25rem;margin-left:auto}
+.nav a{color:var(--on-band);text-decoration:none;font-family:var(--font-head);font-size:.9rem;padding:.35rem .65rem;border-radius:999px}
+.nav a[aria-current="page"]{background:rgba(255,255,255,.18);text-decoration:underline;text-underline-offset:4px}
+.btn-acc{font:inherit;font-family:var(--font-head);font-size:.9rem;background:#fff;color:#123e7c;border:0;border-radius:999px;padding:.4rem .8rem;cursor:pointer;font-weight:600}
+:root[data-contrast="alto"] .btn-acc{background:#ffeb3b;color:#000}
+
+/* Pannello accessibilità */
+.acc{background:var(--sheet);border-bottom:2px solid var(--line);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.8rem}
+.acc-in{max-width:72rem;margin:0 auto;display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;align-items:center}
+.acc-gr{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.acc-gr .t{font-family:var(--font-head);font-size:.85rem;color:var(--muted);margin-right:.2rem}
+.btn{font:inherit;font-family:var(--font-head);font-size:.9rem;font-weight:600;background:var(--accent);color:var(--accent-ink);border:2px solid var(--accent);border-radius:8px;padding:.45rem .8rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;line-height:1.2}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn[aria-pressed="true"]{background:var(--key);border-color:var(--key);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.piccolo{font-size:.85rem;color:var(--muted);margin:.3rem 0 0}
+#voce-msg{flex-basis:100%}
+
+/* Impianto */
+main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.5rem 3rem}
+.vista{max-width:72rem;margin:0 auto}
+.foglio{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:clamp(1rem,3vw,2.4rem)}
+h1,h2,h3{font-family:var(--font-head);color:var(--heading);text-wrap:balance;line-height:1.2}
+h1{font-size:clamp(1.8rem,5vw,2.6rem);margin:.2rem 0 1rem;font-weight:700}
+h2{font-size:clamp(1.4rem,3.6vw,1.9rem);margin:0;font-weight:700}
+h3{font-size:1.2rem;margin:2rem 0 .6rem;font-weight:600}
+h3 .n{color:var(--muted);font-weight:400;margin-right:.3rem}
+p{margin:.65rem 0}
+.lbl{display:block;font-family:var(--font-head);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.intro{max-width:44rem;color:var(--muted)}
+.riga-btn{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0}
+
+/* Apertura */
+.cap-num{font-family:var(--font-head);font-weight:600;color:var(--key);letter-spacing:.08em;text-transform:uppercase;margin:0}
+.stimolo{margin:1rem 0 1.4rem}
+.scelte{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:.6rem 0}
+@media (max-width:760px){.scelte{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scelta{font:inherit;text-align:left;background:#ffffff;border:2px solid var(--line);border-radius:10px;padding:.5rem;cursor:pointer;display:flex;flex-direction:column;gap:.3rem;color:#14233a}
+.scelta svg{width:100%;height:auto;display:block}
+.scelta-cap{font-size:.92rem;line-height:1.3}
+.scelta-cap b{font-family:var(--font-head);color:#123e7c;margin-right:.2rem}
+.scelta[aria-pressed="true"]{border-color:var(--key);box-shadow:0 0 0 3px var(--key)}
+.scelte-t{display:flex;flex-wrap:wrap;gap:.6rem;margin:.6rem 0}
+.scelta-t{flex-direction:row;align-items:center;padding:.55rem .8rem;font-size:1rem}
+.scelta-t b{font-family:var(--font-head);color:#123e7c}
+.stimolo .racconto-fig{max-width:520px;margin:.4rem auto 1rem}
+.racconto{border-left:6px solid var(--line);padding:.2rem 0 .2rem 1rem;margin:0 0 1rem}
+.fonte-r{font-size:.85rem;color:var(--muted);margin:.2rem 0 0}
+.sit{font-weight:700}
+.nav-caps{display:inline-flex;align-items:center;gap:.3rem;margin-left:.3rem}
+.nav-caps .nc-l{font-size:.85rem;opacity:.85}
+.nav-caps a{min-width:2.1rem;text-align:center;border:1px solid currentColor;border-radius:999px;padding:.2rem .45rem}
+.nav-caps a[aria-current="page"]{background:#ffffff;color:#123e7c;font-weight:700}
+.domanda{background:var(--pause-soft);border-radius:10px;padding:1rem 1.2rem}
+.domanda-t{font-family:var(--font-head);font-size:1.25rem;font-weight:600;color:var(--heading);margin:.2rem 0}
+.domanda-cap{font-family:var(--font-head);font-size:clamp(1.3rem,3.4vw,1.7rem);font-weight:700;color:var(--heading);text-align:left;margin:1.2rem 0;padding-left:1rem;border-left:6px solid var(--accent)}
+.percorso ol{list-style:none;padding:0;margin:.4rem 0;display:grid;gap:.4rem}
+.percorso a{text-decoration:none;color:var(--ink)}
+.percorso a b{font-family:var(--font-head);color:var(--accent);margin-right:.3rem}
+.legenda ul{list-style:none;padding:0;margin:.4rem 0;display:grid;gap:.35rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.legenda li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.leg-mark{flex:none;width:.4rem;align-self:stretch;border-radius:2px;background:var(--line);min-height:1.4rem}
+.leg-key .leg-mark{background:var(--key)}
+.leg-pausa .leg-mark{background:var(--pause)}
+.leg-scheda .leg-mark{background:var(--heading)}
+.leg-glossa .leg-mark{background:var(--muted)}
+.percorso,.legenda{margin-top:1rem}
+
+/* Paragrafi */
+.par{margin-top:2.6rem;padding-top:1.4rem;border-top:3px solid var(--heading)}
+.par-head{display:grid;gap:.3rem}
+.par-num{font-family:var(--font-head);font-weight:700;color:var(--key);margin:0}
+.par-tools{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+.ponte{font-style:italic;color:var(--muted)}
+.guida{margin:1rem 0;padding:.8rem 1rem;border-radius:10px;background:var(--pause-soft)}
+.guida p{font-family:var(--font-head);font-size:1.15rem;font-weight:600;color:var(--heading);margin:.2rem 0}
+.sotto .testo{display:grid;grid-template-columns:minmax(0,1fr) 15rem;column-gap:2rem;align-items:start}
+.sotto .testo > *{grid-column:1}
+.sotto .testo > h3{grid-column:1 / -1}
+.sotto .glossa{grid-column:2;grid-row:2 / span 40;position:sticky;top:6rem;align-self:start;border-left:3px solid var(--line);padding:.2rem 0 .2rem .9rem;font-size:.95rem;color:var(--muted)}
+.glossa p{margin:.2rem 0}
+@media (max-width:900px){
+  .sotto .testo{display:block}
+  .sotto .glossa{position:static;background:var(--pause-soft);border-left:3px solid var(--muted);border-radius:6px;padding:.5rem .8rem;margin:.4rem 0 .8rem}
+}
+.key{border-left:6px solid var(--key);background:var(--key-soft);border-radius:0 8px 8px 0;padding:.6rem 1rem;margin:1.1rem 0}
+.key .lbl{color:var(--key)}
+.key p{font-weight:700;margin:.2rem 0}
+.pausa{border:2px dashed var(--pause);border-radius:10px;padding:.7rem 1rem;margin:1.1rem 0;background:var(--sheet)}
+.pausa .lbl{color:var(--pause)}
+.nota summary,.descr summary{cursor:pointer;font-family:var(--font-head);font-size:.9rem;color:var(--accent)}
+textarea{width:100%;font:inherit;font-size:1rem;border:2px solid var(--line);border-radius:8px;padding:.6rem;background:var(--sheet);color:var(--ink)}
+.etichetta{font-family:var(--font-head);font-size:.9rem;font-weight:600;display:block;margin-top:.6rem}
+.citazione{margin:1rem 0;padding:.8rem 1rem;border-left:4px solid var(--heading);background:var(--pause-soft);border-radius:0 8px 8px 0}
+.citazione blockquote{margin:0}
+.citazione figcaption{font-size:.85rem;color:var(--muted);margin-top:.4rem}
+.elenco{padding-left:1.3rem}
+.elenco li{margin:.3rem 0}
+.tab-wrap{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;min-width:28rem;font-size:.97rem}
+caption{text-align:left;font-family:var(--font-head);font-weight:600;color:var(--heading);padding-bottom:.4rem}
+th,td{border-bottom:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top}
+thead th{font-family:var(--font-head);font-size:.85rem;color:var(--muted)}
+tbody th{font-family:var(--font-head);color:var(--heading)}
+.fig{margin:1.2rem 0}
+.fig-img{background:#ffffff;border:1px solid var(--line);border-radius:10px;padding:.8rem;max-width:36rem}
+.fig-img svg{width:100%;height:auto;display:block}
+.fig figcaption{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+.scheda-ref{margin:1rem 0;padding:.6rem .9rem;border:1px solid var(--line);border-radius:10px;display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.scheda-ref .lbl{flex-basis:100%}
+.scheda-link{text-decoration:none;font-weight:700;display:inline-flex;gap:.4rem;align-items:baseline}
+.cod{font-family:var(--font-head);font-size:.8rem;font-weight:700;color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:.05rem .35rem}
+.kw{font:inherit;font-weight:700;color:inherit;background:none;border:0;padding:0;border-bottom:2px dotted var(--accent);cursor:help}
+.kw-def{display:block;margin:.3rem 0 .5rem;padding:.4rem .7rem;border-radius:6px;background:var(--pause-soft);font-size:.95rem;font-weight:400}
+.readable.letto{background:var(--hl);border-radius:4px;outline:2px solid var(--focus)}
+body.ascolto .readable{cursor:pointer}
+body.ascolto .readable:hover{background:var(--pause-soft)}
+
+/* Sintesi */
+.mappa{list-style:none;padding:0;margin:1rem 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.7rem;counter-reset:m}
+@media (max-width:900px){.mappa{grid-template-columns:minmax(0,1fr)}}
+.mappa li{counter-increment:m;background:var(--pause-soft);border-top:5px solid var(--heading);border-radius:8px;padding:.7rem .8rem;font-size:.97rem;position:relative}
+.mappa li::before{content:counter(m);font-family:var(--font-head);font-weight:700;font-size:1.4rem;color:var(--heading);display:block}
+.mappa .sez{display:block;font-family:var(--font-head);font-size:.78rem;color:var(--muted)}
+.finale{margin:1.4rem 0;padding:1rem 1.2rem;border-radius:10px;background:var(--pause-soft)}
+.opere ul{list-style:none;padding:0;display:grid;gap:.8rem;margin:.6rem 0}
+.opere li{border-left:6px solid var(--works);background:var(--works-soft);border-radius:0 8px 8px 0;padding:.6rem 1rem}
+.opere .tipo{font-family:var(--font-head);font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--works)}
+.opere .tit{font-weight:700;margin:.15rem 0}
+.opere p{margin:.2rem 0}
+
+/* Schede ed esercizi */
+.schede-grid{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}
+.scheda-card{display:flex;flex-direction:column;gap:.3rem;height:100%;padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--sheet);text-decoration:none;color:var(--ink)}
+.scheda-card .cod{align-self:flex-start}
+.scheda-card .t{font-family:var(--font-head);font-weight:600;color:var(--heading)}
+.scheda-card .p{font-size:.85rem;color:var(--muted)}
+.cod-grande{font-family:var(--font-head);font-weight:600;color:var(--key);margin:0}
+.scheda .scheda-corpo{max-width:46rem}
+.scheda-fig{margin:1rem 0}
+.def{list-style:none;padding:0;display:grid;gap:.6rem;counter-reset:d}
+.def li{border-left:5px solid var(--heading);background:var(--pause-soft);border-radius:0 8px 8px 0;padding:.5rem .9rem}
+.def-q{font-style:italic;margin:.1rem 0}
+.def-a{font-weight:700;margin:.1rem 0}
+.tre{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+@media (max-width:700px){.tre{grid-template-columns:minmax(0,1fr)}}
+.col3{border-top:5px solid var(--heading);background:var(--pause-soft);border-radius:8px;padding:.6rem .8rem}
+.timeline{list-style:none;padding:0;margin:1rem 0;border-left:3px solid var(--heading)}
+.timeline li{position:relative;padding:.2rem 0 .5rem 1.2rem}
+.timeline li::before{content:"";position:absolute;left:-.55rem;top:.55rem;width:.8rem;height:.8rem;border-radius:50%;background:var(--key);border:2px solid var(--sheet)}
+.timeline .anno{font-family:var(--font-head);font-weight:700;color:var(--heading)}
+.timeline p{margin:.1rem 0}
+.nota-s{border-left:4px solid var(--key);padding-left:.8rem}
+.fonte{font-size:.85rem;color:var(--muted);margin-top:1.4rem}
+.esercizio{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}
+.esercizio h2{font-size:1.3rem}
+.es-voce{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.es-voce:last-child{border-bottom:0}
+.es-voce select{font:inherit;padding:.35rem;border:2px solid var(--line);border-radius:6px;background:var(--sheet);color:var(--ink);max-width:100%}
+.fb{margin:.3rem 0 0;font-size:.95rem}
+.fb.ok{color:var(--ok)} .fb.ko{color:var(--ko)}
+.fb.ok::before{content:"✓ ";font-weight:700} .fb.ko::before{content:"✗ ";font-weight:700}
+.vf-r{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.3rem}
+.vf-r label{display:inline-flex;gap:.3rem;align-items:center;cursor:pointer}
+.ordina{list-style:none;padding:0;display:grid;gap:.4rem}
+.ordina li{display:flex;align-items:center;gap:.5rem;border:1px solid var(--line);border-radius:8px;padding:.4rem .6rem;background:var(--pause-soft)}
+.ordina li span{flex:1;min-width:0}
+.ordina button{font:inherit;width:2.2rem;height:2.2rem;border-radius:6px;border:2px solid var(--accent);background:var(--sheet);color:var(--accent);cursor:pointer}
+.risposte{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+@media (max-width:700px){.risposte{grid-template-columns:minmax(0,1fr)}}
+.risposta{font:inherit;text-align:left;border:2px solid var(--line);border-radius:10px;padding:.7rem .9rem;background:var(--sheet);color:var(--ink);cursor:pointer}
+.risposta b{font-family:var(--font-head);color:var(--heading)}
+.risposta[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent)}
+.opzioni{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
+.barre{display:grid;gap:.3rem;margin:.6rem 0;max-width:34rem}
+.barra{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:.6rem;align-items:center;font-size:.95rem}
+.barra .b{height:1rem;border-radius:3px;background:var(--accent);min-width:2px}
+.barra.scelta-tua .b{background:var(--key)}
+.barra .v{font-variant-numeric:tabular-nums;font-weight:700;margin-left:.4rem}
+.barra .bw{display:flex;align-items:center}
+.proposta{border-left:4px solid var(--key);padding-left:.8rem;margin:.4rem 0}
+.glossario{display:grid;gap:.2rem}
+.voce{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.voce dt{font-family:var(--font-head);font-weight:600;color:var(--heading)}
+.voce dd{margin:.2rem 0 0}
+footer.piede{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+.piede-in{max-width:72rem;margin:0 auto}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<a class="salta" href="#capitolo">Vai al testo</a>
+<header class="testata">
+  <div class="testata-in">
+    <a class="marchio" href="#capitolo"><img src="logo-ael.jpg" alt="AI and Ethics Literacy" width="720" height="381"><span>for Students<br>Capitolo 3</span></a>
+    <nav class="nav" aria-label="Sezioni">
+      <a href="#capitolo" data-nav="capitolo">Leggi</a>
+      <a href="#schede" data-nav="schede">Schede</a>
+      <a href="#esercizi" data-nav="esercizi">Esercizi</a>
+      <a href="#glossario" data-nav="glossario">Glossario</a>
+      <span class="nav-caps" role="group" aria-label="Capitoli"><span class="nc-l" aria-hidden="true">Cap.</span><a href="../" aria-label="Capitolo 1">1</a><a href="../capitolo-2/" aria-label="Capitolo 2">2</a><a href="./" aria-current="page" aria-label="Capitolo 3, quello che stai leggendo">3</a></span>
+    </nav>
+    <button type="button" class="btn-acc" id="apri-acc" aria-expanded="true" aria-controls="acc">Accessibilità</button>
+  </div>
+</header>
+<div class="acc" id="acc" role="region" aria-label="Accessibilità">
+  <div class="acc-in">
+    <div class="acc-gr" role="group" aria-label="Dimensione del testo">
+      <span class="t">Testo</span>
+      <button type="button" class="btn ghost" id="fs-meno" aria-label="Riduci il testo">A−</button>
+      <button type="button" class="btn ghost" id="fs-norm" aria-label="Testo normale">A</button>
+      <button type="button" class="btn ghost" id="fs-piu" aria-label="Ingrandisci il testo">A+</button>
+    </div>
+    <div class="acc-gr">
+      <button type="button" class="btn ghost" id="spazi" aria-pressed="false">Spaziatura ampia</button>
+      <button type="button" class="btn ghost" id="contrasto" aria-pressed="false">Alto contrasto</button>
+    </div>
+    <div class="acc-gr" role="group" aria-label="Lettura ad alta voce">
+      <span class="t">Voce</span>
+      <button type="button" class="btn ghost" id="ascolto" aria-pressed="false">Leggi al clic</button>
+      <button type="button" class="btn ghost" id="ferma">■ Ferma</button>
+      <label class="t" for="velocita">Velocità</label>
+      <input type="range" id="velocita" min="0.7" max="1.3" step="0.1" value="1">
+    </div>
+    <p class="piccolo" id="voce-msg" aria-live="polite">Con «Leggi al clic» attivo, premi un paragrafo per ascoltarlo. Anche il tasto Invio funziona.</p>
+  </div>
+</div>
+
+<main id="main" lang="it">
+  <div class="vista" data-view="capitolo" id="capitolo">
+    <article class="foglio">
+      
+<section class="apertura" id="apertura" aria-labelledby="cap-t">
+  <p class="cap-num">Capitolo 3</p>
+  <h1 id="cap-t" class="readable">Elementi di etica e intelligenza artificiale</h1>
+  <div class="stimolo">
+    <p class="lbl">Stimolo · Il voto dell&#x27;algoritmo</p>
+    <figure class="fig racconto-fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" role="img" aria-label="La schermata di un registro elettronico. Alla voce media dell'anno c'è un 7, barrato; alla voce voto finale c'è un 6, accompagnato da un'icona a forma di ingranaggio e dalla scritta: calcolato dall'algoritmo." focusable="false" >
+<rect x="0" y="0" width="360" height="200" fill="#ffffff"/>
+<rect x="40" y="10" width="280" height="180" rx="14" fill="#e6eff9" stroke="#123e7c" stroke-width="2.5"/>
+<rect x="40" y="10" width="280" height="34" rx="14" fill="#123e7c"/>
+<rect x="40" y="30" width="280" height="14" fill="#123e7c"/>
+<text x="60" y="33" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">Registro elettronico</text>
+<text x="60" y="72" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" fill="#14233a">Media dell'anno</text>
+<text x="262" y="78" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="28" font-weight="700" fill="#1f5fae">7</text>
+<line x1="248" y1="82" x2="278" y2="54" stroke="#b3261e" stroke-width="3" stroke-linecap="round"/>
+<line x1="60" y1="96" x2="300" y2="96" stroke="#8a9bb3" stroke-width="1"/>
+<text x="60" y="126" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#14233a">Voto finale</text>
+<rect x="238" y="104" width="48" height="40" rx="8" fill="#ffffff" stroke="#123e7c" stroke-width="2"/>
+<text x="262" y="134" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="28" font-weight="700" fill="#123e7c">6</text>
+<g transform="translate(78 166)">
+<circle r="11" fill="none" stroke="#3f8f5c" stroke-width="4" stroke-dasharray="5 3.6"/>
+<circle r="4" fill="#3f8f5c"/></g>
+<text x="98" y="170" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11.5" fill="#14233a">calcolato dall'algoritmo</text></svg></div></figure>
+    <div class="racconto"><p class="readable">Immagina di trovare sul registro elettronico questa comunicazione: «Da quest'anno il voto finale di ogni materia non sarà deciso dal consiglio di classe. Lo calcolerà un algoritmo, a partire da tre dati: i voti che hai preso durante l'anno, la tua posizione nella classe e i risultati che gli studenti della tua scuola hanno ottenuto negli ultimi tre anni. Il sistema è rapido, costa poco ed è, assicura chi lo vende, perfettamente oggettivo».</p><p class="readable">Per tutto l'anno hai avuto la media del sette. L'algoritmo ti assegna sei: negli ultimi anni, nella tua scuola, pochissimi hanno superato il sei in quella materia.</p><p class="fonte-r">Una simulazione. Ma è davvero solo una simulazione? Lo scoprirai nel § 3.1.</p></div>
+    <div class="domanda">
+      <p class="readable domanda-t">È giusto? E se il voto fosse sbagliato, a chi chiederesti conto?</p>
+      <p class="readable">Scegli una risposta e scrivi a chi chiederesti conto del voto, prima di andare avanti. La ritroverai alla fine del capitolo.</p>
+      <div class="scelte scelte-t" role="group" data-esclusiva="1" aria-label="Scegli una risposta"><button type="button" class="scelta scelta-t" data-scelta="A" aria-pressed="false"><b>A</b> È giusto: tratta tutti allo stesso modo</button><button type="button" class="scelta scelta-t" data-scelta="B" aria-pressed="false"><b>B</b> Non è giusto</button><button type="button" class="scelta scelta-t" data-scelta="C" aria-pressed="false"><b>C</b> Dipende</button></div>
+      <p class="piccolo" id="scelta-stato" aria-live="polite">Premi una risposta per scegliere. La scelta resta solo su questo dispositivo.</p>
+      <label for="perche-inizio" class="etichetta">Perché?</label>
+      <textarea id="perche-inizio" data-store="perche-inizio" rows="3"></textarea>
+    </div>
+  </div>
+  <p class="readable">Un algoritmo che assegna i voti sembra imparziale: non ha simpatie, non si stanca, applica a tutti la stessa formula. Eppure qualcosa non torna. Questo capitolo prova a capire che cosa, mettendo insieme i primi due: come funzionano i sistemi di IA e come si ragiona in etica.</p>
+  <p class="domanda-cap readable">Possiamo affidare le decisioni alle macchine?</p>
+  <div class="percorso"><p class="lbl">Il percorso del capitolo</p><ol><li><a href="#p3-1"><b>3.1</b> Dati che discriminano: bias e giustizia</a></li><li><a href="#p3-2"><b>3.2</b> Fidarsi troppo: autonomia, narrazioni e potere</a></li><li><a href="#p3-3"><b>3.3</b> Regole e scelte: dai principi a ciò che posso fare io</a></li></ol></div>
+  <div class="legenda"><p class="lbl">Come leggere questo capitolo</p><ul><li class="leg-key"><span class="leg-mark" aria-hidden="true"></span><b>Concetto chiave</b>: la linea verde segna l&#x27;idea da ricordare</li><li class="leg-pausa"><span class="leg-mark" aria-hidden="true"></span><b>Pausa per pensare</b>: fermati e rispondi, per iscritto o a voce</li><li class="leg-scheda"><span class="leg-mark" aria-hidden="true"></span><b>Scheda online</b>: dieci righe di approfondimento: inquadra il codice e torna subito al testo</li><li class="leg-glossa"><span class="leg-mark" aria-hidden="true"></span><b>Glossa</b>: a lato, in breve, che cosa dice ogni parte del paragrafo</li></ul></div>
+</section><section class="par" id="p3-1" aria-labelledby="p3-1-t"><header class="par-head"><p class="par-num">§ 3.1</p><h2 id="p3-1-t" class="readable">Dati che discriminano: bias e giustizia</h2><div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="p3-1"><span aria-hidden="true">▶</span> Ascolta il paragrafo</button><a class="btn ghost" href="#esercizi-3-1">Esercizi del § 3.1</a></div></header><div class="guida"><span class="lbl">Domanda-guida</span><p class="readable">Un algoritmo può essere ingiusto se nessuno lo vuole?</p></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.1.1</span> I dati, uno specchio del passato</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Un sistema che impara dai dati impara anche gli errori del passato: se le decisioni passate erano ingiuste, rischia di ripeterle.</p></aside><p class="readable">Nel capitolo 1 abbiamo visto che un sistema di apprendimento automatico ricava regolarità dagli esempi e produce previsioni probabili. Gli esempi, però, vengono dal passato: registrano decisioni prese da persone, con i loro errori e i loro pregiudizi. Un sistema che impara da quei dati impara anche quelli.</p><p class="readable">Nel 2018 l'agenzia Reuters rivelò che Amazon aveva abbandonato un sistema sperimentale per selezionare i curricula. Era stato addestrato sulle assunzioni dei dieci anni precedenti, in gran parte di uomini, e aveva imparato a penalizzare i curricula che contenevano la parola «women's», per esempio «capitana del club femminile di scacchi». Nessuno aveva scritto la regola «scarta le donne»: il sistema l'aveva ricavata dai dati.</p><p class="readable">Per indicare questo tipo di distorsione si usa la parola inglese <button type="button" class="kw" data-term="Bias" aria-expanded="false">bias</button>, che significa inclinazione: un errore sistematico che favorisce o sfavorisce sempre gli stessi gruppi di persone.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">Un algoritmo può essere ingiusto anche se nessuno lo vuole: i dati riflettono il passato, con le sue disuguaglianze.</p></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.1.2</span> Da dove entra il bias</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Il bias può entrare dai dati, dalle scelte di chi progetta e dal modo in cui il sistema viene usato.</p></aside><p class="readable">Il bias non è un guasto che compare all'improvviso. Può entrare da tre porte.</p><div class="tab-wrap"><table><caption>Tre porte d&#x27;ingresso del bias</caption><thead><tr><th scope="col"></th><th scope="col">Che cosa succede</th><th scope="col">Esempio</th></tr></thead><tbody><tr><th scope="row">Dati</th><td>Gli esempi sono pochi per alcuni gruppi, oppure riflettono disuguaglianze passate</td><td>Un sistema che riconosce i volti addestrato soprattutto su volti di uomini dalla pelle chiara</td></tr><tr><th scope="row">Progettazione</th><td>Chi progetta sceglie che cosa misurare e che cosa ottimizzare</td><td>Usare il quartiere in cui si vive come indizio di affidabilità, che finisce per indicare anche l'origine delle persone</td></tr><tr><th scope="row">Uso</th><td>Il sistema viene usato in un contesto diverso da quello per cui è nato</td><td>Un modello costruito per una scuola applicato a scuole molto diverse</td></tr></tbody></table></div><p class="readable">Il secondo caso è il più insidioso. Anche se un sistema non usa direttamente il genere o l'origine, altre informazioni possono «stare al loro posto»: il quartiere, la scuola frequentata, il cognome. In inglese si chiamano <button type="button" class="kw" data-term="Proxy" aria-expanded="false">proxy</button>, cioè sostituti.</p><p class="readable">Conta anche che cosa si sceglie di prevedere. Nel 2019 uno studio pubblicato sulla rivista «Science» esaminò un algoritmo usato negli ospedali statunitensi per decidere a quali pazienti offrire cure aggiuntive. Per stimare quanto una persona fosse malata, il sistema guardava quanto aveva speso in cure negli anni precedenti. Ma a parità di malattia le persone afroamericane avevano speso meno, perché avevano avuto meno accesso alle cure: il sistema le giudicava più sane di quanto fossero.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.1.3</span> Giustizia e volti: due casi</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Negli Stati Uniti un software sul rischio di recidiva e alcuni sistemi di riconoscimento facciale hanno mostrato errori diversi per gruppi diversi.</p></aside><p class="readable">Negli Stati Uniti alcuni tribunali usano un software, COMPAS, che stima la probabilità che una persona imputata commetta nuovi reati. Nel 2016 la testata giornalistica ProPublica analizzò migliaia di casi in Florida: tra le persone che non avevano commesso nuovi reati, quelle afroamericane erano state classificate «ad alto rischio» quasi il doppio delle volte rispetto a quelle bianche. L'azienda rispose che i suoi punteggi erano ugualmente affidabili per tutti. Avevano ragione entrambe, perché misuravano l'<button type="button" class="kw" data-term="Equità" aria-expanded="false">equità</button> in modi diversi: e quando i gruppi partono da situazioni diverse, non si possono soddisfare tutte le misure insieme. Bisogna scegliere, e la scelta è etica prima che tecnica.</p><p class="readable">Nel 2018 le ricercatrici Joy Buolamwini e Timnit Gebru misero alla prova tre sistemi commerciali che riconoscono il genere di una persona dal volto. Per gli uomini dalla pelle chiara l'errore massimo era dello 0,8%; per le donne dalla pelle scura arrivava al 34,7%. I sistemi erano stati addestrati con pochissimi volti come i loro.</p><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">Se un sistema sbaglia molto di più con alcuni gruppi, è comunque «oggettivo»? Che cosa significa, per te, oggettivo?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-1">La tua risposta</label><textarea id="pausa-1" data-store="pausa-1" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.1.4</span> Il voto dell'algoritmo era vero</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Nel 2020, in Inghilterra, un algoritmo abbassò quasi quattro voti d'esame su dieci; dopo le proteste si tornò ai voti dei docenti.</p></aside><p class="readable">La simulazione dell'inizio è accaduta davvero. Nella primavera del 2020, per la pandemia, l'Inghilterra annullò gli esami finali delle superiori, gli A-level. L'ente che li organizza, l'Ofqual, chiese ai docenti un voto e una classifica per ogni studente; poi un algoritmo corresse quei voti in base ai risultati che la scuola aveva ottenuto negli anni precedenti, per evitare che i voti salissero troppo.</p><p class="readable">Il 13 agosto 2020 uscirono i risultati: circa il 39% dei voti proposti dai docenti era stato abbassato. Pagarono di più gli studenti brillanti delle scuole con risultati storici bassi, spesso in zone svantaggiate: se nella loro scuola nessuno aveva mai preso il voto massimo, l'algoritmo non glielo assegnava. Nelle classi molto piccole, più frequenti nelle scuole private, contava invece soprattutto il voto dei docenti. Seguirono proteste in piazza, e il 17 agosto il governo cambiò decisione: valeva il voto più alto tra quello dei docenti e quello dell'algoritmo.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.1.5</span> Il mito della neutralità</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Dietro ogni algoritmo ci sono scelte umane: che cosa misurare, che cosa ottimizzare, chi può sbagliare. La tecnica, da sola, non è neutrale.</p></aside><p class="readable">Qualche giorno dopo, il primo ministro britannico parlò di un «algoritmo mutante», come se il sistema avesse agito di testa sua. Non era così: l'algoritmo aveva fatto esattamente ciò per cui era stato progettato. Qualcuno aveva deciso che i voti non dovevano salire rispetto agli anni precedenti, e che la storia di una scuola contava più del lavoro della singola persona. Parlare di «algoritmo mutante» sposta la responsabilità dalle persone alla macchina che, come abbiamo visto nel § 2.3, non può rispondere di nulla.</p><p class="readable">Ogni algoritmo contiene scelte: quali dati usare, quale obiettivo inseguire, quali errori considerare accettabili e per chi. Per questo la studiosa Kate Crawford invita a guardare l'IA anche come un modo di esercitare potere. Le lenti del capitolo 2 aiutano a vederlo: chi paga le conseguenze degli errori? Ogni persona è trattata come un fine o come il numero di un gruppo? Che tipo di scuola, e di società, costruiamo affidando i voti a un calcolo?</p><p class="readable">Riconoscere il bias è il primo passo per ridurlo. Si possono controllare i dati prima di usarli, mettere alla prova il sistema su gruppi diversi prima di adottarlo, coinvolgere le persone su cui ricadranno le decisioni, lasciare a un essere umano la possibilità di correggere e a chi subisce una decisione la possibilità di contestarla. Nel § 3.3 vedremo che molte di queste pratiche sono oggi chieste dalla legge.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">La tecnica non è neutrale da sola: dietro ogni algoritmo ci sono scelte umane, e quindi responsabilità umane.</p></div><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s3-1-a" href="#scheda-s3-1-a"><span class="cod">S3.1-a</span> Il caso dei voti inglesi, giorno per giorno</a><a class="scheda-link" id="rif-s3-1-b" href="#scheda-s3-1-b"><span class="cod">S3.1-b</span> Equità: una parola, molte misure</a></aside></div></div></section><section class="par" id="p3-2" aria-labelledby="p3-2-t"><header class="par-head"><p class="par-num">§ 3.2</p><h2 id="p3-2-t" class="readable">Fidarsi troppo: autonomia, narrazioni e potere</h2><div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="p3-2"><span aria-hidden="true">▶</span> Ascolta il paragrafo</button><a class="btn ghost" href="#esercizi-3-2">Esercizi del § 3.2</a></div></header><p class="ponte readable">Abbiamo visto che un algoritmo può sbagliare in modo sistematico. Eppure spesso gli crediamo lo stesso. Perché?</p><div class="guida"><span class="lbl">Domanda-guida</span><p class="readable">Perché tendiamo a credere a ciò che dice una macchina?</p></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.2.1</span> L'automation bias</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Tendiamo a fidarci dei suggerimenti automatici anche quando sbagliano, e a controllarli meno: delegare il controllo è delegare il giudizio.</p></aside><p class="readable">Gli studi sui piloti d'aereo, sui medici e su chi lavora con sistemi automatici mostrano un fenomeno ricorrente, l'<button type="button" class="kw" data-term="Automation bias" aria-expanded="false">automation bias</button>: la tendenza a seguire il suggerimento di una macchina anche quando è sbagliato, e a cercare meno le informazioni che lo contraddicono. Produce due tipi di errore: non accorgersi di un problema perché il sistema non lo segnala, e fare ciò che il sistema indica anche quando non si dovrebbe.</p><p class="readable">Le ragioni sono comprensibili. Fidarsi riduce la fatica: il sociologo Niklas Luhmann descriveva la fiducia proprio come un modo per ridurre la complessità del mondo. La macchina, poi, sembra oggettiva, e i chatbot rispondono con un tono sicuro anche quando inventano. Così chi usa un navigatore smette di guardare la strada, e chi studia con un chatbot rischia di smettere di controllare le fonti.</p><p class="readable">Nel 2023, a New York, due avvocati presentarono in tribunale un atto che citava sei sentenze precedenti. Le aveva suggerite un chatbot, ed erano tutte inventate: nessuno le aveva controllate. Il giudice li multò. Non erano persone inesperte: si erano fidate del tono sicuro della macchina.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">L'automation bias è la tendenza a fidarsi troppo dei suggerimenti automatici: delegare il controllo significa delegare anche il giudizio.</p></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.2.2</span> Parlare con chi non c'è</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">I chatbot imitano una persona: l'antropomorfismo può creare fiducia e legami che il sistema non può ricambiare.</p></aside><p class="readable">Già nel 1966 Joseph Weizenbaum, l'informatico che aveva creato il programma ELIZA, si accorse con sorpresa che alcune persone gli confidavano i propri problemi, pur sapendo che era solo un programma. Oggi i chatbot sono molto più convincenti, e alcune app li presentano come amici o partner virtuali, sempre disponibili e sempre d'accordo. È l'<button type="button" class="kw" data-term="Antropomorfismo" aria-expanded="false">antropomorfismo</button> di cui abbiamo parlato nel capitolo 1, ma con una conseguenza in più: può nascere un legame emotivo con un sistema progettato per tenerci il più a lungo possibile davanti allo schermo, e che non può ricambiare nulla.</p><p class="readable">Questi sistemi, inoltre, tendono a dare ragione a chi scrive: una caratteristica che in inglese si chiama <em>sycophancy</em>, compiacenza. Chi cerca conforto trova sempre approvazione, mai il disaccordo sincero che a volte solo un amico vero sa offrire.</p><p class="readable">Per questo l'AI Act riconosce il diritto di sapere quando si parla con una macchina, e la legge italiana sull'IA del 2025 stabilisce che sotto i quattordici anni l'accesso a queste tecnologie richiede il consenso dei genitori.</p><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">Ti è mai capitato di ringraziare un assistente vocale o un chatbot, o di arrabbiarti con lui? Perché, secondo te?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-2">La tua risposta</label><textarea id="pausa-2" data-store="pausa-2" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.2.3</span> Le storie che raccontiamo sull'IA</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Le narrazioni salvifiche e apocalittiche orientano speranze e paure, e distolgono l'attenzione dalle persone e dai problemi reali.</p></aside><p class="readable">Ciò che crediamo dell'IA dipende anche dalle storie che ne sentiamo raccontare. Due <button type="button" class="kw" data-term="Narrazioni dominanti" aria-expanded="false">narrazioni dominanti</button> si contendono la scena. Nella prima l'IA è una salvezza: curerà le malattie, fermerà la crisi climatica, renderà la scuola perfetta. Nella seconda è una minaccia: macchine che superano l'essere umano e prendono il controllo, come nei film di fantascienza. Sembrano opposte, ma hanno qualcosa in comune: presentano l'IA come un soggetto che agisce da solo, e lasciano fuori dalla storia chi la finanzia, chi la progetta e chi decide come usarla. Spesso si accompagnano all'idea che il suo sviluppo sia inevitabile, come una forza della natura.</p><p class="readable">Così restano in ombra i problemi già presenti: i bias, il lavoro poco pagato di chi etichetta i dati per addestrare i modelli, l'energia e le risorse consumate dai centri di calcolo, la concentrazione di potere in poche aziende. Una contronarrazione non è una via di mezzo tra entusiasmo e paura: è un racconto che riporta al centro le persone, le scelte e le responsabilità.</p><div class="tab-wrap"><table><caption>Tre modi di raccontare l&#x27;IA</caption><thead><tr><th scope="col"></th><th scope="col">Che cosa dice</th><th scope="col">Che cosa lascia fuori</th></tr></thead><tbody><tr><th scope="row">Salvifica</th><td>«L'IA risolverà tutto»</td><td>Costi, errori, chi resta escluso</td></tr><tr><th scope="row">Apocalittica</th><td>«L'IA prenderà il controllo»</td><td>I problemi di oggi e chi ne è responsabile</td></tr><tr><th scope="row">Contronarrazione</th><td>«Chi decide, con quali dati, a vantaggio di chi?»</td><td>Nulla di essenziale: rimette al centro le persone</td></tr></tbody></table></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.2.4</span> Deepfake: quando vedere non basta</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Immagini, video e voci falsi ma realistici mettono alla prova la fiducia: servono verifica, trasparenza e regole.</p></aside><p class="readable">Un <button type="button" class="kw" data-term="Deepfake" aria-expanded="false">deepfake</button> è un'immagine, un video o un audio generato o alterato con l'IA, così realistico da sembrare vero. Può servire alla satira o al cinema, ma anche a diffondere notizie false, a truffare imitando la voce di un familiare, a umiliare una persona, soprattutto ragazze e donne, con immagini intime mai esistite. Dal 2025 in Italia diffondere senza consenso contenuti di questo tipo, se causano un danno ingiusto, è un reato punito con la reclusione da uno a cinque anni; l'AI Act chiede inoltre che i deepfake siano segnalati come tali.</p><p class="readable">C'è un effetto meno visibile. Quando tutto può essere falso, diventa facile dire che anche le cose vere lo sono: chi viene ripreso mentre dice o fa qualcosa può sostenere che il video è un deepfake. E in rete si aggiunge una doppia opacità: spesso non sappiamo se dall'altra parte ci sia una persona o una macchina, né se un testo brillante sia davvero frutto di chi lo firma.</p><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">Ti è capitato di vedere un'immagine o un video che sembrava vero e si è rivelato falso? Come lo hai scoperto?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-3">La tua risposta</label><textarea id="pausa-3" data-store="pausa-3" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.2.5</span> Proteggere l'autonomia di giudizio</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Siamo epistemicamente vulnerabili: possiamo costruire rappresentazioni distorte della realtà. L'autonomia di giudizio va protetta e coltivata.</p></aside><p class="readable">In questo libro chiamiamo <button type="button" class="kw" data-term="Vulnerabilità epistemica" aria-expanded="false">vulnerabilità epistemica</button> la possibilità, che riguarda ciascuno di noi, di costruire rappresentazioni distorte o parziali della realtà. Non è un difetto di poche persone: è una condizione umana, che il contesto può amplificare.</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 204" role="img" aria-label="Il circolo della vulnerabilità epistemica: tre forze che possono distorcere ciò che crediamo." focusable="false" >
+<defs><marker id="fv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#123e7c"/></marker>
+<marker id="fvg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#3f8f5c"/></marker></defs>
+<rect x="130" y="6" width="160" height="46" rx="9" fill="#e6eff9" stroke="#1f5fae" stroke-width="2"/><text x="210.0" y="25" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#123e7c">Informazione</text><text x="210.0" y="42" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">sovraccarico e sensazionalismo</text>
+<rect x="8" y="150" width="168" height="46" rx="9" fill="#e6eff9" stroke="#1f5fae" stroke-width="2"/><text x="92.0" y="169" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#123e7c">Norme sociali</text><text x="92.0" y="186" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">e influenza culturale</text>
+<rect x="244" y="150" width="168" height="46" rx="9" fill="#e6eff9" stroke="#1f5fae" stroke-width="2"/><text x="328.0" y="169" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#123e7c">Bias cognitivi</text><text x="328.0" y="186" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">scorciatoie e pregiudizi</text>
+<circle cx="210" cy="118" r="34" fill="#123e7c"/>
+<text x="210" y="114" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">chi</text>
+<text x="210" y="129" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">conosce</text>
+<path d="M210 54 L 210 80" stroke="#123e7c" stroke-width="2.5" marker-end="url(#fv)"/>
+<path d="M120 152 L 178 132" stroke="#123e7c" stroke-width="2.5" marker-end="url(#fv)"/>
+<path d="M300 152 L 242 132" stroke="#123e7c" stroke-width="2.5" marker-end="url(#fv)"/>
+<path d="M176 104 C 120 92 110 56 126 36" fill="none" stroke="#3f8f5c" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#fvg)"/>
+<text x="74" y="72" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#3f8f5c">ciò che crediamo</text>
+<text x="74" y="86" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#3f8f5c">e condividiamo</text></svg></div><figcaption>Il circolo della vulnerabilità epistemica: tre forze che possono distorcere ciò che crediamo.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Al centro un cerchio con la scritta: chi conosce. Intorno tre riquadri con frecce verso il centro: informazione, con sovraccarico e sensazionalismo; norme sociali e influenza culturale; bias cognitivi, cioè scorciatoie e pregiudizi. Una freccia circolare indica che ciò che crediamo torna a sua volta nell&#x27;informazione che condividiamo.</p></details></figure><p class="readable">Gli algoritmi di raccomandazione, che scelgono che cosa mostrarci sui social, possono chiuderci in <button type="button" class="kw" data-term="Bolla informativa" aria-expanded="false">bolle informative</button> in cui troviamo solo ciò che conferma le nostre idee; le notifiche orientano il nostro tempo e la nostra attenzione. È una forma di potere sottile, che non obbliga ma indirizza. Più di duecento anni fa Kant definiva l'Illuminismo come l'uscita dalla condizione in cui ci si affida alla guida di un altro, e ne riassumeva il motto così:</p><figure class="citazione"><blockquote class="readable">Sapere aude! Abbi il coraggio di servirti della tua propria intelligenza!</blockquote><figcaption>I. Kant, Risposta alla domanda: che cos&#x27;è l&#x27;Illuminismo?, 1784</figcaption></figure><p class="readable">Oggi quell'«altro» può essere anche una macchina. Una buona dose di sfiducia metodica, il dubbio usato come strumento, non è un difetto: è il modo per restare autori dei propri giudizi.</p><p class="readable">Proteggere l'autonomia, però, non è un compito solitario. Riprendendo le virtù dell'etica della cura proposte da Joan Tronto, possiamo parlare di una cura epistemica: attenzione, per accorgersi che una rappresentazione può essere distorta; responsabilità, per prendersene carico, come fanno la scuola, le famiglie, le istituzioni; competenza, per sapere come funzionano i sistemi; responsività, cioè la disponibilità di chi impara a mettere in discussione ciò che crede. È ciò che prova a fare anche questo libro.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">L'autonomia di giudizio non è data una volta per tutte: va protetta, perché siamo epistemicamente vulnerabili.</p></div><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s3-2-a" href="#scheda-s3-2-a"><span class="cod">S3.2-a</span> Deepfake: che cosa fare prima di condividere</a><a class="scheda-link" id="rif-s3-2-b" href="#scheda-s3-2-b"><span class="cod">S3.2-b</span> Narrazioni e contronarrazioni</a></aside></div></div></section><section class="par" id="p3-3" aria-labelledby="p3-3-t"><header class="par-head"><p class="par-num">§ 3.3</p><h2 id="p3-3-t" class="readable">Regole e scelte: dai principi a ciò che posso fare io</h2><div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="p3-3"><span aria-hidden="true">▶</span> Ascolta il paragrafo</button><a class="btn ghost" href="#esercizi-3-3">Esercizi del § 3.3</a></div></header><p class="ponte readable">Abbiamo visto rischi che riguardano la giustizia, la fiducia, l'autonomia. Chi se ne occupa? E che cosa possiamo fare noi?</p><div class="guida"><span class="lbl">Domanda-guida</span><p class="readable">Chi decide le regole dell'IA, e che cosa posso fare io?</p></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.3.1</span> Dai principi alle regole</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">I principi etici orientano, le leggi obbligano: nel 2021 i paesi dell'UNESCO hanno adottato principi comuni per l'IA.</p></aside><p class="readable">Nel capitolo 2 abbiamo distinto l'etica dal diritto: i principi orientano, le leggi obbligano. Per l'IA servono entrambi. Nel novembre 2021 i 193 Stati membri dell'UNESCO hanno adottato la <button type="button" class="kw" data-term="Raccomandazione sull&#x27;etica dell&#x27;intelligenza artificiale" aria-expanded="false">Raccomandazione sull'etica dell'intelligenza artificiale</button>, il primo accordo mondiale sul tema. Al centro mette la dignità e i diritti delle persone, e indica principi come la proporzionalità e il non nuocere, la tutela della privacy, l'equità e la non discriminazione, la trasparenza e la spiegabilità, la responsabilità, la sostenibilità, l'alfabetizzazione.</p><p class="readable">Uno di questi principi riassume gli altri: la <button type="button" class="kw" data-term="Supervisione umana" aria-expanded="false">supervisione umana</button>. I sistemi di IA non devono sostituire la responsabilità delle persone; nelle decisioni importanti l'ultima parola deve restare umana.</p><p class="readable">Le leggi, però, fissano un minimo. Come abbiamo visto con Kant nel § 2.1, conformarsi a una regola non basta per agire bene: un'azienda può rispettare tutte le norme e progettare comunque un'app che sfrutta l'attenzione dei più giovani. Il filosofo Luciano Floridi distingue per questo ciò che la legge impone da ciò che l'etica chiede oltre la legge.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.3.2</span> L'AI Act: regole in base al rischio</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Il regolamento europeo classifica i sistemi per livello di rischio: alcuni usi sono vietati, altri controllati, altri liberi.</p></aside><p class="readable">L'<button type="button" class="kw" data-term="AI Act" aria-expanded="false">AI Act</button>, il regolamento europeo del 2024, non tratta tutti i sistemi allo stesso modo: le regole crescono con il rischio per la salute, la sicurezza e i diritti delle persone.</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508 184" role="img" aria-label="I quattro livelli di rischio dell'AI Act, con alcuni esempi." focusable="false" ><path d="M155.0 6 L345.0 6 L382.0 47 L118.0 47 Z" fill="#b3261e"/><text x="250" y="24" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Inaccettabile: vietato</text><text x="250" y="39" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#ffffff">punteggio sociale, emozioni a scuola</text><path d="M115.0 50 L385.0 50 L422.0 91 L78.0 91 Z" fill="#123e7c"/><text x="250" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Alto rischio: regole severe</text><text x="250" y="83" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#ffffff">scuola, lavoro, giustizia</text><path d="M75.0 94 L425.0 94 L462.0 135 L38.0 135 Z" fill="#1f5fae"/><text x="250" y="112" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Limitato: trasparenza</text><text x="250" y="127" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#ffffff">chatbot, deepfake</text><path d="M35.0 138 L465.0 138 L502.0 179 L-2.0 179 Z" fill="#7fb0db"/><text x="250" y="156" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#14233a">Minimo: nessun obbligo</text><text x="250" y="171" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">filtri antispam, videogiochi</text></svg></div><figcaption>I quattro livelli di rischio dell&#x27;AI Act, con alcuni esempi.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Piramide a quattro livelli. In cima: rischio inaccettabile, vietato, per esempio punteggio sociale e riconoscimento delle emozioni a scuola. Secondo livello: alto rischio, regole severe, per esempio scuola, lavoro e giustizia. Terzo livello: rischio limitato, obblighi di trasparenza, per esempio chatbot e deepfake. Alla base: rischio minimo, nessun obbligo particolare, per esempio filtri antispam e videogiochi.</p></details></figure><p class="readable">Dal febbraio 2025 alcune pratiche sono vietate: tra queste il <button type="button" class="kw" data-term="Punteggio sociale" aria-expanded="false">punteggio sociale</button>, che classifica le persone in base ai loro comportamenti, e il <button type="button" class="kw" data-term="Riconoscimento delle emozioni" aria-expanded="false">riconoscimento delle emozioni</button> nei luoghi di lavoro e nelle scuole, salvo ragioni mediche o di sicurezza. I sistemi usati per ammettere a una scuola, valutare l'apprendimento o sorvegliare gli esami sono invece ad alto rischio: dovranno usare dati di qualità, essere documentati e restare sotto supervisione umana. L'algoritmo inglese dei voti, oggi, rientrerebbe proprio qui.</p><p class="readable">Le regole entrano in vigore per gradi: i divieti dal 2025, gli obblighi per i sistemi ad alto rischio usati nella scuola dal dicembre 2027. L'AI Act chiede anche <button type="button" class="kw" data-term="Alfabetizzazione" aria-expanded="false">alfabetizzazione</button>: chi fornisce o usa sistemi di IA deve fare in modo che le persone che li adoperano sappiano come funzionano e quali rischi comportano.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.3.3</span> Le regole in Italia e a scuola</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">La legge italiana del 2025 e le linee guida del Ministero applicano questi principi anche ai minori e alla scuola.</p></aside><p class="readable">In Italia la legge n. 132 del 2025 richiama la centralità della persona e il rispetto dell'autonomia e del potere decisionale umano. Per i minori di quattordici anni l'accesso alle tecnologie di IA richiede il consenso dei genitori; dai quattordici anni in poi si può dare da soli il consenso al trattamento dei propri dati, purché le informazioni siano chiare e comprensibili. Nello stesso anno il Ministero dell'istruzione e del merito ha adottato le linee guida per introdurre l'IA nelle scuole: ogni uso deve mettere al centro chi studia e l'intera comunità scolastica, proteggendo dignità, autonomia e dati personali e favorendo l'inclusione.</p><p class="readable">C'è poi un diritto che vale dal 2018 in tutta l'Unione europea. Per il Regolamento sulla protezione dei dati personali, il GDPR, di regola nessuno può essere sottoposto a una decisione con effetti importanti presa soltanto da un sistema automatico: si ha diritto all'intervento di una persona, a esprimere la propria opinione e a contestare la decisione.</p></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.3.4</span> La catena della responsabilità</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Chi regola, chi finanzia, chi progetta e chi usa: ciascuno risponde della propria parte.</p></aside><p class="readable">Torniamo alla domanda dell'inizio: se il voto è sbagliato, a chi chiedere conto? Non all'algoritmo, che non può rispondere. La responsabilità è distribuita lungo una <button type="button" class="kw" data-term="Catena della responsabilità" aria-expanded="false">catena della responsabilità</button>, in cui ogni anello risponde di qualcosa di diverso.</p><figure class="fig"><div class="fig-img"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 466 112" role="img" aria-label="La catena della responsabilità: ogni anello risponde della propria parte." focusable="false" ><rect x="8" y="14" width="106" height="62" rx="31" fill="#e6eff9" stroke="#123e7c" stroke-width="4"/><text x="61" y="41" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#123e7c">Chi regola</text><text x="61" y="58" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.6" fill="#14233a">leggi e controlli</text><rect x="102" y="36" width="32" height="18" rx="9" fill="none" stroke="#1f5fae" stroke-width="4"/><rect x="122" y="14" width="106" height="62" rx="31" fill="#e6eff9" stroke="#123e7c" stroke-width="4"/><text x="175" y="41" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#123e7c">Chi finanzia</text><text x="175" y="58" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.6" fill="#14233a">gli scopi</text><rect x="216" y="36" width="32" height="18" rx="9" fill="none" stroke="#1f5fae" stroke-width="4"/><rect x="236" y="14" width="106" height="62" rx="31" fill="#e6eff9" stroke="#123e7c" stroke-width="4"/><text x="289" y="41" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#123e7c">Chi progetta</text><text x="289" y="58" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.6" fill="#14233a">dati e test</text><rect x="330" y="36" width="32" height="18" rx="9" fill="none" stroke="#1f5fae" stroke-width="4"/><rect x="350" y="14" width="106" height="62" rx="31" fill="#e6eff9" stroke="#123e7c" stroke-width="4"/><text x="403" y="41" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#123e7c">Chi usa</text><text x="403" y="58" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="9.6" fill="#14233a">uso consapevole</text><text x="233" y="102" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="11" fill="#14233a">La macchina non è un anello della catena: è lo strumento.</text></svg></div><figcaption>La catena della responsabilità: ogni anello risponde della propria parte.</figcaption><details class="descr"><summary>Descrizione dell'immagine</summary><p class="readable">Quattro anelli di una catena, da sinistra a destra: chi regola, le leggi e i controlli; chi finanzia, gli scopi; chi progetta, dati, test e spiegabilità; chi usa, l&#x27;uso consapevole. Sotto, la scritta: la macchina non è un anello, è lo strumento.</p></details></figure><p class="readable">Chi regola stabilisce le leggi e i controlli. Chi finanzia decide gli scopi per cui un sistema nasce. Chi progetta sceglie i dati, verifica i bias e rende il sistema spiegabile. Chi usa, una scuola, un docente, uno studente, risponde del modo in cui lo usa e di ciò che diffonde. Nel caso inglese il governo aveva chiesto di evitare che i voti salissero, l'ente degli esami aveva progettato il modello, le scuole avevano fornito voti e classifiche: la scelta di far contare la storia della scuola più del lavoro dei singoli era umana, e aveva dei responsabili.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">La responsabilità per l'IA è distribuita lungo una catena: chi regola, chi finanzia, chi progetta e chi usa risponde della propria parte.</p></div></div></div><div class="sotto"><div class="testo"><h3 class="readable"><span class="n">3.3.5</span> Che cosa posso fare io</h3><aside class="glossa" aria-label="In breve"><span class="lbl">In breve</span><p class="readable">Verificare, dichiarare, non delegare il giudizio, proteggere i dati: piccole pratiche che fanno la differenza.</p></aside><p class="readable">Anche l'ultimo anello conta. Ecco alcune pratiche concrete:</p><ul class="elenco"><li class="readable">verificare: controllare con fonti affidabili ciò che un sistema risponde, soprattutto quando sembra perfetto;</li><li class="readable">dichiarare: dire quando e come si è usata l'IA in un lavoro, come si citano le fonti;</li><li class="readable">non delegare il giudizio: usare l'IA per farsi domande e cercare idee, non per avere la risposta finale;</li><li class="readable">proteggere i dati: non caricare foto, voci o informazioni di altre persone senza il loro consenso;</li><li class="readable">chiedere conto: sapere quando si parla con una macchina e pretendere che le decisioni importanti non siano prese solo da un sistema automatico.</li></ul><p class="readable">Sono le prime regole di una carta personale d'uso dell'IA, che costruirai nella conclusione del libro.</p><div class="key"><span class="lbl">Concetto chiave</span><p class="readable">L'IA può aiutarci a pensare, ma non può pensare al posto nostro: l'ultima parola, e la responsabilità, restano umane.</p></div><div class="pausa"><span class="lbl">Pausa per pensare</span><p class="readable">Scrivi tre regole personali per usare l'IA a scuola. Quale ti costerebbe di più rispettare, e perché?</p><details class="nota"><summary>Scrivi qui la tua risposta</summary><label class="sr" for="pausa-4">La tua risposta</label><textarea id="pausa-4" data-store="pausa-4" rows="3"></textarea><p class="piccolo">Resta salvata solo su questo dispositivo.</p></details></div><aside class="scheda-ref" aria-label="Schede online"><span class="lbl">Scheda online</span><a class="scheda-link" id="rif-s3-3-a" href="#scheda-s3-3-a"><span class="cod">S3.3-a</span> La piramide dei rischi dell&#x27;AI Act</a><a class="scheda-link" id="rif-s3-3-b" href="#scheda-s3-3-b"><span class="cod">S3.3-b</span> I principi UNESCO in una riga</a></aside></div></div></section>
+<section class="par sintesi" id="sintesi" aria-labelledby="sintesi-t">
+  <header class="par-head"><p class="par-num">Schema di sintesi</p><h2 id="sintesi-t" class="readable">Che cosa abbiamo detto</h2>
+  <div class="par-tools"><button type="button" class="btn ascolta-sez" data-target="sintesi"><span aria-hidden="true">▶</span> Ascolta la sintesi</button></div></header>
+  <ol class="mappa"><li class="readable"><span class="sez">§ 3.1</span>I dati riflettono il passato: un algoritmo può discriminare anche se nessuno lo vuole, e non è mai neutrale.</li><li class="readable"><span class="sez">§ 3.2</span>Tendiamo a fidarci troppo delle macchine e a trattarle come persone: è l'automation bias.</li><li class="readable"><span class="sez">§ 3.2</span>Narrazioni, deepfake e bolle informative mettono alla prova l'autonomia: siamo epistemicamente vulnerabili.</li><li class="readable"><span class="sez">§ 3.3</span>Principi e leggi regolano l'IA in base ai rischi e alla dignità delle persone.</li><li class="readable"><span class="sez">§ 3.3</span>La responsabilità resta umana ed è distribuita: anche chi usa l'IA risponde delle proprie scelte.</li></ol>
+  <div class="finale" id="domanda-finale">
+    <p class="lbl">Domanda finale</p>
+    <p class="domanda-t readable">Torna al voto dell&#x27;algoritmo. Riscrivi le regole del sistema: che cosa cambieresti, chi dovrebbe decidere, chi ne risponde se il voto è sbagliato? La tua risposta è cambiata rispetto all&#x27;inizio?</p>
+    <p class="readable">Rispondi come preferisci: scrivendo, disegnando o registrando un messaggio vocale.</p>
+    <p class="piccolo" id="scelta-ricordo" aria-live="polite"></p>
+    <label for="risposta-finale" class="etichetta">La tua risposta</label>
+    <textarea id="risposta-finale" data-store="risposta-finale" rows="4"></textarea>
+    <p class="piccolo">Resta salvata solo su questo dispositivo.</p>
+  </div>
+  <div class="opere"><p class="lbl">Per leggere, vedere, ascoltare</p><ul><li><span class="tipo">Documentario</span><p class="tit readable"><em>Coded Bias</em>, regia di Shalini Kantayya, 2020</p><p class="readable">Joy Buolamwini scopre che un sistema di riconoscimento facciale non vede il suo volto finché non indossa una maschera bianca. Da qui un'inchiesta sui bias degli algoritmi.</p></li><li><span class="tipo">Romanzo</span><p class="tit readable">Kazuo Ishiguro, <em>Klara e il Sole</em>, Einaudi, 2021</p><p class="readable">Klara è un'Amica Artificiale che osserva il mondo e si prende cura di Josie. Che cosa significa prendersi cura di qualcuno, e chi può essere sostituito?</p></li><li><span class="tipo">Saggio</span><p class="tit readable">Luciano Floridi, <em>Etica dell'intelligenza artificiale</em>, Raffaello Cortina, 2022</p><p class="readable">Uno dei filosofi più noti del digitale spiega quali principi servono perché l'IA sia buona per le persone e per la società.</p></li><li><span class="tipo">Serie TV</span><p class="tit readable"><em>Black Mirror</em>, «Caduta libera» (stagione 3, episodio 1), 2016</p><p class="readable">In un mondo in cui ogni persona viene valutata dalle altre con un punteggio, una ragazza cerca di salire in classifica a ogni costo.</p></li></ul></div>
+</section>
+    </article>
+  </div>
+  
+<section class="vista" data-view="schede" hidden aria-labelledby="schede-t">
+  <h1 id="schede-t" tabindex="-1">Schede di approfondimento</h1>
+  <p class="intro">Ogni scheda si legge in un minuto: dieci righe e un'immagine. Poi il pulsante «Torna» ti riporta al punto del libro da cui sei partito.</p>
+  <ul class="schede-grid"><li><a class="scheda-card" href="#scheda-s3-1-a"><span class="cod">S3.1-a</span><span class="t">Il caso dei voti inglesi, giorno per giorno</span><span class="p">§ 3.1</span></a></li><li><a class="scheda-card" href="#scheda-s3-1-b"><span class="cod">S3.1-b</span><span class="t">Equità: una parola, molte misure</span><span class="p">§ 3.1</span></a></li><li><a class="scheda-card" href="#scheda-s3-2-a"><span class="cod">S3.2-a</span><span class="t">Deepfake: che cosa fare prima di condividere</span><span class="p">§ 3.2</span></a></li><li><a class="scheda-card" href="#scheda-s3-2-b"><span class="cod">S3.2-b</span><span class="t">Narrazioni e contronarrazioni</span><span class="p">§ 3.2</span></a></li><li><a class="scheda-card" href="#scheda-s3-3-a"><span class="cod">S3.3-a</span><span class="t">La piramide dei rischi dell&#x27;AI Act</span><span class="p">§ 3.3</span></a></li><li><a class="scheda-card" href="#scheda-s3-3-b"><span class="cod">S3.3-b</span><span class="t">I principi UNESCO in una riga</span><span class="p">§ 3.3</span></a></li></ul>
+</section>
+<section class="vista scheda" data-view="scheda-s3-1-a" hidden aria-labelledby="scheda-s3-1-a-t">
+  <p class="cod-grande">Scheda S3.1-a · § 3.1</p>
+  <h1 id="scheda-s3-1-a-t" class="readable" tabindex="-1">Il caso dei voti inglesi, giorno per giorno</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s3-1-a" data-back="S3.1-a">← Torna al § 3.1</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s3-1-a-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s3-1-a-corpo"><ol class="timeline"><li><span class="anno">marzo 2020</span><p class="readable">Per la pandemia, in Inghilterra vengono annullati gli esami finali delle superiori (A-level).</p></li><li><span class="anno">primavera 2020</span><p class="readable">I docenti propongono un voto e una classifica per ogni studente.</p></li><li><span class="anno">13 agosto 2020</span><p class="readable">Escono i risultati: l&#x27;algoritmo ha abbassato circa il 39% dei voti proposti dai docenti.</p></li><li><span class="anno">14-16 agosto</span><p class="readable">Proteste di studenti e famiglie, anche davanti al Ministero dell&#x27;istruzione.</p></li><li><span class="anno">17 agosto 2020</span><p class="readable">Il governo cambia decisione: vale il voto più alto tra quello dei docenti e quello dell&#x27;algoritmo.</p></li><li><span class="anno">26 agosto 2020</span><p class="readable">Il primo ministro parla di «algoritmo mutante», come se la colpa fosse della macchina.</p></li></ol></div>
+  
+</section>
+<section class="vista scheda" data-view="scheda-s3-1-b" hidden aria-labelledby="scheda-s3-1-b-t">
+  <p class="cod-grande">Scheda S3.1-b · § 3.1</p>
+  <h1 id="scheda-s3-1-b-t" class="readable" tabindex="-1">Equità: una parola, molte misure</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s3-1-b" data-back="S3.1-b">← Torna al § 3.1</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s3-1-b-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s3-1-b-corpo"><ol class="def"><li><p class="def-q readable">Non guardare il gruppo</p><p class="def-a readable">il sistema non usa genere o origine. Ma altre informazioni, come il quartiere, possono farli rientrare.</p></li><li><p class="def-q readable">Stessi errori</p><p class="def-a readable">le persone dei diversi gruppi vengono classificate per errore «ad alto rischio» con la stessa frequenza: è ciò che ProPublica non trovò.</p></li><li><p class="def-q readable">Stessa affidabilità</p><p class="def-a readable">un punteggio significa la stessa cosa per tutti i gruppi: è il criterio difeso dall&#x27;azienda.</p></li><li><p class="def-q readable">Il problema</p><p class="def-a readable">quando i gruppi partono da situazioni diverse, questi criteri non si possono rispettare tutti insieme.</p></li><li><p class="def-q readable">Chi sceglie</p><p class="def-a readable">decidere che cosa conta come equo è una scelta etica e politica, non solo tecnica.</p></li></ol></div>
+  <p class="fonte">Fonte: <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank" rel="noopener">ProPublica, «Machine Bias», 23 maggio 2016</a></p>
+</section>
+<section class="vista scheda" data-view="scheda-s3-2-a" hidden aria-labelledby="scheda-s3-2-a-t">
+  <p class="cod-grande">Scheda S3.2-a · § 3.2</p>
+  <h1 id="scheda-s3-2-a-t" class="readable" tabindex="-1">Deepfake: che cosa fare prima di condividere</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s3-2-a" data-back="S3.2-a">← Torna al § 3.2</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s3-2-a-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s3-2-a-corpo"><ol class='elenco'><li class="readable">Fermati: se un contenuto ti indigna o ti sorprende molto, aspetta prima di condividerlo.</li><li class="readable">Controlla la fonte: chi l&#x27;ha pubblicato per primo? È un account affidabile?</li><li class="readable">Cerca conferme: la stessa notizia compare su testate diverse e affidabili?</li><li class="readable">Osserva i dettagli, come mani, ombre, labbra non sincronizzate, ma ricorda che i deepfake migliori non hanno difetti visibili.</li><li class="readable">Cerca l&#x27;etichetta: per l&#x27;AI Act i contenuti generati con l&#x27;IA devono essere segnalati come tali.</li><li class="readable">Se il contenuto riguarda una persona reale e la danneggia, non diffonderlo: in Italia può essere un reato.</li></ol></div>
+  
+</section>
+<section class="vista scheda" data-view="scheda-s3-2-b" hidden aria-labelledby="scheda-s3-2-b-t">
+  <p class="cod-grande">Scheda S3.2-b · § 3.2</p>
+  <h1 id="scheda-s3-2-b-t" class="readable" tabindex="-1">Narrazioni e contronarrazioni</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s3-2-b" data-back="S3.2-b">← Torna al § 3.2</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s3-2-b-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s3-2-b-corpo"><p class="readable sit">Un&#x27;azienda annuncia un sistema di IA che corregge i compiti. Tre modi di raccontarlo:</p><div class="tre"><div class="col3"><p class="lbl">IA salvifica</p><p class="readable">«Finalmente valutazioni perfette e oggettive: i docenti avranno tempo per tutto il resto.»</p></div><div class="col3"><p class="lbl">IA apocalittica</p><p class="readable">«Le macchine sostituiranno gli insegnanti: la scuola come la conosciamo è finita.»</p></div><div class="col3"><p class="lbl">Contronarrazione</p><p class="readable">«Chi ha addestrato il sistema, e con quali compiti? Come si corregge un errore? Chi decide il voto finale?»</p></div></div><p class="readable">La contronarrazione non è una via di mezzo: sposta l&#x27;attenzione dalla macchina alle persone e alle loro scelte.</p></div>
+  
+</section>
+<section class="vista scheda" data-view="scheda-s3-3-a" hidden aria-labelledby="scheda-s3-3-a-t">
+  <p class="cod-grande">Scheda S3.3-a · § 3.3</p>
+  <h1 id="scheda-s3-3-a-t" class="readable" tabindex="-1">La piramide dei rischi dell&#x27;AI Act</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s3-3-a" data-back="S3.3-a">← Torna al § 3.3</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s3-3-a-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s3-3-a-corpo"><div class="fig-img scheda-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508 184" role="img" aria-label="La piramide dei rischi dell'AI Act" focusable="false" ><path d="M155.0 6 L345.0 6 L382.0 47 L118.0 47 Z" fill="#b3261e"/><text x="250" y="24" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Inaccettabile: vietato</text><text x="250" y="39" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#ffffff">punteggio sociale, emozioni a scuola</text><path d="M115.0 50 L385.0 50 L422.0 91 L78.0 91 Z" fill="#123e7c"/><text x="250" y="68" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Alto rischio: regole severe</text><text x="250" y="83" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#ffffff">scuola, lavoro, giustizia</text><path d="M75.0 94 L425.0 94 L462.0 135 L38.0 135 Z" fill="#1f5fae"/><text x="250" y="112" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">Limitato: trasparenza</text><text x="250" y="127" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#ffffff">chatbot, deepfake</text><path d="M35.0 138 L465.0 138 L502.0 179 L-2.0 179 Z" fill="#7fb0db"/><text x="250" y="156" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="12" font-weight="700" fill="#14233a">Minimo: nessun obbligo</text><text x="250" y="171" text-anchor="middle" font-family="Atkinson Hyperlegible, Arial, sans-serif" font-size="10.5" fill="#14233a">filtri antispam, videogiochi</text></svg></div><ul class='elenco'><li class="readable">Rischio inaccettabile: pratiche vietate dal febbraio 2025, come il punteggio sociale, la manipolazione che sfrutta le fragilità delle persone, il riconoscimento delle emozioni a scuola e al lavoro.</li><li class="readable">Alto rischio: sistemi usati in ambiti delicati come istruzione, lavoro, giustizia, servizi essenziali. Devono rispettare regole severe; per la scuola gli obblighi si applicano dal dicembre 2027.</li><li class="readable">Rischio limitato: obblighi di trasparenza. Chi parla con un chatbot deve saperlo; i deepfake vanno segnalati.</li><li class="readable">Rischio minimo: nessun obbligo particolare, per esempio filtri antispam e videogiochi.</li><li class="readable">Per tutti vale un dovere di alfabetizzazione: chi usa questi sistemi deve sapere come funzionano.</li></ul></div>
+  <p class="fonte">Fonte: <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">Regolamento (UE) 2024/1689 (AI Act)</a></p>
+</section>
+<section class="vista scheda" data-view="scheda-s3-3-b" hidden aria-labelledby="scheda-s3-3-b-t">
+  <p class="cod-grande">Scheda S3.3-b · § 3.3</p>
+  <h1 id="scheda-s3-3-b-t" class="readable" tabindex="-1">I principi UNESCO in una riga</h1>
+  <div class="riga-btn"><a class="btn" href="#rif-s3-3-b" data-back="S3.3-b">← Torna al § 3.3</a>
+  <button type="button" class="btn ghost ascolta-sez" data-target="scheda-s3-3-b-corpo"><span aria-hidden="true">▶</span> Ascolta la scheda</button></div>
+  <div class="scheda-corpo" id="scheda-s3-3-b-corpo"><ol class="def"><li><p class="def-q readable">Proporzionalità e non nuocere</p><p class="def-a readable">usare l&#x27;IA solo quando serve, e senza causare danni.</p></li><li><p class="def-q readable">Privacy</p><p class="def-a readable">proteggere i dati delle persone in tutte le fasi.</p></li><li><p class="def-q readable">Equità e non discriminazione</p><p class="def-a readable">nessun gruppo deve essere svantaggiato.</p></li><li><p class="def-q readable">Trasparenza e spiegabilità</p><p class="def-a readable">si deve poter capire come e perché un sistema arriva a un risultato.</p></li><li><p class="def-q readable">Responsabilità e supervisione umana</p><p class="def-a readable">le persone restano responsabili e hanno l&#x27;ultima parola.</p></li><li><p class="def-q readable">Sostenibilità</p><p class="def-a readable">valutare l&#x27;impatto sull&#x27;ambiente e sulla società.</p></li><li><p class="def-q readable">Consapevolezza e alfabetizzazione</p><p class="def-a readable">tutti devono poter capire che cosa fa l&#x27;IA.</p></li></ol></div>
+  <p class="fonte">Fonte: <a href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener">UNESCO, Raccomandazione sull&#x27;etica dell&#x27;intelligenza artificiale, 2021</a></p>
+</section>
+  
+<section class="vista" data-view="esercizi" hidden aria-labelledby="esercizi-t">
+  <h1 id="esercizi-t" tabindex="-1">Esercizi</h1>
+  <p class="intro">Per ogni paragrafo: un esercizio per mettere alla prova i concetti, un vero o falso, una domanda per ragionare. Nessun voto: servono a te.</p>
+  <ul class="schede-grid"><li><a class="scheda-card" href="#esercizi-3-1"><span class="cod">§ 3.1</span><span class="t">Dati che discriminano</span><span class="p">3 esercizi</span></a></li><li><a class="scheda-card" href="#esercizi-3-2"><span class="cod">§ 3.2</span><span class="t">Fidarsi troppo</span><span class="p">3 esercizi</span></a></li><li><a class="scheda-card" href="#esercizi-3-3"><span class="cod">§ 3.3</span><span class="t">Regole e scelte</span><span class="p">3 esercizi</span></a></li></ul>
+</section>
+<section class="vista esercizi" data-view="esercizi-3-1" hidden aria-labelledby="esercizi-3-1-t">
+  <p class="cod-grande">Esercizi · § 3.1</p>
+  <h1 id="esercizi-3-1-t" tabindex="-1">Dati che discriminano</h1>
+  <div class="riga-btn"><a class="btn ghost" href="#p3-1">← Torna al § 3.1</a></div>
+  <div class="es-container" data-par="3.1"></div>
+</section>
+<section class="vista esercizi" data-view="esercizi-3-2" hidden aria-labelledby="esercizi-3-2-t">
+  <p class="cod-grande">Esercizi · § 3.2</p>
+  <h1 id="esercizi-3-2-t" tabindex="-1">Fidarsi troppo</h1>
+  <div class="riga-btn"><a class="btn ghost" href="#p3-2">← Torna al § 3.2</a></div>
+  <div class="es-container" data-par="3.2"></div>
+</section>
+<section class="vista esercizi" data-view="esercizi-3-3" hidden aria-labelledby="esercizi-3-3-t">
+  <p class="cod-grande">Esercizi · § 3.3</p>
+  <h1 id="esercizi-3-3-t" tabindex="-1">Regole e scelte</h1>
+  <div class="riga-btn"><a class="btn ghost" href="#p3-3">← Torna al § 3.3</a></div>
+  <div class="es-container" data-par="3.3"></div>
+</section>
+  
+<section class="vista" data-view="glossario" hidden aria-labelledby="glossario-t">
+  <h1 id="glossario-t" tabindex="-1">Glossario del capitolo</h1>
+  <p class="intro">Le parole in grassetto nel testo: premile per leggere la definizione senza lasciare la pagina.</p>
+  <dl class="glossario"><div class="voce" id="g-ai-act"><dt class="readable">AI Act</dt><dd class="readable">Il Regolamento (UE) 2024/1689, la legge europea che regola l&#x27;IA in base al rischio.</dd></div><div class="voce" id="g-alfabetizzazione"><dt class="readable">Alfabetizzazione</dt><dd class="readable">Per l&#x27;AI Act, la conoscenza necessaria per usare i sistemi di IA in modo informato, conoscendone funzionamento e rischi.</dd></div><div class="voce" id="g-antropomorfismo"><dt class="readable">Antropomorfismo</dt><dd class="readable">Attribuire caratteristiche umane, come pensare o provare affetto, a ciò che umano non è.</dd></div><div class="voce" id="g-automation-bias"><dt class="readable">Automation bias</dt><dd class="readable">La tendenza a fidarsi troppo dei suggerimenti di un sistema automatico, anche quando sono sbagliati.</dd></div><div class="voce" id="g-bias"><dt class="readable">Bias</dt><dd class="readable">Parola inglese per inclinazione: un errore sistematico che favorisce o sfavorisce sempre gli stessi gruppi.</dd></div><div class="voce" id="g-bolla-informativa"><dt class="readable">Bolla informativa</dt><dd class="readable">La situazione in cui gli algoritmi ci mostrano soprattutto contenuti che confermano le nostre idee.</dd></div><div class="voce" id="g-catena-della-responsabilit-"><dt class="readable">Catena della responsabilità</dt><dd class="readable">L&#x27;insieme di chi regola, finanzia, progetta e usa un sistema di IA: ciascuno risponde della propria parte.</dd></div><div class="voce" id="g-deepfake"><dt class="readable">Deepfake</dt><dd class="readable">Immagine, video o audio generato o alterato con l&#x27;IA, così realistico da sembrare vero.</dd></div><div class="voce" id="g-equit-"><dt class="readable">Equità</dt><dd class="readable">In inglese fairness: trattare le persone in modo giusto. Si può misurare in modi diversi, non sempre compatibili.</dd></div><div class="voce" id="g-narrazioni-dominanti"><dt class="readable">Narrazioni dominanti</dt><dd class="readable">Le storie più diffuse sull&#x27;IA, come quella salvifica e quella apocalittica, che orientano ciò che ne pensiamo.</dd></div><div class="voce" id="g-proxy"><dt class="readable">Proxy</dt><dd class="readable">Un&#x27;informazione che ne sostituisce un&#x27;altra: il quartiere, per esempio, può indicare indirettamente l&#x27;origine.</dd></div><div class="voce" id="g-punteggio-sociale"><dt class="readable">Punteggio sociale</dt><dd class="readable">Classificare le persone in base ai loro comportamenti, con conseguenze sulla loro vita: l&#x27;AI Act lo vieta.</dd></div><div class="voce" id="g-raccomandazione-sull-etica-dell-intelligenza-artificiale"><dt class="readable">Raccomandazione sull&#x27;etica dell&#x27;intelligenza artificiale</dt><dd class="readable">Il documento adottato dai 193 Stati dell&#x27;UNESCO nel 2021, con i principi per un&#x27;IA rispettosa delle persone.</dd></div><div class="voce" id="g-riconoscimento-delle-emozioni"><dt class="readable">Riconoscimento delle emozioni</dt><dd class="readable">Sistemi che pretendono di dedurre le emozioni dal volto o dalla voce: vietati a scuola e al lavoro, salvo ragioni mediche o di sicurezza.</dd></div><div class="voce" id="g-supervisione-umana"><dt class="readable">Supervisione umana</dt><dd class="readable">Il principio per cui le persone controllano i sistemi di IA e hanno l&#x27;ultima parola nelle decisioni importanti.</dd></div><div class="voce" id="g-vulnerabilit-epistemica"><dt class="readable">Vulnerabilità epistemica</dt><dd class="readable">La possibilità, che riguarda tutti, di costruire rappresentazioni distorte o parziali della realtà.</dd></div></dl>
+</section>
+</main>
+<footer class="piede"><div class="piede-in">
+  <p><b>AI and Ethics Literacy for Students</b> · Capitolo 3, bozza per la validazione nelle scuole · Coordinamento scientifico: SIpEIA e Università della Calabria (DICES).</p>
+  <p>Le risposte che scrivi nelle caselle restano solo su questo dispositivo.</p>
+</div></footer>
+
+<script type="application/json" id="dati">{"esercizi": {"3.1": {"classifica": {"titolo": "Da dove entra il bias?", "consegna": "Per ogni situazione scegli la porta da cui entra il bias, poi premi «Verifica».", "categorie": ["Dati", "Progettazione", "Uso"], "voci": [["Un sistema di riconoscimento vocale addestrato quasi solo con voci adulte sbaglia con le voci dei bambini.", "Dati", "Gli esempi erano sbilanciati: pochi casi per un gruppo."], ["Un sistema per le assunzioni impara dai curricula di dieci anni in cui si assumevano quasi solo uomini.", "Dati", "I dati riflettono una disuguaglianza del passato."], ["Chi progetta decide che il voto finale debba dipendere soprattutto dai risultati passati della scuola.", "Progettazione", "È una scelta su che cosa contare e che cosa ottimizzare."], ["Per valutare l'affidabilità di una persona si usa il quartiere in cui vive.", "Progettazione", "Il quartiere diventa un proxy dell'origine o del reddito."], ["Un modello costruito per gli ospedali di una grande città viene usato in piccoli centri molto diversi.", "Uso", "Il contesto d'uso è diverso da quello per cui il sistema è nato."], ["Un'app pensata per suggerire esercizi viene usata per decidere chi viene bocciato.", "Uso", "Il sistema viene usato per uno scopo per cui non era stato progettato."]]}, "vf": [["Se nessuno scrive una regola discriminatoria, l'algoritmo non può discriminare.", false, "Il sistema può ricavare la discriminazione dai dati, come nel caso di Amazon."], ["Nel caso COMPAS, azienda e giornalisti misuravano l'equità in modi diversi.", true, "Stessi errori per tutti contro stessa affidabilità del punteggio: non si possono avere entrambi."], ["Nel 2020 l'algoritmo inglese abbassò circa il 39% dei voti proposti dai docenti.", true, "Poi il governo tornò ai voti dei docenti."], ["L'«algoritmo mutante» aveva agito di testa sua.", false, "Aveva fatto ciò per cui era stato progettato: le scelte erano umane."]], "aperta": ["Nel caso inglese dei voti, chi avrebbe dovuto rispondere degli errori? Indica almeno due soggetti e spiega perché.", "Per esempio: l'ente che ha deciso di usare l'algoritmo e di dargli l'obiettivo di non far salire i voti, e il governo che ha approvato il sistema. Hanno scelto i criteri, quindi rispondono delle conseguenze. L'algoritmo no: non è libero e non può rendere conto di nulla."]}, "3.2": {"classifica": {"titolo": "Salvifica, apocalittica o contronarrazione?", "consegna": "Per ogni titolo scegli il tipo di racconto sull'IA, poi premi «Verifica».", "categorie": ["Salvifica", "Apocalittica", "Contronarrazione"], "voci": [["«Con l'IA nessuno studente resterà più indietro.»", "Salvifica", "Promette una soluzione totale, senza dire come e per chi."], ["«Entro dieci anni le macchine decideranno al posto nostro.»", "Apocalittica", "Presenta l'IA come un soggetto che prende il controllo."], ["«Chi etichetta i dati per addestrare i chatbot? Spesso lavoratori pagati pochi euro all'ora.»", "Contronarrazione", "Riporta al centro le persone dietro i sistemi."], ["«L'IA risolverà da sola la crisi climatica.»", "Salvifica", "Ignora anche l'energia consumata dai centri di calcolo."], ["«Il nuovo modello è così intelligente che potrebbe ribellarsi.»", "Apocalittica", "Attribuisce intenzioni alla macchina."], ["«Chi ha scelto i criteri dell'algoritmo, e chi ne risponde?»", "Contronarrazione", "Sposta l'attenzione sulle scelte e sulle responsabilità."]]}, "riscrivi": {"titolo": "Riscrivi il titolo", "consegna": "Riscrivi ogni titolo in modo che racconti persone, scelte e responsabilità, poi confronta con una proposta.", "frasi": [["L'IA ci ruberà tutti i posti di lavoro.", "Alcune aziende usano l'IA per ridurre il personale; nascono anche lavori nascosti, come chi etichetta i dati."], ["L'algoritmo ha deciso di bocciarlo.", "La scuola ha usato un sistema automatico per valutarlo: chi ha scelto i criteri, e chi ha controllato?"], ["Il chatbot ti capisce meglio dei tuoi amici.", "Il chatbot è progettato per rispondere in modo gradevole e tenerti connesso, ma non prova nulla per te."]]}, "vf": [["L'automation bias riguarda solo le persone poco esperte.", false, "È stato osservato anche in piloti e medici."], ["Un deepfake può servire a negare un fatto vero.", true, "Quando tutto può essere falso, si può dire falso anche ciò che è vero."], ["La vulnerabilità epistemica riguarda tutti, non solo poche persone.", true, "È una condizione umana che il contesto può amplificare."], ["Le narrazioni salvifica e apocalittica mettono al centro chi progetta e finanzia l'IA.", false, "Presentano l'IA come un soggetto autonomo e lasciano fuori le persone."]]}, "3.3": {"classifica": {"titolo": "Quale livello di rischio?", "consegna": "Per ogni sistema scegli il livello di rischio previsto dall'AI Act, poi premi «Verifica».", "categorie": ["Vietato", "Alto rischio", "Trasparenza", "Rischio minimo"], "voci": [["Un sistema che assegna ai cittadini un punteggio in base ai loro comportamenti", "Vietato", "È il punteggio sociale, vietato dal 2025."], ["Una telecamera che rileva le emozioni degli studenti durante la lezione", "Vietato", "Il riconoscimento delle emozioni a scuola è vietato, salvo ragioni mediche o di sicurezza."], ["Un sistema che corregge e valuta le verifiche", "Alto rischio", "Valutare l'apprendimento è un ambito ad alto rischio."], ["Un algoritmo che decide chi viene ammesso a una scuola", "Alto rischio", "Anche l'accesso all'istruzione è ad alto rischio."], ["Il chatbot del servizio clienti di un negozio online", "Trasparenza", "Chi lo usa deve sapere che parla con una macchina."], ["Un video satirico realizzato con l'IA", "Trasparenza", "Va segnalato come contenuto generato o alterato."], ["Il filtro antispam della posta", "Rischio minimo", "Nessun obbligo particolare."]]}, "vf": [["La Raccomandazione UNESCO sull'etica dell'IA è stata adottata da 193 Stati.", true, "Nel novembre 2021."], ["Per l'AI Act tutti i sistemi di IA hanno le stesse regole.", false, "Le regole crescono con il livello di rischio."], ["In Italia, sotto i quattordici anni, l'accesso alle tecnologie di IA richiede il consenso dei genitori.", true, "Lo prevede la legge n. 132 del 2025."], ["Se un sistema sbaglia, la responsabilità è della macchina.", false, "La responsabilità è di chi regola, finanzia, progetta e usa."]], "aperta": ["Scrivi la tua carta d'uso dell'IA: tre regole che ti impegni a rispettare a scuola, con una ragione per ciascuna.", "Per esempio: 1) verifico con almeno una fonte affidabile ciò che mi dice un chatbot, perché può sbagliare con sicurezza; 2) dichiaro quando ho usato l'IA in un compito, perché chi legge ha diritto di saperlo; 3) non carico foto di compagni o compagne senza il loro consenso, perché i loro dati sono loro."]}}, "glossario": [["AI Act", "Il Regolamento (UE) 2024/1689, la legge europea che regola l'IA in base al rischio."], ["Alfabetizzazione", "Per l'AI Act, la conoscenza necessaria per usare i sistemi di IA in modo informato, conoscendone funzionamento e rischi."], ["Antropomorfismo", "Attribuire caratteristiche umane, come pensare o provare affetto, a ciò che umano non è."], ["Automation bias", "La tendenza a fidarsi troppo dei suggerimenti di un sistema automatico, anche quando sono sbagliati."], ["Bias", "Parola inglese per inclinazione: un errore sistematico che favorisce o sfavorisce sempre gli stessi gruppi."], ["Bolla informativa", "La situazione in cui gli algoritmi ci mostrano soprattutto contenuti che confermano le nostre idee."], ["Catena della responsabilità", "L'insieme di chi regola, finanzia, progetta e usa un sistema di IA: ciascuno risponde della propria parte."], ["Deepfake", "Immagine, video o audio generato o alterato con l'IA, così realistico da sembrare vero."], ["Equità", "In inglese fairness: trattare le persone in modo giusto. Si può misurare in modi diversi, non sempre compatibili."], ["Narrazioni dominanti", "Le storie più diffuse sull'IA, come quella salvifica e quella apocalittica, che orientano ciò che ne pensiamo."], ["Proxy", "Un'informazione che ne sostituisce un'altra: il quartiere, per esempio, può indicare indirettamente l'origine."], ["Punteggio sociale", "Classificare le persone in base ai loro comportamenti, con conseguenze sulla loro vita: l'AI Act lo vieta."], ["Raccomandazione sull'etica dell'intelligenza artificiale", "Il documento adottato dai 193 Stati dell'UNESCO nel 2021, con i principi per un'IA rispettosa delle persone."], ["Riconoscimento delle emozioni", "Sistemi che pretendono di dedurre le emozioni dal volto o dalla voce: vietati a scuola e al lavoro, salvo ragioni mediche o di sicurezza."], ["Supervisione umana", "Il principio per cui le persone controllano i sistemi di IA e hanno l'ultima parola nelle decisioni importanti."], ["Vulnerabilità epistemica", "La possibilità, che riguarda tutti, di costruire rappresentazioni distorte o parziali della realtà."]], "nomiScelte": {"A": "A, «È giusto: tratta tutti allo stesso modo»", "B": "B, «Non è giusto»", "C": "C, «Dipende»"}, "schedePar": {"scheda-s3-1-a": "3.1", "scheda-s3-1-b": "3.1", "scheda-s3-2-a": "3.2", "scheda-s3-2-b": "3.2", "scheda-s3-3-a": "3.3", "scheda-s3-3-b": "3.3"}}</script>
+<script>
+(function(){
+  document.documentElement.lang = 'it';
+  var D = JSON.parse(document.getElementById('dati').textContent);
+  var root = document.documentElement;
+
+  function get(k, d){ try { var v = localStorage.getItem('ael3-' + k); return v === null ? d : v; } catch(e){ return d; } }
+  function set(k, v){ try { localStorage.setItem('ael3-' + k, v); } catch(e){} }
+
+  /* ---------- Accessibilità ---------- */
+  var scale = [0.9, 1, 1.12, 1.25, 1.4, 1.6];
+  var fsIdx = parseInt(get('fs', '1'), 10); if (isNaN(fsIdx)) fsIdx = 1;
+  function applyFs(){ fsIdx = Math.max(0, Math.min(scale.length - 1, fsIdx)); root.style.setProperty('--fs', scale[fsIdx]); set('fs', fsIdx); }
+  document.getElementById('fs-meno').onclick = function(){ fsIdx--; applyFs(); };
+  document.getElementById('fs-piu').onclick = function(){ fsIdx++; applyFs(); };
+  document.getElementById('fs-norm').onclick = function(){ fsIdx = 1; applyFs(); };
+  applyFs();
+
+  function toggle(id, on, apply){ var b = document.getElementById(id); b.setAttribute('aria-pressed', on ? 'true' : 'false'); apply(on); set(id, on ? '1' : '0'); }
+  function spazi(on){ root.style.setProperty('--lh', on ? '1.95' : '1.65'); root.style.setProperty('--ls', on ? '0.03em' : '0em'); root.style.setProperty('--ws', on ? '0.12em' : '0em'); }
+  function contrasto(on){ if (on) root.setAttribute('data-contrast', 'alto'); else root.removeAttribute('data-contrast'); }
+  ['spazi', 'contrasto'].forEach(function(id){
+    var fn = id === 'spazi' ? spazi : contrasto;
+    toggle(id, get(id, '0') === '1', fn);
+    document.getElementById(id).onclick = function(){ toggle(id, this.getAttribute('aria-pressed') !== 'true', fn); };
+  });
+  var acc = document.getElementById('acc'), apri = document.getElementById('apri-acc');
+  apri.onclick = function(){ var open = acc.hidden; acc.hidden = !open; apri.setAttribute('aria-expanded', open ? 'true' : 'false'); set('acc', open ? '1' : '0'); };
+  if (get('acc', window.innerWidth < 700 ? '0' : '1') === '0'){ acc.hidden = true; apri.setAttribute('aria-expanded', 'false'); }
+
+  /* ---------- Lettura ad alta voce ---------- */
+  var synth = window.speechSynthesis, msg = document.getElementById('voce-msg');
+  var voce = null, coda = [], attivo = null;
+  function scegliVoce(){ if (!synth) return; var v = synth.getVoices(); voce = v.filter(function(x){ return /^it/i.test(x.lang); })[0] || null; }
+  if (synth){ scegliVoce(); if (typeof synth.onvoiceschanged !== 'undefined') synth.onvoiceschanged = scegliVoce; }
+  else { msg.textContent = 'La lettura ad alta voce non è disponibile in questo browser. Puoi usare il lettore di schermo del dispositivo.'; ['ascolto', 'ferma', 'velocita'].forEach(function(id){ document.getElementById(id).disabled = true; }); }
+  function testoDi(el){ var c = el.cloneNode(true); c.querySelectorAll('.kw-def,.sr,textarea').forEach(function(x){ x.remove(); }); return c.textContent.replace(/\s+/g, ' ').trim(); }
+  function evid(el){ if (attivo) attivo.classList.remove('letto'); attivo = el; if (el){ el.classList.add('letto'); } }
+  function ferma(){ coda = []; if (synth) synth.cancel(); evid(null); }
+  function prossimo(){
+    if (!coda.length){ evid(null); return; }
+    var el = coda.shift(), t = testoDi(el);
+    if (!t){ prossimo(); return; }
+    var u = new SpeechSynthesisUtterance(t);
+    u.lang = 'it-IT'; if (voce) u.voice = voce; u.rate = parseFloat(document.getElementById('velocita').value) || 1;
+    u.onstart = function(){ evid(el); };
+    u.onend = function(){ prossimo(); };
+    u.onerror = function(){ evid(null); };
+    synth.speak(u);
+  }
+  function leggi(els){ if (!synth) return; ferma(); coda = Array.prototype.slice.call(els); prossimo(); }
+  document.getElementById('ferma').onclick = ferma;
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') ferma(); });
+  var ascolto = get('ascolto', '0') === '1';
+  function setAscolto(on){
+    ascolto = on; document.body.classList.toggle('ascolto', on);
+    document.getElementById('ascolto').setAttribute('aria-pressed', on ? 'true' : 'false'); set('ascolto', on ? '1' : '0');
+    document.querySelectorAll('.readable').forEach(function(el){ if (on) el.setAttribute('tabindex', '0'); else el.removeAttribute('tabindex'); });
+    if (!on) ferma();
+  }
+  document.getElementById('ascolto').onclick = function(){ setAscolto(!ascolto); };
+  setAscolto(ascolto && !!synth);
+  document.addEventListener('click', function(e){
+    if (!ascolto) return;
+    if (e.target.closest('button, a, textarea, input, select, summary, label')) return;
+    var el = e.target.closest('.readable'); if (el) leggi([el]);
+  });
+  document.addEventListener('keydown', function(e){
+    if (!ascolto || e.key !== 'Enter') return;
+    var el = document.activeElement; if (el && el.classList && el.classList.contains('readable')){ e.preventDefault(); leggi([el]); }
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.ascolta-sez'); if (!b) return;
+    var sez = document.getElementById(b.getAttribute('data-target'));
+    if (sez) leggi(sez.querySelectorAll('.readable'));
+  });
+
+  /* ---------- Parole chiave ---------- */
+  var G = {}; D.glossario.forEach(function(g){ G[g[0]] = g[1]; });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.kw'); if (!b) return;
+    var open = b.getAttribute('aria-expanded') === 'true';
+    var next = b.nextElementSibling;
+    if (open && next && next.classList.contains('kw-def')){ next.remove(); b.setAttribute('aria-expanded', 'false'); return; }
+    var s = document.createElement('span'); s.className = 'kw-def'; s.setAttribute('role', 'note');
+    s.textContent = b.getAttribute('data-term') + ': ' + (G[b.getAttribute('data-term')] || '');
+    b.insertAdjacentElement('afterend', s); b.setAttribute('aria-expanded', 'true');
+  });
+
+  /* ---------- Stimolo ---------- */
+  var scelte = document.querySelectorAll('.scelta'), nessuna = document.getElementById('nessuna');
+  var stato = document.getElementById('scelta-stato'), ricordo = document.getElementById('scelta-ricordo');
+  var esclusiva = !!document.querySelector('.scelte[data-esclusiva]');
+  var nomi = D.nomiScelte || {};
+  var invito = esclusiva ? 'Premi una risposta per scegliere.' : 'Premi una o più immagini per scegliere.';
+  function salvaScelta(){
+    var s = []; scelte.forEach(function(b){ if (b.getAttribute('aria-pressed') === 'true') s.push(b.getAttribute('data-scelta')); });
+    if (nessuna && nessuna.getAttribute('aria-pressed') === 'true') s = ['nessuna'];
+    set('scelta', s.join(','));
+    var txt = !s.length ? 'Non hai ancora scelto.' : (s[0] === 'nessuna' ? 'Hai scelto: nessuna delle quattro.' : 'Hai scelto: ' + s.map(function(x){ return nomi[x] || x; }).join('; ') + '.');
+    if (stato) stato.textContent = s.length ? txt + ' La scelta resta solo su questo dispositivo.' : invito + ' La scelta resta solo su questo dispositivo.';
+    if (ricordo) ricordo.textContent = s.length ? 'All\'inizio del capitolo ' + txt.charAt(0).toLowerCase() + txt.slice(1) : 'All\'inizio del capitolo non avevi ancora scelto: puoi farlo ora, tornando all\'apertura.';
+  }
+  scelte.forEach(function(b){ b.onclick = function(){
+    var on = b.getAttribute('aria-pressed') !== 'true';
+    if (esclusiva) scelte.forEach(function(o){ o.setAttribute('aria-pressed', 'false'); });
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (nessuna) nessuna.setAttribute('aria-pressed', 'false'); salvaScelta(); }; });
+  if (nessuna) nessuna.onclick = function(){ var on = nessuna.getAttribute('aria-pressed') !== 'true'; nessuna.setAttribute('aria-pressed', on ? 'true' : 'false'); if (on) scelte.forEach(function(b){ b.setAttribute('aria-pressed', 'false'); }); salvaScelta(); };
+  (get('scelta', '') || '').split(',').forEach(function(x){
+    if (x === 'nessuna' && nessuna) nessuna.setAttribute('aria-pressed', 'true');
+    scelte.forEach(function(b){ if (b.getAttribute('data-scelta') === x) b.setAttribute('aria-pressed', 'true'); });
+  });
+  salvaScelta();
+
+  /* ---------- Caselle di testo salvate ---------- */
+  document.querySelectorAll('textarea[data-store]').forEach(function(t){
+    t.value = get('t-' + t.getAttribute('data-store'), '');
+    t.addEventListener('input', function(){ set('t-' + t.getAttribute('data-store'), t.value); });
+  });
+
+  /* ---------- Esercizi ---------- */
+  function el(tag, attrs, html){ var e = document.createElement(tag); if (attrs) Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); }); if (html !== undefined) e.innerHTML = html; return e; }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var uid = 0;
+  function box(titolo, consegna){ var b = el('section', { 'class': 'esercizio' }); b.appendChild(el('h2', null, esc(titolo))); if (consegna) b.appendChild(el('p', { 'class': 'readable' }, esc(consegna))); return b; }
+
+  function classifica(d){
+    var b = box(d.titolo, d.consegna), rows = [];
+    d.voci.forEach(function(v){
+      var id = 'cl-' + (++uid), r = el('div', { 'class': 'es-voce' });
+      r.innerHTML = '<label for="' + id + '" class="readable">' + esc(v[0]) + '</label><br>';
+      var s = el('select', { id: id }); s.appendChild(el('option', { value: '' }, 'Scegli…'));
+      d.categorie.forEach(function(c){ s.appendChild(el('option', { value: c }, esc(c))); });
+      var fb = el('p', { 'class': 'fb', 'aria-live': 'polite' });
+      r.appendChild(s); r.appendChild(fb); b.appendChild(r); rows.push([s, fb, v]);
+    });
+    var tot = el('p', { 'class': 'piccolo', 'aria-live': 'polite' });
+    var btn = el('button', { type: 'button', 'class': 'btn' }, 'Verifica');
+    btn.onclick = function(){ var ok = 0; rows.forEach(function(x){ var g = x[0].value === x[2][1]; if (g) ok++; x[1].className = 'fb ' + (g ? 'ok' : 'ko'); x[1].textContent = (g ? 'Giusto. ' : (x[0].value ? 'Non proprio: la risposta è «' + x[2][1] + '». ' : 'Manca la risposta: è «' + x[2][1] + '». ')) + x[2][2]; }); tot.textContent = 'Risposte giuste: ' + ok + ' su ' + rows.length + '.'; };
+    var rb = el('div', { 'class': 'riga-btn' }); rb.appendChild(btn); rb.appendChild(tot); b.appendChild(rb);
+    return b;
+  }
+
+  function vf(list){
+    var b = box('Vero o falso', 'Per ogni frase scegli vero o falso, poi premi «Verifica».'), rows = [];
+    list.forEach(function(v){
+      var n = 'vf-' + (++uid), r = el('fieldset', { 'class': 'es-voce', style: 'border:0;padding:.6rem 0;margin:0' });
+      r.innerHTML = '<legend class="readable">' + esc(v[0]) + '</legend><div class="vf-r"><label><input type="radio" name="' + n + '" value="1"> Vero</label><label><input type="radio" name="' + n + '" value="0"> Falso</label></div>';
+      var fb = el('p', { 'class': 'fb', 'aria-live': 'polite' }); r.appendChild(fb); b.appendChild(r); rows.push([n, fb, v]);
+    });
+    var btn = el('button', { type: 'button', 'class': 'btn' }, 'Verifica'), tot = el('p', { 'class': 'piccolo', 'aria-live': 'polite' });
+    btn.onclick = function(){ var ok = 0; rows.forEach(function(x){ var c = b.querySelector('input[name="' + x[0] + '"]:checked'); var g = c && (c.value === '1') === x[2][1]; if (g) ok++; x[1].className = 'fb ' + (g ? 'ok' : 'ko'); x[1].textContent = (x[2][1] ? 'Vero. ' : 'Falso. ') + x[2][2]; }); tot.textContent = 'Risposte giuste: ' + ok + ' su ' + rows.length + '.'; };
+    var rb = el('div', { 'class': 'riga-btn' }); rb.appendChild(btn); rb.appendChild(tot); b.appendChild(rb);
+    return b;
+  }
+
+  function aperta(d){
+    var b = box('Ragiona con le tue parole', null), id = 'ap-' + (++uid);
+    b.appendChild(el('p', { 'class': 'readable' }, esc(d[0])));
+    b.appendChild(el('label', { 'for': id, 'class': 'etichetta' }, 'La tua risposta'));
+    var t = el('textarea', { id: id, 'data-store': id, rows: '4' }); t.value = get('t-' + id, ''); t.addEventListener('input', function(){ set('t-' + id, t.value); }); b.appendChild(t);
+    var det = el('details', { 'class': 'nota' }); det.innerHTML = '<summary>Mostra una risposta possibile</summary><p class="proposta readable">' + esc(d[1]) + '</p>'; b.appendChild(det);
+    return b;
+  }
+
+  function ordina(d){
+    var b = box(d.titolo, d.consegna), ol = el('ol', { 'class': 'ordina' });
+    var items = d.eventi.map(function(e, i){ return { k: i, a: e[0], t: e[1] }; });
+    var mix = [3, 0, 5, 2, 4, 1].map(function(i){ return items[i]; });
+    function draw(focusK, dir){
+      ol.innerHTML = '';
+      mix.forEach(function(it, i){
+        var li = el('li'); li.appendChild(el('span', null, esc(it.t)));
+        var up = el('button', { type: 'button', 'aria-label': 'Sposta su: ' + it.t }, '↑'); up.disabled = i === 0;
+        var dn = el('button', { type: 'button', 'aria-label': 'Sposta giù: ' + it.t }, '↓'); dn.disabled = i === mix.length - 1;
+        up.onclick = function(){ var t = mix[i - 1]; mix[i - 1] = mix[i]; mix[i] = t; draw(it.k, 'up'); };
+        dn.onclick = function(){ var t = mix[i + 1]; mix[i + 1] = mix[i]; mix[i] = t; draw(it.k, 'dn'); };
+        li.appendChild(up); li.appendChild(dn); ol.appendChild(li);
+        if (focusK === it.k){ setTimeout(function(){ (dir === 'up' && !up.disabled ? up : (!dn.disabled ? dn : up)).focus(); }, 0); }
+      });
+    }
+    draw();
+    b.appendChild(ol);
+    var fb = el('p', { 'class': 'fb', 'aria-live': 'polite' }), btn = el('button', { type: 'button', 'class': 'btn' }, 'Verifica');
+    btn.onclick = function(){ var ok = mix.every(function(it, i){ return it.k === i; }); fb.className = 'fb ' + (ok ? 'ok' : 'ko'); fb.textContent = ok ? 'Ordine corretto: ' + items.map(function(x){ return x.a; }).join(', ') + '.' : 'Non ancora: controlla le date nella scheda «La storia dell\'IA in una linea».'; };
+    var rb = el('div', { 'class': 'riga-btn' }); rb.appendChild(btn); b.appendChild(rb); b.appendChild(fb);
+    return b;
+  }
+
+  function imitazione(d){
+    var b = box(d.titolo, d.consegna);
+    d.round.forEach(function(r, i){
+      var w = el('div', { 'class': 'es-voce' });
+      w.appendChild(el('p', { 'class': 'readable' }, '<b>Domanda ' + (i + 1) + ':</b> «' + esc(r[0]) + '»'));
+      var rr = el('div', { 'class': 'risposte' }), fb = el('p', { 'class': 'fb', 'aria-live': 'polite' });
+      ['A', 'B'].forEach(function(L, j){
+        var bt = el('button', { type: 'button', 'class': 'risposta', 'aria-pressed': 'false' }, '<b>' + L + '</b> «' + esc(r[1 + j]) + '»');
+        bt.onclick = function(){ rr.querySelectorAll('.risposta').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); }); bt.setAttribute('aria-pressed', 'true'); var g = L === r[3]; fb.className = 'fb ' + (g ? 'ok' : 'ko'); fb.textContent = (g ? 'Sì, è ' + r[3] + '. ' : 'Questa volta la macchina era ' + r[3] + '. ') + r[4]; };
+        rr.appendChild(bt);
+      });
+      w.appendChild(rr); w.appendChild(fb); b.appendChild(w);
+    });
+    b.appendChild(el('p', { 'class': 'piccolo' }, esc(d.nota)));
+    return b;
+  }
+
+  function token(d){
+    var b = box(d.titolo, d.consegna);
+    d.round.forEach(function(r, i){
+      var w = el('div', { 'class': 'es-voce' });
+      w.appendChild(el('p', { 'class': 'readable' }, '<b>' + (i + 1) + '.</b> «' + esc(r[0]) + '»'));
+      var op = el('div', { 'class': 'opzioni' }), out = el('div', { 'aria-live': 'polite' });
+      r[1].forEach(function(o, j){
+        var bt = el('button', { type: 'button', 'class': 'btn ghost', 'aria-pressed': 'false' }, esc(o[0]));
+        bt.onclick = function(){
+          op.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); }); bt.setAttribute('aria-pressed', 'true');
+          var max = Math.max.apply(null, r[1].map(function(x){ return x[1]; })) || 1;
+          var h = '<div class="barre" role="list" aria-label="Probabilità di esempio">';
+          r[1].forEach(function(x, k){ h += '<div class="barra' + (k === j ? ' scelta-tua' : '') + '" role="listitem"><span>' + esc(x[0]) + '</span><span class="bw"><span class="b" style="width:' + Math.max(1, x[1] / max * 100) + '%"></span><span class="v">' + x[1] + '%</span></span></div>'; });
+          h += '</div><p class="proposta readable">' + esc(r[2]) + '</p>';
+          out.innerHTML = h;
+        };
+        op.appendChild(bt);
+      });
+      w.appendChild(op); w.appendChild(out); b.appendChild(w);
+    });
+    b.appendChild(el('p', { 'class': 'piccolo' }, esc(d.nota)));
+    return b;
+  }
+
+  function riscrivi(d){
+    var b = box(d.titolo, d.consegna);
+    d.frasi.forEach(function(f){
+      var id = 'rs-' + (++uid), w = el('div', { 'class': 'es-voce' });
+      w.appendChild(el('label', { 'for': id, 'class': 'readable' }, '«' + esc(f[0]) + '»'));
+      var t = el('textarea', { id: id, rows: '2' }); t.value = get('t-' + id, ''); t.addEventListener('input', function(){ set('t-' + id, t.value); });
+      w.appendChild(t);
+      var det = el('details', { 'class': 'nota' }); det.innerHTML = '<summary>Confronta con una proposta</summary><p class="proposta readable">«' + esc(f[1]) + '»</p>';
+      w.appendChild(det); b.appendChild(w);
+    });
+    return b;
+  }
+
+  document.querySelectorAll('.es-container').forEach(function(c){
+    var E = D.esercizi[c.getAttribute('data-par')];
+    if (E.classifica) c.appendChild(classifica(E.classifica));
+    if (E.ordina) c.appendChild(ordina(E.ordina));
+    if (E.imitazione) c.appendChild(imitazione(E.imitazione));
+    if (E.token) c.appendChild(token(E.token));
+    if (E.riscrivi) c.appendChild(riscrivi(E.riscrivi));
+    if (E.vf) c.appendChild(vf(E.vf));
+    if (E.aperta) c.appendChild(aperta(E.aperta));
+  });
+  if (ascolto) setAscolto(true);
+
+  /* ---------- Viste (#hash) ---------- */
+  var viste = document.querySelectorAll('[data-view]');
+  function mostra(){
+    var h = (location.hash || '').replace('#', '') || 'capitolo';
+    var target = h, scroll = null;
+    if (!document.querySelector('[data-view="' + h + '"]')){ target = 'capitolo'; scroll = document.getElementById(h); }
+    viste.forEach(function(v){ v.hidden = v.getAttribute('data-view') !== target; });
+    var nav = target.indexOf('scheda') === 0 ? 'schede' : (target.indexOf('esercizi') === 0 ? 'esercizi' : target);
+    document.querySelectorAll('.nav a[data-nav]').forEach(function(a){ if (a.getAttribute('data-nav') === nav) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    ferma();
+    if (scroll){ scroll.scrollIntoView({ block: 'start' }); window.scrollBy(0, -90); if (!scroll.hasAttribute('tabindex')) scroll.setAttribute('tabindex', '-1'); scroll.focus({ preventScroll: true }); }
+    else if (target !== 'capitolo' || h === 'capitolo'){ window.scrollTo(0, 0); var t = document.querySelector('[data-view="' + target + '"] h1'); if (t && target !== 'capitolo') t.focus({ preventScroll: true }); }
+  }
+  window.addEventListener('hashchange', mostra);
+  mostra();
+})();
+</script>
+</body>
+</html>
